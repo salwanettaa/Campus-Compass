@@ -18,10 +18,18 @@ Dokumen ini menetapkan batasan ruang lingkup dasar (baseline scope) untuk Minimu
 
 Platform MVP berfokus pada ekosistem terpadu untuk **1 Universitas Pilot** dan **1 Program Studi Pilot** dengan rincian kapabilitas berikut:
 
-### A. Autentikasi Mahasiswa & Penguncian Konteks
-- Pendaftaran akun dan login menggunakan email & kata sandi via Supabase Auth.
-- Onboarding pemilihan konteks: Universitas pilot, Program studi pilot, dan semester berjalan.
-- Penetapan session context pada database (`university_id`, `study_program_id`, `semester`).
+### A. Model Akun Akademik & Personal Workspace (Bukan Full Social Media)
+- **Tipe Akun**: Menggunakan konsep **Academic Utility Profile & Personal Workspace** (bukan profil sosial media penuh dengan feed/followers publik).
+- **Penguncian Konteks (Context Anchor)**:
+  - Registrasi dan login akun mahasiswa via Supabase Auth.
+  - Onboarding pemilihan konteks: Universitas pilot, Program studi pilot, dan semester berjalan (`university_id`, `study_program_id`, `semester`).
+- **Personal Workspace Mahasiswa**:
+  - Riwayat sesi tanya-jawab dengan asisten AI (*RAG Chat History*).
+  - Penyimpanan artikel atau tips penting (*Saved / Bookmarks*).
+  - Pelacak progres milestone akademik semester (*Checklist Tracker*).
+- **Interaksi Komunitas Ringan (Lightweight Community)**:
+  - Tombol kurasi sederhana: *Upvote* ("Membantu 👍") pada tips mahasiswa untuk menandai tips yang paling bermanfaat.
+  - Opsi kontribusi anonim: Mahasiswa dapat berbagi tips pengalaman kampus dengan opsi menampilkan nama atau sebagai *Anonymous* guna melindungi kenyamanan dan privasi mahasiswa.
 
 ### B. Dual-Layer Knowledge Base
 - **Layer Pengetahuan Umum**: Artikel strategi belajar, penulisan akademik, etika kuliah, dan kesehatan mental yang dapat diakses oleh seluruh mahasiswa.
@@ -54,7 +62,7 @@ Fitur-fitur berikut secara eksplisit **DITANGGUHKAN** untuk fase selanjutnya:
 | **Aplikasi Native Mobile (iOS / Android)** | Web responsif sudah cukup menjangkau perangkat mobile dengan biaya pemeliharaan lebih hemat. | Fase 3 / 4 |
 | **Integrasi Pembayaran UKT / Finansial** | Regulasi perbankan tinggi dan bukan fokus utama solusi navigasi akademik. | Di luar scope produk |
 | **Sinkronisasi Otomatis Dua Arah dengan SIAKAD/LMS** | Menghindari hambatan birokrasi perizinan API institusi di tahap validasi awal. | Fase 4 |
-| **Fitur Media Sosial / Chat Komunitas Terbuka** | Memerlukan moderasi berat; fokus utama tetap pada pencarian informasi terverifikasi. | Fase 3 |
+| **Fitur Sosial Media Penuh (Follow/Followers, Feed Bebas, DM)** | Menghindari beban moderasi konten dan distraksi; mahasiswa membutuhkan navigasi akademik terpercaya, bukan feed sosial. | Di luar scope produk |
 
 ---
 

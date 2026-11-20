@@ -23,7 +23,11 @@ Dokumen ini merinci kebutuhan fungsional (Functional Requirements) dan non-fungs
 
 ## 3. Poin-Poin yang Akan Diisi oleh Owner
 
-- [ ] Kebutuhan fungsional modul autentikasi & pemilihan konteks kampus/prodi.
+- [ ] Kebutuhan fungsional modul autentikasi & profil:
+  - Model akun utilitas akademik (tanpa fitur sosmed publik seperti follow/feed/DM).
+  - Pemilihan dan penguncian konteks kampus pilot, prodi pilot, dan semester.
+  - Personal workspace mahasiswa (riwayat chat AI, bookmark artikel/tips, checklist milestone).
+  - Interaksi komunitas ringan (upvote "Membantu 👍" dan submit tips dengan opsi anonim).
 - [ ] Kebutuhan fungsional modul hybrid knowledge search & RAG chat dengan sitasi.
 - [ ] Kebutuhan fungsional modul dashboard rekomendasi berbasis semester.
 - [ ] Kebutuhan fungsional modul kurasi tips dan panduan mahasiswa.

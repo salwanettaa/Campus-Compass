@@ -32,10 +32,26 @@ Dokumen ini mencatat keputusan-keputusan arsitektur, produk, dan teknis (Archite
 | **ADR-006** | 2026-11-20 | Pemisahan Rekomendasi Deterministik dari Model Generatif | Netta | **Proposed** |
 | **ADR-007** | 2026-11-20 | Standar Isolasi Data Sintetis Selama Masa Prototyping | Rifal & Netta | **Proposed** |
 | **ADR-008** | 2026-11-20 | Usulan Framework Next.js App Router & Tailwind CSS | Kalya & Erick | **Proposed** |
+| **ADR-009** | 2026-11-20 | Model Akun Akademik & Personal Workspace (Menolak Model Full Sosmed) | Rifal & Netta | **Approved** |
 
 ---
 
-## 4. Format Pengisian ADR Baru
+## 4. Rincian Rekaman Keputusan (Approved ADRs)
+
+### ADR-009: Model Akun Akademik & Personal Workspace (Menolak Model Full Sosmed)
+- **Tanggal**: 2026-11-20
+- **Status**: **Approved**
+- **Owner**: Rifal & Netta
+- **Konteks**: Muncul pertanyaan apakah sistem akun mahasiswa sebaiknya mengadopsi model media sosial penuh (follow/followers, timeline feed publik, DM) atau model utilitas akademik.
+- **Keputusan**: Mengadopsi model **Akun Utilitas Akademik & Personal Workspace** dan menolak model media sosial penuh. Akun difokuskan pada:
+  1. *Context Anchor*: Mengunci prodi, kampus, dan semester mahasiswa untuk personalisasi RAG dan kartu rekomendasi.
+  2. *Personal Workspace*: Menyimpan riwayat chat AI, bookmark artikel/tips, dan checklist progress semester.
+  3. *Interaksi Komunitas Ringan*: Tombol upvote ("Membantu 👍") pada tips dan opsi berkontribusi/bertanya secara anonim (*Anonymous*).
+- **Konsekuensi**: Mencegah *scope creep*, mengeliminasi beban berat moderasi postingan bebas di MVP, menjaga privasi mahasiswa, dan memastikan mahasiswa fokus mendapatkan navigasi akademik yang faktual.
+
+---
+
+## 5. Format Pengisian ADR Baru
 
 Setiap keputusan baru yang disetujui tim wajib mencantumkan:
 1. **Konteks**: Masalah atau kebutuhan yang dihadapi.
