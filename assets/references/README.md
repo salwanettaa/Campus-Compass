@@ -1,14 +1,16 @@
-# Design & Competitor References
+# UI References & Benchmarks
 
-> **Directory**: `assets/references/`  
+> **Direktori**: `assets/references/`  
 > **Owner**: Rifal & Kalya  
-> **Status**: Active Directory
+> **Status**: Belum Dikerjakan  
+> **Last Updated**: 2026-11-20
 
 ---
 
-## Purpose
-This directory stores visual references, competitor benchmark screenshots, navigation drawer patterns, and component inspiration for Campus Compass.
+## Status Direktori
 
-## Structure
-- Store dashboard references, mobile search drawer inspiration, and citation pill designs.
-- Tag benchmark images with source notes (e.g. `ref-search-drawer-linear.png`).
+> [!NOTE]
+> Referensi desain antarmuka dan benchmark kompetitor **belum dikerjakan**.
+> Screenshot inspirasi antarmuka web, drawer sitasi, dan layout kartu akan diunggah oleh **Rifal & Kalya**.
+
+Panduan komponen mengacu pada [`docs/product/ui-ux-guidelines.md`](../../docs/product/ui-ux-guidelines.md).

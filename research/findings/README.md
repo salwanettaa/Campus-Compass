@@ -1,14 +1,19 @@
 # Synthesized Research Findings
 
-> **Directory**: `research/findings/`  
+> **Direktori**: `research/findings/`  
 > **Owner**: Rifal & Netta  
-> **Status**: Active Directory
+> **Status**: Belum Dikerjakan (Menunggu Hasil Wawancara)  
+> **Last Updated**: 2026-11-20
 
 ---
 
-## Purpose
-This directory stores thematic analyses, affinity groupings, prioritized student pain points, and synthesized quotes derived from senior student interviews.
+## Status Direktori
 
-## Guidelines
-- Findings here inform product requirements in [`docs/product/product-requirements.md`](../../docs/product/product-requirements.md) and user personas in [`docs/product/user-personas.md`](../../docs/product/user-personas.md).
-- Real findings stored here must **never** be mixed with synthetic test data.
+> [!NOTE]
+> Hasil analisis riset **belum ada** karena wawancara mahasiswa belum dilaksanakan.
+> Direktori ini disiapkan untuk menyimpan rangkuman temuan kualitatif, affinity mapping, serta kutipan kebutuhan mahasiswa setelah wawancara diolah oleh **Rifal & Netta**.
+
+## Aturan Pengisian (Saat Riset Dimulai)
+1. Berisi sintesis temuan utama yang mendasari kebutuhan fitur dan persona.
+2. Data temuan asli dilarang dicampur dengan data sintetis mock.
+3. Mengacu pada panduan di [`docs/03-user-research.md`](../../docs/03-user-research.md).

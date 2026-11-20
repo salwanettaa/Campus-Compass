@@ -1,13 +1,16 @@
-# System & Architecture Diagrams
+# Architecture & System Diagrams
 
-> **Directory**: `assets/diagrams/`  
+> **Direktori**: `assets/diagrams/`  
 > **Owner**: Erick & Netta  
-> **Status**: Active Directory
+> **Status**: Belum Dikerjakan  
+> **Last Updated**: 2026-11-20
 
 ---
 
-## Purpose
-This directory stores exported architectural diagrams, database ERD vector diagrams, and visual system flow charts.
+## Status Direktori
 
-## Guidelines
-- While inline Mermaid diagrams are maintained directly in Markdown files, high-resolution exported PNG/SVG files for presentations or pitches belong here.
+> [!NOTE]
+> Diagram arsitektur beresolusi tinggi **belum dikerjakan**.
+> Ekspor diagram sistem dan topologi akan diunggah oleh **Erick & Netta** setelah arsitektur disetujui.
+
+Spesifikasi sistem mengacu pada [`docs/architecture/system-architecture.md`](../../docs/architecture/system-architecture.md).

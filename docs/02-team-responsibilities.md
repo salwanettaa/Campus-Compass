@@ -1,126 +1,59 @@
 # 02 — Team Responsibilities & RACI Matrix
 
-> **Document**: `docs/02-team-responsibilities.md`  
-> **Owner**: Full Team  
-> **Status**: Approved (Foundation Phase)  
+> **Dokumen**: `docs/02-team-responsibilities.md`  
+> **Owner**: Seluruh Tim (Rifal, Kalya, Erick, Netta)  
+> **Status**: Belum Dikerjakan (Pending / To Do)  
 > **Last Updated**: 2026-11-20  
 > **Dependencies**: [`AGENTS.md`](../AGENTS.md), [`docs/00-project-overview.md`](00-project-overview.md)
 
 ---
 
-## 1. Purpose
+## 1. Tujuan Dokumen
 
-This document establishes the official ownership, responsibility boundaries, and decision-making authority across the four team members. No AI agent or human contributor may reassign responsibilities without explicit team consensus.
-
----
-
-## 2. Team Member Ownership Breakdown
-
-### A. Rifal — Product & UI/UX Direction
-- **Core Domain**: Visual design, user experience design system, brand storytelling.
-- **Key Responsibilities**:
-  - Conceptualizing product video narrative and storytelling flow.
-  - Curating and maintaining UI/UX moodboards: color palette, typography, visual hierarchy.
-  - Designing dashboard, landing page, and interactive visual references.
-  - Establishing design tokens and component inspiration.
-  - Overseeing visual assets in `assets/moodboard/` and `assets/references/`.
-- **Primary Deliverables**:
-  - [`docs/product/ui-ux-guidelines.md`](product/ui-ux-guidelines.md)
-  - Asset galleries in `assets/moodboard/` and `assets/references/`
-
-### B. Kalya — Frontend & User Experience
-- **Core Domain**: Frontend architecture, user journeys, navigation flow, and screen layouts.
-- **Key Responsibilities**:
-  - Defining the complete web sitemap and route hierarchy.
-  - Mapping step-by-step user flows (onboarding, search, knowledge retrieval).
-  - Architecting the Next.js App Router layout and navigation structure.
-  - Translating Rifal's UI/UX guidelines into accessible, responsive React components.
-- **Primary Deliverables**:
-  - [`docs/product/sitemap.md`](product/sitemap.md)
-  - [`docs/product/user-flow.md`](product/user-flow.md)
-  - [`docs/architecture/folder-structure.md`](architecture/folder-structure.md) (Co-owner with Erick)
-
-### C. Erick — Technical Setup & AI-Assisted Development
-- **Core Domain**: Technical stack, integration engineering, and AI retrieval pipelines.
-- **Key Responsibilities**:
-  - Validating and maintaining the core tech stack specification.
-  - Scaffolding the initial project architecture and defining coding conventions.
-  - Managing frontend-to-backend integration patterns.
-  - Engineering the RAG retrieval pipeline (chunking, vector search, context assembly).
-  - Authoring the Google Gemini API integration specification.
-- **Primary Deliverables**:
-  - [`docs/architecture/tech-stack.md`](architecture/tech-stack.md)
-  - [`docs/architecture/folder-structure.md`](architecture/folder-structure.md) (Co-owner with Kalya)
-  - [`docs/architecture/integration-flow.md`](architecture/integration-flow.md)
-  - [`docs/ai/rag-retrieval-flow.md`](ai/rag-retrieval-flow.md)
-  - [`docs/ai/gemini-integration.md`](ai/gemini-integration.md)
-
-### D. Netta — Backend, Database & AI Architecture
-- **Core Domain**: Database schema, security policies, backend architecture, and repository governance.
-- **Key Responsibilities**:
-  - Designing Entity-Relationship Diagrams (ERD) and relational schemas.
-  - Defining authentication flows and data classification (Public, Scoped, Private).
-  - Writing and auditing Supabase Row Level Security (RLS) policies.
-  - Architecting API contracts and backend RPC functions.
-  - Specifying deterministic, rule-based recommendation logic.
-  - Overseeing Git repository governance and CI foundation.
-- **Primary Deliverables**:
-  - [`docs/database/erd.md`](database/erd.md)
-  - [`docs/database/database-schema.md`](database/database-schema.md)
-  - [`docs/database/rls-policies.md`](database/rls-policies.md)
-  - [`docs/database/data-classification.md`](database/data-classification.md)
-  - [`docs/architecture/api-contract.md`](architecture/api-contract.md)
-  - [`docs/ai/recommendation-logic.md`](ai/recommendation-logic.md)
+Dokumen ini memetakan pembagian tanggung jawab, batas kepemilikan modul, dan matriks RACI (Responsible, Accountable, Consulted, Informed) di antara anggota tim.
 
 ---
 
-## 3. RACI Matrix
+## 2. Status Pengerjaan
 
-The RACI matrix defines roles for each major project deliverable:
-- **R (Responsible)**: The person who does the work to achieve the deliverable.
-- **A (Accountable)**: The sole person with final approval and decision authority.
-- **C (Consulted)**: Person(s) whose opinions and inputs are sought.
-- **I (Informed)**: Person(s) kept updated on progress.
-
-| Deliverable / Artifact | Rifal | Kalya | Erick | Netta |
-| :--- | :---: | :---: | :---: | :---: |
-| **Product Video Concept & Moodboard** | **A / R** | C | I | I |
-| **UI/UX Design Tokens & Style Guide** | **A / R** | C | C | I |
-| **Sitemap & User Flows** | C | **A / R** | C | C |
-| **Next.js App Routing & UI Components** | C | **A / R** | C | I |
-| **Tech Stack & System Architecture** | I | C | **A / R** | C |
-| **Folder Structure & Coding Standards** | I | C | **A / R** | C |
-| **RAG Pipeline & Gemini API Integration** | I | I | **A / R** | C |
-| **Database Schema, ERD & RLS Policies** | I | I | C | **A / R** |
-| **API Contracts & Data Classification** | I | C | C | **A / R** |
-| **Deterministic Recommendation Rules** | C | C | C | **A / R** |
-| **Git Repository Governance & PR Approval** | I | I | C | **A / R** |
+> [!NOTE]
+> Dokumen ini **belum difinalisasi**. Struktur dasar kepemilikan telah ditetapkan, namun matriks detail dan protokol koordinasi teknis akan disepakati bersama oleh tim.
 
 ---
 
-## 4. Cross-Domain Handoff & Review Workflow
+## 3. Pembagian Peran Tim (Ringkasan Tanggung Jawab)
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor Rifal as Rifal (Product & UI)
-    actor Kalya as Kalya (Frontend & UX)
-    actor Erick as Erick (Tech Lead & AI)
-    actor Netta as Netta (Backend & DB)
-
-    Rifal->>Kalya: Design Guidelines & Component References
-    Kalya->>Erick: Sitemap, User Flows & Route Specifications
-    Netta->>Erick: Database Schema, API Contracts & RLS Specifications
-    Erick->>Kalya: Frontend Integration Patterns & Gemini Hook Specs
-    Erick->>Netta: RAG Vector RPC Requirements
-    Netta->>Rifal: Data Classification & Feedback on Product Scope
-```
+- **Rifal (Product & UI/UX Direction)**:
+  - Konsep video produk & storytelling.
+  - Moodboard UI/UX (palet warna, tipografi, visual style, referensi desain).
+  - Referensi visual dashboard & landing page.
+  - Panduan aset visual di `assets/moodboard/` dan `assets/references/`.
+- **Kalya (Frontend & User Experience)**:
+  - Sitemap dan struktur navigasi halaman web.
+  - User flow dari onboarding hingga fitur utama.
+  - Struktur routing frontend Next.js App Router.
+  - Implementasi komponen UI berdasarkan arahan moodboard Rifal.
+- **Erick (Technical Setup & AI-Assisted Dev)**:
+  - Konfirmasi tech stack dan arsitektur folder proyek.
+  - Konvensi kode dan struktur komponen frontend-backend.
+  - Arsitektur RAG retrieval flow dan integrasi Google Gemini API.
+- **Netta (Backend, Database & AI Architecture)**:
+  - Perancangan skema database & ERD.
+  - Aturan akses data (Public, Campus-scoped, Private).
+  - Kebijakan Supabase Row Level Security (RLS).
+  - Setup repository GitHub & kontrak API backend.
+  - Logika rule-based recommendation engine.
 
 ---
 
-## 5. Conflict Resolution Protocol
+## 4. Poin-Poin yang Akan Diisi oleh Tim
 
-1. If a technical or product dispute arises between domains (e.g. API payload format between Kalya and Netta):
-   - The affected owners must discuss trade-offs directly.
-   - The outcome must be logged as an Architectural Decision Record (ADR) in [`docs/decisions/decision-log.md`](decisions/decision-log.md).
-2. AI agents **must never** break a tie or invent an unapproved consensus.
+- [ ] Matriks RACI per modul fitur.
+- [ ] Alur handoff antar anggota tim (desain -> frontend -> backend/AI).
+- [ ] Aturan resolusi konflik teknis dan persetujuan PR.
+
+---
+
+## 5. Referensi & Dokumen Terkait
+
+- [`AGENTS.md`](../AGENTS.md): Panduan operasional dan 13 aturan wajib coding agent.

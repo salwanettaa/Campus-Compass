@@ -1,15 +1,19 @@
 # Senior Student Interview Notes
 
-> **Directory**: `research/interview-notes/`  
+> **Direktori**: `research/interview-notes/`  
 > **Owner**: Rifal & Netta  
-> **Status**: Active Directory
+> **Status**: Belum Dikerjakan (Belum Ada Wawancara)  
+> **Last Updated**: 2026-11-20
 
 ---
 
-## Purpose
-This directory stores qualitative notes, transcripts, and observations from semi-structured interviews conducted with senior students from the pilot study program.
+## Status Direktori
 
-## Data Governance & Privacy Rules
-- **Anonymization Mandatory**: Strip all direct student identifiers (Student ID / NIM, private email addresses, personal phone numbers).
-- Use pseudonyms or participant identifiers (e.g., `interview-senior-01.md`).
-- Interview protocols and consent requirements are governed by [`docs/03-user-research.md`](../../docs/03-user-research.md).
+> [!NOTE]
+> Proses wawancara mahasiswa senior **belum dilakukan**.
+> Direktori ini disiapkan sebagai tempat penyimpanan transkrip dan catatan wawancara kualitatif setelah kegiatan riset lapangan dimulai oleh **Rifal & Netta**.
+
+## Aturan Pengisian (Saat Riset Dimulai)
+1. Seluruh catatan wajib **dianonimkan** (hapus NIM, nama lengkap asli, email pribadi, nomor telepon).
+2. Format berkas menggunakan Markdown per partisipan (contoh: `interview-senior-01.md`).
+3. Panduan wawancara mengacu pada [`docs/03-user-research.md`](../../docs/03-user-research.md).

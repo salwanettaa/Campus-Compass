@@ -1,15 +1,16 @@
-# Moodboard & UI Visual References
+# UI Moodboard & Brand Visuals
 
-> **Directory**: `assets/moodboard/`  
+> **Direktori**: `assets/moodboard/`  
 > **Owner**: Rifal (Product & UI/UX Direction Lead)  
-> **Status**: Active Directory
+> **Status**: Belum Dikerjakan  
+> **Last Updated**: 2026-11-20
 
 ---
 
-## Purpose
-This directory stores UI moodboards, color palette explorations, typography specimens, and visual theme boards for Campus Compass.
+## Status Direktori
 
-## Guidelines
-- Place image files (`.png`, `.jpg`, `.svg`) or design exports here.
-- Maintain corresponding markdown documentation in [`docs/product/ui-ux-guidelines.md`](../../docs/product/ui-ux-guidelines.md).
-- Avoid committing oversized raw PSD/Figma binaries; prefer optimized web-ready exports.
+> [!NOTE]
+> Eksplorasi moodboard visual, palet warna, dan tipografi **belum dikerjakan**.
+> Berkas visual antarmuka akan dikurasi dan diunggah ke folder ini oleh **Rifal**.
+
+Panduan desain visual mengacu pada [`docs/product/ui-ux-guidelines.md`](../../docs/product/ui-ux-guidelines.md).
