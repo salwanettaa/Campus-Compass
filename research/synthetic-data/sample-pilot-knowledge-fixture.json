@@ -1,0 +1,36 @@
+{
+  "provenance": {
+    "is_synthetic": true,
+    "environment": "PROTOTYPE_TESTING_ONLY",
+    "warning": "DO NOT USE FOR REAL ACADEMIC GUIDANCE. THIS IS A MOCK FIXTURE FOR TESTING RAG CHUNKING AND SCHEMA VALIDATION.",
+    "created_at": "2026-11-20T13:00:00Z"
+  },
+  "mock_university": {
+    "name": "Universitas Teknologi Nusantara (Pilot Mock)",
+    "slug": "utn-pilot",
+    "domain": "utn.ac.id"
+  },
+  "mock_study_program": {
+    "name": "Teknik Informatika (Informatics)",
+    "code": "TI-S1",
+    "degree_level": "Undergraduate"
+  },
+  "sample_knowledge_items": [
+    {
+      "title": "[SYNTHETIC] Lab Fisika Dasar Safety & Attire Policy",
+      "category": "facilities",
+      "is_general": false,
+      "access_level": "campus_scoped",
+      "content_raw": "All students enrolled in Physics Practicum must wear closed-toe leather shoes and a standard white lab coat with university emblem. Food and sweetened drinks are prohibited inside Lab B-201. Pre-lab report submissions are due at 07:45 AM sharp.",
+      "source_reference": "Mock Lab Manual 2024 Rev 1.2"
+    },
+    {
+      "title": "[SYNTHETIC] Pomodoro Technique for Programming Practicals",
+      "category": "study_habits",
+      "is_general": true,
+      "access_level": "public",
+      "content_raw": "When debugging complex pointer structures or asynchronous functions, break sessions into 25-minute focused blocks followed by a 5-minute break. This prevents mental fatigue and reduces syntax errors.",
+      "source_reference": "Universal Study Skills Guide v1"
+    }
+  ]
+}
