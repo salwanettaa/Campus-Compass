@@ -1,8 +1,8 @@
-# Student Interview Notes
+# Student Survey Responses & Notes
 
 > **Direktori**: `research/interview-notes/`  
 > **Owner**: Rifal & Netta  
-> **Status**: Belum Dikerjakan (Belum Ada Wawancara)  
+> **Status**: Menunggu Pengumpulan Data Survei  
 > **Last Updated**: 2026-11-20
 
 ---
@@ -10,10 +10,10 @@
 ## Status Direktori
 
 > [!NOTE]
-> Proses wawancara mahasiswa **belum dilakukan**.
-> Direktori ini disiapkan sebagai tempat penyimpanan transkrip dan catatan wawancara kualitatif setelah kegiatan riset lapangan dimulai oleh **Rifal & Netta**.
+> Pengumpulan data survei mahasiswa melalui **Google Forms** sedang dalam tahap persiapan/pelaksanaan.
+> Direktori ini disiapkan untuk menyimpan salinan hasil ekspor kuesioner yang telah **dianonimkan** oleh **Rifal & Netta**.
 
-## Aturan Pengisian (Saat Riset Dimulai)
-1. Seluruh catatan wajib **dianonimkan** (hapus NIM, nama lengkap asli, email pribadi, nomor telepon).
-2. Format berkas menggunakan Markdown per partisipan (contoh: `interview-student-01.md`).
-3. Panduan wawancara mengacu pada [`docs/03-user-research.md`](../../docs/03-user-research.md).
+## Aturan Pengisian Data Survei
+1. **Anonimisasi Wajib**: Hapus alamat email pribadi, nomor telepon, atau data pengenal langsung sebelum menyimpan rekap jawaban kuesioner.
+2. Format berkas dapat berupa file Markdown intisari atau file CSV data teranonimkan (contoh: `google-form-survey-summary.md` atau `survey-responses-anonymized.csv`).
+3. Panduan instrumen kuesioner mengacu pada [`docs/03-user-research.md`](../../docs/03-user-research.md).

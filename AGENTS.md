@@ -19,7 +19,7 @@ We are building a **hybrid campus-based student platform** (working title: *Camp
   1. *General Knowledge*: Broad student life, study strategies, career prep, and general collegiate advice accessible across campuses.
   2. *Campus/Program-Scoped Knowledge*: Academic regulations, course syllabus tips, campus facilities, faculty nuances, and practical student insights strictly scoped to the pilot institution and program.
 - **Data Grounding**:
-  - Real qualitative data: Qualitative student interviews and user research feedback.
+  - Real qualitative data: Student survey responses via Google Forms and user research feedback.
   - Development data: **Clearly labeled synthetic data** for prototyping, mocking, and RAG testing.
 - **Architectural Tenet**: Clean, tenant-aware design prepared for multi-campus expansion without overengineering the single-pilot MVP.
 

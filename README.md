@@ -32,7 +32,7 @@ To maximize velocity and qualitative validation while avoiding premature optimiz
   - Deterministic, rule-based recommendation cards for student onboarding.
   - Curated student insights and campus survival guides.
 - **Data Grounding**:
-  - Real student interviews for qualitative context.
+  - Real qualitative data: Student survey responses via Google Forms for qualitative research context.
   - Formally isolated, clearly labeled synthetic datasets for schema validation, RAG testing, and UI mocking.
 
 ---
