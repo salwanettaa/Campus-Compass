@@ -83,8 +83,6 @@ hybrid-campus-platform/
 │   │   ├── rag-retrieval-flow.md      # Hybrid vector search, chunking & citations
 │   │   ├── gemini-integration.md      # Google Gemini API configuration & prompt specs
 │   │   └── recommendation-logic.md    # Rule engine and student matching heuristics
-│   └── decisions/
-│       └── decision-log.md            # Architectural Decision Records (ADRs)
 ├── assets/
 │   ├── moodboard/                     # UI visual references and color explorations
 │   ├── references/                    # Design benchmarks and competitor screenshots
@@ -102,7 +100,7 @@ hybrid-campus-platform/
 
 | Domain | Start Here | Supporting Documents |
 | :--- | :--- | :--- |
-| **For AI Coding Agents** | [`AGENTS.md`](AGENTS.md) | [`docs/decisions/decision-log.md`](docs/decisions/decision-log.md) |
+| **For AI Coding Agents** | [`AGENTS.md`](AGENTS.md) | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
 | **Project & Strategy** | [`docs/00-project-overview.md`](docs/00-project-overview.md) | [`docs/01-product-scope.md`](docs/01-product-scope.md), [`docs/02-team-responsibilities.md`](docs/02-team-responsibilities.md) |
 | **Design & Product** | [`docs/product/product-requirements.md`](docs/product/product-requirements.md) | [`docs/product/user-personas.md`](docs/product/user-personas.md), [`docs/product/sitemap.md`](docs/product/sitemap.md), [`docs/product/ui-ux-guidelines.md`](docs/product/ui-ux-guidelines.md) |
 | **Architecture & Dev** | [`docs/architecture/system-architecture.md`](docs/architecture/system-architecture.md) | [`docs/architecture/tech-stack.md`](docs/architecture/tech-stack.md), [`docs/architecture/folder-structure.md`](docs/architecture/folder-structure.md), [`docs/architecture/integration-flow.md`](docs/architecture/integration-flow.md) |

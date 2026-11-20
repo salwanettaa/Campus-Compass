@@ -4,7 +4,7 @@
 > **Owner**: Erick (Technical Setup & AI-Assisted Dev Lead)  
 > **Status**: Belum Dikerjakan (Pending / To Do)  
 > **Last Updated**: 2026-11-20  
-> **Dependencies**: [`docs/architecture/system-architecture.md`](system-architecture.md), [`docs/decisions/decision-log.md`](../decisions/decision-log.md)
+> **Dependencies**: [`docs/architecture/system-architecture.md`](system-architecture.md), [`docs/architecture/folder-structure.md`](folder-structure.md)
 
 ---
 
@@ -37,4 +37,3 @@ Dokumen ini memuat konfirmasi pilihan teknologi, framework, runtime, pustaka int
 
 - [`docs/architecture/system-architecture.md`](system-architecture.md): Arsitektur sistem.
 - [`docs/architecture/folder-structure.md`](folder-structure.md): Struktur folder target.
-- [`docs/decisions/decision-log.md`](../decisions/decision-log.md): Catatan keputusan teknis.

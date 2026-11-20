@@ -31,14 +31,14 @@ Every AI agent working within this repository **MUST** adhere to the following 1
 
 1. **Read AGENTS.md First**: Always read this file before formulating plans, executing commands, or editing files.
 2. **Read Domain Documentation**: Read the relevant domain document (e.g., `docs/database/*`, `docs/architecture/*`, `docs/product/*`) before modifying any code.
-3. **Never Invent Requirements or Technical Decisions**: If a requirement, database column, API parameter, or UI design is not documented, do not make assumptions. Flag it as an open question or document a proposal in `docs/decisions/decision-log.md`.
-4. **Respect the Agreed Pilot Scope**: Never generate features for multi-tenant billing, multi-university onboarding self-service, or native mobile apps unless explicitly approved in an ADR.
+3. **Never Invent Requirements or Technical Decisions**: If a requirement, database column, API parameter, or UI design is not documented, do not make assumptions. Flag it as an open question or document a proposal in the relevant domain document (e.g. `docs/product/*`, `docs/architecture/*`, `docs/database/*`).
+4. **Respect the Agreed Pilot Scope**: Never generate features for multi-tenant billing, multi-university onboarding self-service, or native mobile apps unless explicitly approved by domain owners.
 5. **Enforce Tenant & Privacy Boundaries**: Never expose private user data or campus-scoped knowledge through public, unauthenticated, or unscoped endpoints.
 6. **Strict Supabase RLS Adherence**: Every database table must have Row Level Security (RLS) enabled. Never propose queries or service-role bypasses that violate security policies.
 7. **Zero Secrets in Code**: Never hardcode API keys, service tokens, database passwords, or personal credentials into source code, documentation, or commits.
 8. **Use Environment Variables**: Always reference configuration via documented environment variables (`.env.example`).
 9. **Architectural Consistency**: Keep all implementation strictly aligned with the documented folder structure, tech stack, and API contracts.
-10. **Flag Documentation Conflicts**: If two documentation files contradict each other, explicitly notify the team and file an issue or entry in `docs/decisions/decision-log.md`. Do not silently pick an interpretation.
+10. **Flag Documentation Conflicts**: If two documentation files contradict each other, explicitly notify the team and raise it in the PR / issue discussion. Do not silently pick an interpretation.
 11. **Update Documentation on Approved Changes**: When an architectural or product decision is approved, update the corresponding documentation files immediately.
 12. **Preserve Team Ownership**: Do not overwrite another team member's domain responsibilities without explicit coordination.
 13. **Strict Synthetic Data Segregation**: Never treat synthetic data as real interview findings. Keep synthetic fixtures clearly tagged with `[SYNTHETIC]` metadata.
@@ -71,7 +71,7 @@ flowchart TD
     C -->|Frontend & Architecture| E[docs/architecture/tech-stack.md<br/>docs/architecture/folder-structure.md<br/>docs/architecture/integration-flow.md]
     C -->|Backend & Database| F[docs/database/erd.md<br/>docs/database/database-schema.md<br/>docs/database/rls-policies.md<br/>docs/database/data-classification.md]
     C -->|AI & RAG Pipeline| G[docs/ai/ai-architecture.md<br/>docs/ai/rag-retrieval-flow.md<br/>docs/ai/gemini-integration.md<br/>docs/ai/recommendation-logic.md]
-    C -->|Decisions & Governance| H[docs/decisions/decision-log.md<br/>CONTRIBUTING.md]
+    C -->|Project Governance| H[CONTRIBUTING.md<br/>docs/02-team-responsibilities.md]
     D & E & F & G & H --> Verify[Validate Scope & RLS Constraints]
     Verify --> Execute([Proceed to Implementation])
 ```
@@ -106,8 +106,8 @@ flowchart TD
   - [`docs/ai/rag-retrieval-flow.md`](docs/ai/rag-retrieval-flow.md): Embedding, chunking, and similarity search.
   - [`docs/ai/gemini-integration.md`](docs/ai/gemini-integration.md): Google Gemini API prompts and configuration.
   - [`docs/ai/recommendation-logic.md`](docs/ai/recommendation-logic.md): Deterministic rule engine and student matching.
-- **Governance**:
-  - [`docs/decisions/decision-log.md`](docs/decisions/decision-log.md): Architectural Decision Records (ADRs).
+- **Governance & Contributing**:
+  - [`CONTRIBUTING.md`](CONTRIBUTING.md): Git branching, PR guidelines, and commit standards.
 
 ---
 
@@ -117,7 +117,7 @@ If a feature, technical choice, or user scenario is **NOT** explicitly covered i
 
 1. **HALT**: Do not invent a solution or introduce arbitrary libraries/schemas.
 2. **CLASSIFY**: Determine which team member owns the affected domain (Rifal, Kalya, Erick, or Netta).
-3. **LOG**: Create a proposal entry in [`docs/decisions/decision-log.md`](docs/decisions/decision-log.md) marking its status as `Proposed`.
+3. **LOG**: Document the open question or proposal directly in the corresponding domain document.
 4. **NOTIFY**: Highlight the open question in your response to the user with specific trade-offs and options.
 
 ---
@@ -126,10 +126,9 @@ If a feature, technical choice, or user scenario is **NOT** explicitly covered i
 
 When an architectural decision or product requirement is approved by the team:
 
-1. Record an ADR in [`docs/decisions/decision-log.md`](docs/decisions/decision-log.md) with status `Approved`.
-2. Update the primary domain document (e.g. `docs/database/database-schema.md` for schema updates).
-3. If the change impacts other layers (e.g., schema changes affecting API contracts or frontend types), update the corresponding secondary documents in the same commit.
-4. Verify all markdown cross-links remain valid.
+1. Update the primary domain document (e.g. `docs/database/database-schema.md` for schema updates).
+2. If the change impacts other layers (e.g., schema changes affecting API contracts or frontend types), update the corresponding secondary documents in the same commit.
+3. Verify all markdown cross-links remain valid.
 
 ---
 

@@ -85,10 +85,9 @@ We use the **Conventional Commits** specification:
 
 When technical or product decisions evolve:
 
-1. **File an ADR**: Log the proposed decision in [`docs/decisions/decision-log.md`](docs/decisions/decision-log.md).
-2. **Update Domain Documents**: Update the relevant schema, contract, or architecture document.
-3. **Cross-Link**: Ensure all references across `docs/` point to valid markdown files.
-4. **Sync AI Context**: Ensure [`AGENTS.md`](AGENTS.md) reflects any updated operational constraints.
+1. **Update Domain Documents**: Update the relevant schema, contract, or architecture document directly.
+2. **Cross-Link**: Ensure all references across `docs/` point to valid markdown files.
+3. **Sync AI Context**: Ensure [`AGENTS.md`](AGENTS.md) reflects any updated operational constraints.
 
 ---
 

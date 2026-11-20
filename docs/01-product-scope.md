@@ -4,7 +4,7 @@
 > **Owner**: Netta & Rifal  
 > **Status**: Baseline Approved (Foundation Phase)  
 > **Last Updated**: 2026-11-20  
-> **Dependencies**: [`docs/00-project-overview.md`](00-project-overview.md), [`docs/decisions/decision-log.md`](decisions/decision-log.md)
+> **Dependencies**: [`docs/00-project-overview.md`](00-project-overview.md), [`docs/02-team-responsibilities.md`](02-team-responsibilities.md)
 
 ---
 
@@ -79,4 +79,3 @@ Meskipun MVP hanya mencakup 1 universitas dan 1 prodi, arsitektur data dirancang
 
 - [`docs/00-project-overview.md`](00-project-overview.md): Gambaran umum dan latar belakang proyek.
 - [`docs/database/database-schema.md`](database/database-schema.md): Skema tabel database pendukung.
-- [`docs/decisions/decision-log.md`](decisions/decision-log.md): Catatan keputusan arsitektur.
