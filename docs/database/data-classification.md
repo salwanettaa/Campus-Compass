@@ -29,7 +29,7 @@ Dokumen ini menetapkan taksonomi klasifikasi data, batasan akses data sensitif, 
   - Tier 3: Private PII (nama, email, semester, log pencarian mahasiswa).
   - Tier 4: Restricted / Secrets (API key, service role key).
 - [ ] Aturan retensi dan penghapusan data mahasiswa (Right to Erasure).
-- [ ] Aturan anonimisasi narasumber wawancara mahasiswa senior.
+- [ ] Aturan anonimisasi narasumber wawancara mahasiswa.
 
 ---
 

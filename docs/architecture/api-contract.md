@@ -27,7 +27,7 @@ Dokumen ini mendefinisikan kontrak antarmuka API (REST route handlers dan Supaba
 - [ ] Spesifikasi endpoint streaming RAG query (`POST /api/rag/query`).
 - [ ] Spesifikasi endpoint rekomendasi milestone (`GET /api/recommendations`).
 - [ ] Spesifikasi endpoint penelusuran artikel pengetahuan (`GET /api/knowledge`).
-- [ ] Spesifikasi endpoint tips senior (`GET /api/tips`).
+- [ ] Spesifikasi endpoint tips mahasiswa (`GET /api/tips`).
 - [ ] Kontrak parameter fungsi RPC Supabase `match_knowledge_chunks`.
 
 ---

@@ -26,7 +26,7 @@ Dokumen ini merinci kebutuhan fungsional (Functional Requirements) dan non-fungs
 - [ ] Kebutuhan fungsional modul autentikasi & pemilihan konteks kampus/prodi.
 - [ ] Kebutuhan fungsional modul hybrid knowledge search & RAG chat dengan sitasi.
 - [ ] Kebutuhan fungsional modul dashboard rekomendasi berbasis semester.
-- [ ] Kebutuhan fungsional modul kurasi tips mahasiswa senior.
+- [ ] Kebutuhan fungsional modul kurasi tips dan panduan mahasiswa.
 - [ ] Kebutuhan non-fungsional: keamanan data mahasiswa, performa latensi streaming, responsivitas antarmuka, dan aksesibilitas (WCAG).
 
 ---

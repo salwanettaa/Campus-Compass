@@ -26,7 +26,7 @@ Dokumen ini memetakan langkah demi langkah perjalanan pengguna (user flow) dari 
 - [ ] Alur Onboarding: Pendaftaran akun, login, dan pemilihan kampus/program studi.
 - [ ] Alur Pencarian RAG: Input pertanyaan mahasiswa, pemrosesan filter lingkup kampus, dan streaming jawaban bersitasi.
 - [ ] Alur Rekomendasi Milestone: Pengecekan semester mahasiswa dan penandaan status selesai pada kartu rekomendasi.
-- [ ] Alur Eksplorasi Tips Senior: Pencarian berdasarkan kategori dan penandaan tips yang bermanfaat.
+- [ ] Alur Eksplorasi Tips Kampus / Mahasiswa: Pencarian berdasarkan kategori dan penandaan tips yang bermanfaat.
 - [ ] Penanganan edge cases (misal: pengguna belum memilih prodi, pencarian tidak menemukan hasil).
 
 ---

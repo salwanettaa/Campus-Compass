@@ -10,7 +10,7 @@
 
 ## 1. Tujuan Dokumen
 
-Dokumen ini memuat metodologi riset pengguna, panduan wawancara kualitatif dengan mahasiswa senior, serta aturan penggunaan synthetic data selama masa pengujian.
+Dokumen ini memuat metodologi riset pengguna, panduan wawancara kualitatif dengan mahasiswa, serta aturan penggunaan synthetic data selama masa pengujian.
 
 ---
 
@@ -23,7 +23,7 @@ Dokumen ini memuat metodologi riset pengguna, panduan wawancara kualitatif denga
 
 ## 3. Poin-Poin yang Akan Diisi oleh Owner
 
-- [ ] Rencana wawancara kualitatif mahasiswa senior (kriteria partisipan, target jumlah narasumber).
+- [ ] Rencana wawancara kualitatif mahasiswa (kriteria partisipan mahasiswa, target jumlah narasumber).
 - [ ] Daftar pertanyaan wawancara (friction masa adaptasi, sistem KRS/SKS, tips dosen, budaya lab).
 - [ ] Hasil sintesis temuan riset (akan disimpan di `research/findings/`).
 - [ ] Catatan wawancara yang telah dianonimkan (akan disimpan di `research/interview-notes/`).

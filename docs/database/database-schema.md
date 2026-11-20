@@ -26,7 +26,7 @@ Dokumen ini menyediakan spesifikasi skrip DDL PostgreSQL untuk pembuatan tabel, 
 - [ ] DDL tabel master: `universities`, `study_programs`.
 - [ ] DDL tabel pengguna: `profiles` (terkait `auth.users`).
 - [ ] DDL tabel pengetahuan & vektor: `knowledge_items`, `knowledge_chunks` (kolom tipe `vector(768)`).
-- [ ] DDL tabel tips & rekomendasi: `senior_tips`, `recommendation_rules`, `user_recommendations`.
+- [ ] DDL tabel tips & rekomendasi: `student_tips`, `recommendation_rules`, `user_recommendations`.
 - [ ] Konfigurasi indeks HNSW/IVFFlat untuk pencarian kemiripan kosinus.
 - [ ] Skrip fungsi RPC `match_knowledge_chunks` untuk filter hybrid tenant.
 

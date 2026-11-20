@@ -10,11 +10,11 @@
 
 **Campus Compass** is an intelligent, web-based student navigation platform designed to bridge the gap between general academic preparedness and hyper-local, campus-specific knowledge. 
 
-Freshman and continuing university students frequently face fragmented sources of truth: university policies are scattered across static PDF handbooks, course selection insights live in unindexed WhatsApp or Telegram groups, and informal "survival advice" is passed down unevenly through senior networks.
+Freshman and continuing university students frequently face fragmented sources of truth: university policies are scattered across static PDF handbooks, course selection insights live in unindexed WhatsApp or Telegram groups, and informal collegiate advice is passed down unevenly across student circles.
 
 Campus Compass addresses this with a **hybrid knowledge architecture**:
 1. **General Domain Knowledge**: Universal study strategies, academic writing guidelines, mental health awareness, and early career preparation accessible across universities.
-2. **Campus- & Program-Scoped Knowledge**: Course syllabi nuances, lecturer expectations, credit transfer rules, campus facilities, and senior tips strictly scoped to specific institutions and study programs.
+2. **Campus- & Program-Scoped Knowledge**: Course syllabi nuances, lecturer expectations, credit transfer rules, campus facilities, and practical student tips strictly scoped to specific institutions and study programs.
 
 ---
 
@@ -30,9 +30,9 @@ To maximize velocity and qualitative validation while avoiding premature optimiz
   - Dual-layer knowledge browsing and search.
   - Hybrid RAG (Retrieval-Augmented Generation) query interface with source citations.
   - Deterministic, rule-based recommendation cards for student onboarding.
-  - Curated senior student insights and survival guides.
+  - Curated student insights and campus survival guides.
 - **Data Grounding**:
-  - Real senior student interviews for qualitative context.
+  - Real student interviews for qualitative context.
   - Formally isolated, clearly labeled synthetic datasets for schema validation, RAG testing, and UI mocking.
 
 ---
@@ -60,7 +60,7 @@ hybrid-campus-platform/
 │   ├── 00-project-overview.md         # Problem statement, mission, and success metrics
 │   ├── 01-product-scope.md            # Pilot boundaries, in-scope vs out-of-scope
 │   ├── 02-team-responsibilities.md    # Detailed RACI matrix and handoff protocols
-│   ├── 03-user-research.md            # Senior interview guide & synthetic data rules
+│   ├── 03-user-research.md            # Student interview guide & synthetic data rules
 │   ├── product/
 │   │   ├── product-requirements.md    # Functional & non-functional requirements
 │   │   ├── user-personas.md           # Pilot persona profiles

@@ -27,7 +27,7 @@ Dokumen ini memvisualisasikan model data relasional, entitas utama, atribut, ser
   - Entitas universitas dan program studi (`universities`, `study_programs`).
   - Entitas profil mahasiswa yang terikat ke Supabase Auth (`profiles`).
   - Entitas artikel pengetahuan dan chunk vektor (`knowledge_items`, `knowledge_chunks`).
-  - Entitas tips senior (`senior_tips`).
+  - Entitas tips mahasiswa (`student_tips` / `campus_tips`).
   - Entitas aturan dan riwayat rekomendasi (`recommendation_rules`, `user_recommendations`).
 - [ ] Definisi kardinalitas (1:1, 1:N, N:M) dan foreign key constraints.
 
