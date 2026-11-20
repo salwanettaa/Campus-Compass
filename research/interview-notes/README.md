@@ -16,4 +16,4 @@
 ## Aturan Pengisian Data Survei
 1. **Anonimisasi Wajib**: Hapus alamat email pribadi, nomor telepon, atau data pengenal langsung sebelum menyimpan rekap jawaban kuesioner.
 2. Format berkas dapat berupa file Markdown intisari atau file CSV data teranonimkan (contoh: `google-form-survey-summary.md` atau `survey-responses-anonymized.csv`).
-3. Panduan instrumen kuesioner mengacu pada [`docs/03-user-research.md`](../../docs/03-user-research.md).
+3. Panduan instrumen kuesioner mengacu pada [`docs/PRODUCT_SPEC.md`](../../docs/PRODUCT_SPEC.md).

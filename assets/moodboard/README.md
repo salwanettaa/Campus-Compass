@@ -13,4 +13,4 @@
 > Eksplorasi moodboard visual, palet warna, dan tipografi **belum dikerjakan**.
 > Berkas visual antarmuka akan dikurasi dan diunggah ke folder ini oleh **Rifal**.
 
-Panduan desain visual mengacu pada [`docs/product/ui-ux-guidelines.md`](../../docs/product/ui-ux-guidelines.md).
+Panduan desain visual mengacu pada [`docs/PRODUCT_SPEC.md`](../../docs/PRODUCT_SPEC.md).

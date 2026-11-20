@@ -11,8 +11,7 @@
 > The project is currently in the **Documentation & Architecture Phase (Phase 0)**.
 > 
 > **DO NOT** generate or scaffold application code inside this directory until:
-> 1. All domain documentation in `docs/` is reviewed by Rifal, Kalya, Erick, and Netta.
-> 2. The database schema in `docs/database/database-schema.md` is approved.
-> 3. The UI guidelines in `docs/product/ui-ux-guidelines.md` are signed off.
+> 1. All domain documentation in `docs/PRODUCT_SPEC.md` and `docs/TECH_AND_DATABASE.md` is reviewed.
+> 2. The database schema in `docs/TECH_AND_DATABASE.md` is approved.
 >
-> When approved for Phase 1, refer to [`docs/architecture/folder-structure.md`](../docs/architecture/folder-structure.md) for the exact layout and conventions.
+> When approved for Phase 1 (starting Nov 23), refer to [`docs/TECH_AND_DATABASE.md`](../docs/TECH_AND_DATABASE.md) for the exact layout and conventions.

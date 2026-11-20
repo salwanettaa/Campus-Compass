@@ -16,4 +16,4 @@
 ## Aturan Pengisian (Saat Riset Dimulai)
 1. Berisi sintesis temuan utama yang mendasari kebutuhan fitur dan persona.
 2. Data temuan asli dilarang dicampur dengan data sintetis mock.
-3. Mengacu pada panduan di [`docs/03-user-research.md`](../../docs/03-user-research.md).
+3. Mengacu pada panduan riset di [`docs/PRODUCT_SPEC.md`](../../docs/PRODUCT_SPEC.md).

@@ -13,4 +13,4 @@
 > Diagram arsitektur beresolusi tinggi **belum dikerjakan**.
 > Ekspor diagram sistem dan topologi akan diunggah oleh **Erick & Netta** setelah arsitektur disetujui.
 
-Spesifikasi sistem mengacu pada [`docs/architecture/system-architecture.md`](../../docs/architecture/system-architecture.md).
+Spesifikasi sistem mengacu pada [`docs/TECH_AND_DATABASE.md`](../../docs/TECH_AND_DATABASE.md).

@@ -17,4 +17,4 @@
 1. Setiap file data sintetis wajib diberi tanda pengenal `[SYNTHETIC]` atau properti metadata `"is_synthetic": true`.
 2. Dilarang menganggap data sintetis sebagai fakta riset wawancara mahasiswa yang sebenarnya.
 3. Dilarang memasukkan data sintetis ke database produksi.
-4. Mengacu pada aturan di [`docs/03-user-research.md`](../../docs/03-user-research.md) dan [`AGENTS.md`](../../AGENTS.md).
+4. Mengacu pada aturan di [`docs/PRODUCT_SPEC.md`](../../docs/PRODUCT_SPEC.md) dan [`AGENTS.md`](../../AGENTS.md).

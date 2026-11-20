@@ -13,4 +13,4 @@
 > Referensi desain antarmuka dan benchmark kompetitor **belum dikerjakan**.
 > Screenshot inspirasi antarmuka web, drawer sitasi, dan layout kartu akan diunggah oleh **Rifal & Kalya**.
 
-Panduan komponen mengacu pada [`docs/product/ui-ux-guidelines.md`](../../docs/product/ui-ux-guidelines.md).
+Panduan komponen mengacu pada [`docs/PRODUCT_SPEC.md`](../../docs/PRODUCT_SPEC.md).
