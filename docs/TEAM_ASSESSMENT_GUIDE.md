@@ -8,9 +8,9 @@
 
 ## 1. Panduan Assessment untuk Rifal (Product & UI/UX Direction)
 
-- [ ] **Review Product Positioning & 5 Modul Utama ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
+- [ ] **Review Product Positioning & 4 Modul Utama ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
   - Apakah konsep *Reddit-inspired Community, Glassdoor-organized Experiences, dan AI Navigator* sudah jelas dipahami untuk narasi produk?
-  - Apakah struktur 5 area utama (**Home, Community, Knowledge Hub, My Journey, AI Navigator**) sudah sesuai untuk desain antarmuka?
+  - Apakah struktur 4 area utama (**Home & My Journey, Community, Knowledge Hub, AI Navigator**) sudah sesuai untuk desain antarmuka?
 - [ ] **Persiapan Skenario Demo Hackathon**:
   - Pelajari 6 adegan demo di Bab 6 [`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md) (Onboarding $\rightarrow$ Home $\rightarrow$ Community $\rightarrow$ Knowledge Hub $\rightarrow$ AI Navigator $\rightarrow$ My Journey). Apakah alur ini sudah siap dijadikan storyboard video produk / pitch deck?
 - [ ] **Visual Theme & Moodboard**:
@@ -22,10 +22,10 @@
 
 - [ ] **Review Alur Onboarding & Personalisasi ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
   - Apakah form pemilihan kampus, fakultas, prodi, semester, dan **pilihan tantangan utama adaptasi** sudah dirancang alurnya agar *frictionless*?
-- [ ] **Review Navigasi 5 Modul ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
-  - Pastikan tata letak navigasi responsif: sidebar untuk desktop dan bottom navigation bar untuk mobile browser.
+- [ ] **Review Navigasi 4 Modul ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
+  - Pastikan tata letak navigasi responsif 4 menu utama: sidebar untuk desktop dan bottom navigation bar untuk mobile browser.
 - [ ] **Review Struktur Folder Next.js ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md))**:
-  - Apakah pembagian folder route `src/app/(dashboard)/home`, `community`, `knowledge`, `journey`, dan `ai-navigator` sudah siap dieksekusi saat vibe coding?
+  - Apakah pembagian folder route `src/app/(dashboard)/home`, `community`, `knowledge`, dan `ai-navigator` sudah siap dieksekusi saat vibe coding?
 
 ---
 

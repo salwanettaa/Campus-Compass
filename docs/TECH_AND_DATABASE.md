@@ -12,7 +12,7 @@
 
 | Layer | Pilihan Teknologi | Versi / Spesifikasi | Rationale & Tanggung Jawab |
 | :--- | :--- | :--- | :--- |
-| **Frontend** | Next.js (App Router), React, TypeScript | Next.js 14+/15+, TS Strict | Responsive web app, dynamic routing 5 modul, Server Actions, streaming SSE. |
+| **Frontend** | Next.js (App Router), React, TypeScript | Next.js 14+/15+, TS Strict | Responsive web app, navigasi 4 modul utama, Server Actions, streaming SSE. |
 | **UI System** | Tailwind CSS, shadcn/ui, Lucide Icons | Latest | Komponen antarmuka yang konsisten, modern, dan sangat cepat untuk vibe coding. |
 | **Backend** | Next.js Server Actions / Route Handlers | Edge & Node Runtime | Validasi data, business logic, integrasi AI, dan otorisasi session. |
 | **Database & Auth** | Supabase (PostgreSQL 15+) | Managed Supabase Cloud | Autentikasi email, Row Level Security bawaan, dan relasi data terstruktur. |
@@ -400,18 +400,17 @@ src/
 │   │   ├── register/page.tsx          # Pendaftaran akun
 │   │   └── layout.tsx
 │   ├── (dashboard)/
-│   │   ├── home/page.tsx              # 1. HOME: Welcome context, snapshot, recommendations
+│   │   ├── home/page.tsx              # 1. HOME: Welcome context, snapshot adaptasi, rekomendasi, & My Journey
 │   │   ├── community/                 # 2. COMMUNITY: Reddit-inspired feed & Q&A
 │   │   │   ├── page.tsx
 │   │   │   ├── create/page.tsx
 │   │   │   └── [id]/page.tsx
-│   │   ├── knowledge/                 # 3. KNOWLEDGE HUB: 6 Kategori panduan kampus
+│   │   ├── knowledge/                 # 3. KNOWLEDGE HUB: 6 Kategori panduan kampus & senior experiences
 │   │   │   ├── page.tsx
 │   │   │   └── [id]/page.tsx
-│   │   ├── journey/page.tsx           # 4. MY JOURNEY: Roadmap adaptasi & milestone checklist
-│   │   ├── ai-navigator/page.tsx      # 5. AI NAVIGATOR: Chat RAG dengan source cards
+│   │   ├── ai-navigator/page.tsx      # 4. AI NAVIGATOR: Chat RAG dengan source cards
 │   │   ├── onboarding/page.tsx        # Onboarding: Kampus, prodi, semester & tantangan
-│   │   └── layout.tsx                 # Navigation sidebar & mobile bottom bar
+│   │   └── layout.tsx                 # Navigation sidebar & mobile bottom bar (4 area navigasi utama)
 │   └── api/
 │       ├── rag/query/route.ts         # Endpoint streaming AI Navigator + vector search
 │       └── journey/progress/route.ts  # Endpoint update status milestone

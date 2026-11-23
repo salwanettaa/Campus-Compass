@@ -24,7 +24,7 @@ Platform ini dibangun di atas 3 pilar utama:
 
 ## 2. 4 Area Utama Aplikasi
 
-Aplikasi dirancang sebagai *responsive web app* dengan 5 modul inti:
+Aplikasi dirancang sebagai *responsive web app* dengan 4 modul utama (Home & My Journey, Community, Knowledge Hub, dan AI Navigator):
 
 | Area Utama | Peran & Fungsi | Pertanyaan yang Dijawab |
 | :--- | :--- | :--- |
@@ -40,7 +40,7 @@ Aplikasi dirancang sebagai *responsive web app* dengan 5 modul inti:
 | Anggota Tim | Peran | Fokus Tanggung Jawab Utama |
 | :--- | :--- | :--- |
 | **Rifal** | Product & UI/UX Direction | Visi produk, visual style, moodboard, panduan UI/UX, dan storytelling demo hackathon. |
-| **Kalya** | Frontend & User Experience | Alur onboarding tantangan, navigasi responsif 5 modul, dan implementasi antarmuka Next.js. |
+| **Kalya** | Frontend & User Experience | Alur onboarding tantangan, navigasi responsif 4 modul utama, dan implementasi antarmuka Next.js. |
 | **Erick** | Technical Setup & AI Dev | Konfirmasi tech stack, pipeline RAG, integrasi Google Gemini API, dan grounding anti-halusinasi. |
 | **Netta** | Backend, Database & AI Architecture | Skema database PostgreSQL Supabase (7 kelompok tabel), pgvector, RLS, dan kepatuhan UU PDP. |
 
@@ -56,7 +56,7 @@ hybrid-campus-platform/
 ├── CONTRIBUTING.md                    # Panduan branching Git & commit convention
 ├── .env.example                       # Template konfigurasi environment variable
 ├── docs/
-│   ├── PRODUCT_SPEC.md                # PRD lengkap: 5 modul, skenario demo hackathon, akun, UU PDP
+│   ├── PRODUCT_SPEC.md                # PRD lengkap: 4 modul utama, skenario demo hackathon, akun, UU PDP
 │   ├── TECH_AND_DATABASE.md           # Tech stack, DDL SQL Supabase (7 kelompok tabel), RLS & Gemini RAG
 │   └── TEAM_ASSESSMENT_GUIDE.md       # Panduan review & checklist assessment per anggota tim
 ├── assets/
@@ -76,7 +76,7 @@ hybrid-campus-platform/
 
 | Kebutuhan | Dokumen Acuan | Keterangan |
 | :--- | :--- | :--- |
-| **Biar Produk Gak Goyah** | [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) | Batasan scope, 4 modul, alur onboarding, UU PDP, dan skenario demo. |
+| **Biar Produk Gak Goyah** | [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) | Batasan scope, 4 modul utama, alur onboarding, UU PDP, dan skenario demo. |
 | **Biar Kode & Data Gak Goyah** | [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md) | DDL SQL Supabase lengkap, RPC pgvector, prompt Gemini, struktur `src/`. |
 | **Review Tim Sebelum Coding** | [`docs/TEAM_ASSESSMENT_GUIDE.md`](docs/TEAM_ASSESSMENT_GUIDE.md) | Checklist pengecekan spesifik untuk Rifal, Kalya, Erick, dan Netta. |
 | **Instruksi Coding Agent** | [`AGENTS.md`](AGENTS.md) | Master prompt hemat token untuk coding assistant. |

@@ -57,9 +57,9 @@ Pengalaman mahasiswa tidak berhenti sebagai cerita atau komentar obrolan yang ce
 
 ---
 
-## 4. Arsitektur 5 Area Utama Aplikasi
+## 4. Arsitektur 4 Area Utama Aplikasi
 
-Aplikasi dirancang sebagai *responsive web app* dengan **5 modul utama**:
+Aplikasi dirancang sebagai *responsive web app* dengan **4 modul utama** (Home & My Journey, Community, Knowledge Hub, dan AI Navigator):
 
 ```mermaid
 flowchart TD

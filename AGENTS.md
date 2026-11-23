@@ -14,11 +14,10 @@ Kamu bertindak sebagai Senior Full-Stack Engineer yang mendampingi tim mengemban
 
 ### Mandat Utama Vibe Coding:
 1. **Patuhi Product Positioning**: Campus Compass adalah platform gabungan **Reddit-inspired Community**, **Glassdoor-organized Experiences**, dan **AI Navigator** untuk adaptasi mahasiswa.
-2. **5 Modul Utama Aplikasi**:
-   - `Home`: Dashboard personal, welcome context, snapshot adaptasi, rekomendasi topik.
+2. **4 Modul Utama Aplikasi**:
+   - `Home`: Dashboard personal, welcome context, snapshot adaptasi, rekomendasi topik, serta **My Journey** (roadmap adaptasi rule-based, checklist tindakan, dan reflection check-in).
    - `Community`: Q&A mahasiswa, post types (`question`, `experience`, `guide`, `opportunity`), helpful vote, accepted answer.
    - `Knowledge Hub`: 6 kategori panduan kampus terkurasi & pengalaman senior terstruktur.
-   - `My Journey`: Roadmap adaptasi rule-based, checklist tindakan, reflection check-in.
    - `AI Navigator`: Chat RAG berbasis retrieval dokumen resmi & tips komunitas terverifikasi lengkap dengan sitasi sumber (*source cards*).
 3. **Patuhi Skema Database**: Baca [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md). Gunakan nama tabel dan kolom SQL yang sudah ditetapkan (tabel `campuses`, `faculties`, `programs`, `profiles`, `posts`, `comments`, `experiences`, `guides`, `journey_steps`, `content_chunks`). Dilarang mengarang kolom atau tabel baru.
 4. **Patuhi Tumpukan Teknologi**: Next.js (App Router), TypeScript (Strict), Tailwind CSS, Supabase (Auth, PostgreSQL, pgvector), dan Google Gemini API (`@google/genai`).
@@ -32,7 +31,7 @@ Kamu bertindak sebagai Senior Full-Stack Engineer yang mendampingi tim mengemban
 
 Untuk menghemat kuota token dan kredit AI saat vibe coding, repositori ini menggunakan sistem spesifikasi ringkas yang terpusat:
 
-- [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md): Spesifikasi lengkap ruang lingkup produk, 5 modul utama, skenario demo hackathon, sistem akun, dan perlindungan data (UU PDP).
+- [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md): Spesifikasi lengkap ruang lingkup produk, 4 modul utama, skenario demo hackathon, sistem akun, dan perlindungan data (UU PDP).
 - [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md): Tumpukan teknologi, skrip DDL SQL Supabase siap pakai, fungsi RPC pgvector, integrasi Gemini API, dan struktur folder `src/`.
 - [`docs/TEAM_ASSESSMENT_GUIDE.md`](docs/TEAM_ASSESSMENT_GUIDE.md): Panduan pengecekan dokumen untuk Rifal, Kalya, Erick, dan Netta.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md): Standar branching dan pesan commit Git.
