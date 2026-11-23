@@ -22,17 +22,16 @@ Platform ini dibangun di atas 3 pilar utama:
 
 ---
 
-## 2. 5 Area Utama Aplikasi
+## 2. 4 Area Utama Aplikasi
 
 Aplikasi dirancang sebagai *responsive web app* dengan 5 modul inti:
 
 | Area Utama | Peran & Fungsi | Pertanyaan yang Dijawab |
 | :--- | :--- | :--- |
-| **1. Home** | Dashboard personal, snapshot adaptasi, rekomendasi topik, quick actions. | *Apa yang relevan untuk saya sekarang?* |
+| **1. Home & my journey** | Dashboard personal, snapshot adaptasi, rekomendasi topik, quick actions, Peta langkah adaptasi, rekomendasi tindakan, checklist, dan refleksi progres. | *Apa yang relevan untuk saya sekarang?* *Apa langkah berikutnya yang bisa saya lakukan?* |
 | **2. Community** | Feed diskusi, pertanyaan, jawaban, voting helpful, accepted answer, bookmark. | *Siapa yang bisa membantu dan apa pengalaman orang lain?* |
 | **3. Knowledge Hub** | 6 Kategori panduan kampus terkurasi & pengalaman senior berformat. | *Di mana informasi yang dapat saya gunakan kembali?* |
-| **4. My Journey** | Peta langkah adaptasi, rekomendasi tindakan, checklist, dan refleksi progres. | *Apa langkah berikutnya yang bisa saya lakukan?* |
-| **5. AI Navigator** | Chatbot RAG berbasis retrieval dokumen resmi dan konten komunitas yang diizinkan. | *Apa jawaban yang relevan dan dari mana sumbernya?* |
+| **4. AI Navigator** | Chatbot RAG berbasis retrieval dokumen resmi dan konten komunitas yang diizinkan. | *Apa jawaban yang relevan dan dari mana sumbernya?* |
 
 ---
 
@@ -77,7 +76,7 @@ hybrid-campus-platform/
 
 | Kebutuhan | Dokumen Acuan | Keterangan |
 | :--- | :--- | :--- |
-| **Biar Produk Gak Goyah** | [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) | Batasan scope, 5 modul, alur onboarding, UU PDP, dan skenario demo. |
+| **Biar Produk Gak Goyah** | [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) | Batasan scope, 4 modul, alur onboarding, UU PDP, dan skenario demo. |
 | **Biar Kode & Data Gak Goyah** | [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md) | DDL SQL Supabase lengkap, RPC pgvector, prompt Gemini, struktur `src/`. |
 | **Review Tim Sebelum Coding** | [`docs/TEAM_ASSESSMENT_GUIDE.md`](docs/TEAM_ASSESSMENT_GUIDE.md) | Checklist pengecekan spesifik untuk Rifal, Kalya, Erick, dan Netta. |
 | **Instruksi Coding Agent** | [`AGENTS.md`](AGENTS.md) | Master prompt hemat token untuk coding assistant. |
