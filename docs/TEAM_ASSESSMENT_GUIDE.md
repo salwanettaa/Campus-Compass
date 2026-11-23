@@ -2,45 +2,48 @@
 
 > **Dokumen**: `docs/TEAM_ASSESSMENT_GUIDE.md`  
 > **Target Review**: Selesai sebelum Senin, 23 November 2026  
-> **Tujuan**: Memastikan seluruh anggota tim memeriksa dan menyetujui dokumen spesifikasi sebelum tahap coding dimulai.
+> **Tujuan**: Memastikan seluruh anggota tim memeriksa dan menyetujui dokumen spesifikasi produk ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md)) dan teknis ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md)) sesuai dengan Blueprint resmi.
 
 ---
 
-## 1. Panduan Assessment untuk Rifal (Product & UI/UX)
+## 1. Panduan Assessment untuk Rifal (Product & UI/UX Direction)
 
-- [ ] **Review Product Scope ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
-  - Apakah batasan fitur MVP (Chat RAG, Rekomendasi Milestone, Tips Mahasiswa) sudah sesuai dengan visi produk?
-  - Apakah model akun (utilitas akademik, bookmark, tips anonim, tanpa full sosmed) sudah tepat?
-- [ ] **Persiapan Visual & Moodboard**:
-  - Apakah palet warna utama, font, dan moodboard visual sudah siap diunggah ke `assets/moodboard/`?
-  - Apakah konsep cerita / video produk sudah siap disusun untuk bahan presentasi?
+- [ ] **Review Product Positioning & 5 Modul Utama ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
+  - Apakah konsep *Reddit-inspired Community, Glassdoor-organized Experiences, dan AI Navigator* sudah jelas dipahami untuk narasi produk?
+  - Apakah struktur 5 area utama (**Home, Community, Knowledge Hub, My Journey, AI Navigator**) sudah sesuai untuk desain antarmuka?
+- [ ] **Persiapan Skenario Demo Hackathon**:
+  - Pelajari 6 adegan demo di Bab 6 [`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md) (Onboarding $\rightarrow$ Home $\rightarrow$ Community $\rightarrow$ Knowledge Hub $\rightarrow$ AI Navigator $\rightarrow$ My Journey). Apakah alur ini sudah siap dijadikan storyboard video produk / pitch deck?
+- [ ] **Visual Theme & Moodboard**:
+  - Siapkan palet warna, tipografi, dan referensi komponen di `assets/moodboard/` dan `assets/references/`.
 
 ---
 
 ## 2. Panduan Assessment untuk Kalya (Frontend & User Experience)
 
-- [ ] **Review Sitemap & User Flow ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
-  - Apakah alur login $\rightarrow$ onboarding kampus/prodi/semester $\rightarrow$ dashboard sudah jelas dan bebas hambatan (*frictionless*)?
-  - Apakah tata letak navigasi (Dashboard, Chat AI, Tips Mahasiswa) sudah ergonomis untuk desktop dan mobile?
-- [ ] **Review Struktur Routing Frontend ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md))**:
-  - Apakah pembagian folder Next.js App Router (`(auth)`, `(dashboard)`, `components/ui/`, `components/chat/`) sudah siap digunakan saat vibe coding?
+- [ ] **Review Alur Onboarding & Personalisasi ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
+  - Apakah form pemilihan kampus, fakultas, prodi, semester, dan **pilihan tantangan utama adaptasi** sudah dirancang alurnya agar *frictionless*?
+- [ ] **Review Navigasi 5 Modul ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
+  - Pastikan tata letak navigasi responsif: sidebar untuk desktop dan bottom navigation bar untuk mobile browser.
+- [ ] **Review Struktur Folder Next.js ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md))**:
+  - Apakah pembagian folder route `src/app/(dashboard)/home`, `community`, `knowledge`, `journey`, dan `ai-navigator` sudah siap dieksekusi saat vibe coding?
 
 ---
 
-## 3. Panduan Assessment untuk Erick (Tech Lead & AI Development)
+## 3. Panduan Assessment untuk Erick (Technical Setup & AI Navigator)
 
-- [ ] **Review Tech Stack & Setup Environment ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md))**:
-  - Apakah tumpukan Next.js + Tailwind + Supabase + Google GenAI SDK sudah teruji dan siap diinstal?
-  - Apakah API key Gemini di `.env.local` sudah memiliki kuota memadai untuk model `gemini-1.5-flash` dan `text-embedding-004`?
 - [ ] **Review Pipeline RAG & Sitasi ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md))**:
-  - Apakah ambang batas kemiripan kosinus ($0.65$) dan fungsi RPC `match_knowledge_chunks` sudah siap dipanggil dari Next.js route handler?
+  - Apakah integrasi model `text-embedding-004` (768 dimensi) dan model chat `gemini-1.5-flash` via `@google/genai` sudah siap diinstal?
+  - Apakah fungsi RPC `match_campus_chunks` dengan threshold $0.65$ sudah dipahami untuk dipanggil dari Next.js route handler?
+- [ ] **Review Penanganan Insufficient Evidence**:
+  - Pastikan AI tidak berhalusinasi jika data resmi belum tersedia, dan mengarahkan mahasiswa ke forum Community atau kontak resmi prodi.
 
 ---
 
 ## 4. Panduan Assessment untuk Netta (Backend, Database & AI Architecture)
 
-- [ ] **Review Skema Database PostgreSQL ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md))**:
-  - Apakah DDL tabel `universities`, `study_programs`, `profiles`, `knowledge_chunks` (dimensi 768), dan `student_tips` sudah siap dieksekusi di SQL Editor Supabase?
+- [ ] **Review Skema Database Supabase ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md))**:
+  - Periksa skrip DDL SQL untuk 7 kelompok tabel: *Campuses, Profiles, Posts, Comments, Experiences, Guides, Journey Steps, dan Content Chunks*.
+  - Apakah skrip siap dicopy-paste dan dijalankan di Supabase SQL Editor?
 - [ ] **Review Row Level Security (RLS) & UU PDP ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
-  - Apakah aturan RLS menjamin mahasiswa dari kampus/prodi lain tidak bisa mengakses dokumen internal prodi pilot?
-  - Apakah data identitas mahasiswa (PII) sudah terlindungi sesuai standar UU Perlindungan Data Pribadi?
+  - Pastikan kueri dan policy RLS mengunci akses data per `campus_id` sehingga tidak ada kebocoran data antar-kampus (*multi-tenant isolation*).
+  - Pastikan tidak ada pengumpulan data sensitif (NIM, nomor telepon) tanpa dasar yang jelas sesuai UU No. 27 Tahun 2022.

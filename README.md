@@ -1,45 +1,49 @@
-# Campus Compass — Hybrid Campus Student Platform
+# Campus Compass — Student Adaptation & Community Knowledge Platform
 
-> **Status**: Documentation & Architecture Approved (Ready for Vibe Coding)  
+> **Status**: Documentation & Architecture Approved (Aligned with Feature Blueprint v1.0)  
 > **Repository**: `hybrid-campus-platform`  
+> **Blueprint Acuan**: `Campus_Compass_Feature_Blueprint.pdf`  
 > **Deadline Vibe Coding MVP**: Senin, 23 November 2026  
 > **Deadline Testing & QA**: Sabtu, 28 November 2026  
 > **Kanban Jira**: [campuscompassstack2026.atlassian.net](https://campuscompassstack2026.atlassian.net/jira/software/projects/KAN/boards/1)
 
 ---
 
-## 1. Executive Summary
+## 1. Executive Summary & Product Positioning
 
-**Campus Compass** adalah platform navigasi dan asisten mahasiswa cerdas berbasis web yang memadukan pengetahuan umum kehidupan perkuliahan dengan regulasi akademik spesifik universitas dan program studi.
+**Campus Compass** adalah platform adaptasi mahasiswa yang mengumpulkan pengalaman antarmahasiswa, diskusi komunitas, dan informasi resmi kampus ke dalam satu ekosistem terpadu.
 
-Platform ini menggunakan **model pengetahuan hybrid (Dual-Layer Knowledge)**:
-1. **General Domain Knowledge**: Strategi belajar, penulisan akademik, kesehatan mental, dan persiapan karir universal.
-2. **Campus- & Program-Scoped Knowledge**: Prasyarat matakuliah, regulasi akademik, prosedur lab, dan tips praktis yang dikurasi dari survei mahasiswa program studi pilot.
+> *"Reddit-inspired community, Glassdoor-organized experiences, and AI-powered guidance — designed to help students navigate academic, social, and campus life."*
+
+Platform ini dibangun di atas 3 pilar utama:
+1. **Community**: Ruang interaksi mahasiswa untuk saling bertanya, berdiskusi, berbagi pengalaman, dan saling membantu (*Reddit-inspired*).
+2. **Knowledge**: Pengorganisasian pengalaman senior berformat dan informasi resmi kampus ke dalam panduan yang terkurasi (*Glassdoor-organized*).
+3. **Intelligence**: Pencarian sumber relevan dan pengubahan informasi menjadi panduan tindakan adaptasi yang nyata (*AI-powered with RAG*).
 
 ---
 
-## 2. Ruang Lingkup MVP (Strict Pilot Scope)
+## 2. 5 Area Utama Aplikasi
 
-- **1 Pilot University**: Uji coba terarah pada 1 universitas.
-- **1 Study Program**: Uji coba terarah pada 1 program studi.
-- **Web-Based**: Responsif di desktop dan mobile web.
-- **Fitur Utama**:
-  - Autentikasi mahasiswa dengan penguncian konteks prodi & semester.
-  - Asisten AI berbasis RAG dengan sitasi sumber dokumen rujukan resmi.
-  - Kartu rekomendasi milestone akademik semester (rule-based).
-  - Repositori tips kehidupan kampus hasil survei Google Form mahasiswa.
-  - Personal workspace (riwayat chat, bookmark, checklist progress, upvote tips, kontribusi tips anonim).
+Aplikasi dirancang sebagai *responsive web app* dengan 5 modul inti:
+
+| Area Utama | Peran & Fungsi | Pertanyaan yang Dijawab |
+| :--- | :--- | :--- |
+| **1. Home** | Dashboard personal, snapshot adaptasi, rekomendasi topik, quick actions. | *Apa yang relevan untuk saya sekarang?* |
+| **2. Community** | Feed diskusi, pertanyaan, jawaban, voting helpful, accepted answer, bookmark. | *Siapa yang bisa membantu dan apa pengalaman orang lain?* |
+| **3. Knowledge Hub** | 6 Kategori panduan kampus terkurasi & pengalaman senior berformat. | *Di mana informasi yang dapat saya gunakan kembali?* |
+| **4. My Journey** | Peta langkah adaptasi, rekomendasi tindakan, checklist, dan refleksi progres. | *Apa langkah berikutnya yang bisa saya lakukan?* |
+| **5. AI Navigator** | Chatbot RAG berbasis retrieval dokumen resmi dan konten komunitas yang diizinkan. | *Apa jawaban yang relevan dan dari mana sumbernya?* |
 
 ---
 
 ## 3. Pembagian Peran Tim
 
-| Anggota Tim | Peran | Fokus Utama |
+| Anggota Tim | Peran | Fokus Tanggung Jawab Utama |
 | :--- | :--- | :--- |
-| **Rifal** | Product & UI/UX Direction | Visi produk, storytelling video, visual style, moodboard & panduan UI/UX. |
-| **Kalya** | Frontend & User Experience | Sitemap, alur pengguna (user flow), dan implementasi antarmuka Next.js. |
-| **Erick** | Technical Setup & AI Dev | Konfirmasi tech stack, pipeline RAG, integrasi Google Gemini API. |
-| **Netta** | Backend, Database & AI Architecture | Skema database PostgreSQL, pgvector, Supabase RLS, API contract & rule engine. |
+| **Rifal** | Product & UI/UX Direction | Visi produk, visual style, moodboard, panduan UI/UX, dan storytelling demo hackathon. |
+| **Kalya** | Frontend & User Experience | Alur onboarding tantangan, navigasi responsif 5 modul, dan implementasi antarmuka Next.js. |
+| **Erick** | Technical Setup & AI Dev | Konfirmasi tech stack, pipeline RAG, integrasi Google Gemini API, dan grounding anti-halusinasi. |
+| **Netta** | Backend, Database & AI Architecture | Skema database PostgreSQL Supabase (7 kelompok tabel), pgvector, RLS, dan kepatuhan UU PDP. |
 
 ---
 
@@ -47,13 +51,14 @@ Platform ini menggunakan **model pengetahuan hybrid (Dual-Layer Knowledge)**:
 
 ```
 hybrid-campus-platform/
+├── Campus_Compass_Feature_Blueprint.pdf # Dokumen acuan fitur & konsep hackathon resmi
 ├── AGENTS.md                          # Master Prompt & Guardrails untuk AI Coding Agent
 ├── README.md                          # Ringkasan proyek & status kanban
 ├── CONTRIBUTING.md                    # Panduan branching Git & commit convention
 ├── .env.example                       # Template konfigurasi environment variable
 ├── docs/
-│   ├── PRODUCT_SPEC.md                # Spesifikasi lengkap produk, sistem akun, roadmap & data protection
-│   ├── TECH_AND_DATABASE.md           # Tech stack, DDL SQL Supabase, RLS & Gemini RAG specs
+│   ├── PRODUCT_SPEC.md                # PRD lengkap: 5 modul, skenario demo hackathon, akun, UU PDP
+│   ├── TECH_AND_DATABASE.md           # Tech stack, DDL SQL Supabase (7 kelompok tabel), RLS & Gemini RAG
 │   └── TEAM_ASSESSMENT_GUIDE.md       # Panduan review & checklist assessment per anggota tim
 ├── assets/
 │   ├── moodboard/                     # Aset palet warna & visual theme (Rifal)
@@ -68,21 +73,22 @@ hybrid-campus-platform/
 
 ---
 
-## 5. Dokumentasi Inti untuk Vibe Coding
+## 5. Dokumentasi Acuan untuk Vibe Coding
 
 | Kebutuhan | Dokumen Acuan | Keterangan |
 | :--- | :--- | :--- |
-| **Biar Produk Gak Goyah** | [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) | Batasan scope, sistem akun, privasi, dan alur fitur. |
+| **Biar Produk Gak Goyah** | [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) | Batasan scope, 5 modul, alur onboarding, UU PDP, dan skenario demo. |
 | **Biar Kode & Data Gak Goyah** | [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md) | DDL SQL Supabase lengkap, RPC pgvector, prompt Gemini, struktur `src/`. |
 | **Review Tim Sebelum Coding** | [`docs/TEAM_ASSESSMENT_GUIDE.md`](docs/TEAM_ASSESSMENT_GUIDE.md) | Checklist pengecekan spesifik untuk Rifal, Kalya, Erick, dan Netta. |
 | **Instruksi Coding Agent** | [`AGENTS.md`](AGENTS.md) | Master prompt hemat token untuk coding assistant. |
 
 ---
 
-## 6. Timeline & Target Selesai
+## 6. Skenario Demo Hackathon (6 Adegan Utama)
 
-```mermaid
-flowchart LR
-    A["Fase 0: Review Dokumen<br/><b>20 Nov 2026</b>"] --> B["Fase 1: Vibe Coding MVP<br/><b>Deadline: Senin, 23 Nov 2026</b>"]
-    B --> C["Fase 2: Testing & Debugging<br/><b>Deadline: Sabtu, 28 Nov 2026</b>"]
-```
+1. **Onboarding**: Mahasiswa baru memilih kampus, prodi, semester, dan tantangan *Time Management*.
+2. **Home**: Dashboard memprioritaskan panduan dan diskusi yang sesuai konteks secara instan.
+3. **Community**: Pengguna membuat pertanyaan; rekan mahasiswa memberi jawaban; penanya menandai *Helpful*.
+4. **Knowledge Hub**: Pengalaman atau diskusi berkualitas tersedia sebagai panduan terkurasi 6 kategori.
+5. **AI Navigator**: AI menjawab pertanyaan dengan sumber asli dari database (*RAG with source cards*).
+6. **My Journey**: Mahasiswa memperoleh langkah berikutnya dan menandai progres tindakan adaptasi.

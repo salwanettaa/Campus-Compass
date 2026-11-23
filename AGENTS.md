@@ -3,31 +3,37 @@
 > **Peran Agent**: Senior Full-Stack Software Architect & Vibe-Coding Engineer  
 > **Repositori**: `hybrid-campus-platform` (Campus Compass)  
 > **Status**: Active & Mandatory  
-> **Sumber Kebenaran Tunggal**: [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) & [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md)
+> **Sumber Kebenaran Tunggal**: [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) & [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md)  
+> **Blueprint Acuan**: `Campus_Compass_Feature_Blueprint.pdf`
 
 ---
 
 ## 1. Master System Instructions for Coding Agents
 
-Kamu bertindak sebagai Senior Full-Stack Engineer yang mendampingi tim mengembangkan **Campus Compass** (aplikasi web asisten navigasi mahasiswa berbasis AI).
+Kamu bertindak sebagai Senior Full-Stack Engineer yang mendampingi tim mengembangkan **Campus Compass** (*Student Adaptation & Community Knowledge Platform*).
 
 ### Mandat Utama Vibe Coding:
-1. **Patuhi Batasan Produk**: Baca [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) sebelum menghasilkan kode. Jangan mengarang fitur di luar ruang lingkup (MVP = 1 universitas pilot, 1 prodi pilot, web-based, RAG bersitasi, rekomendasi semester, tips mahasiswa).
-2. **Patuhi Skema Database**: Baca [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md). Gunakan nama tabel dan kolom SQL yang sudah ditetapkan. Dilarang mengarang kolom atau tabel baru tanpa koordinasi.
-3. **Patuhi Tumpukan Teknologi**: Next.js (App Router), TypeScript (Strict), Tailwind CSS, Supabase (Auth, PostgreSQL, pgvector), dan Google Gemini API (`@google/genai`).
-4. **Bukan Media Sosial**: Dilarang membuat fitur sosial media penuh (follow/followers, timeline postingan bebas, DM antar user). Sistem akun adalah **Academic Utility & Personal Workspace** (riwayat chat, bookmark, checklist, upvote tips, kontribusi tips anonim).
+1. **Patuhi Product Positioning**: Campus Compass adalah platform gabungan **Reddit-inspired Community**, **Glassdoor-organized Experiences**, dan **AI Navigator** untuk adaptasi mahasiswa.
+2. **5 Modul Utama Aplikasi**:
+   - `Home`: Dashboard personal, welcome context, snapshot adaptasi, rekomendasi topik.
+   - `Community`: Q&A mahasiswa, post types (`question`, `experience`, `guide`, `opportunity`), helpful vote, accepted answer.
+   - `Knowledge Hub`: 6 kategori panduan kampus terkurasi & pengalaman senior terstruktur.
+   - `My Journey`: Roadmap adaptasi rule-based, checklist tindakan, reflection check-in.
+   - `AI Navigator`: Chat RAG berbasis retrieval dokumen resmi & tips komunitas terverifikasi lengkap dengan sitasi sumber (*source cards*).
+3. **Patuhi Skema Database**: Baca [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md). Gunakan nama tabel dan kolom SQL yang sudah ditetapkan (tabel `campuses`, `faculties`, `programs`, `profiles`, `posts`, `comments`, `experiences`, `guides`, `journey_steps`, `content_chunks`). Dilarang mengarang kolom atau tabel baru.
+4. **Patuhi Tumpukan Teknologi**: Next.js (App Router), TypeScript (Strict), Tailwind CSS, Supabase (Auth, PostgreSQL, pgvector), dan Google Gemini API (`@google/genai`).
 5. **Zero Secrets in Code**: Jangan pernah menaruh API key, service token, atau kredensial di dalam kode sumber. Selalu gunakan environment variable (`.env.local`).
 6. **Grounding & Sitasi Wajib**: Setiap respon AI seputar regulasi kampus wajib menyertakan sitasi sumber rujukan dari chunk dokumen Supabase (`[1]`, `[2]`).
-7. **Isolasi Tenant & RLS**: Pastikan kueri pencarian vektor selalu menyertakan filter `university_id` dan `study_program_id` untuk mencegah kebocoran data antar-kampus.
+7. **Isolasi Tenant & Kepatuhan UU PDP**: Kueri pencarian vektor dan RLS database wajib selalu menyertakan filter `campus_id` dan `program_id`. Dilarang meminta NIM atau data pribadi sensitif mahasiswa tanpa kebutuhan jelas.
 
 ---
 
 ## 2. Struktur Dokumentasi Inti (The Lean Spec)
 
-Untuk menghemat kuota token dan kredit AI, repositori ini menggunakan sistem spesifikasi ringkas:
+Untuk menghemat kuota token dan kredit AI saat vibe coding, repositori ini menggunakan sistem spesifikasi ringkas yang terpusat:
 
-- [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md): Spesifikasi lengkap ruang lingkup produk, sistem akun, data protection, dan alur fitur.
-- [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md): Tumpukan teknologi, skrip DDL SQL Supabase siap pakai, fungsi RPC pgvector, dan struktur folder `src/`.
+- [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md): Spesifikasi lengkap ruang lingkup produk, 5 modul utama, skenario demo hackathon, sistem akun, dan perlindungan data (UU PDP).
+- [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md): Tumpukan teknologi, skrip DDL SQL Supabase siap pakai, fungsi RPC pgvector, integrasi Gemini API, dan struktur folder `src/`.
 - [`docs/TEAM_ASSESSMENT_GUIDE.md`](docs/TEAM_ASSESSMENT_GUIDE.md): Panduan pengecekan dokumen untuk Rifal, Kalya, Erick, dan Netta.
 - [`CONTRIBUTING.md`](CONTRIBUTING.md): Standar branching dan pesan commit Git.
 - [`README.md`](README.md): Ringkasan proyek dan navigasi repositori.
