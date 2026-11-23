@@ -63,86 +63,206 @@ Aplikasi dirancang sebagai *responsive web app* dengan **5 modul utama**:
 
 ```mermaid
 flowchart TD
-    User([Mahasiswa]) --> Onboarding[Onboarding: Kampus, Prodi, Semester & Tantangan Utama]
-    Onboarding --> Nav{5 Modul Utama}
+    User([Mahasiswa]) --> Onboarding["Onboarding: Kampus, Prodi, Semester & Tantangan Utama"]
 
-    Nav --> M1["1. HOME (Dashboard)<br/>Konteks personal, snapshot adaptasi, rekomendasi topik, quick actions"]
-    Nav --> M2["2. COMMUNITY (Diskusi Mahasiswa)<br/>Q&A bergaya Reddit, helpful vote, accepted answer, post types"]
-    Nav --> M3["3. KNOWLEDGE HUB (Panduan Terkurasi)<br/>6 kategori panduan kampus, pengalaman senior bergaya Glassdoor"]
-    Nav --> M4["4. MY JOURNEY (Peta Langkah Adaptasi)<br/>Milestone roadmap, checklist tindakan, reflection check-in"]
-    Nav --> M5["5. AI NAVIGATOR (Chat RAG Bersitasi)<br/>Tanya jawab bahasa alami, grounding dokumen resmi & tips komunitas"]
+    Onboarding --> Nav{"4 Main Navigation Areas"}
+
+    Nav --> M1["1. HOME<br/>Personalized Dashboard & My Journey"]
+    Nav --> M2["2. COMMUNITY<br/>Diskusi dan Interaksi Mahasiswa"]
+    Nav --> M3["3. KNOWLEDGE HUB<br/>Panduan Terkurasi & Senior Experiences"]
+    Nav --> M4["4. AI NAVIGATOR<br/>RAG-Based Campus Guidance"]
+
+    subgraph HOME["1. HOME — Personalized Dashboard & My Journey"]
+        H1["Welcome Context"]
+        H2["Adaptation Snapshot"]
+        H3["My Journey: Full Adaptation Roadmap"]
+        H4["Recommended for You"]
+        H5["Trending Discussions & Unanswered Questions"]
+        H6["Quick Actions"]
+    end
+
+    M1 --> HOME
+    H2 --> H3
+    H3 --> H4
+
+    M2 --> C1["Questions, Experiences, Guides & Opportunities"]
+    M3 --> K1["Curated Guides & Structured Senior Experiences"]
+    M4 --> A1["RAG Chat with Source Citations"]
+
+    C1 --> K1
+    K1 --> A1
+    A1 --> H3
+
+    style M1 fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    style M2 fill:#dcfce7,stroke:#16a34a,color:#14532d
+    style M3 fill:#fef3c7,stroke:#d97706,color:#78350f
+    style M4 fill:#ede9fe,stroke:#7c3aed,color:#4c1d95
 ```
 
 ---
 
-### Area 1: Home (Personalized Dashboard)
-Titik masuk harian mahasiswa yang menjawab pertanyaan: *"Apa yang relevan untuk saya sekarang?"*
-- **Welcome Context**: Menampilkan sapaan personal, kampus, prodi, dan semester mahasiswa.
-- **Adaptation Snapshot**: Menampilkan milestone atau checklist *My Journey* yang belum selesai.
-- **Recommended for You**: Rekomendasi panduan dan diskusi berdasarkan kombinasi prodi, semester, dan tantangan yang dipilih saat onboarding.
-- **Trending Discussions & Unanswered Questions**: Menampilkan diskusi yang sedang hangat atau pertanyaan baru yang butuh bantuan jawaban (mengatasi *cold start*).
-- **Quick Actions**: Tombol cepat untuk buat pertanyaan, bagikan pengalaman, atau cari panduan.
+### Area 1: Home (Personalized Dashboard & My Journey)
 
----
+Home merupakan titik masuk utama mahasiswa yang menggabungkan informasi personal, rekomendasi relevan, dan peta perjalanan adaptasi. Halaman ini menjawab pertanyaan: *"Apa yang relevan untuk saya sekarang dan apa yang perlu saya lakukan selanjutnya?"*
+
+#### A. Personalized Dashboard
+
+-   **Welcome Context**: Menampilkan sapaan personal, nama kampus, program studi, dan semester mahasiswa.
+-   **Adaptation Snapshot**: Menampilkan ringkasan progres My Journey, terrmasuk jumlah milestone yang sudah selesai, sedang dikerjakan, dan
+    belum dimulai.
+-   **Recommended for You**: Rekomendasi panduan dan diskusi berdasarkan  kombinasi program studi, semester, dan tantangan yang dipilih saat
+    onboarding.
+-   **Trending Discussions & Unanswered Questions**: Menampilkan diskusi  yang sedang hangat atau pertanyaan baru yang membutuhkan bantuan
+    jawaban untuk mendorong interaksi komunitas.
+-   **Quick Actions**: Tombol akses cepat untuk membuat pertanyaan,  membagikan pengalaman, mencari panduan, atau membuka AI Navigator.
+
+#### B. My Journey --- Personalized Adaptation Journey
+
+My Journey merupakan bagian terintegrasi dari Home yang menerjemahkan kebutuhan mahasiswa menjadi daftar tindakan nyata (*actionable
+roadmap*).
+
+Fitur ini memiliki dua tingkat tampilan:
+
+1.  **Journey Snapshot**: Ringkasan progres adaptasi yang ditampilkan langsung di dashboard Home.
+2.  **Full Journey Roadmap**: Tampilan detail seluruh milestone, eskripsi aktivitas, dan pengelolaan status progres yang dapat diakses dari Home.
+
+**Input Personalisasi:**
+
+-   Semester / Tahun masuk.
+-   Area Adaptasi: Akademik, Sosial, Pribadi/Pengelolaan Diri,
+    Fasilitas, dan Peluang.
+-   Tantangan Utama: Misalnya *Time Management*, Adaptasi Silabus Dosen, dan Mencari Komunitas.
+
+**Contoh Tahap & Milestone:**
+
+-   **Understand Campus**: Mengenali layanan administrasi dan fasilitas
+    utama kampus.
+-   **Understand Academics**: Memahami sistem KRS, LMS kampus, kalender
+    akademik, dan prasyarat mata kuliah.
+-   **Build Study Routine**: Membuat jadwal belajar mandiri dan
+    memetakan tenggat tugas praktikum.
+-   **Find Community**: Menjelajahi UKM, kelompok belajar, dan
+    kesempatan networking.
+-   **Explore Opportunities**: Mengikuti informasi magang, riset dosen,
+    dan beasiswa.
+-   **Reflect and Adjust**: Melakukan evaluasi berkala terhadap hal yang
+    sudah terbantu dan tantangan yang masih dihadapi.
+
+**Status Progres:**
+
+-   `Not Started`
+-   `In Progress`
+-   `Completed`
+-   `Skipped`
+
+Mahasiswa dapat memperbarui status setiap milestone secara mandiri.
+Perubahan progres akan tercermin pada Adaptation Snapshot di dashboard
+Home.
+
+------------------------------------------------------------------------
 
 ### Area 2: Community (Reddit-Inspired Interaction)
-Ruang interaksi antar-mahasiswa untuk saling bertanya dan membantu:
-- **Jenis Postingan**:
-  - `Question`: Pertanyaan yang membutuhkan jawaban/saran (misal: tips membagi waktu saat praktikum).
-  - `Experience`: Mahasiswa berbagi pengalaman personal (misal: pengalaman ikut organisasi di tahun pertama).
-  - `Guide`: Panduan langkah demi langkah yang dibuat mahasiswa.
-  - `Opportunity`: Informasi lomba, beasiswa, kepanitiaan, atau lowongan magang.
-- **Mekanisme Interaksi Kunci**:
-  - **Helpful Vote**: Penandaan postingan/jawaban yang bermanfaat (MVP tidak memerlukan downvote).
-  - **Accepted Answer**: Penanya dapat menandai 1 jawaban yang paling menyelesaikan masalahnya.
-  - **Bookmark & Report**: Menyimpan diskusi penting dan melaporkan spam/konten bermasalah.
-  - **Filter Cepat**: Berdasarkan topik, prodi, semester, dan status jawaban (terjawab / belum).
 
----
+Ruang interaksi antar-mahasiswa untuk saling bertanya dan membantu.
+
+#### Jenis Postingan
+
+-   `Question`: Pertanyaan yang membutuhkan jawaban atau saran.
+-   `Experience`: Mahasiswa berbagi pengalaman personal.
+-   `Guide`: Panduan langkah demi langkah yang dibuat mahasiswa.
+-   `Opportunity`: Informasi lomba, beasiswa, kepanitiaan, atau lowongan
+    magang.
+
+#### Mekanisme Interaksi Kunci
+
+-   **Helpful Vote**: Penandaan postingan atau jawaban yang bermanfaat.
+    MVP tidak memerlukan downvote.
+-   **Accepted Answer**: Penanya dapat menandai satu jawaban yang paling
+    menyelesaikan masalahnya.
+-   **Bookmark & Report**: Menyimpan diskusi penting dan melaporkan spam
+    atau konten bermasalah.
+-   **Filter Cepat**: Berdasarkan topik, program studi, semester, dan
+    status jawaban (terjawab / belum terjawab).
+
+------------------------------------------------------------------------
 
 ### Area 3: Knowledge Hub & Senior Experiences (Glassdoor-Organized)
-Menyimpan panduan terkurasi dan pengalaman terstruktur yang tahan lama:
-- **Format Pengalaman Terstruktur (Senior Experience Database)**:
-  - Form kontribusi praktis mencakup: *Situasi*, *Tantangan yang Dihadapi*, *Solusi yang Dicoba*, *Hasil*, dan *Saran untuk Junior*.
-  - Label verifikasi kontributor (*Verified Contributor*).
-- **6 Kategori Panduan Knowledge Hub**:
-  1. **Academic Survival**: Metode belajar, strategi tugas, praktikum, ujian, dan sistem perkuliahan.
-  2. **Social & Community**: Organisasi, UKM, komunitas pertemanan, dan kegiatan mahasiswa.
-  3. **Administrative Guide**: Pengisian KRS, layanan akademik fakultas, kontak birokrasi, dan kalender penting.
-  4. **Campus Essentials**: Fasilitas penting, perpustakaan, transportasi kampus, kantin, dan ruang belajar.
-  5. **Scholarship & Growth**: Info beasiswa, kompetisi, volunteer, dan pengembangan diri.
-  6. **Career Preparation**: CV, portofolio, persiapan magang (KP), dan seleksi kerja.
 
----
+Menyimpan panduan terkurasi dan pengalaman terstruktur yang dapat
+digunakan kembali sebagai referensi jangka panjang.
 
-### Area 4: My Journey (Personalized Adaptation Journey)
-Menerjemahkan kebutuhan mahasiswa menjadi daftar tindakan nyata (*actionable roadmap*):
-- **Input Personalisasi**:
-  - Semester / Tahun masuk.
-  - Area Adaptasi (Akademik, Sosial, Pribadi/Pengelolaan Diri, Fasilitas, Peluang).
-  - Tantangan Utama (misal: *Time Management*, Adaptasi Silabus Dosen, Mencari Komunitas).
-- **Contoh Tahap & Milestone**:
-  - *Understand Campus*: Mengenali layanan administrasi dan fasilitas utama.
-  - *Understand Academics*: Memahami sistem KRS, LMS kampus, kalender, dan prasyarat matakuliah.
-  - *Build Study Routine*: Membuat jadwal belajar mandiri dan memetakan tenggat tugas praktikum.
-  - *Find Community*: Menjelajahi UKM/kelompok belajar dan networking.
-  - *Explore Opportunities*: Mengikuti info magang, riset dosen, dan beasiswa.
-  - *Reflect and Adjust*: Evaluasi berkala atas apa yang sudah terbantu dan hal yang masih sulit.
-- **Status Progres**: *Not Started*, *In Progress*, *Completed*, *Skipped*.
+#### A. Structured Senior Experiences
 
----
+Pengalaman mahasiswa disimpan dalam format terstruktur agar lebih mudah
+dicari, dipahami, dan diterapkan oleh mahasiswa lain.
 
-### Area 5: AI Campus Navigator (Retrieval-Augmented Guidance)
-Asisten cerdas berbasis RAG yang menjawab pertanyaan mahasiswa dengan bahasa sehari-hari:
-- **Prinsip AI**: AI bukan chatbot umum dan **dilarang keras mengarang kebijakan kampus**.
-- **Sumber Data yang Boleh Digunakan AI**:
-  1. *Official Campus Sources*: Prosedur resmi, kalender, dokumen kurikulum prodi.
-  2. *Curated Guides*: Panduan terkurasi dari Knowledge Hub.
-  3. *Verified Community Experiences*: Pengalaman senior dan jawaban komunitas yang diizinkan untuk retrieval.
-- **Source Cards & Citations**: Setiap jawaban wajib menampilkan pil sumber rujukan lengkap dengan judul dokumen dan tautannya.
-- **Insufficient Evidence Handling**: Jika bukti dalam basis data tidak memadai, AI secara jujur menyatakan ketidaktahuannya dan mengarahkan pengguna membuat pertanyaan di forum Community atau menghubungi kontak resmi kampus.
+Format kontribusi mencakup:
 
----
+-   **Situation**: Situasi atau konteks pengalaman.
+-   **Challenge**: Tantangan yang dihadapi.
+-   **Solution**: Solusi atau pendekatan yang dicoba.
+-   **Result**: Hasil dari solusi yang dilakukan.
+-   **Advice for Juniors**: Saran praktis untuk mahasiswa yang
+    menghadapi situasi serupa.
+
+Kontributor dapat memiliki label verifikasi (*Verified Contributor*)
+untuk membantu pengguna mengenali pengalaman dari kontributor yang telah
+diverifikasi.
+
+#### B. Six Knowledge Hub Categories
+
+1.  **Academic Survival**: Metode belajar, strategi tugas, praktikum,
+    ujian, dan sistem perkuliahan.
+2.  **Social & Community**: Organisasi, UKM, komunitas pertemanan, dan
+    kegiatan mahasiswa.
+3.  **Administrative Guide**: Pengisian KRS, layanan akademik fakultas,
+    kontak birokrasi, dan kalender penting.
+4.  **Campus Essentials**: Fasilitas penting, perpustakaan, transportasi
+    kampus, kantin, dan ruang belajar.
+5.  **Scholarship & Growth**: Informasi beasiswa, kompetisi, volunteer,
+    dan pengembangan diri.
+6.  **Career Preparation**: CV, portofolio, persiapan magang (KP), dan
+    seleksi kerja.
+
+------------------------------------------------------------------------
+
+### Area 4: AI Campus Navigator (Retrieval-Augmented Guidance)
+
+Asisten cerdas berbasis RAG yang menjawab pertanyaan mahasiswa
+menggunakan bahasa sehari-hari dengan mengacu pada sumber informasi yang
+tersedia dan relevan.
+
+#### A. AI Principles
+
+AI Navigator bukan chatbot umum. Sistem tidak diperbolehkan mengarang
+kebijakan, prosedur, atau informasi spesifik kampus yang tidak memiliki
+bukti pendukung.
+
+#### B. Permitted Knowledge Sources
+
+1.  **Official Campus Sources**: Prosedur resmi, kalender akademik, dan
+    dokumen kurikulum program studi.
+2.  **Curated Guides**: Panduan terkurasi dari Knowledge Hub.
+3.  **Verified Community Experiences**: Pengalaman senior dan jawaban
+    komunitas yang telah memenuhi kriteria untuk digunakan sebagai
+    sumber retrieval.
+
+#### C. Source Cards & Citations
+
+Setiap jawaban wajib menampilkan kartu sumber rujukan (*source cards*)
+yang berisi judul dokumen atau konten, tautan sumber, dan informasi
+pendukung yang relevan.
+
+#### D. Insufficient Evidence Handling
+
+Jika bukti dalam basis data tidak memadai, AI harus menyatakan bahwa
+informasi belum tersedia atau belum dapat dipastikan.
+
+Selanjutnya, AI dapat mengarahkan pengguna untuk:
+
+-   Membuat pertanyaan di forum Community.
+-   Membaca panduan terkait di Knowledge Hub.
+-   Menghubungi kontak resmi kampus yang relevan.
 
 ## 5. Batasan Ruang Lingkup MVP (P0 vs P1 vs P2)
 
