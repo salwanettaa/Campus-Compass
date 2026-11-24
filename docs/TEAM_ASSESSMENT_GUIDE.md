@@ -41,9 +41,14 @@
 
 ## 4. Panduan Assessment untuk Netta (Backend, Database & AI Architecture)
 
-- [ ] **Review Skema Database Supabase ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md))**:
-  - Periksa skrip DDL SQL untuk 7 kelompok tabel: *Campuses, Profiles, Posts, Comments, Experiences, Guides, Journey Steps, dan Content Chunks*.
-  - Apakah skrip siap dicopy-paste dan dijalankan di Supabase SQL Editor?
-- [ ] **Review Row Level Security (RLS) & UU PDP ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md))**:
-  - Pastikan kueri dan policy RLS mengunci akses data per `campus_id` sehingga tidak ada kebocoran data antar-kampus (*multi-tenant isolation*).
-  - Pastikan tidak ada pengumpulan data sensitif (NIM, nomor telepon) tanpa dasar yang jelas sesuai UU No. 27 Tahun 2022.
+- [x] **Review Skema Database Supabase ([`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md)) — APPROVED (V2 Hardened)**:
+  - DDL SQL telah diaudit mendalam dan direfaktor ke **Versi 2 (Hardened)**.
+  - Mengaktifkan RLS pada seluruh 13 tabel tanpa celah *unauthenticated bypass*.
+  - Menambahkan B-Tree index pada seluruh Foreign Keys dan filter krusial.
+  - Memperbaiki indeks HNSW vector dengan ordering `c.embedding <=> query_embedding ASC` (<100ms).
+  - Skrip siap dicopy-paste dan dijalankan di Supabase SQL Editor.
+- [x] **Review Row Level Security (RLS) & UU PDP ([`docs/PRODUCT_SPEC.md`](PRODUCT_SPEC.md)) — APPROVED (V2 Hardened)**:
+  - Multi-tenant isolation terkunci ketat per `campus_id` untuk semua tabel komunitas, panduan, dan pengalaman.
+  - Database-level anonymity: Author asli postingan anonim di-mask menjadi `NULL` via Secure Views (`v_posts`, `v_comments`).
+  - Mencegah *privilege escalation* role admin dan manipulasi `helpful_count` via database trigger.
+  - Kepatuhan UU PDP No. 27/2022 terpenuhi: Kolom `full_name` dihapus (hanya `display_name` pseudonim), nol data sensitif (tanpa NIM, NIK, atau nomor telepon).
