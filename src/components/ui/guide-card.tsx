@@ -1,0 +1,65 @@
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Compass } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+export type GuideCardProps = {
+  title: string;
+  href: string;
+  /** Optional cover image. A branded placeholder is shown when omitted. */
+  imageSrc?: string;
+  imageAlt?: string;
+  /** "tinted" = light-blue card, "plain" = white card (both from the reference). */
+  variant?: "tinted" | "plain";
+  actionLabel?: string;
+  className?: string;
+};
+
+export function GuideCard({
+  title,
+  href,
+  imageSrc,
+  imageAlt = "",
+  variant = "plain",
+  actionLabel = "Explore",
+  className,
+}: GuideCardProps) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "group flex flex-col gap-3 rounded-3xl p-3 shadow-card",
+        "transition-[transform,box-shadow] duration-200 hover:-translate-y-1",
+        variant === "tinted" ? "bg-brand-300" : "bg-white",
+        className,
+      )}
+    >
+      <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-linear-to-br from-brand-900 via-brand-800 to-brand-600">
+        {imageSrc ? (
+          <Image
+            src={imageSrc}
+            alt={imageAlt}
+            fill
+            sizes="(min-width: 1024px) 320px, 100vw"
+            className="object-cover"
+          />
+        ) : (
+          <Compass
+            className="absolute inset-0 m-auto size-12 text-brand-100/80"
+            aria-hidden="true"
+          />
+        )}
+      </div>
+      <div className="flex flex-col gap-1 px-1 pb-1">
+        <h3 className="text-h5 text-brand-950">{title}</h3>
+        <span className="inline-flex items-center gap-1 text-h5 text-brand-800">
+          {actionLabel}
+          <ArrowRight
+            className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </span>
+      </div>
+    </Link>
+  );
+}

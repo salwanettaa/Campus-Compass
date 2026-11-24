@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   Campus Compass design tokens
+   Source of truth: design reference (ref.pdf) - Poppins + 7-step blue palette.
+   ============================================================================= */
+
+@theme {
+  /* Color palette (exact hex values from the reference) */
+  --color-brand-950: #04202e;
+  --color-brand-900: #0a3c55;
+  --color-brand-800: #0f5d83;
+  --color-brand-600: #1786b4;
+  --color-brand-400: #4fb2db;
+  --color-brand-300: #98d4ee;
+  --color-brand-100: #e1f2fa;
+
+  /* Elevation */
+  --shadow-card: 0 10px 28px -12px rgb(4 32 46 / 0.28);
+  --shadow-nav: 0 12px 32px -16px rgb(4 32 46 / 0.45);
+}
+
+@theme inline {
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* -----------------------------------------------------------------------------
+   Typography scale (size / line-height / weight from the reference)
+   H1 Bold 32/40 - H2 SemiBold 26/34 - H3 SemiBold 20/28
+   H4 Medium 16/24 - H5 Medium 14/20 - Body Regular 14/22 - Caption Regular 12/18
+   ----------------------------------------------------------------------------- */
+@utility text-h1 {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+}
+@utility text-h2 {
+  font-size: 1.625rem;
+  line-height: 2.125rem;
+  font-weight: 600;
+}
+@utility text-h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+}
+@utility text-h4 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+@utility text-h5 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+@utility text-body {
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  font-weight: 400;
+}
+@utility text-caption {
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  font-weight: 400;
+}
+
+/* -----------------------------------------------------------------------------
+   Base
+   ----------------------------------------------------------------------------- */
+html {
+  color-scheme: light;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  color: var(--color-brand-950);
+  background: linear-gradient(
+      160deg,
+      var(--color-brand-100) 0%,
+      #f3f9fc 45%,
+      #ffffff 100%
+    )
+    fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-600);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
