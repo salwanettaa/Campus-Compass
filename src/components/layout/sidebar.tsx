@@ -15,7 +15,8 @@ export type SidebarUser = {
 export type SidebarProps = {
   variant?: "light" | "dark";
   user: SidebarUser;
-  onLogout?: () => void;
+  /** Can be a Server Action (returns a promise). */
+  onLogout?: () => void | Promise<void>;
   className?: string;
 };
 
@@ -98,7 +99,7 @@ export function Sidebar({
         <div className="flex items-center gap-3 px-3 py-2">
           <span
             aria-hidden="true"
-            className="flex size-10 items-center justify-center rounded-full bg-brand-600 text-h5 text-white"
+            className="flex size-10 items-center justify-center rounded-full bg-brand-700 text-h5 text-white"
           >
             {initials(user.displayName)}
           </span>

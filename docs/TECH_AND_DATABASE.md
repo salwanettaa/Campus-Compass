@@ -141,6 +141,38 @@ CREATE TABLE public.votes (
     )
 );
 
+-- guides dibuat SEBELUM bookmarks, karena bookmarks mereferensi public.guides.
+-- =============================================================================
+-- 5. KELOMPOK KNOWLEDGE HUB (PANDUAN TERKURASI 6 KATEGORI)
+-- =============================================================================
+CREATE TABLE public.guides (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    campus_id UUID REFERENCES public.campuses(id) ON DELETE CASCADE,
+    program_id UUID REFERENCES public.programs(id) ON DELETE CASCADE,
+    title VARCHAR(500) NOT NULL,
+    category VARCHAR(100) NOT NULL CHECK (category IN (
+        'academic_survival',
+        'social_community',
+        'administrative_guide',
+        'campus_essentials',
+        'scholarship_growth',
+        'career_preparation'
+    )),
+    is_general BOOLEAN NOT NULL DEFAULT false,
+    content_raw TEXT NOT NULL,
+    source_type VARCHAR(100) NOT NULL DEFAULT 'official_campus_source',
+    source_reference VARCHAR(500),
+    source_url VARCHAR(500),
+    last_verified_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
+    is_published BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
+    CONSTRAINT chk_guide_scope CHECK (
+        (is_general = true AND campus_id IS NULL) OR
+        (is_general = false AND campus_id IS NOT NULL)
+    )
+);
+
 CREATE TABLE public.bookmarks (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
@@ -174,37 +206,6 @@ CREATE TABLE public.experiences (
     is_verified_contributor BOOLEAN NOT NULL DEFAULT false,
     helpful_count INT NOT NULL DEFAULT 0 CHECK (helpful_count >= 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now())
-);
-
--- =============================================================================
--- 5. KELOMPOK KNOWLEDGE HUB (PANDUAN TERKURASI 6 KATEGORI)
--- =============================================================================
-CREATE TABLE public.guides (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    campus_id UUID REFERENCES public.campuses(id) ON DELETE CASCADE,
-    program_id UUID REFERENCES public.programs(id) ON DELETE CASCADE,
-    title VARCHAR(500) NOT NULL,
-    category VARCHAR(100) NOT NULL CHECK (category IN (
-        'academic_survival',
-        'social_community',
-        'administrative_guide',
-        'campus_essentials',
-        'scholarship_growth',
-        'career_preparation'
-    )),
-    is_general BOOLEAN NOT NULL DEFAULT false,
-    content_raw TEXT NOT NULL,
-    source_type VARCHAR(100) NOT NULL DEFAULT 'official_campus_source',
-    source_reference VARCHAR(500),
-    source_url VARCHAR(500),
-    last_verified_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
-    is_published BOOLEAN NOT NULL DEFAULT true,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
-    CONSTRAINT chk_guide_scope CHECK (
-        (is_general = true AND campus_id IS NULL) OR
-        (is_general = false AND campus_id IS NOT NULL)
-    )
 );
 
 -- =============================================================================
@@ -334,21 +335,23 @@ CREATE OR REPLACE FUNCTION public.trg_protect_profile_update()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Hanya service_role atau admin yang bisa mengubah role
-    IF NEW.role != OLD.role THEN
-        IF auth.role() != 'service_role' AND (SELECT role FROM public.profiles WHERE id = auth.uid()) != 'admin' THEN
+    -- IS DISTINCT FROM: aman dari NULL. SET search_path: wajib untuk SECURITY DEFINER.
+    -- Versi final (memakai helper is_privileged) ada di supabase/patches/01_profiles_tenant_hardening.sql.
+    IF NEW.role IS DISTINCT FROM OLD.role THEN
+        IF auth.role() IS DISTINCT FROM 'service_role' AND (SELECT role FROM public.profiles WHERE id = auth.uid()) IS DISTINCT FROM 'admin' THEN
             RAISE EXCEPTION 'Akses Ditolak: Perubahan role hanya dapat dilakukan oleh Administrator.';
         END IF;
     END IF;
     -- Mahasiswa tidak boleh mengubah campus_id sendiri setelah ditentukan
-    IF OLD.campus_id IS NOT NULL AND NEW.campus_id != OLD.campus_id THEN
-        IF auth.role() != 'service_role' AND (SELECT role FROM public.profiles WHERE id = auth.uid()) != 'admin' THEN
+    IF OLD.campus_id IS NOT NULL AND NEW.campus_id IS DISTINCT FROM OLD.campus_id THEN
+        IF auth.role() IS DISTINCT FROM 'service_role' AND (SELECT role FROM public.profiles WHERE id = auth.uid()) IS DISTINCT FROM 'admin' THEN
             RAISE EXCEPTION 'Akses Ditolak: Pemindahan kampus memerlukan bantuan Administrator.';
         END IF;
     END IF;
     NEW.updated_at := timezone('utc'::text, now());
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
 
 CREATE TRIGGER trg_profiles_protect_update
 BEFORE UPDATE ON public.profiles
@@ -357,6 +360,8 @@ FOR EACH ROW EXECUTE FUNCTION public.trg_protect_profile_update();
 -- =============================================================================
 -- 10. DATABASE-LEVEL ANONYMITY (SECURE VIEWS DENGAN MASKING AUTHOR_ID)
 -- =============================================================================
+-- CATATAN: v_posts dan v_comments di bawah memakai != (tidak null-safe) dan label "Mahasiswa Anonim".
+-- Versi final (IS DISTINCT FROM, label "Anonymous Student") ada di supabase/patches/01_profiles_tenant_hardening.sql bagian 12.
 -- View ini menjamin author_id asli bernilai NULL di payload HTTP bagi postingan anonim
 CREATE OR REPLACE VIEW public.v_posts
 WITH (security_invoker = true) AS
@@ -414,6 +419,9 @@ LEFT JOIN public.profiles pr ON c.author_id = pr.id;
 ---
 
 ## 3. Fungsi RPC Supabase: Hybrid Vector Search (`match_campus_chunks`)
+
+> [!WARNING]
+> Versi di bawah ini (v2) **dikoreksi di `supabase/patches/01_profiles_tenant_hardening.sql` bagian 13 dan 14**: `filter_campus_id` dan `filter_program_id` dari klien hanya dihormati untuk pemanggil privileged, `SET search_path` ditambahkan, dan EXECUTE dibatasi ke authenticated. Jangan pakai v2 mentah di production.
 
 > [!IMPORTANT]
 > **Optimasi HNSW Index**: PostgreSQL pgvector **hanya memicu index HNSW** saat klausa `ORDER BY` mengurutkan langsung operator jarak (`c.embedding <=> query_embedding ASC`), bukan ekspresi hasil perhitungan (`similarity DESC`).
@@ -481,7 +489,10 @@ $$;
 
 ---
 
-## 4. Kebijakan Row Level Security (RLS) Menyeluruh (Semua 12 Tabel)
+## 4. Kebijakan Row Level Security (RLS) Menyeluruh (Semua 13 Tabel)
+
+> [!NOTE]
+> Policy di bawah adalah baseline v2. Policy `profiles` dan policy yang memakai subquery ke `profiles` diganti oleh `supabase/patches/01_profiles_tenant_hardening.sql` (memutus infinite recursion dan menutup celah tenant). Jalankan patch setelah seluruh skema v2 berhasil.
 
 ```sql
 -- AKTIFKAN RLS PADA SEMUA TABEL TANPA TERKECUALI

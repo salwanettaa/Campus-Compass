@@ -16,7 +16,7 @@ export const buttonVariants = cva(
       variant: {
         /** "Get Started" - main call to action */
         primary:
-          "bg-linear-to-br from-brand-800 to-brand-600 text-white shadow-card hover:from-brand-900 hover:to-brand-800",
+          "bg-linear-to-br from-brand-800 to-brand-700 text-white shadow-card hover:from-brand-900 hover:to-brand-800",
         /** "Learn More" - secondary call to action */
         outline:
           "border-2 border-brand-600 bg-white text-brand-900 hover:bg-brand-100",

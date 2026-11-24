@@ -41,7 +41,7 @@ export function SearchBar({
         placeholder={placeholder}
         className={cn(
           "h-full w-full rounded-full bg-transparent pr-5 pl-12 text-body outline-none",
-          dark ? "placeholder:text-brand-300" : "placeholder:text-brand-800/70",
+          dark ? "placeholder:text-brand-300" : "placeholder:text-brand-800",
         )}
         {...props}
       />
