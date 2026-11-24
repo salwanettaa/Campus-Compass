@@ -1,0 +1,174 @@
+import type { Metadata } from "next";
+import { ArrowDown, House, Route, Search, User, Users } from "lucide-react";
+import { Navbar } from "@/components/layout/navbar";
+import { Sidebar } from "@/components/layout/sidebar";
+import { Button } from "@/components/ui/button";
+import { FilterChips } from "@/components/ui/chip";
+import { GuideCard } from "@/components/ui/guide-card";
+import { IconButton } from "@/components/ui/icon-button";
+import { SearchBar } from "@/components/ui/search-bar";
+
+export const metadata: Metadata = {
+  title: "Design System",
+  robots: { index: false },
+};
+
+// Class names are written out in full so Tailwind can detect them.
+const PALETTE = [
+  { token: "brand-950", hex: "#04202e", cls: "bg-brand-950 text-white" },
+  { token: "brand-900", hex: "#0a3c55", cls: "bg-brand-900 text-white" },
+  { token: "brand-800", hex: "#0f5d83", cls: "bg-brand-800 text-white" },
+  { token: "brand-600", hex: "#1786b4", cls: "bg-brand-600 text-white" },
+  { token: "brand-400", hex: "#4fb2db", cls: "bg-brand-400 text-brand-950" },
+  { token: "brand-300", hex: "#98d4ee", cls: "bg-brand-300 text-brand-950" },
+  { token: "brand-100", hex: "#e1f2fa", cls: "bg-brand-100 text-brand-950" },
+] as const;
+
+const TYPE_SCALE = [
+  { cls: "text-h1", name: "Heading 1", spec: "Poppins Bold 32 / 40", sample: "Campus Compass" },
+  { cls: "text-h2", name: "Heading 2", spec: "Poppins SemiBold 26 / 34", sample: "Explore Your Campus" },
+  { cls: "text-h3", name: "Heading 3", spec: "Poppins SemiBold 20 / 28", sample: "Recommended for You" },
+  { cls: "text-h4", name: "Heading 4", spec: "Poppins Medium 16 / 24", sample: "Academic Resources" },
+  { cls: "text-h5", name: "Heading 5", spec: "Poppins Medium 14 / 20", sample: "Recently Added" },
+  { cls: "text-body", name: "Body", spec: "Poppins Regular 14 / 22", sample: "Discover helpful campus resources and connect with fellow students." },
+  { cls: "text-caption", name: "Caption", spec: "Poppins Regular 12 / 18", sample: "Updated November 2026" },
+] as const;
+
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="flex flex-col gap-5">
+      <h2 className="text-h2 text-brand-950">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+export default function DesignSystemPage() {
+  return (
+    <main className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-5 py-10">
+      <header className="flex flex-col gap-2">
+        <h1 className="text-h1 text-brand-950">Design System</h1>
+        <p className="text-body text-brand-800">
+          Campus Compass UI tokens and components. Source: design reference
+          (Poppins + 7-step blue palette).
+        </p>
+      </header>
+
+      <Section title="Typography">
+        <div className="flex flex-col divide-y divide-brand-300/60 rounded-3xl bg-white p-2 shadow-card">
+          {TYPE_SCALE.map((row) => (
+            <div
+              key={row.name}
+              className="grid items-baseline gap-2 px-5 py-4 md:grid-cols-[9rem_1fr_14rem]"
+            >
+              <span className="text-h5 text-brand-800">{row.name}</span>
+              <span className={`${row.cls} text-brand-950`}>{row.sample}</span>
+              <span className="text-caption text-brand-800">{row.spec}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Color palette">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+          {PALETTE.map((color) => (
+            <div
+              key={color.token}
+              className={`${color.cls} flex aspect-square flex-col justify-end rounded-3xl p-4 shadow-card`}
+            >
+              <span className="text-h5">{color.token}</span>
+              <span className="text-caption uppercase">{color.hex}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Buttons">
+        <div className="flex flex-wrap items-center gap-4 rounded-3xl bg-white p-6 shadow-card">
+          <Button size="lg">
+            Get Started
+            <ArrowDown className="size-5" aria-hidden="true" />
+          </Button>
+          <Button variant="outline" size="lg">
+            Learn More
+          </Button>
+          <Button>Medium</Button>
+          <Button size="sm">Small</Button>
+          <Button loading>Loading</Button>
+          <Button disabled>Disabled</Button>
+        </div>
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="rounded-3xl bg-brand-950 p-6">
+            <Button variant="pillOnDark" size="sm">
+              Sign Up
+            </Button>
+          </div>
+          <div className="rounded-3xl bg-white p-6 shadow-card">
+            <Button variant="pillOnLight" size="sm">
+              Sign Up
+            </Button>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Icon buttons">
+        <div className="flex flex-wrap items-center gap-4 rounded-3xl bg-white p-6 shadow-card">
+          <IconButton variant="solid" aria-label="Home">
+            <House />
+          </IconButton>
+          <IconButton aria-label="Search">
+            <Search />
+          </IconButton>
+          <IconButton aria-label="My Journey">
+            <Route />
+          </IconButton>
+          <IconButton aria-label="Community">
+            <Users />
+          </IconButton>
+          <IconButton aria-label="Profile">
+            <User />
+          </IconButton>
+        </div>
+      </Section>
+
+      <Section title="Search and filters">
+        <div className="flex flex-col gap-4">
+          <SearchBar variant="dark" />
+          <SearchBar variant="light" />
+          <FilterChips
+            label="Category"
+            options={["All", "Academic", "Community", "Events", "Facilities"]}
+          />
+        </div>
+      </Section>
+
+      <Section title="Navigation bar">
+        <div className="flex flex-col gap-4">
+          <Navbar variant="dark" />
+          <Navbar variant="light" />
+        </div>
+      </Section>
+
+      <Section title="Sidebar">
+        <div className="flex flex-wrap gap-6">
+          <Sidebar variant="dark" user={{ displayName: "Muhammad Rifal" }} />
+          <Sidebar variant="light" user={{ displayName: "Muhammad Rifal" }} />
+        </div>
+      </Section>
+
+      <Section title="Cards">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <GuideCard title="Campus Guide" href="/knowledge" variant="tinted" />
+          <GuideCard title="Campus Guide" href="/knowledge" />
+          <GuideCard title="Campus Guide" href="/knowledge" />
+        </div>
+      </Section>
+    </main>
+  );
+}

@@ -1,17 +1,45 @@
 # Application Source Code (`src/`)
 
-> **Status**: Placeholder for Future Development (Phase 1)  
+> **Status**: Phase 1 - active development
 > **Owner**: Erick & Kalya
 
 ---
 
-## IMPORTANT NOTICE FOR DEVELOPERS & AI AGENTS
+## Current state
 
-> [!IMPORTANT]
-> The project is currently in the **Documentation & Architecture Phase (Phase 0)**.
-> 
-> **DO NOT** generate or scaffold application code inside this directory until:
-> 1. All domain documentation in `docs/PRODUCT_SPEC.md` and `docs/TECH_AND_DATABASE.md` is reviewed.
-> 2. The database schema in `docs/TECH_AND_DATABASE.md` is approved.
->
-> When approved for Phase 1 (starting Nov 23), refer to [`docs/TECH_AND_DATABASE.md`](../docs/TECH_AND_DATABASE.md) for the exact layout and conventions.
+The Next.js app (App Router, TypeScript strict, Tailwind CSS 4) is scaffolded and
+the UI design system is in place.
+
+| Path | Contents |
+| :--- | :--- |
+| `app/` | Routes. Currently `/` (landing) and `/design-system` (component showcase). |
+| `app/globals.css` | Design tokens: Poppins, 7-step brand palette, typography scale (`text-h1` ... `text-caption`). |
+| `components/ui/` | Primitives: `Button`, `IconButton`, `Chip` / `FilterChips`, `SearchBar`, `GuideCard`. |
+| `components/layout/` | `Navbar`, `Sidebar`, `Logo`, shared `nav-items`. |
+| `lib/utils.ts` | `cn()` class-name helper (aware of the custom `text-h*` utilities). |
+
+Target layout for the remaining modules (auth, home, community, knowledge,
+ai-navigator, Supabase and Gemini clients) is defined in
+[`docs/TECH_AND_DATABASE.md`](../docs/TECH_AND_DATABASE.md), section 6.
+
+## Conventions
+
+- Follow the design reference for all visual work: Poppins, the brand palette in
+  `globals.css`, and the type scale. Do not introduce ad-hoc colors or font sizes.
+- Use the `cn()` helper from `@/lib/utils` to combine class names.
+- Every screen handles loading, empty, and error states.
+- No secrets in code. Use `.env.local` (see `.env.example`).
+- Database tables and columns must match `docs/TECH_AND_DATABASE.md`.
+- `next dev` must not edit `AGENTS.md`; this is disabled via `agentRules: false`
+  in `next.config.ts`.
+
+## Run locally
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run lint
+npm run build
+```
+
+Open `/design-system` to preview every component.
