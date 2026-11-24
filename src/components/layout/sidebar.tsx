@@ -15,7 +15,8 @@ export type SidebarUser = {
 export type SidebarProps = {
   variant?: "light" | "dark";
   user: SidebarUser;
-  onLogout?: () => void;
+  /** Can be a Server Action (returns a promise). */
+  onLogout?: () => void | Promise<void>;
   className?: string;
 };
 

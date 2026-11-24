@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { getAppUrl } from "@/lib/app-url";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -10,6 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getAppUrl()),
   title: {
     default: "Campus Compass",
     template: "%s | Campus Compass",
