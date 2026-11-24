@@ -68,7 +68,7 @@ export async function completeOnboardingAction(
   const displayName =
     typeof metadataName === "string" && metadataName.trim()
       ? metadataName.trim().slice(0, 100)
-      : "Mahasiswa";
+      : "Student";
 
   // `role` is omitted on purpose: it defaults to 'student' and users cannot
   // change it (see trg_protect_profile_update).

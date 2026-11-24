@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Route } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
+import { ButtonLink } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { ADAPTATION_AREAS, MAIN_CHALLENGES } from "@/lib/constants/onboarding";
 
@@ -12,20 +13,25 @@ export default async function HomePage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from("profiles")
     .select("display_name, campus_id, program_id, semester, adaptation_area, main_challenge")
     .eq("id", user?.id ?? "")
     .maybeSingle();
 
+  if (profileError) return <HomeLoadError />;
+
   const [campusRes, programRes] = await Promise.all([
     profile?.campus_id
       ? supabase.from("campuses").select("name").eq("id", profile.campus_id).maybeSingle()
-      : Promise.resolve({ data: null }),
+      : Promise.resolve({ data: null, error: null }),
     profile?.program_id
       ? supabase.from("programs").select("name").eq("id", profile.program_id).maybeSingle()
-      : Promise.resolve({ data: null }),
+      : Promise.resolve({ data: null, error: null }),
   ]);
+
+  // Missing profile data must not look like "not set": show an error instead.
+  if (campusRes.error || programRes.error) return <HomeLoadError />;
 
   const area = ADAPTATION_AREAS.find((a) => a.value === profile?.adaptation_area);
   const challenge = MAIN_CHALLENGES.find((c) => c.value === profile?.main_challenge);
@@ -77,6 +83,19 @@ export default async function HomePage() {
           </span>
         </Alert>
       </section>
+    </main>
+  );
+}
+
+function HomeLoadError() {
+  return (
+    <main className="flex flex-col items-start gap-3">
+      <Alert variant="error" title="We could not load your home page">
+        Something went wrong on our side. Please try again.
+      </Alert>
+      <ButtonLink href="/home" variant="outline" size="sm">
+        Try again
+      </ButtonLink>
     </main>
   );
 }

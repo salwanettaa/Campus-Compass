@@ -11,7 +11,7 @@ export function Input({ className, invalid, ...props }: InputProps) {
       aria-invalid={invalid || undefined}
       className={cn(
         "h-12 w-full rounded-2xl border bg-white px-4 text-body text-brand-950",
-        "placeholder:text-brand-800/60",
+        "placeholder:text-brand-800",
         "transition-[border-color,box-shadow] duration-200",
         "focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 focus:outline-none",
         "disabled:cursor-not-allowed disabled:opacity-60",

@@ -38,7 +38,8 @@ const PALETTE = [
   { token: "brand-950", hex: "#04202e", cls: "bg-brand-950 text-white" },
   { token: "brand-900", hex: "#0a3c55", cls: "bg-brand-900 text-white" },
   { token: "brand-800", hex: "#0f5d83", cls: "bg-brand-800 text-white" },
-  { token: "brand-600", hex: "#1786b4", cls: "bg-brand-600 text-white" },
+  { token: "brand-700", hex: "#1279a2", cls: "bg-brand-700 text-white" },
+  { token: "brand-600", hex: "#1786b4", cls: "bg-brand-600 text-white", chip: true },
   { token: "brand-400", hex: "#4fb2db", cls: "bg-brand-400 text-brand-950" },
   { token: "brand-300", hex: "#98d4ee", cls: "bg-brand-300 text-brand-950" },
   { token: "brand-100", hex: "#e1f2fa", cls: "bg-brand-100 text-brand-950" },
@@ -102,8 +103,16 @@ export default function DesignSystemPage() {
               key={color.token}
               className={`${color.cls} flex aspect-square flex-col justify-end rounded-3xl p-4 shadow-card`}
             >
-              <span className="text-h5">{color.token}</span>
-              <span className="text-caption uppercase">{color.hex}</span>
+              <span
+                className={
+                  "chip" in color && color.chip
+                    ? "flex w-fit flex-col rounded-xl bg-white px-2 py-1 text-brand-950"
+                    : "flex flex-col"
+                }
+              >
+                <span className="text-h5">{color.token}</span>
+                <span className="text-caption uppercase">{color.hex}</span>
+              </span>
             </div>
           ))}
         </div>

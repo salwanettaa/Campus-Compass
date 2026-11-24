@@ -16,7 +16,7 @@ export function Select({ className, invalid, children, ...props }: SelectProps) 
           "h-12 w-full appearance-none rounded-2xl border bg-white pr-11 pl-4 text-body text-brand-950",
           "transition-[border-color,box-shadow] duration-200",
           "focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 focus:outline-none",
-          "disabled:cursor-not-allowed disabled:bg-brand-100 disabled:text-brand-800/70",
+          "disabled:cursor-not-allowed disabled:bg-brand-100 disabled:text-brand-800",
           invalid ? "border-red-600" : "border-brand-300",
           className,
         )}

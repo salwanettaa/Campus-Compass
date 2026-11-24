@@ -10,6 +10,8 @@
   --color-brand-950: #04202e;
   --color-brand-900: #0a3c55;
   --color-brand-800: #0f5d83;
+  /* brand-700: darker step between 800 and 600 so white text passes WCAG AA (4.90:1). */
+  --color-brand-700: #1279a2;
   --color-brand-600: #1786b4;
   --color-brand-400: #4fb2db;
   --color-brand-300: #98d4ee;

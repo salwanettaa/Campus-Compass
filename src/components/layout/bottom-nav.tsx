@@ -13,11 +13,11 @@ export function BottomNav({ className }: { className?: string }) {
     <nav
       aria-label="Main (mobile)"
       className={cn(
-        "fixed inset-x-3 bottom-3 z-40 rounded-3xl bg-brand-950 px-2 py-2 shadow-nav lg:hidden",
+        "fixed inset-x-2 bottom-3 z-40 rounded-3xl bg-brand-950 px-1 py-2 shadow-nav lg:hidden",
         className,
       )}
     >
-      <ul className="flex items-stretch justify-between">
+      <ul className="flex items-stretch justify-between gap-0.5">
         {NAV_ITEMS.map((item) => {
           const active = isActive(item, pathname);
           const Icon = item.icon;
@@ -27,14 +27,14 @@ export function BottomNav({ className }: { className?: string }) {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex flex-col items-center gap-1 rounded-2xl px-1 py-2 text-[0.6875rem] leading-none font-medium transition-colors duration-200",
+                  "flex h-full flex-col items-center gap-1 rounded-2xl px-0.5 py-2 text-center text-caption font-medium transition-colors duration-200",
                   active
                     ? "bg-white/15 text-white"
                     : "text-brand-100/80 hover:text-white",
                 )}
               >
                 <Icon className="size-5" aria-hidden="true" />
-                <span className="max-w-full truncate">{item.label}</span>
+                <span className="max-w-full leading-4 wrap-break-word">{item.label}</span>
               </Link>
             </li>
           );
