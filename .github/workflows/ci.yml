@@ -33,6 +33,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # PageProps / LayoutProps are generated, not committed. Without this step
+      # tsc fails on a clean checkout (they only exist after a dev or build run).
+      - name: Generate route types
+        run: npx next typegen
+
       - name: Type check
         run: npx tsc --noEmit
 
