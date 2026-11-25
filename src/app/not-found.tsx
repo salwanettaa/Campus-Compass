@@ -1,6 +1,6 @@
-import { Compass } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
 import { ButtonLink } from "@/components/ui/button";
+import { WayfinderMark } from "@/components/ui/wayfinder-mark";
 
 export default function NotFound() {
   return (
@@ -8,7 +8,7 @@ export default function NotFound() {
       <Logo tone="onLight" href="/" />
       <main className="flex flex-col items-start gap-4 border border-brand-950/10 border-l-4 border-l-brand-600 bg-paper-raised p-6 sm:p-8">
         <span className="flex size-11 items-center justify-center border border-brand-950/10 bg-paper text-brand-800">
-          <Compass className="size-6" aria-hidden="true" />
+          <WayfinderMark className="size-7" />
         </span>
         <h1 className="text-h2 text-brand-950">Page not found</h1>
         <p className="text-body text-brand-800">
