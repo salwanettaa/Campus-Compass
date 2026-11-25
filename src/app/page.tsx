@@ -57,19 +57,21 @@ export default function LandingPage() {
                   aria-hidden="true"
                   className="size-2 rounded-full bg-[#d46747]"
                 />
-                A field guide for campus life
+                A living map of campus life
               </p>
               <h1
                 id="landing-title"
-                className="mt-5 max-w-[12ch] text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.98] font-bold tracking-[-0.065em] text-brand-950"
+                className="mt-5 max-w-[14ch] text-[clamp(3.1rem,7vw,5.25rem)] leading-[0.91] font-bold tracking-[-0.075em] text-brand-950"
               >
-                <span className="block">The stuff they</span>
-                <span className="block text-brand-700">don&apos;t put in</span>
-                <span className="block">the handbook.</span>
+                <span className="block">Nobody hands</span>
+                <span className="block text-brand-700">you a map.</span>
+                <span className="mt-2 block text-[0.48em] leading-[1.1] font-medium tracking-[-0.045em] text-brand-800">
+                  Students draw one together.
+                </span>
               </h1>
-              <p className="mt-5 max-w-lg text-base leading-7 text-brand-800 sm:mt-6 sm:text-lg sm:leading-8">
-                Ask students who&apos;ve been there. Find guides with their
-                sources. Turn what you learn into a next step.
+              <p className="mt-5 max-w-md text-base leading-7 text-brand-800 sm:mt-6 sm:text-lg sm:leading-8">
+                Real answers from people who&apos;ve found their way, practical
+                guides you can check, and a next step that&apos;s yours.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <ButtonLink
@@ -90,62 +92,88 @@ export default function LandingPage() {
                 </Link>
               </div>
               <p className="mt-6 font-mono text-[10px] tracking-[0.13em] text-brand-800/80">
-                QUESTIONS <span aria-hidden="true">/</span> GUIDES{" "}
-                <span aria-hidden="true">/</span> NEXT STEPS
+                ASK SOMEONE <span aria-hidden="true">/</span> CHECK THE SOURCE{" "}
+                <span aria-hidden="true">/</span> FIND YOUR WAY
               </p>
             </div>
 
             <aside
               aria-label="Sample community question and response"
-              className="relative flex min-h-[480px] flex-col bg-brand-950 px-5 py-5 text-white sm:min-h-[510px] sm:px-8 sm:py-7"
+              className="relative isolate flex min-h-[390px] items-center justify-center overflow-hidden border-y border-brand-950/15 px-4 py-8 sm:min-h-[480px] sm:border sm:px-8"
             >
-              <div className="flex items-center justify-between gap-3 border-b border-white/20 pb-4 font-mono text-[10px] tracking-[0.14em] text-white/75">
-                <span>FIELD NOTE / STUDY PLANNING</span>
-                <span className="inline-flex items-center gap-2 whitespace-nowrap">
-                  <span
-                    aria-hidden="true"
-                    className="size-2 rounded-full bg-[#e6a56c]"
-                  />
-                  EXAMPLE
-                </span>
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-10 opacity-80"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to right, rgb(4 32 46 / 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgb(4 32 46 / 0.06) 1px, transparent 1px)",
+                  backgroundSize: "32px 32px",
+                }}
+              />
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 480 440"
+                className="absolute inset-0 -z-10 h-full w-full text-brand-800/55"
+                fill="none"
+              >
+                <path
+                  d="M-20 312C52 290 72 196 147 208s94 118 166 75 78-123 187-107M20 74c78 49 98 99 161 82s93-75 153-40 68 115 148 126M63 462c4-78 54-101 101-96s64 39 111 19 91-91 166-65"
+                  stroke="currentColor"
+                  strokeDasharray="3 7"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M25 350c70-30 83-118 147-111s91 100 149 64 77-104 159-92"
+                  stroke="#d46747"
+                  strokeWidth="3"
+                />
+                <circle cx="25" cy="350" r="6" fill="#d46747" />
+                <circle cx="172" cy="239" r="6" fill="#d46747" />
+                <circle cx="321" cy="303" r="6" fill="#d46747" />
+                <circle cx="480" cy="211" r="6" fill="#d46747" />
+                <path d="M402 34v54m-27-27h54" stroke="currentColor" />
+                <circle cx="402" cy="61" r="22" stroke="currentColor" />
+                <path d="m402 45 5 16-5 16-5-16 5-16Z" fill="#d46747" />
+              </svg>
+
+              <div className="absolute left-4 top-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.16em] text-brand-800 sm:left-6 sm:top-6">
+                <span className="size-2 rounded-full bg-[#d46747]" />
+                Student routes / still being drawn
+              </div>
+              <div className="absolute right-4 top-16 hidden font-mono text-[9px] uppercase tracking-[0.14em] text-brand-800 sm:block">
+                <span className="block">01 / Ask</span>
+                <span className="mt-2 block">02 / Verify</span>
+                <span className="mt-2 block">03 / Go</span>
               </div>
 
-              <div className="mt-7 grid grid-cols-[2rem_1fr] gap-x-3 sm:mt-9">
-                <span className="font-mono text-xs text-[#e6a56c]">01</span>
-                <div>
-                  <p className="font-mono text-[10px] tracking-[0.16em] text-[#a8d8eb]">
-                    A STUDENT ASKS
-                  </p>
-                  <h2 className="mt-2 max-w-md text-xl leading-7 font-semibold tracking-[-0.025em] sm:text-2xl sm:leading-8">
-                    How do I fix a clash between two courses in my study plan?
-                  </h2>
+              <article className="relative mt-8 w-full max-w-[350px] -rotate-1 border border-brand-950/15 bg-[#fbfaf6] p-5 shadow-[5px_7px_0_rgb(4_32_46/0.08)] sm:mt-6 sm:p-6">
+                <div className="flex items-center justify-between gap-3 border-b border-brand-950/15 pb-3 font-mono text-[9px] uppercase tracking-[0.14em] text-brand-800">
+                  <span>Field note / 014</span>
+                  <span>Example</span>
                 </div>
-              </div>
-
-              <article className="mt-5 ml-5 border-l-2 border-[#e6a56c] bg-[#f5f3ec] p-4 text-brand-950 sm:ml-8 sm:p-5">
-                <p className="font-mono text-[10px] tracking-[0.14em] text-brand-700">
-                  SAMPLE RESPONSE / PEER ADVICE
+                <p className="mt-5 font-mono text-[9px] uppercase tracking-[0.15em] text-brand-700">
+                  A student asks
                 </p>
-                <p className="mt-2 text-sm leading-6">
-                  Talk to your academic advisor first. They can tell you
-                  whether the clash is allowed and which form the faculty
-                  office needs.
-                </p>
-                <p className="mt-3 border-t border-brand-950/15 pt-2 font-mono text-[9px] uppercase tracking-wide text-brand-700">
+                <h2 className="mt-2 text-xl leading-7 font-semibold tracking-[-0.035em] text-brand-950 sm:text-2xl sm:leading-8">
+                  Two courses clash. Who do I talk to first?
+                </h2>
+                <div className="mt-4 border-l-2 border-[#d46747] pl-4">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.13em] text-brand-700">
+                    Peer advice / sample
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-brand-950">
+                    Start with your academic advisor. Ask what options your
+                    faculty allows before changing your plan.
+                  </p>
+                </div>
+                <p className="mt-4 border-t border-brand-950/15 pt-3 font-mono text-[9px] uppercase tracking-wide text-brand-700">
                   Personal experience, not an official rule
                 </p>
               </article>
 
-              <div className="mt-auto border-t border-white/25 pt-4 sm:pt-5">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <p className="font-mono text-[10px] tracking-[0.14em] text-[#a8d8eb]">
-                    ASK / CHECK / TAKE A NEXT STEP
-                  </p>
-                  <span className="text-sm text-white/90">
-                    Your path, at your pace.
-                  </span>
-                </div>
-              </div>
+              <span className="absolute bottom-4 left-4 font-mono text-[9px] tracking-[0.14em] text-brand-800 sm:bottom-6 sm:left-6">
+                YOUR ROUTE STARTS HERE
+              </span>
             </aside>
           </section>
 
