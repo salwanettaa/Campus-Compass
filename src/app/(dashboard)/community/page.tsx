@@ -6,6 +6,7 @@ import { PostCard } from "@/components/community/post-card";
 import { PostFilter } from "@/components/community/post-filter";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
+import { WayfinderMark } from "@/components/ui/wayfinder-mark";
 import { listFeed, parseSimulation } from "@/lib/community/data";
 import {
   applyFeed,
@@ -33,17 +34,30 @@ export default async function CommunityPage({
   const isFiltered = params.type !== null || params.sort === "unanswered";
 
   return (
-    <main className="flex flex-col gap-6">
-      <header className="flex flex-col gap-2 border-b border-brand-950/15 pb-5">
-        <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
-          STUDENT LIFE / 01
-        </p>
-        <h1 className="text-4xl leading-tight font-semibold tracking-[-0.05em] text-brand-950">
-          Community
-        </h1>
-        <p className="text-body max-w-xl text-brand-800">
-          Questions, lived experience, and practical answers from students.
-        </p>
+    <main className="mx-auto flex w-full max-w-[72rem] flex-col gap-6">
+      <header className="flex flex-col gap-3 border-b border-brand-950/15 pb-5 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-2">
+          <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
+            STUDENT LIFE / 01
+          </p>
+          <h1 className="text-4xl leading-tight font-semibold tracking-[-0.05em] text-brand-950">
+            Community
+          </h1>
+          <p className="text-body max-w-xl text-brand-800">
+            Questions, lived experience, and practical answers from students.
+          </p>
+        </div>
+        {result.ok ? (
+          <div className="flex items-center gap-3 border-t border-brand-950/10 pt-3 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5">
+            <WayfinderMark className="size-9 shrink-0 text-brand-800" />
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-brand-700">
+              <span className="block text-lg leading-6 text-brand-950">
+                {String(items.length).padStart(2, "0")}
+              </span>
+              posts in this view
+            </p>
+          </div>
+        ) : null}
       </header>
 
       <Alert variant="info">
@@ -93,13 +107,23 @@ export default async function CommunityPage({
           ) : null}
         </section>
       ) : (
-        <ul className="flex flex-col gap-4" aria-label="Posts">
-          {items.map((item) => (
-            <li key={item.post.id}>
-              <PostCard item={item} />
-            </li>
-          ))}
-        </ul>
+        <section aria-labelledby="posts-heading" className="flex flex-col gap-3">
+          <div className="border-b border-brand-950/10 pb-2">
+            <h2
+              id="posts-heading"
+              className="text-h4 font-semibold text-brand-950"
+            >
+              Student posts
+            </h2>
+          </div>
+          <ul className="flex flex-col gap-3" aria-label="Posts">
+            {items.map((item) => (
+              <li key={item.post.id}>
+                <PostCard item={item} />
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
     </main>
   );

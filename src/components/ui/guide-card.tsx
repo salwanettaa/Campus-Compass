@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Compass } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { WayfinderMark } from "@/components/ui/wayfinder-mark";
 
 export type GuideCardProps = {
   title: string;
@@ -44,9 +45,8 @@ export function GuideCard({
             className="object-cover"
           />
         ) : (
-          <Compass
+          <WayfinderMark
             className="absolute inset-0 m-auto size-10 text-brand-300"
-            aria-hidden="true"
           />
         )}
       </div>

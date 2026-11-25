@@ -33,43 +33,55 @@ export function PostFilter({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn("flex flex-col gap-3", pending && "opacity-70", className)}
+      className={cn(
+        "grid gap-4 rounded-xl border border-brand-950/10 bg-paper-raised p-4 sm:grid-cols-2 sm:gap-5",
+        pending && "opacity-70",
+        className,
+      )}
       aria-busy={pending}
     >
-      <div role="group" aria-label="Sort posts" className="flex flex-wrap gap-2">
-        {SORT_MODES.map((mode) => (
-          <Chip
-            key={mode.value}
-            selected={current.sort === mode.value}
-            onClick={() => update({ sort: mode.value })}
-          >
-            {mode.label}
-          </Chip>
-        ))}
-      </div>
-      <div
-        role="group"
-        aria-label="Filter by post type"
-        className="flex flex-wrap gap-2"
-      >
-        <Chip
-          selected={current.type === null}
-          onClick={() => update({ type: null })}
-          className="min-h-11 px-4"
+      <fieldset className="min-w-0">
+        <legend className="mb-2 block font-mono text-[10px] uppercase tracking-[0.14em] text-brand-700">
+          Sort the feed
+        </legend>
+        <div role="group" aria-label="Sort posts" className="flex flex-wrap gap-2">
+          {SORT_MODES.map((mode) => (
+            <Chip
+              key={mode.value}
+              selected={current.sort === mode.value}
+              onClick={() => update({ sort: mode.value })}
+            >
+              {mode.label}
+            </Chip>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset className="min-w-0 sm:border-l sm:border-brand-950/10 sm:pl-5">
+        <legend className="mb-2 block font-mono text-[10px] uppercase tracking-[0.14em] text-brand-700">
+          Narrow by type
+        </legend>
+        <div
+          role="group"
+          aria-label="Filter by post type"
+          className="flex flex-wrap gap-2"
         >
-          All types
-        </Chip>
-        {POST_TYPES.map((type) => (
           <Chip
-            key={type}
-            selected={current.type === type}
-            onClick={() => update({ type })}
-            className="min-h-11 px-4"
+            selected={current.type === null}
+            onClick={() => update({ type: null })}
           >
-            {TYPE_LABELS[type]}
+            All types
           </Chip>
-        ))}
-      </div>
+          {POST_TYPES.map((type) => (
+            <Chip
+              key={type}
+              selected={current.type === type}
+              onClick={() => update({ type })}
+            >
+              {TYPE_LABELS[type]}
+            </Chip>
+          ))}
+        </div>
+      </fieldset>
     </div>
   );
 }
