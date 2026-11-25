@@ -45,3 +45,22 @@ Saat diminta melakukan vibe coding atau membuat komponen:
 1. Periksa `docs/TECH_AND_DATABASE.md` untuk skema tabel dan tipe data.
 2. Buat kode yang modular, bersih, dan menggunakan TypeScript strict mode.
 3. Pastikan penanganan state loading, empty state, dan error state tertangani dengan baik pada antarmuka.
+
+---
+
+## 4. Skill Antislop (Wajib Jika Terpasang)
+
+Sebelum mengerjakan UI, teks, atau komentar kode, muat skill `antislop:antislop` (inti) bersama skill yang sesuai:
+
+| Jenis pekerjaan | Skill tambahan |
+| :--- | :--- |
+| Membuat atau mengubah antarmuka (warna, layout, komponen, animasi) | `antislop:antislop-ui` |
+| Layout responsif dan tampilan mobile | `antislop:antislop-layoutmobile` |
+| Aksesibilitas (kontras, keyboard, fokus, state interaksi) | `antislop:antislop-human` |
+| Teks di aplikasi dan dokumentasi (headline, CTA, copy) | `antislop:antislop-copywriting` |
+| Komentar kode | `antislop:antislop-code` |
+
+- Jika aturan skill bertentangan dengan `docs/PRODUCT_SPEC.md`, `docs/TECH_AND_DATABASE.md`, atau aturan di file ini, **ikuti aturan proyek**.
+- Jika plugin belum terpasang, lanjutkan pekerjaan tanpa skill ini dan beri tahu pengguna. Cara memasang (jalankan satu per satu):
+  1. `/plugin marketplace add https://github.com/miqdadbadjuber/anti-slop`
+  2. `/plugin install antislop@anti-slop`
