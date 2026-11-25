@@ -58,7 +58,7 @@ export default async function GuidePage({
   const sourceUrl = safeUrl(guide.source_url);
 
   return (
-    <main className="flex flex-col gap-6">
+    <main className="flex max-w-4xl flex-col gap-6">
       <Link
         href="/knowledge"
         className="text-h5 inline-flex w-fit items-center gap-2 rounded-md text-brand-800 hover:underline focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
@@ -67,18 +67,22 @@ export default async function GuidePage({
         Back to Knowledge Hub
       </Link>
 
-      <article className="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-card sm:p-8">
-        <span className="text-caption w-fit rounded-full bg-brand-100 px-3 py-0.5 font-medium text-brand-900">
+      <article className="flex flex-col gap-5 rounded-xl border border-brand-950/10 bg-paper-raised p-5 sm:p-8">
+        <span className="font-mono text-[10px] w-fit rounded-md bg-brand-100 px-2.5 py-1 font-medium uppercase tracking-wide text-brand-900">
           {categoryName(guide.category)}
         </span>
-        <h1 className="text-h2 text-brand-950">{guide.title}</h1>
-        <VerifiedMeta guide={guide} />
-        <div className="text-body whitespace-pre-line text-brand-950">
+        <h1 className="text-3xl leading-tight font-semibold tracking-[-0.04em] text-brand-950 sm:text-4xl">
+          {guide.title}
+        </h1>
+        <div className="border-b border-brand-950/10 pb-4">
+          <VerifiedMeta guide={guide} />
+        </div>
+        <div className="text-body max-w-3xl whitespace-pre-line text-brand-950 leading-7">
           {guide.content_raw}
         </div>
 
         {guide.source_reference || sourceUrl ? (
-          <div className="flex flex-col gap-1 rounded-2xl bg-brand-100 p-4">
+          <div className="flex flex-col gap-1 border-l-2 border-brand-600 bg-paper p-4">
             <h2 className="text-h5 text-brand-950">Source</h2>
             {guide.source_reference ? (
               <p className="text-body text-brand-900">{guide.source_reference}</p>

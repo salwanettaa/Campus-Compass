@@ -16,11 +16,11 @@ export function PostCard({ item }: { item: FeedItem }) {
   return (
     <article
       aria-labelledby={`post-${post.id}`}
-      className="flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-card sm:p-6"
+      className="flex flex-col gap-3 rounded-xl border border-brand-950/10 border-l-2 border-l-brand-600 bg-paper-raised p-4 sm:p-5"
     >
       <div className="flex flex-wrap items-center gap-2">
         <TypeBadge type={post.post_type} />
-        <span className="text-caption text-brand-800">
+        <span className="font-mono text-[10px] uppercase tracking-wide text-brand-800">
           {categoryLabel(post.category)}
         </span>
         {post.has_accepted_answer ? (
@@ -47,7 +47,7 @@ export function PostCard({ item }: { item: FeedItem }) {
           {post.tags.map((tag) => (
             <li
               key={tag}
-              className="text-caption rounded-full bg-brand-100 px-3 py-0.5 text-brand-900"
+              className="font-mono text-[10px] rounded-md border border-brand-950/10 bg-paper px-2.5 py-1 text-brand-800"
             >
               #{tag}
             </li>
@@ -55,7 +55,7 @@ export function PostCard({ item }: { item: FeedItem }) {
         </ul>
       ) : null}
 
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-brand-950/10 pt-3">
         <p className="text-caption text-brand-800">
           {post.author_display_name ?? "Unknown author"} ·{" "}
           <time dateTime={post.created_at}>
@@ -65,7 +65,7 @@ export function PostCard({ item }: { item: FeedItem }) {
         <div className="flex items-center gap-3">
           <Link
             href={href}
-            className="text-h5 inline-flex h-9 items-center gap-2 rounded-full px-3 text-brand-800 hover:bg-brand-100 focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
+            className="text-h5 inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-brand-800 hover:bg-brand-100 focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
           >
             <MessageCircle className="size-4" aria-hidden="true" />
             {pluralize(commentCount, "comment")}

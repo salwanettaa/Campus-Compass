@@ -48,10 +48,15 @@ export default async function KnowledgePage({
 
   return (
     <main className="flex flex-col gap-8">
-      <header className="flex flex-col gap-1">
-        <h1 className="text-h1 text-brand-950">Knowledge Hub</h1>
-        <p className="text-body text-brand-800">
-          Curated campus guides and senior experiences, with their sources.
+      <header className="flex flex-col gap-2 border-b border-brand-950/15 pb-5">
+        <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
+          CAMPUS KNOWLEDGE / 02
+        </p>
+        <h1 className="text-4xl leading-tight font-semibold tracking-[-0.05em] text-brand-950">
+          Knowledge Hub
+        </h1>
+        <p className="text-body max-w-xl text-brand-800">
+          Campus guides and student experiences, with sources kept in view.
         </p>
       </header>
 
@@ -93,7 +98,7 @@ export default async function KnowledgePage({
             </ButtonLink>
           </div>
         ) : guides.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 rounded-3xl bg-white p-8 text-center shadow-card">
+          <div className="flex flex-col items-center gap-3 rounded-xl border border-brand-950/10 bg-paper-raised p-8 text-center">
             <span className="flex size-12 items-center justify-center rounded-2xl bg-brand-100 text-brand-800">
               {isFiltered ? (
                 <SearchX className="size-6" aria-hidden="true" />
@@ -156,7 +161,7 @@ export default async function KnowledgePage({
             </ButtonLink>
           </div>
         ) : experiencesResult.data.length === 0 ? (
-          <p className="text-body rounded-3xl bg-white p-6 text-brand-800 shadow-card">
+          <p className="text-body border-l-2 border-brand-300 bg-paper-raised p-6 text-brand-800">
             No experiences yet. Be the first to share what helped you.
           </p>
         ) : (

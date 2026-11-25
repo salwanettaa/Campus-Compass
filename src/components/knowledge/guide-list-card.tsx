@@ -10,9 +10,9 @@ export function GuideListCard({ guide }: { guide: GuideRow }) {
   return (
     <article
       aria-labelledby={`guide-${guide.id}`}
-      className="flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-card sm:p-6"
+      className="flex flex-col gap-3 rounded-xl border border-brand-950/10 bg-paper-raised p-4 sm:p-5"
     >
-      <span className="text-caption w-fit rounded-full bg-brand-100 px-3 py-0.5 font-medium text-brand-900">
+      <span className="font-mono text-[10px] w-fit rounded-md bg-brand-100 px-2.5 py-1 font-medium uppercase tracking-wide text-brand-900">
         {categoryName(guide.category)}
       </span>
       <h3 id={`guide-${guide.id}`} className="text-h3 text-brand-950">
@@ -29,7 +29,7 @@ export function GuideListCard({ guide }: { guide: GuideRow }) {
       <VerifiedMeta guide={guide} />
       <Link
         href={`/knowledge/${guide.id}`}
-        className="text-h5 inline-flex w-fit items-center gap-1 text-brand-800 hover:underline focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
+        className="text-h5 inline-flex min-h-11 w-fit items-center gap-1 text-brand-800 hover:underline focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
       >
         Read guide
         <ArrowRight className="size-4" aria-hidden="true" />

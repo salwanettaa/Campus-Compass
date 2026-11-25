@@ -58,10 +58,10 @@ describe("knowledge components (server render)", () => {
     }
   });
 
-  it("SampleChat is clearly labelled as a sample and has disabled input", () => {
+  it("SampleChat labels the demo and cites sources without a fake input", () => {
     const html = renderToStaticMarkup(<SampleChat />);
-    expect(html).toContain("Sample");
-    expect(html).toContain("disabled");
+    expect(html).toContain("DEMO / NOT LIVE");
+    expect(html).not.toContain("disabled");
     expect(html).toContain("Source 1");
   });
 });

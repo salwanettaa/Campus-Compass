@@ -20,11 +20,11 @@ export function SearchBar({
   return (
     <div
       className={cn(
-        "relative flex h-12 w-full items-center rounded-full",
+        "relative flex h-12 w-full items-center rounded-lg",
         "transition-shadow duration-200 focus-within:ring-2 focus-within:ring-brand-600",
         dark
           ? "bg-brand-950 text-white"
-          : "border border-brand-300 bg-white text-brand-950",
+          : "border border-brand-950/20 bg-paper-raised text-brand-950",
         className,
       )}
     >
@@ -40,7 +40,7 @@ export function SearchBar({
         aria-label={label}
         placeholder={placeholder}
         className={cn(
-          "h-full w-full rounded-full bg-transparent pr-5 pl-12 text-body outline-none",
+          "h-full w-full rounded-lg bg-transparent pr-5 pl-12 text-body outline-none",
           dark ? "placeholder:text-brand-300" : "placeholder:text-brand-800",
         )}
         {...props}

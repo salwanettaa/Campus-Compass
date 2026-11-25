@@ -6,8 +6,8 @@ export default function AiNavigatorLoading() {
       aria-label="Loading AI Navigator"
       className="flex animate-pulse flex-col gap-4"
     >
-      <div className="h-10 w-56 rounded-xl bg-brand-300/50" />
-      <div className="h-64 rounded-3xl bg-white/80" />
+      <div className="h-16 border-b border-brand-950/15 bg-brand-100/50" />
+      <div className="h-64 border border-brand-950/10 bg-paper-raised/80" />
       <span className="sr-only">Loading...</span>
     </div>
   );

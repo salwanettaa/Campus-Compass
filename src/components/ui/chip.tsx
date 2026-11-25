@@ -7,7 +7,7 @@ export type ChipProps = Omit<ComponentProps<"button">, "aria-pressed"> & {
   selected?: boolean;
 };
 
-/** A single filter pill (e.g. "All", "Academic"). */
+/** A compact single-select control (e.g. "All", "Academic"). */
 export function Chip({
   className,
   selected = false,
@@ -19,11 +19,11 @@ export function Chip({
       type={type}
       aria-pressed={selected}
       className={cn(
-        "inline-flex h-10 items-center rounded-full px-5 text-h5",
+        "inline-flex min-h-11 items-center rounded-lg border border-brand-950/10 px-4 text-h5",
         "transition-[background-color,color,box-shadow] duration-200",
         selected
-          ? "bg-brand-950 text-white shadow-card"
-          : "bg-brand-300/60 text-brand-950 hover:bg-brand-300",
+          ? "border-brand-950 bg-brand-950 text-white"
+          : "bg-paper-raised text-brand-900 hover:bg-brand-100",
         className,
       )}
       {...props}

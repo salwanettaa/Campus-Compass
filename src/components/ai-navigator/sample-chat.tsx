@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FileText, SendHorizontal, Sparkles, User } from "lucide-react";
+import { FileText } from "lucide-react";
 import { sourceLabel } from "@/lib/knowledge/categories";
 import { formatVerifiedDate } from "@/lib/knowledge/filter";
 import {
@@ -11,25 +11,22 @@ import { cn } from "@/lib/utils";
 
 function Message({ message }: { message: SampleMessage }) {
   const isUser = message.role === "user";
-  const Icon = isUser ? User : Sparkles;
   return (
-    <li className={cn("flex gap-3", isUser && "flex-row-reverse")}>
-      <span
-        aria-hidden="true"
-        className={cn(
-          "flex size-9 shrink-0 items-center justify-center rounded-full",
-          isUser ? "bg-brand-950 text-white" : "bg-brand-100 text-brand-800",
-        )}
-      >
-        <Icon className="size-4" />
-      </span>
+    <li className="flex flex-col gap-2">
+      <p className="font-mono text-[10px] tracking-wide text-brand-700">
+        {isUser ? "YOUR QUESTION" : "NAVIGATOR / SAMPLE"}
+      </p>
       <div
         className={cn(
-          "text-body max-w-[85%] rounded-3xl px-4 py-3",
-          isUser ? "bg-brand-950 text-white" : "bg-brand-100 text-brand-950",
+          "text-body border-l-2 px-4 py-3",
+          isUser
+            ? "border-brand-700 bg-brand-950 text-white"
+            : "border-brand-400 bg-white/70 text-brand-950",
         )}
       >
-        <span className="sr-only">{isUser ? "You said: " : "Navigator said: "}</span>
+        <span className="sr-only">
+          {isUser ? "You said: " : "Navigator said: "}
+        </span>
         {message.text}
       </div>
     </li>
@@ -39,17 +36,20 @@ function Message({ message }: { message: SampleMessage }) {
 /** Static layout preview of the chat and its source cards. Nothing here is interactive. */
 export function SampleChat() {
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
       <section
         aria-labelledby="chat-heading"
-        className="flex flex-col gap-4 rounded-3xl bg-white p-5 shadow-card sm:p-6"
+        className="flex flex-col gap-5 rounded-xl border border-brand-950/10 bg-paper-raised p-4 sm:p-6"
       >
-        <div className="flex flex-wrap items-center gap-2">
-          <h2 id="chat-heading" className="text-h3 text-brand-950">
-            Conversation
+        <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-brand-950/10 pb-4">
+          <h2
+            id="chat-heading"
+            className="text-xl font-semibold tracking-tight text-brand-950"
+          >
+            Example conversation
           </h2>
-          <span className="text-caption rounded-full bg-amber-50 px-3 py-0.5 font-medium text-amber-900">
-            Sample
+          <span className="font-mono text-[10px] tracking-wide text-brand-700">
+            DEMO / NOT LIVE
           </span>
         </div>
 
@@ -58,43 +58,33 @@ export function SampleChat() {
             <Message key={message.id} message={message} />
           ))}
         </ol>
-
-        <form
-          aria-label="Ask the AI Navigator (not available yet)"
-          className="flex items-center gap-2"
-        >
-          <input
-            type="text"
-            disabled
-            aria-label="Your question"
-            placeholder="Chat is not available yet"
-            className="text-body h-12 w-full rounded-full border border-brand-300 bg-brand-100 px-5 text-brand-950 placeholder:text-brand-800 disabled:cursor-not-allowed"
-          />
-          <button
-            type="button"
-            disabled
-            aria-label="Send (not available yet)"
-            className="flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-900 text-white disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <SendHorizontal className="size-5" aria-hidden="true" />
-          </button>
-        </form>
       </section>
 
       <section aria-labelledby="sources-heading" className="flex flex-col gap-3">
-        <h2 id="sources-heading" className="text-h3 text-brand-950">
-          Sources
-        </h2>
+        <div className="border-b border-brand-950/15 pb-3">
+          <p className="font-mono text-[10px] tracking-wide text-brand-700">
+            TRACEABLE BY DESIGN
+          </p>
+          <h2
+            id="sources-heading"
+            className="mt-1 text-xl font-semibold tracking-tight text-brand-950"
+          >
+            Sources
+          </h2>
+        </div>
+        <p className="text-body text-brand-800">
+          Every sample answer points back to the material it used.
+        </p>
         <ul className="flex flex-col gap-3">
           {SAMPLE_SOURCES.map((source) => (
             <li key={source.index}>
               <Link
                 href={`/knowledge/${source.guideId}`}
-                className="flex gap-3 rounded-3xl bg-white p-4 shadow-card transition-colors duration-200 hover:bg-brand-100 focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
+                className="flex gap-3 border border-brand-950/10 border-l-2 border-l-brand-600 bg-paper-raised p-4 transition-colors duration-200 hover:bg-white focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
               >
                 <span
                   aria-hidden="true"
-                  className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-950 text-h5 text-white"
+                  className="font-mono flex size-8 shrink-0 items-center justify-center border border-brand-950/15 bg-brand-100 text-sm text-brand-950"
                 >
                   {source.index}
                 </span>

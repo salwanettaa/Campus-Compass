@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 export const buttonVariants = cva(
   [
-    "inline-flex items-center justify-center gap-2 rounded-full whitespace-nowrap select-none",
+    "inline-flex items-center justify-center gap-2 rounded-lg whitespace-nowrap select-none",
     "transition-[background-color,box-shadow,transform,color] duration-200",
     "active:scale-[0.98]",
     "disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50",
@@ -16,10 +16,10 @@ export const buttonVariants = cva(
       variant: {
         /** "Get Started" - main call to action */
         primary:
-          "bg-linear-to-br from-brand-800 to-brand-700 text-white shadow-card hover:from-brand-900 hover:to-brand-800",
+          "bg-brand-800 text-white hover:bg-brand-900",
         /** "Learn More" - secondary call to action */
         outline:
-          "border-2 border-brand-600 bg-white text-brand-900 hover:bg-brand-100",
+          "border border-brand-800 bg-transparent text-brand-900 hover:bg-white",
         /** Sign Up pill on the dark navbar */
         pillOnDark: "bg-white text-brand-900 hover:bg-brand-100",
         /** Sign Up pill on the light navbar */
@@ -27,7 +27,7 @@ export const buttonVariants = cva(
         ghost: "text-brand-800 hover:bg-brand-100",
       },
       size: {
-        sm: "h-9 px-5 text-h5",
+        sm: "h-11 px-5 text-h5 lg:h-9",
         md: "h-11 px-6 text-h4",
         lg: "h-14 px-8 text-h4 font-semibold",
       },
