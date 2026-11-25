@@ -3,7 +3,11 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getSupabaseEnv, hasSupabaseEnv } from "./env";
 
 /** Pages anyone can open without signing in. */
-const PUBLIC_PATHS = ["/", "/design-system", "/api/health"];
+const PUBLIC_PATHS = [
+  "/",
+  ...(process.env.NODE_ENV !== "production" ? ["/design-system"] : []),
+  "/api/health",
+];
 /** Auth pages: signed-in users are sent to /home instead. */
 const GUEST_ONLY_PATHS = ["/login", "/register"];
 
