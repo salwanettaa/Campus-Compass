@@ -1,213 +1,93 @@
-import Link from "next/link";
-import {
-  ArrowDown,
-  ArrowRight,
-  BookOpenText,
-  MessageCircle,
-  Route,
-} from "lucide-react";
+import { ArrowDown, BookOpen, Route, Sparkles, Users } from "lucide-react";
 import { Navbar } from "@/components/layout/navbar";
 import { ButtonLink } from "@/components/ui/button";
 
-const STEPS = [
+const PILLARS = [
   {
-    number: "01",
-    label: "ASK",
-    title: "Start with a real question.",
+    title: "Community Q&A",
+    icon: Users,
     description:
-      "Ask the community about the parts of campus life no handbook explains.",
-    icon: MessageCircle,
+      "Reddit-inspired student discussion forum. Ask questions anonymously or openly, get helpful votes, and find verified accepted answers.",
   },
   {
-    number: "02",
-    label: "FIND",
-    title: "Keep the useful bits.",
+    title: "Knowledge Hub",
+    icon: BookOpen,
     description:
-      "Browse practical guides and student experiences, with sources kept in view.",
-    icon: BookOpenText,
+      "6 curated categories of campus essentials, from academic survival and KRS rules to scholarships and career preparation.",
   },
   {
-    number: "03",
-    label: "MOVE",
-    title: "Choose your next step.",
-    description:
-      "Turn what you learn into a plan that makes sense for your own journey.",
+    title: "Structured Senior Experiences",
     icon: Route,
+    description:
+      "Glassdoor-style structured stories from seniors with Situation, Challenge, Solution, and actionable Advice for juniors.",
+  },
+  {
+    title: "AI Campus Navigator",
+    icon: Sparkles,
+    description:
+      "AI assistant powered by Google Gemini and RAG that answers academic questions with grounded citations from official handbooks.",
   },
 ] as const;
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#f5f3ec] text-brand-950">
-      <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col px-4 pb-6 pt-4 sm:px-8 sm:pt-6">
-        <Navbar
-          variant="light"
-          logoHref="/"
-          className="rounded-xl border-[#d6d7ce] bg-[#f8f7f2]/90 px-4 py-2 shadow-none"
-        />
+    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-16 px-5 py-6">
+      <Navbar variant="dark" />
 
-        <main className="flex-1">
-          <section
-            aria-labelledby="landing-title"
-            className="grid gap-8 pb-12 pt-9 sm:gap-10 sm:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:pb-20 lg:pt-16"
-          >
-            <div className="relative z-10">
-              <p className="flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.17em] text-brand-800">
-                <span
-                  aria-hidden="true"
-                  className="size-2 rounded-full bg-[#d46747]"
-                />
-                A field guide for campus life
-              </p>
-              <h1
-                id="landing-title"
-                className="mt-5 max-w-[12ch] text-[clamp(2.75rem,8vw,5.5rem)] leading-[0.98] font-bold tracking-[-0.065em] text-brand-950"
+      <main className="flex flex-1 flex-col items-start justify-center gap-6 pb-8">
+        <p className="text-h5 text-brand-800">
+          Student Adaptation &amp; Community Knowledge Platform
+        </p>
+        <h1 className="text-h1 text-brand-950 sm:text-5xl sm:leading-[3.5rem]">
+          Campus Compass
+        </h1>
+        <p className="max-w-xl text-h4 font-normal text-brand-800">
+          Ask, learn from seniors, and get guidance with sources, all in one
+          place. Built to help you find your way around campus.
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <ButtonLink href="/register" size="lg">
+            Get Started
+            <ArrowDown className="size-5" aria-hidden="true" />
+          </ButtonLink>
+          <ButtonLink href="#features" variant="outline" size="lg">
+            Learn More
+          </ButtonLink>
+        </div>
+      </main>
+
+      <section id="features" className="flex flex-col gap-8 pb-16 pt-6">
+        <div className="flex flex-col gap-2">
+          <p className="text-h5 text-brand-700">Platform Features</p>
+          <h2 className="text-h2 text-brand-950">
+            Four Core Pillars Built for Student Adaptation
+          </h2>
+          <p className="max-w-2xl text-body text-brand-800">
+            Everything you need to navigate academics, find campus communities,
+            and thrive in your university journey.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {PILLARS.map((pillar) => {
+            const Icon = pillar.icon;
+            return (
+              <div
+                key={pillar.title}
+                className="flex flex-col gap-4 rounded-3xl border border-brand-100 bg-white p-6 shadow-card transition-shadow hover:shadow-lg"
               >
-                <span className="block">The stuff they</span>
-                <span className="block text-brand-700">don&apos;t put in</span>
-                <span className="block">the handbook.</span>
-              </h1>
-              <p className="mt-5 max-w-lg text-base leading-7 text-brand-800 sm:mt-6 sm:text-lg sm:leading-8">
-                Ask students who&apos;ve been there. Find guides with their
-                sources. Turn what you learn into a next step.
-              </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <ButtonLink
-                  href="/register"
-                  variant="pillOnLight"
-                  size="lg"
-                  className="w-full rounded-lg sm:w-auto"
-                >
-                  Find your starting point
-                  <ArrowRight className="size-5" aria-hidden="true" />
-                </ButtonLink>
-                <Link
-                  href="#how"
-                  className="inline-flex min-h-14 items-center justify-center gap-2 rounded-lg border border-brand-950/20 px-6 text-sm font-semibold text-brand-950 transition-colors hover:bg-white/70"
-                >
-                  See how it works
-                  <ArrowDown className="size-4" aria-hidden="true" />
-                </Link>
-              </div>
-              <p className="mt-6 font-mono text-[10px] tracking-[0.13em] text-brand-800/80">
-                QUESTIONS <span aria-hidden="true">/</span> GUIDES{" "}
-                <span aria-hidden="true">/</span> NEXT STEPS
-              </p>
-            </div>
-
-            <aside
-              aria-label="Sample community question and response"
-              className="relative flex min-h-[480px] flex-col bg-brand-950 px-5 py-5 text-white sm:min-h-[510px] sm:px-8 sm:py-7"
-            >
-              <div className="flex items-center justify-between gap-3 border-b border-white/20 pb-4 font-mono text-[10px] tracking-[0.14em] text-white/75">
-                <span>FIELD NOTE / STUDY PLANNING</span>
-                <span className="inline-flex items-center gap-2 whitespace-nowrap">
-                  <span
-                    aria-hidden="true"
-                    className="size-2 rounded-full bg-[#e6a56c]"
-                  />
-                  EXAMPLE
-                </span>
-              </div>
-
-              <div className="mt-7 grid grid-cols-[2rem_1fr] gap-x-3 sm:mt-9">
-                <span className="font-mono text-xs text-[#e6a56c]">01</span>
-                <div>
-                  <p className="font-mono text-[10px] tracking-[0.16em] text-[#a8d8eb]">
-                    A STUDENT ASKS
-                  </p>
-                  <h2 className="mt-2 max-w-md text-xl leading-7 font-semibold tracking-[-0.025em] sm:text-2xl sm:leading-8">
-                    How do I fix a clash between two courses in my study plan?
-                  </h2>
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-brand-100 text-brand-900">
+                  <Icon className="size-6" aria-hidden="true" />
                 </div>
+                <h3 className="text-h4 font-semibold text-brand-950">
+                  {pillar.title}
+                </h3>
+                <p className="text-body text-brand-800">{pillar.description}</p>
               </div>
-
-              <article className="mt-5 ml-5 border-l-2 border-[#e6a56c] bg-[#f5f3ec] p-4 text-brand-950 sm:ml-8 sm:p-5">
-                <p className="font-mono text-[10px] tracking-[0.14em] text-brand-700">
-                  SAMPLE RESPONSE / PEER ADVICE
-                </p>
-                <p className="mt-2 text-sm leading-6">
-                  Talk to your academic advisor first. They can tell you
-                  whether the clash is allowed and which form the faculty
-                  office needs.
-                </p>
-                <p className="mt-3 border-t border-brand-950/15 pt-2 font-mono text-[9px] uppercase tracking-wide text-brand-700">
-                  Personal experience, not an official rule
-                </p>
-              </article>
-
-              <div className="mt-auto border-t border-white/25 pt-4 sm:pt-5">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <p className="font-mono text-[10px] tracking-[0.14em] text-[#a8d8eb]">
-                    ASK / CHECK / TAKE A NEXT STEP
-                  </p>
-                  <span className="text-sm text-white/90">
-                    Your path, at your pace.
-                  </span>
-                </div>
-              </div>
-            </aside>
-          </section>
-
-          <section
-            id="how"
-            aria-labelledby="how-title"
-            className="scroll-mt-6 border-t border-brand-950/20 py-10 sm:py-14"
-          >
-            <div className="mb-7 flex flex-col gap-3 sm:mb-9 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="font-mono text-[10px] tracking-[0.16em] text-brand-800">
-                  THE IDEA / 01—03
-                </p>
-                <h2
-                  id="how-title"
-                  className="mt-2 max-w-xl text-3xl leading-tight font-semibold tracking-[-0.045em] sm:text-4xl"
-                >
-                  Find a way through,
-                  <br className="hidden sm:block" /> one question at a time.
-                </h2>
-              </div>
-              <p className="max-w-sm text-sm leading-6 text-brand-800">
-                Campus knowledge is better when it is shared, searchable, and
-                connected to what you can do next.
-              </p>
-            </div>
-
-            <ol className="grid sm:grid-cols-3 sm:divide-x sm:divide-brand-950/15">
-              {STEPS.map(({ number, label, title, description, icon: Icon }) => (
-                <li
-                  key={number}
-                  className="border-t border-brand-950/15 py-5 first:pt-5 sm:border-t-0 sm:px-6 sm:py-2 sm:first:pl-0 sm:last:pr-0"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs tracking-[0.12em] text-brand-800">
-                      {number} / {label}
-                    </span>
-                    <Icon
-                      className="size-5 text-brand-700"
-                      strokeWidth={1.7}
-                      aria-hidden="true"
-                    />
-                  </div>
-                  <h3 className="mt-4 text-lg font-semibold tracking-[-0.02em]">
-                    {title}
-                  </h3>
-                  <p className="mt-2 max-w-sm text-sm leading-6 text-brand-800">
-                    {description}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </section>
-        </main>
-
-        <footer className="flex flex-col gap-2 border-t border-brand-950/15 pt-4 text-xs text-brand-800 sm:flex-row sm:items-center sm:justify-between">
-          <span className="font-semibold tracking-tight text-brand-950">
-            Campus Compass
-          </span>
-          <span>Student knowledge, shared forward.</span>
-        </footer>
-      </div>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }

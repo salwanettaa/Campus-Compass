@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ArrowDown, House, Route, Search, User, Users } from "lucide-react";
 import { PasswordInput } from "@/components/auth/password-input";
 import { Navbar } from "@/components/layout/navbar";
@@ -73,6 +74,11 @@ function Section({
 }
 
 export default function DesignSystemPage() {
+  // Only accessible in local development; hidden from production.
+  if (process.env.NODE_ENV === "production") {
+    notFound();
+  }
+
   return (
     <main className="mx-auto flex w-full max-w-6xl flex-col gap-14 px-5 py-10">
       <header className="flex flex-col gap-2">
