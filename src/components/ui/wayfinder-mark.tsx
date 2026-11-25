@@ -13,19 +13,15 @@ export function WayfinderMark({ className }: { className?: string }) {
         strokeLinejoin="round"
         strokeWidth="1.7"
       />
-      <path
-        d="M11.5 5v22m9-19v22"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
+      <path d="M11.5 5v22m9-19v22" stroke="currentColor" strokeWidth="1.4" />
       <path
         d="m8 19 5-5 4 2.5 7-7m-4 0 4.5-.5-.5 4.5"
-        stroke="#d46747"
+        stroke="var(--color-route-on-dark)"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
       />
-      <circle cx="8" cy="19" r="1.5" fill="#d46747" />
+      <circle cx="8" cy="19" r="1.5" fill="var(--color-route-on-dark)" />
     </svg>
   );
 }

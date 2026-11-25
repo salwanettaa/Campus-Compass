@@ -60,7 +60,7 @@ describe("knowledge components (server render)", () => {
 
   it("SampleChat labels the demo and cites sources without a fake input", () => {
     const html = renderToStaticMarkup(<SampleChat />);
-    expect(html).toContain("DEMO / NOT LIVE");
+    expect(html).toContain("Demo, not live");
     expect(html).not.toContain("disabled");
     expect(html).toContain("Source 1");
   });

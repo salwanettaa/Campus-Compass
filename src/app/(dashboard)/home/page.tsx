@@ -1,11 +1,31 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
+import { RouteLine } from "@/components/ui/route-line";
 import { createClient } from "@/lib/supabase/server";
 import { ADAPTATION_AREAS, MAIN_CHALLENGES } from "@/lib/constants/onboarding";
 
 export const metadata: Metadata = { title: "Home" };
+
+const SHORTCUTS = [
+  {
+    href: "/community",
+    title: "Read student questions",
+    description: "See what others asked and which answers helped.",
+  },
+  {
+    href: "/knowledge",
+    title: "Find a campus guide",
+    description: "Six categories, each guide with its source.",
+  },
+  {
+    href: "/knowledge/share-experience",
+    title: "Share what you learned",
+    description: "Write down what worked so the next student can use it.",
+  },
+] as const;
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -42,99 +62,79 @@ export default async function HomePage() {
   ].filter(Boolean);
 
   return (
-    <main className="flex flex-col gap-8">
-      <header className="flex flex-col gap-4 border-b border-brand-950/15 pb-6 sm:flex-row sm:items-end sm:justify-between">
-        <div className="min-w-0">
-          <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
-            YOUR SPACE / HOME
-          </p>
-          <h1 className="mt-2 break-words text-4xl leading-tight font-semibold tracking-[-0.05em] text-brand-950 sm:text-5xl">
+    <main className="flex max-w-5xl flex-col gap-10">
+      <header className="bg-hero-gradient overflow-hidden rounded-[2rem] text-white">
+        <div className="px-6 pt-8 sm:px-10 sm:pt-10">
+          <h1 className="text-h1 break-words">
             Welcome back, {profile?.display_name ?? "Student"}.
           </h1>
-          <p className="text-body mt-3 max-w-xl text-brand-800">
-            Campus life comes one question and one useful step at a time.
-          </p>
+          {campusDetails.length > 0 ? (
+            <p className="text-lead mt-3 text-brand-100">
+              {campusDetails.join(" · ")}
+            </p>
+          ) : null}
         </div>
-        {campusDetails.length > 0 ? (
-          <ul
-            className="flex flex-wrap gap-x-4 gap-y-2 sm:justify-end"
-            aria-label="Campus details"
-          >
-            {campusDetails.map((detail) => (
-              <li
-                key={detail}
-                className="border-l border-brand-300 pl-3 text-caption text-brand-800"
-              >
-                {detail}
+        <RouteLine className="h-20" />
+      </header>
+
+      <div className="grid gap-10 xl:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] xl:gap-14">
+        <section aria-labelledby="next-heading">
+          <h2 id="next-heading" className="text-h2 text-brand-950">
+            Where to go next
+          </h2>
+          <ul className="mt-4 flex flex-col gap-4">
+            {SHORTCUTS.map((shortcut) => (
+              <li key={shortcut.href}>
+                <Link
+                  href={shortcut.href}
+                  className="bg-card-tint flex items-center justify-between gap-4 rounded-md border border-brand-300 p-5 transition-colors hover:border-brand-700"
+                >
+                  <span className="flex flex-col gap-1">
+                    <span className="text-h3 text-brand-950">{shortcut.title}</span>
+                    <span className="text-body text-brand-800">{shortcut.description}</span>
+                  </span>
+                  <ArrowRight className="size-5 shrink-0 text-brand-700" aria-hidden="true" />
+                </Link>
               </li>
             ))}
           </ul>
-        ) : null}
-      </header>
+        </section>
 
-      <section
-        aria-labelledby="focus-heading"
-        className="flex flex-col gap-5"
-      >
-        <div className="border-b border-brand-950/15 pb-3">
-          <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
-            CHECK-IN / CURRENT FOCUS
-          </p>
-          <h2 id="focus-heading" className="mt-1 text-2xl font-semibold tracking-tight text-brand-950">
-            What matters to you right now?
+        <section
+          aria-labelledby="focus-heading"
+          className="h-fit rounded-md border border-brand-300 bg-paper-raised p-5 sm:p-6"
+        >
+          <h2 id="focus-heading" className="text-h2 text-brand-950">
+            Your current focus
           </h2>
-        </div>
-        <dl className="grid gap-x-8 sm:grid-cols-2">
-          <div className="border-t border-brand-950/15 py-3">
-            <dt className="font-mono text-[10px] uppercase tracking-wide text-brand-700">
-              Adaptation area
-            </dt>
-            <dd className="mt-1 text-lg font-medium text-brand-950">
-              {area?.label ?? "Not set"}
-            </dd>
-          </div>
-          <div className="border-t border-brand-950/15 py-3">
-            <dt className="font-mono text-[10px] uppercase tracking-wide text-brand-700">
-              Main challenge
-            </dt>
-            <dd className="mt-1 text-lg font-medium text-brand-950">
-              {challenge?.label ?? "Not set"}
-            </dd>
-          </div>
-        </dl>
-      </section>
+          <dl className="mt-4 divide-y divide-brand-300 border-t border-brand-300">
+            <div className="py-3">
+              <dt className="text-caption text-brand-800">Adaptation area</dt>
+              <dd className="text-h4 mt-1 text-brand-950">{area?.label ?? "Not set"}</dd>
+            </div>
+            <div className="pt-3">
+              <dt className="text-caption text-brand-800">Main challenge</dt>
+              <dd className="text-h4 mt-1 text-brand-950">{challenge?.label ?? "Not set"}</dd>
+            </div>
+          </dl>
+        </section>
+      </div>
 
       <section
         id="my-journey"
         aria-labelledby="journey-heading"
-        className="grid scroll-mt-6 gap-6 border border-brand-950/10 bg-paper-raised p-5 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6"
+        className="flex scroll-mt-6 flex-col items-start gap-3 border-t border-brand-300 pt-6"
       >
-        <div>
-          <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
-            MY JOURNEY / ROADMAP
-          </p>
-          <h2 id="journey-heading" className="mt-2 text-2xl font-semibold tracking-tight text-brand-950">
-            Small steps make campus feel more navigable.
-          </h2>
-          <p className="text-body mt-2 max-w-xl text-brand-800">
-            Your personal roadmap is still being prepared. Explore practical
-            guides and advice from senior students in the meantime.
-          </p>
-        </div>
-        <div className="flex flex-col items-start gap-3 border-t border-brand-950/15 pt-4 sm:border-t-0 sm:border-l sm:py-2 sm:pl-6">
-          <span className="font-mono text-[10px] tracking-wide text-brand-700">
-            ROADMAP / COMING SOON
-          </span>
-          <ButtonLink
-            href="/knowledge"
-            variant="pillOnLight"
-            size="sm"
-            className="w-full sm:w-fit"
-          >
-            Explore guides
-            <ArrowRight className="size-4" aria-hidden="true" />
-          </ButtonLink>
-        </div>
+        <h2 id="journey-heading" className="text-h2 text-brand-950">
+          My Journey
+        </h2>
+        <p className="text-h5 rounded-sm border border-brand-300 bg-brand-100 px-2 text-brand-950">
+          Coming soon
+        </p>
+        <p className="text-body max-w-xl text-brand-800">
+          Your personal roadmap is still being prepared. Until then, use the
+          guides and the advice from senior students.
+        </p>
       </section>
     </main>
   );

@@ -7,7 +7,7 @@ import {
 import { GUIDE_CATEGORIES, type GuideCategory } from "@/lib/knowledge/types";
 import { cn } from "@/lib/utils";
 
-/** Category tiles. They are plain links, so they work without JavaScript. */
+/** Category index. Plain links, so it works without JavaScript. */
 export function CategoryFilter({
   params,
   counts,
@@ -17,7 +17,7 @@ export function CategoryFilter({
 }) {
   return (
     <nav aria-label="Guide categories">
-      <ul className="flex snap-x gap-2 overflow-x-auto pb-2">
+      <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {GUIDE_CATEGORIES.map((category) => {
           const selected = params.category === category;
           // Selecting the active category again clears it.
@@ -33,23 +33,20 @@ export function CategoryFilter({
                 aria-label={`${CATEGORY_INFO[category].label}, ${counts[category]} ${counts[category] === 1 ? "guide" : "guides"}`}
                 title={CATEGORY_INFO[category].description}
                 className={cn(
-                  "flex min-h-11 shrink-0 snap-start items-center gap-3 rounded-lg border px-3 text-sm transition-colors duration-200",
-                  "focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none",
+                  "flex min-h-11 h-full items-center justify-between gap-3 rounded-md border px-3.5 py-2 text-body transition-colors duration-150",
                   selected
-                    ? "border-brand-950 bg-brand-950 text-white"
-                    : "border-brand-950/15 bg-paper-raised text-brand-900 hover:bg-brand-100",
+                    ? "border-brand-700 bg-brand-700 font-semibold text-white"
+                    : "bg-card-tint border-brand-300 text-brand-900 hover:border-brand-700",
                 )}
               >
-                <span className="whitespace-nowrap">
-                  {CATEGORY_INFO[category].label}
-                </span>
+                <span>{CATEGORY_INFO[category].label}</span>
                 <span
                   className={cn(
-                    "font-mono text-[10px]",
-                    selected ? "text-brand-100" : "text-brand-700",
+                    "font-mono text-xs tabular-nums",
+                    selected ? "text-paper-raised" : "text-brand-800",
                   )}
                 >
-                  {counts[category]} {counts[category] === 1 ? "guide" : "guides"}
+                  {counts[category]}
                 </span>
                 <span className="sr-only">
                   {CATEGORY_INFO[category].description}

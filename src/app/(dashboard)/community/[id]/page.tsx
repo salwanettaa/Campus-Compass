@@ -55,7 +55,7 @@ export default async function PostPage({
         Back to Community
       </Link>
 
-      <article className="flex flex-col gap-4 rounded-xl border border-brand-950/10 bg-paper-raised p-5 sm:p-8">
+      <article className="flex flex-col gap-4 border-b border-brand-300 pb-8">
         <div className="flex flex-wrap items-center gap-2">
           <TypeBadge type={post.post_type} />
           <span className="text-caption text-brand-800">
@@ -68,7 +68,7 @@ export default async function PostPage({
             </span>
           ) : null}
         </div>
-        <h1 className="text-3xl leading-tight font-semibold tracking-[-0.04em] text-brand-950 sm:text-4xl">
+        <h1 className="text-h1 break-words text-brand-950">
           {post.title}
         </h1>
         <p className="text-caption border-b border-brand-950/10 pb-4 text-brand-800">
@@ -77,7 +77,7 @@ export default async function PostPage({
             {formatRelativeTime(post.created_at)}
           </time>
         </p>
-        <p className="text-body whitespace-pre-line text-brand-950">
+        <p className="text-lead max-w-2xl whitespace-pre-line text-brand-950">
           {post.content}
         </p>
         <div>

@@ -40,26 +40,28 @@ export function Sidebar({
   const dark = variant === "dark";
   const [collapsed, setCollapsed] = useState(false);
   const navigationId = useId();
+  const quiet = dark
+    ? "text-brand-100 hover:bg-white/10 hover:text-white active:bg-white/20"
+    : "text-brand-800 hover:bg-brand-100 hover:text-brand-950 active:bg-brand-300";
 
   return (
     <aside
       className={cn(
-        "flex flex-col overflow-hidden rounded-2xl border border-brand-950/10 shadow-none transition-[width] duration-200 motion-reduce:transition-none",
-        collapsed ? "w-20" : "w-64",
+        "flex flex-col overflow-hidden border-r transition-[width] duration-200",
+        collapsed ? "w-20" : "w-60",
         dark
-          ? "bg-brand-950 text-white"
-          : "bg-paper-raised text-brand-950",
+          ? "border-brand-950 bg-brand-950 text-white"
+          : "border-brand-300 text-brand-950",
         className,
       )}
     >
       <div
         className={cn(
-          "flex items-center px-5 py-5",
-          collapsed ? "flex-col gap-3 px-2" : "justify-between gap-3",
-          !dark && "bg-brand-950",
+          "flex items-center pb-6",
+          collapsed ? "flex-col gap-2 px-2" : "justify-between gap-2 pr-2 pl-1",
         )}
       >
-        <Logo tone="onDark" href="/home" compact={collapsed} />
+        <Logo tone={dark ? "onDark" : "onLight"} href="/home" compact={collapsed} />
         <button
           type="button"
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -67,7 +69,7 @@ export function Sidebar({
           aria-controls={navigationId}
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           onClick={() => setCollapsed((value) => !value)}
-          className="flex size-10 shrink-0 items-center justify-center rounded-lg text-brand-100 transition-colors hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:outline-none"
+          className={cn("flex size-11 shrink-0 items-center justify-center rounded-md", quiet)}
         >
           {collapsed ? (
             <PanelLeftOpen className="size-5" aria-hidden="true" />
@@ -80,7 +82,7 @@ export function Sidebar({
       <nav
         id={navigationId}
         aria-label="Main"
-        className="flex flex-1 flex-col gap-1 p-3"
+        className="flex flex-1 flex-col gap-1 overflow-y-auto pr-3"
       >
         {NAV_ITEMS.map((item) => {
           const active = isActive(item, pathname);
@@ -93,24 +95,16 @@ export function Sidebar({
               aria-label={collapsed ? item.label : undefined}
               title={collapsed ? item.label : undefined}
               className={cn(
-                "flex min-h-11 items-center rounded-lg text-h5 transition-colors duration-200",
-                collapsed ? "justify-center px-0" : "gap-3 px-4",
-                dark
-                  ? active
-                    ? "bg-white/15 text-white"
-                    : "text-brand-100/85 hover:bg-white/10 hover:text-white"
-                  : active
-                    ? "bg-brand-100 text-brand-950"
-                    : "text-brand-800 hover:bg-brand-100/70 hover:text-brand-950",
+                "flex min-h-11 items-center rounded-full text-body transition-colors duration-150",
+                collapsed ? "justify-center px-0" : "gap-3 px-3",
+                active
+                  ? dark
+                    ? "bg-white/15 font-semibold text-white"
+                    : "bg-brand-900 font-semibold text-white"
+                  : quiet,
               )}
             >
-              <Icon
-                className={cn(
-                  "size-5",
-                  dark ? "text-brand-300" : "text-brand-600",
-                )}
-                aria-hidden="true"
-              />
+              <Icon className="size-5 shrink-0" aria-hidden="true" />
               <span className={collapsed ? "sr-only" : "truncate"}>
                 {item.label}
               </span>
@@ -121,8 +115,8 @@ export function Sidebar({
 
       <div
         className={cn(
-          "flex flex-col gap-1 p-3",
-          dark ? "bg-black/20" : "bg-paper",
+          "mt-3 mr-3 flex flex-col gap-1 border-t pt-3",
+          dark ? "border-white/20" : "border-brand-300",
         )}
       >
         <div
@@ -133,11 +127,11 @@ export function Sidebar({
         >
           <span
             aria-hidden="true"
-            className="flex size-10 items-center justify-center rounded-full bg-brand-700 text-h5 text-white"
+            className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-700 text-h5 text-white"
           >
             {initials(user.displayName)}
           </span>
-          <span className={collapsed ? "sr-only" : "truncate text-h5 uppercase"}>
+          <span className={collapsed ? "sr-only" : "truncate text-h5"}>
             {user.displayName}
           </span>
         </div>
@@ -147,11 +141,9 @@ export function Sidebar({
           aria-label={collapsed ? "Log out" : undefined}
           title={collapsed ? "Log out" : undefined}
           className={cn(
-            "flex min-h-11 items-center rounded-lg text-h5 transition-colors duration-200",
-            collapsed ? "justify-center px-0" : "gap-3 px-4",
-            dark
-              ? "text-brand-100/85 hover:bg-white/10 hover:text-white"
-              : "text-brand-800 hover:bg-white hover:text-brand-950",
+            "flex min-h-11 items-center rounded-md text-body",
+            collapsed ? "justify-center px-0" : "gap-3 px-3",
+            quiet,
           )}
         >
           <LogOut className="size-5" aria-hidden="true" />

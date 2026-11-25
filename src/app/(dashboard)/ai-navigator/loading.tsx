@@ -1,14 +1,9 @@
 export default function AiNavigatorLoading() {
   return (
-    <div
-      role="status"
-      aria-live="polite"
-      aria-label="Loading AI Navigator"
-      className="flex animate-pulse flex-col gap-4"
-    >
-      <div className="h-16 border-b border-brand-950/15 bg-brand-100/50" />
-      <div className="h-64 border border-brand-950/10 bg-paper-raised/80" />
-      <span className="sr-only">Loading...</span>
+    <div role="status" aria-live="polite" className="flex animate-pulse flex-col gap-4">
+      <div className="h-24 border-b border-brand-300" />
+      <div className="h-64 rounded-md border border-brand-300 bg-white/70" />
+      <span className="sr-only">Loading AI Navigator</span>
     </div>
   );
 }

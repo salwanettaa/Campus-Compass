@@ -67,22 +67,20 @@ export default async function GuidePage({
         Back to Knowledge Hub
       </Link>
 
-      <article className="flex flex-col gap-5 rounded-xl border border-brand-950/10 bg-paper-raised p-5 sm:p-8">
-        <span className="font-mono text-[10px] w-fit rounded-md bg-brand-100 px-2.5 py-1 font-medium uppercase tracking-wide text-brand-900">
+      <article className="flex flex-col gap-5">
+        <p className="text-caption text-brand-800">
           {categoryName(guide.category)}
-        </span>
-        <h1 className="text-3xl leading-tight font-semibold tracking-[-0.04em] text-brand-950 sm:text-4xl">
-          {guide.title}
-        </h1>
-        <div className="border-b border-brand-950/10 pb-4">
+        </p>
+        <h1 className="text-h1 break-words text-brand-950">{guide.title}</h1>
+        <div className="border-b border-brand-300 pb-4">
           <VerifiedMeta guide={guide} />
         </div>
-        <div className="text-body max-w-3xl whitespace-pre-line text-brand-950 leading-7">
+        <div className="text-lead max-w-2xl whitespace-pre-line text-brand-950">
           {guide.content_raw}
         </div>
 
         {guide.source_reference || sourceUrl ? (
-          <div className="flex flex-col gap-1 border-l-2 border-brand-600 bg-paper p-4">
+          <div className="flex max-w-2xl flex-col gap-1 rounded-md border border-brand-300 bg-paper-raised p-4">
             <h2 className="text-h5 text-brand-950">Source</h2>
             {guide.source_reference ? (
               <p className="text-body text-brand-900">{guide.source_reference}</p>
