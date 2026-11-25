@@ -1,20 +1,12 @@
 export default function KnowledgeLoading() {
   return (
-    <div
-      role="status"
-      aria-live="polite"
-      aria-label="Loading Knowledge Hub"
-      className="flex animate-pulse flex-col gap-4"
-    >
-      <div className="h-16 border-b border-brand-950/15 bg-brand-100/50" />
-      <div className="h-12 rounded-lg bg-paper-raised" />
-      <div className="flex gap-2 overflow-hidden">
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="h-11 w-32 shrink-0 rounded-lg bg-paper-raised" />
-        ))}
-      </div>
-      <div className="h-40 border border-brand-950/10 bg-paper-raised/80" />
-      <span className="sr-only">Loading...</span>
+    <div role="status" aria-live="polite" className="flex animate-pulse flex-col gap-4">
+      <div className="h-24 border-b border-brand-300" />
+      <div className="h-12 rounded-full bg-brand-100" />
+      {[0, 1, 2].map((i) => (
+        <div key={i} className="h-32 rounded-md border border-brand-300 bg-white/70" />
+      ))}
+      <span className="sr-only">Loading guides and experiences</span>
     </div>
   );
 }

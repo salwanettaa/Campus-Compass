@@ -14,32 +14,21 @@ export const dynamic = "force-dynamic";
 
 function Shell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-5 sm:px-6 sm:py-8">
-      <header className="flex items-center justify-between gap-4 border-b border-brand-950/15 pb-4">
+    <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 px-4 py-4 sm:px-8 sm:py-6">
+      <header className="border-b border-brand-300 pb-3">
         <Logo tone="onLight" href="/" />
-        <p className="font-mono text-[10px] tracking-[0.14em] text-brand-700">
-          PROFILE / SETUP
-        </p>
       </header>
-      <main className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-14">
+      <main className="grid gap-8 pb-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-16">
         <section className="flex flex-col gap-4 lg:sticky lg:top-8">
-          <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
-            THREE STEPS / YOUR CAMPUS
-          </p>
-          <h1 className="text-4xl leading-tight font-semibold tracking-[-0.05em] text-brand-950 sm:text-5xl">
-            Make this space yours.
-          </h1>
-          <p className="text-body max-w-md text-brand-800">
+          <h1 className="text-h1 text-brand-950">Make this space yours.</h1>
+          <p className="text-lead max-w-md text-brand-800">
             Set your campus, semester, and current focus. We&apos;ll use them to
             shape what you see.
-          </p>
-          <p className="mt-3 border-t border-brand-950/15 pt-4 font-mono text-[10px] tracking-[0.12em] text-brand-700">
-            01 CAMPUS &nbsp; / &nbsp; 02 SEMESTER &nbsp; / &nbsp; 03 FOCUS
           </p>
         </section>
         <section
           aria-label="Profile setup form"
-          className="flex flex-col gap-6 border border-brand-950/10 bg-paper-raised p-5 sm:p-8"
+          className="flex flex-col gap-6 rounded-md border border-brand-300 bg-paper-raised p-5 sm:p-8"
         >
           {children}
         </section>

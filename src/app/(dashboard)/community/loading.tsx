@@ -1,21 +1,11 @@
 export default function CommunityLoading() {
   return (
-    <div
-      role="status"
-      aria-live="polite"
-      aria-label="Loading community"
-      className="flex animate-pulse flex-col gap-4"
-    >
-      <div className="h-16 border-b border-brand-950/15 bg-brand-100/50" />
-      <div className="flex gap-2">
-        {[0, 1, 2, 3].map((i) => (
-          <div key={i} className="h-11 w-24 rounded-lg bg-paper-raised" />
-        ))}
-      </div>
+    <div role="status" aria-live="polite" className="flex animate-pulse flex-col gap-4">
+      <div className="h-24 border-b border-brand-300" />
       {[0, 1, 2].map((i) => (
-        <div key={i} className="h-44 border border-brand-950/10 border-l-2 border-l-brand-300 bg-paper-raised/80" />
+        <div key={i} className="h-40 rounded-md border border-brand-300 bg-white/70" />
       ))}
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only">Loading community posts</span>
     </div>
   );
 }

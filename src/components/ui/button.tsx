@@ -6,30 +6,29 @@ import { cn } from "@/lib/utils";
 
 export const buttonVariants = cva(
   [
-    "inline-flex items-center justify-center gap-2 rounded-lg whitespace-nowrap select-none",
-    "transition-[background-color,box-shadow,transform,color] duration-200",
-    "active:scale-[0.98]",
+    "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full whitespace-nowrap select-none",
+    "transition-[background-color,border-color,color,filter] duration-150",
     "disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50",
   ],
   {
     variants: {
       variant: {
-        /** "Get Started" - main call to action */
-        primary:
-          "bg-brand-800 text-white hover:bg-brand-900",
-        /** "Learn More" - secondary call to action */
+        /** Main action. Use one per view. */
+        primary: "bg-brand-gradient text-white hover:brightness-90 active:brightness-75",
+        /** Secondary action */
         outline:
-          "border border-brand-800 bg-transparent text-brand-900 hover:bg-white",
-        /** Sign Up pill on the dark navbar */
-        pillOnDark: "bg-white text-brand-900 hover:bg-brand-100",
-        /** Sign Up pill on the light navbar */
-        pillOnLight: "bg-brand-900 text-white hover:bg-brand-950",
-        ghost: "text-brand-800 hover:bg-brand-100",
+          "border border-brand-400 bg-transparent text-brand-950 hover:border-brand-700 hover:text-brand-700 active:bg-brand-100",
+        /** Action on a green or dark background */
+        pillOnDark:
+          "bg-white font-semibold text-brand-900 hover:bg-brand-100 active:bg-brand-300",
+        /** Navbar action on a light background */
+        pillOnLight: "bg-brand-gradient text-white hover:brightness-90 active:brightness-75",
+        ghost: "text-brand-900 hover:bg-brand-100 active:bg-brand-300",
       },
       size: {
-        sm: "h-11 px-5 text-h5 lg:h-9",
-        md: "h-11 px-6 text-h4",
-        lg: "h-14 px-8 text-h4 font-semibold",
+        sm: "h-11 px-5 text-h5",
+        md: "h-11 px-6 text-h5",
+        lg: "h-12 px-8 text-h4",
       },
     },
     defaultVariants: { variant: "primary", size: "md" },

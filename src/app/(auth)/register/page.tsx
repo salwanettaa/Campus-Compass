@@ -10,7 +10,7 @@ export default function RegisterPage() {
   return (
     <>
       <header className="flex flex-col gap-1">
-        <h1 className="text-3xl leading-tight font-semibold tracking-[-0.05em] text-brand-950">
+        <h1 className="text-h1 text-brand-950">
           Create your account
         </h1>
         <p className="text-body text-brand-800">

@@ -1,241 +1,273 @@
-import Link from "next/link";
 import {
-  ArrowDown,
-  ArrowRight,
-  BookOpenText,
-  MessageCircle,
-  Route,
-} from "lucide-react";
-import { Navbar } from "@/components/layout/navbar";
+  CompassFinder,
+  type CompassPoint,
+} from "@/components/landing/compass-finder";
+import {
+  ExamplePreview,
+  type PreviewItem,
+} from "@/components/landing/example-preview";
+import { LandingHeader } from "@/components/landing/landing-header";
 import { ButtonLink } from "@/components/ui/button";
+import { RouteLine } from "@/components/ui/route-line";
+import { MOCK_COMMENTS, MOCK_POSTS } from "@/lib/community/mock-data";
+import { CATEGORY_INFO, PERSONAL_EXPERIENCE_LABEL } from "@/lib/knowledge/categories";
+import { MOCK_EXPERIENCES, MOCK_GUIDES } from "@/lib/knowledge/mock-data";
+import { GUIDE_CATEGORIES } from "@/lib/knowledge/types";
 
 const STEPS = [
   {
-    number: "01",
-    label: "ASK",
-    title: "Start with a real question.",
-    description:
-      "Ask the community about the parts of campus life no handbook explains.",
-    icon: MessageCircle,
+    title: "Create your account",
+    description: "Use your email and a nickname. No student ID needed.",
   },
   {
-    number: "02",
-    label: "FIND",
-    title: "Keep the useful bits.",
-    description:
-      "Browse practical guides and student experiences, with sources kept in view.",
-    icon: BookOpenText,
+    title: "Set your starting point",
+    description: "Pick your campus, semester, and what you need help with.",
   },
   {
-    number: "03",
-    label: "MOVE",
-    title: "Choose your next step.",
-    description:
-      "Turn what you learn into a plan that makes sense for your own journey.",
-    icon: Route,
+    title: "Find your way",
+    description: "Browse student questions and campus guides.",
+  },
+  {
+    title: "Mark the route",
+    description: "Share what worked so the next student can follow it.",
   },
 ] as const;
 
+/** Honest status of each module. Update this when a module goes live. */
+const STATUS = [
+  ["Community", "Showing sample posts"],
+  ["Knowledge Hub", "Showing sample guides"],
+  ["AI Navigator", "Layout preview, no AI connected"],
+  ["My Journey", "Coming soon"],
+] as const;
+
+function previewItems(): PreviewItem[] {
+  const post = MOCK_POSTS[0];
+  const answer = MOCK_COMMENTS.find(
+    (comment) => comment.post_id === post.id && comment.is_accepted_answer,
+  );
+  const guide = MOCK_GUIDES[3];
+  const story = MOCK_EXPERIENCES[0];
+
+  return [
+    {
+      label: "Question",
+      title: post.title,
+      body: post.content,
+      replyLabel: "Accepted answer",
+      reply: answer?.content ?? "No accepted answer yet.",
+      note: "Replies come from students, so check rules with your campus.",
+    },
+    {
+      label: "Guide",
+      title: guide.title,
+      body: guide.content_raw.split("\n\n")[0],
+      replyLabel: "Source",
+      reply: guide.source_reference ?? "No source listed.",
+      note: "Each guide shows where it came from and when it was last checked.",
+    },
+    {
+      label: "Story",
+      title: story.title,
+      body: `${story.situation} ${story.challenge}`,
+      replyLabel: "Advice for juniors",
+      reply: story.advice_for_juniors,
+      note: PERSONAL_EXPERIENCE_LABEL,
+    },
+  ];
+}
+
+const DIAL_NAMES = {
+  academic_survival: "Academics",
+  social_community: "Social",
+  administrative_guide: "Admin",
+  campus_essentials: "Campus",
+  scholarship_growth: "Funding",
+  career_preparation: "Career",
+} as const;
+
+/** One published sample guide per category, for the hero compass. */
+function compassPoints(): CompassPoint[] {
+  return GUIDE_CATEGORIES.flatMap((category) => {
+    const guide = MOCK_GUIDES.find(
+      (entry) => entry.category === category && entry.is_published,
+    );
+    if (!guide) return [];
+    return [
+      {
+        id: category,
+        short: DIAL_NAMES[category],
+        category: CATEGORY_INFO[category].label,
+        description: CATEGORY_INFO[category].description,
+        guideTitle: guide.title,
+        guideLine: guide.content_raw.split("\n")[0],
+      },
+    ];
+  });
+}
+
+/** Things the current interface already shows (on sample content). */
+const FEATURES = [
+  ["Ask without the handbook", "Post the question you can't find an answer to."],
+  ["Accepted answers", "The reply that solved the problem is marked."],
+  ["Helpful votes", "See which advice other students found useful."],
+  ["Sources in view", "Guides say where their information comes from."],
+  ["Check dates", "Older guides are flagged as possibly outdated."],
+  ["Stories from seniors", "What happened, what they did, and their advice."],
+] as const;
+
+const CONTAINER = "mx-auto w-full max-w-6xl px-4 sm:px-8";
+
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#f5f3ec] text-brand-950">
-      <div className="mx-auto flex min-h-screen max-w-[1440px] flex-col px-4 pb-6 pt-4 sm:px-8 sm:pt-6">
-        <Navbar
-          variant="light"
-          logoHref="/"
-          className="rounded-xl border-[#d6d7ce] bg-[#f8f7f2]/90 px-4 py-2 shadow-none"
-        />
+    <div className="flex flex-1 flex-col">
+      <LandingHeader />
 
-        <main className="flex-1">
-          <section
-            aria-labelledby="landing-title"
-            className="grid gap-8 pb-12 pt-9 sm:gap-10 sm:pt-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:pb-20 lg:pt-16"
-          >
-            <div className="relative z-10">
-              <p className="flex items-center gap-2 font-mono text-[11px] font-medium uppercase tracking-[0.17em] text-brand-800">
-                <span
-                  aria-hidden="true"
-                  className="size-2 rounded-full bg-[#d46747]"
-                />
-                A living map of campus life
-              </p>
-              <h1
-                id="landing-title"
-                className="mt-5 max-w-[14ch] text-[clamp(3.1rem,7vw,5.25rem)] leading-[0.91] font-bold tracking-[-0.075em] text-brand-950"
-              >
-                <span className="block">Nobody hands</span>
-                <span className="block text-brand-700">you a map.</span>
-                <span className="mt-2 block text-[0.48em] leading-[1.1] font-medium tracking-[-0.045em] text-brand-800">
-                  Students draw one together.
-                </span>
+      <main className="flex-1">
+        <section
+          aria-labelledby="landing-title"
+          className="bg-hero-gradient flex flex-col overflow-hidden pt-24 pb-4 text-white lg:min-h-[min(100svh,50rem)]"
+        >
+          <div className={`${CONTAINER} grid flex-1 items-center gap-12 py-8 lg:grid-cols-[1.15fr_1fr] lg:gap-10 lg:py-3`}>
+            <div>
+              <h1 id="landing-title" className="text-display">
+                <span className="block">Nobody hands you a map.</span>
+                <span className="mt-1 block text-brand-300">Students draw one together.</span>
               </h1>
-              <p className="mt-5 max-w-md text-base leading-7 text-brand-800 sm:mt-6 sm:text-lg sm:leading-8">
-                Real answers from people who&apos;ve found their way, practical
-                guides you can check, and a next step that&apos;s yours.
+              <p className="text-lead mt-6 max-w-xl text-brand-100">
+                Ask questions, read guides that show their sources, and learn
+                what seniors would do differently.
               </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <ButtonLink
                   href="/register"
-                  variant="pillOnLight"
+                  variant="pillOnDark"
                   size="lg"
-                  className="w-full rounded-lg sm:w-auto"
+                  className="focus-visible:outline-white"
                 >
-                  Find your starting point
-                  <ArrowRight className="size-5" aria-hidden="true" />
+                  Create your account
                 </ButtonLink>
-                <Link
-                  href="#how"
-                  className="inline-flex min-h-14 items-center justify-center gap-2 rounded-lg border border-brand-950/20 px-6 text-sm font-semibold text-brand-950 transition-colors hover:bg-white/70"
+                <ButtonLink
+                  href="#steps"
+                  size="lg"
+                  variant="ghost"
+                  className="border border-white/50 text-white hover:bg-white/15 active:bg-white/25 focus-visible:outline-white"
                 >
-                  See how it works
-                  <ArrowDown className="size-4" aria-hidden="true" />
-                </Link>
+                  See the route
+                </ButtonLink>
               </div>
-              <p className="mt-6 font-mono text-[10px] tracking-[0.13em] text-brand-800/80">
-                ASK SOMEONE <span aria-hidden="true">/</span> CHECK THE SOURCE{" "}
-                <span aria-hidden="true">/</span> FIND YOUR WAY
+            </div>
+            <CompassFinder points={compassPoints()} />
+          </div>
+          <RouteLine className="h-20 sm:h-28" />
+        </section>
+
+        <section aria-labelledby="features-title" className="py-16 sm:py-24">
+          <div className={CONTAINER}>
+            <h2 id="features-title" className="text-h1 max-w-2xl">
+              Advice you can check
+            </h2>
+            <p className="text-lead mt-3 text-brand-800">
+              Know who said it, where it came from, and how old it is.
+            </p>
+            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {FEATURES.map(([title, description]) => (
+                <li key={title} className="reveal bg-card-tint rounded-md border border-brand-300 p-6">
+                  <h3 className="text-h3">{title}</h3>
+                  <p className="text-body mt-2 text-brand-800">{description}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section aria-labelledby="preview-title" className="pb-16 sm:pb-24">
+          <div className={`${CONTAINER} grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14`}>
+            <div>
+              <h2 id="preview-title" className="text-h1">
+                Learn from students
+              </h2>
+              <p className="text-lead mt-3 text-brand-800">
+                Switch between a question, a guide, and a senior&apos;s story.
               </p>
             </div>
-
-            <aside
-              aria-label="Sample community question and response"
-              className="relative isolate flex min-h-[390px] items-center justify-center overflow-hidden border-y border-brand-950/15 px-4 py-8 sm:min-h-[480px] sm:border sm:px-8"
-            >
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 -z-10 opacity-80"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to right, rgb(4 32 46 / 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgb(4 32 46 / 0.06) 1px, transparent 1px)",
-                  backgroundSize: "32px 32px",
-                }}
-              />
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 480 440"
-                className="absolute inset-0 -z-10 h-full w-full text-brand-800/55"
-                fill="none"
-              >
-                <path
-                  d="M-20 312C52 290 72 196 147 208s94 118 166 75 78-123 187-107M20 74c78 49 98 99 161 82s93-75 153-40 68 115 148 126M63 462c4-78 54-101 101-96s64 39 111 19 91-91 166-65"
-                  stroke="currentColor"
-                  strokeDasharray="3 7"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M25 350c70-30 83-118 147-111s91 100 149 64 77-104 159-92"
-                  stroke="#d46747"
-                  strokeWidth="3"
-                />
-                <circle cx="25" cy="350" r="6" fill="#d46747" />
-                <circle cx="172" cy="239" r="6" fill="#d46747" />
-                <circle cx="321" cy="303" r="6" fill="#d46747" />
-                <circle cx="480" cy="211" r="6" fill="#d46747" />
-                <path d="M402 34v54m-27-27h54" stroke="currentColor" />
-                <circle cx="402" cy="61" r="22" stroke="currentColor" />
-                <path d="m402 45 5 16-5 16-5-16 5-16Z" fill="#d46747" />
-              </svg>
-
-              <div className="absolute left-4 top-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.16em] text-brand-800 sm:left-6 sm:top-6">
-                <span className="size-2 rounded-full bg-[#d46747]" />
-                Student routes / still being drawn
-              </div>
-              <div className="absolute right-4 top-16 hidden font-mono text-[9px] uppercase tracking-[0.14em] text-brand-800 sm:block">
-                <span className="block">01 / Ask</span>
-                <span className="mt-2 block">02 / Verify</span>
-                <span className="mt-2 block">03 / Go</span>
-              </div>
-
-              <article className="relative mt-8 w-full max-w-[350px] -rotate-1 border border-brand-950/15 bg-[#fbfaf6] p-5 shadow-[5px_7px_0_rgb(4_32_46/0.08)] sm:mt-6 sm:p-6">
-                <div className="flex items-center justify-between gap-3 border-b border-brand-950/15 pb-3 font-mono text-[9px] uppercase tracking-[0.14em] text-brand-800">
-                  <span>Field note / 014</span>
-                  <span>Example</span>
-                </div>
-                <p className="mt-5 font-mono text-[9px] uppercase tracking-[0.15em] text-brand-700">
-                  A student asks
-                </p>
-                <h2 className="mt-2 text-xl leading-7 font-semibold tracking-[-0.035em] text-brand-950 sm:text-2xl sm:leading-8">
-                  Two courses clash. Who do I talk to first?
-                </h2>
-                <div className="mt-4 border-l-2 border-[#d46747] pl-4">
-                  <p className="font-mono text-[9px] uppercase tracking-[0.13em] text-brand-700">
-                    Peer advice / sample
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-brand-950">
-                    Start with your academic advisor. Ask what options your
-                    faculty allows before changing your plan.
-                  </p>
-                </div>
-                <p className="mt-4 border-t border-brand-950/15 pt-3 font-mono text-[9px] uppercase tracking-wide text-brand-700">
-                  Personal experience, not an official rule
-                </p>
-              </article>
-
-              <span className="absolute bottom-4 left-4 font-mono text-[9px] tracking-[0.14em] text-brand-800 sm:bottom-6 sm:left-6">
-                YOUR ROUTE STARTS HERE
-              </span>
-            </aside>
-          </section>
-
-          <section
-            id="how"
-            aria-labelledby="how-title"
-            className="scroll-mt-6 border-t border-brand-950/20 py-10 sm:py-14"
-          >
-            <div className="mb-7 flex flex-col gap-3 sm:mb-9 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="font-mono text-[10px] tracking-[0.16em] text-brand-800">
-                  THE IDEA / 01—03
-                </p>
-                <h2
-                  id="how-title"
-                  className="mt-2 max-w-xl text-3xl leading-tight font-semibold tracking-[-0.045em] sm:text-4xl"
-                >
-                  Find a way through,
-                  <br className="hidden sm:block" /> one question at a time.
-                </h2>
-              </div>
-              <p className="max-w-sm text-sm leading-6 text-brand-800">
-                Campus knowledge is better when it is shared, searchable, and
-                connected to what you can do next.
-              </p>
+            {/* The coloured backdrop gives the glass panel something to refract. */}
+            <div className="bg-hero-gradient rounded-[2rem] p-3 sm:p-8">
+              <ExamplePreview items={previewItems()} />
             </div>
+          </div>
+        </section>
 
-            <ol className="grid sm:grid-cols-3 sm:divide-x sm:divide-brand-950/15">
-              {STEPS.map(({ number, label, title, description, icon: Icon }) => (
+        <section id="steps" aria-labelledby="steps-title" className="scroll-mt-24 pb-16 sm:pb-24">
+          <div className={CONTAINER}>
+            <h2 id="steps-title" className="text-h1">
+              Your route in four steps
+            </h2>
+            <ol className="mt-10">
+              {STEPS.map((step, index) => (
                 <li
-                  key={number}
-                  className="border-t border-brand-950/15 py-5 first:pt-5 sm:border-t-0 sm:px-6 sm:py-2 sm:first:pl-0 sm:last:pr-0"
+                  key={step.title}
+                  className="reveal relative grid grid-cols-[3rem_1fr] gap-4 pb-10 last:pb-0 sm:grid-cols-[4rem_1fr] sm:gap-6"
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs tracking-[0.12em] text-brand-800">
-                      {number} / {label}
-                    </span>
-                    <Icon
-                      className="size-5 text-brand-700"
-                      strokeWidth={1.7}
+                  {index < STEPS.length - 1 ? (
+                    <span
                       aria-hidden="true"
+                      className="absolute top-12 bottom-0 left-6 border-l-2 border-dashed border-route sm:top-16 sm:left-8"
                     />
+                  ) : null}
+                  <span
+                    aria-hidden="true"
+                    className="bg-brand-gradient flex size-12 items-center justify-center rounded-full text-sm font-semibold text-white tabular-nums sm:size-16 sm:text-base"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className="pt-1 sm:pt-3">
+                    <h3 className="text-h2">{step.title}</h3>
+                    <p className="text-lead mt-1 text-brand-800">{step.description}</p>
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold tracking-[-0.02em]">
-                    {title}
-                  </h3>
-                  <p className="mt-2 max-w-sm text-sm leading-6 text-brand-800">
-                    {description}
-                  </p>
                 </li>
               ))}
             </ol>
-          </section>
-        </main>
+          </div>
+        </section>
 
-        <footer className="flex flex-col gap-2 border-t border-brand-950/15 pt-4 text-xs text-brand-800 sm:flex-row sm:items-center sm:justify-between">
-          <span className="font-semibold tracking-tight text-brand-950">
-            Campus Compass
-          </span>
+        <section aria-labelledby="cta-title" className="pb-16">
+          <div className={CONTAINER}>
+            <div className="bg-hero-gradient rounded-[2rem] p-7 text-white sm:p-14">
+              <h2 id="cta-title" className="text-h1">
+                Start with one question
+              </h2>
+              <p className="text-lead mt-3 max-w-xl text-brand-100">
+                Campus Compass is still being built. This is where each part
+                stands today.
+              </p>
+              <dl className="mt-9 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {STATUS.map(([name, status]) => (
+                  <div key={name} className="border-t border-white/30 pt-4">
+                    <dt className="text-h3">{name}</dt>
+                    <dd className="text-body mt-1 text-brand-100">{status}</dd>
+                  </div>
+                ))}
+              </dl>
+              <ButtonLink
+                href="/register"
+                variant="pillOnDark"
+                size="lg"
+                className="mt-9 w-full focus-visible:outline-white sm:w-auto"
+              >
+                Create your account
+              </ButtonLink>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-brand-300">
+        <div className={`${CONTAINER} text-caption flex flex-col gap-1 py-7 text-brand-800 sm:flex-row sm:items-center sm:justify-between`}>
+          <span className="font-semibold text-brand-950">Campus Compass</span>
           <span>Student knowledge, shared forward.</span>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </div>
   );
 }

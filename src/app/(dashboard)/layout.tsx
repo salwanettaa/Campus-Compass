@@ -45,14 +45,14 @@ export default async function DashboardLayout({
   if (!profile || !profile.onboarding_completed) redirect("/onboarding");
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-1 gap-6 p-4 lg:p-6">
+    <div className="mx-auto flex w-full max-w-7xl flex-1 gap-8 px-4 pt-6 sm:px-6 lg:gap-12 lg:py-6">
       <Sidebar
         user={{ displayName: profile.display_name }}
         onLogout={signOutAction}
         className="sticky top-6 hidden h-[calc(100dvh-3rem)] shrink-0 lg:flex"
       />
-      <div className="min-w-0 flex-1 pb-32 lg:pb-0">{children}</div>
-      <BottomNav />
+      <div className="min-w-0 flex-1 pb-28 lg:pt-2 lg:pb-12">{children}</div>
+      <BottomNav onLogout={signOutAction} />
     </div>
   );
 }

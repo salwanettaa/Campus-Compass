@@ -21,10 +21,10 @@ export function ChoiceCard({
       <input type="radio" className="peer sr-only" {...props} />
       <span
         className={cn(
-          "flex h-full flex-col gap-1 rounded-lg border border-brand-950/15 bg-paper-raised p-4",
-          "transition-[border-color,background-color] duration-200",
-          "hover:border-brand-600",
-          "peer-checked:border-brand-800 peer-checked:bg-brand-100",
+          "flex h-full flex-col gap-1 rounded-md border border-brand-400 bg-paper-raised p-4",
+          "transition-colors duration-150",
+          "hover:border-brand-700",
+          "peer-checked:border-brand-700 peer-checked:bg-brand-100 peer-checked:ring-1 peer-checked:ring-brand-700",
           "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand-600",
         )}
       >

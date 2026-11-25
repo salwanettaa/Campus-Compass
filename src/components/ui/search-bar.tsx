@@ -24,7 +24,7 @@ export function SearchBar({
         "transition-shadow duration-200 focus-within:ring-2 focus-within:ring-brand-600",
         dark
           ? "bg-brand-950 text-white"
-          : "border border-brand-950/20 bg-paper-raised text-brand-950",
+          : "border border-brand-400 bg-paper-raised text-brand-950",
         className,
       )}
     >

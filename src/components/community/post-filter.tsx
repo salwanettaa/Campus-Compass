@@ -33,17 +33,11 @@ export function PostFilter({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn(
-        "grid gap-4 rounded-xl border border-brand-950/10 bg-paper-raised p-4 sm:grid-cols-2 sm:gap-5",
-        pending && "opacity-70",
-        className,
-      )}
+      className={cn("flex flex-col gap-4", pending && "opacity-70", className)}
       aria-busy={pending}
     >
       <fieldset className="min-w-0">
-        <legend className="mb-2 block font-mono text-[10px] uppercase tracking-[0.14em] text-brand-700">
-          Sort the feed
-        </legend>
+        <legend className="text-h5 mb-2 text-brand-950">Sort by</legend>
         <div role="group" aria-label="Sort posts" className="flex flex-wrap gap-2">
           {SORT_MODES.map((mode) => (
             <Chip
@@ -56,10 +50,8 @@ export function PostFilter({ className }: { className?: string }) {
           ))}
         </div>
       </fieldset>
-      <fieldset className="min-w-0 sm:border-l sm:border-brand-950/10 sm:pl-5">
-        <legend className="mb-2 block font-mono text-[10px] uppercase tracking-[0.14em] text-brand-700">
-          Narrow by type
-        </legend>
+      <fieldset className="min-w-0">
+        <legend className="text-h5 mb-2 text-brand-950">Post type</legend>
         <div
           role="group"
           aria-label="Filter by post type"

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpenText, SearchX } from "lucide-react";
 import { CategoryFilter } from "@/components/knowledge/category-filter";
 import { ExperienceCard } from "@/components/knowledge/experience-card";
 import { GuideListCard } from "@/components/knowledge/guide-list-card";
 import { Alert } from "@/components/ui/alert";
 import { Button, ButtonLink } from "@/components/ui/button";
+import { PageHeader } from "@/components/ui/page-header";
 import { SearchBar } from "@/components/ui/search-bar";
 import {
   listExperiences,
@@ -47,49 +47,48 @@ export default async function KnowledgePage({
   const retryHref = `/knowledge${buildKnowledgeQuery(params)}`;
 
   return (
-    <main className="flex flex-col gap-8">
-      <header className="flex flex-col gap-2 border-b border-brand-950/15 pb-5">
-        <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
-          CAMPUS KNOWLEDGE / 02
-        </p>
-        <h1 className="text-4xl leading-tight font-semibold tracking-[-0.05em] text-brand-950">
-          Knowledge Hub
-        </h1>
-        <p className="text-body max-w-xl text-brand-800">
-          Campus guides and student experiences, with sources kept in view.
-        </p>
-      </header>
+    <main className="flex max-w-5xl flex-col gap-8">
+      <PageHeader
+        title="Knowledge Hub"
+        description="Campus guides and student experiences, with sources kept in view."
+      >
+        <ButtonLink href="/knowledge/share-experience" variant="outline">
+          Share your experience
+        </ButtonLink>
+      </PageHeader>
 
       <Alert variant="info">
         You are viewing sample guides. Live content is coming soon, so do not
         rely on anything here as official information.
       </Alert>
 
-      <form action="/knowledge" role="search" className="flex flex-col gap-3 sm:flex-row">
-        <SearchBar
-          name="q"
-          defaultValue={params.q}
-          maxLength={100}
-          label="Search guides"
-          placeholder="Search guides..."
-        />
-        {params.category ? (
-          <input type="hidden" name="category" value={params.category} />
-        ) : null}
-        <Button type="submit" className="shrink-0">
-          Search
-        </Button>
-      </form>
+      <div className="flex flex-col gap-4">
+        <form action="/knowledge" role="search" className="flex flex-col gap-3 sm:flex-row">
+          <SearchBar
+            name="q"
+            defaultValue={params.q}
+            maxLength={100}
+            label="Search guides"
+            placeholder="Search guides by topic"
+          />
+          {params.category ? (
+            <input type="hidden" name="category" value={params.category} />
+          ) : null}
+          <Button type="submit" size="lg" className="shrink-0">
+            Search
+          </Button>
+        </form>
 
-      <CategoryFilter params={params} counts={counts} />
+        <CategoryFilter params={params} counts={counts} />
+      </div>
 
-      <section aria-labelledby="guides-heading" className="flex flex-col gap-4">
+      <section aria-labelledby="guides-heading" className="flex flex-col">
         <h2 id="guides-heading" className="text-h2 text-brand-950">
           Guides
         </h2>
 
         {!guidesResult.ok ? (
-          <div className="flex flex-col items-start gap-3">
+          <div className="flex flex-col items-start gap-3 pt-4">
             <Alert variant="error" title="We could not load the guides">
               {guidesResult.message} Please try again.
             </Alert>
@@ -98,14 +97,7 @@ export default async function KnowledgePage({
             </ButtonLink>
           </div>
         ) : guides.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 rounded-xl border border-brand-950/10 bg-paper-raised p-8 text-center">
-            <span className="flex size-12 items-center justify-center rounded-2xl bg-brand-100 text-brand-800">
-              {isFiltered ? (
-                <SearchX className="size-6" aria-hidden="true" />
-              ) : (
-                <BookOpenText className="size-6" aria-hidden="true" />
-              )}
-            </span>
+          <div className="flex flex-col items-start gap-3 py-8">
             <h3 className="text-h3 text-brand-950">
               {isFiltered ? "No guides match your search" : "No guides yet"}
             </h3>
@@ -117,14 +109,14 @@ export default async function KnowledgePage({
             {isFiltered ? (
               <Link
                 href="/knowledge"
-                className="text-h5 text-brand-800 underline underline-offset-4"
+                className="text-h5 inline-flex min-h-11 items-center text-brand-700 underline underline-offset-4"
               >
                 Clear search and filters
               </Link>
             ) : null}
           </div>
         ) : (
-          <ul className="grid gap-4 md:grid-cols-2" aria-label="Guides">
+          <ul className="mt-4 grid gap-4 md:grid-cols-2" aria-label="Guides">
             {guides.map((guide) => (
               <li key={guide.id}>
                 <GuideListCard guide={guide} />
@@ -134,22 +126,10 @@ export default async function KnowledgePage({
         )}
       </section>
 
-      <section
-        aria-labelledby="experiences-heading"
-        className="flex flex-col gap-4"
-      >
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 id="experiences-heading" className="text-h2 text-brand-950">
-            Senior experiences
-          </h2>
-          <ButtonLink
-            href="/knowledge/share-experience"
-            variant="outline"
-            size="sm"
-          >
-            Share your experience
-          </ButtonLink>
-        </div>
+      <section aria-labelledby="experiences-heading" className="flex flex-col gap-4">
+        <h2 id="experiences-heading" className="text-h2 text-brand-950">
+          Senior experiences
+        </h2>
 
         {!experiencesResult.ok ? (
           <div className="flex flex-col items-start gap-3">
@@ -161,11 +141,11 @@ export default async function KnowledgePage({
             </ButtonLink>
           </div>
         ) : experiencesResult.data.length === 0 ? (
-          <p className="text-body border-l-2 border-brand-300 bg-paper-raised p-6 text-brand-800">
+          <p className="text-body py-4 text-brand-800">
             No experiences yet. Be the first to share what helped you.
           </p>
         ) : (
-          <ul className="flex flex-col gap-4" aria-label="Senior experiences">
+          <ul className="flex flex-col gap-5" aria-label="Senior experiences">
             {experiencesResult.data.map((experience) => (
               <li key={experience.id}>
                 <ExperienceCard experience={experience} />

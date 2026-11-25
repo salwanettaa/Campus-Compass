@@ -24,10 +24,10 @@ function CommentItem({
       <article
         aria-label={`Comment by ${comment.author_display_name ?? "unknown author"}`}
         className={cn(
-          "flex flex-col gap-2 border border-brand-950/10 p-4",
+          "flex flex-col gap-2 rounded-md border p-4",
           comment.is_accepted_answer
-            ? "border-l-2 border-l-emerald-700 bg-white/80"
-            : "border-l-2 border-l-brand-300 bg-paper-raised",
+            ? "border-emerald-700 bg-emerald-50"
+            : "border-brand-300 bg-paper-raised",
         )}
       >
         <div className="flex flex-wrap items-center gap-2">
@@ -97,7 +97,7 @@ export function CommentThread({
         {pluralize(total, "comment")}
       </h2>
       {tree.length === 0 ? (
-        <p className="text-body border-l-2 border-brand-300 bg-paper-raised p-4 text-brand-900">
+        <p className="text-body rounded-md border border-brand-300 bg-paper-raised p-4 text-brand-900">
           No comments yet. Be the first to share what you know.
         </p>
       ) : (

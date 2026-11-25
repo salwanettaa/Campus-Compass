@@ -23,24 +23,22 @@ export function Logo({
       href={href}
       aria-label="Campus Compass, home"
       className={cn(
-        "inline-flex items-center gap-2.5",
+        "inline-flex min-h-11 items-center gap-2.5 rounded-md",
         compact && "justify-center",
         className,
       )}
     >
       <span
         className={cn(
-          "flex size-10 shrink-0 items-center justify-center rounded-xl",
-          onDark
-            ? "bg-white text-brand-900"
-            : "bg-brand-900 text-white",
+          "flex size-9 shrink-0 items-center justify-center rounded-xl text-white",
+          onDark ? "bg-white/15" : "bg-brand-950",
         )}
       >
         <WayfinderMark className="size-6" />
       </span>
       <span
         className={cn(
-          "text-h4 font-bold whitespace-nowrap tracking-tight",
+          "text-base font-bold tracking-tight whitespace-nowrap",
           compact && "sr-only",
           onDark ? "text-white" : "text-brand-950",
         )}

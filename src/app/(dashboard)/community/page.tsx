@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { MessageSquareDashed } from "lucide-react";
 import { PostCard } from "@/components/community/post-card";
 import { PostFilter } from "@/components/community/post-filter";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
-import { WayfinderMark } from "@/components/ui/wayfinder-mark";
+import { PageHeader } from "@/components/ui/page-header";
 import { listFeed, parseSimulation } from "@/lib/community/data";
 import {
   applyFeed,
   buildFeedQuery,
   parseFeedParams,
 } from "@/lib/community/feed";
+import { pluralize } from "@/lib/community/format";
 
 export const metadata: Metadata = { title: "Community" };
 
@@ -34,97 +34,78 @@ export default async function CommunityPage({
   const isFiltered = params.type !== null || params.sort === "unanswered";
 
   return (
-    <main className="mx-auto flex w-full max-w-[72rem] flex-col gap-6">
-      <header className="flex flex-col gap-3 border-b border-brand-950/15 pb-5 sm:flex-row sm:items-end sm:justify-between">
-        <div className="flex flex-col gap-2">
-          <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
-            STUDENT LIFE / 01
-          </p>
-          <h1 className="text-4xl leading-tight font-semibold tracking-[-0.05em] text-brand-950">
-            Community
-          </h1>
-          <p className="text-body max-w-xl text-brand-800">
-            Questions, lived experience, and practical answers from students.
-          </p>
-        </div>
-        {result.ok ? (
-          <div className="flex items-center gap-3 border-t border-brand-950/10 pt-3 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5">
-            <WayfinderMark className="size-9 shrink-0 text-brand-800" />
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-brand-700">
-              <span className="block text-lg leading-6 text-brand-950">
-                {String(items.length).padStart(2, "0")}
-              </span>
-              posts in this view
-            </p>
-          </div>
-        ) : null}
-      </header>
+    <main className="flex max-w-5xl flex-col gap-6">
+      <PageHeader
+        title="Community"
+        description="Questions, lived experience, and practical answers from students."
+      />
 
       <Alert variant="info">
         You are viewing sample posts. Live community content is coming soon.
       </Alert>
 
-      <Suspense fallback={<div className="h-24" aria-hidden="true" />}>
-        <PostFilter />
-      </Suspense>
-
-      {!result.ok ? (
-        <div className="flex flex-col items-start gap-3">
-          <Alert variant="error" title="We could not load the feed">
-            {result.message} Please try again.
-          </Alert>
-          <ButtonLink
-            href={`/community${buildFeedQuery(params)}`}
-            variant="outline"
-            size="sm"
-          >
-            Try again
-          </ButtonLink>
+      <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_15rem] xl:items-start xl:gap-10">
+        <div className="xl:order-2 xl:sticky xl:top-6">
+          <Suspense fallback={<div className="h-24" aria-hidden="true" />}>
+            <PostFilter />
+          </Suspense>
         </div>
-      ) : items.length === 0 ? (
-        <section
-          aria-labelledby="empty-heading"
-          className="flex flex-col items-center gap-3 border border-brand-950/10 border-l-2 border-l-brand-300 bg-paper-raised p-8 text-center"
-        >
-          <span className="flex size-12 items-center justify-center rounded-2xl bg-brand-100 text-brand-800">
-            <MessageSquareDashed className="size-6" aria-hidden="true" />
-          </span>
-          <h2 id="empty-heading" className="text-h3 text-brand-950">
-            {isFiltered ? "No posts match these filters" : "No posts yet"}
-          </h2>
-          <p className="text-body max-w-md text-brand-800">
-            {isFiltered
-              ? "Try another sort or post type to see more."
-              : "When students start posting, you will see their questions and experiences here."}
-          </p>
-          {isFiltered ? (
-            <Link
-              href="/community"
-              className="text-h5 text-brand-800 underline underline-offset-4"
+
+        <div className="min-w-0">
+          {!result.ok ? (
+            <div className="flex flex-col items-start gap-3">
+              <Alert variant="error" title="We could not load the feed">
+                {result.message} Please try again.
+              </Alert>
+              <ButtonLink
+                href={`/community${buildFeedQuery(params)}`}
+                variant="outline"
+                size="sm"
+              >
+                Try again
+              </ButtonLink>
+            </div>
+          ) : items.length === 0 ? (
+            <section
+              aria-labelledby="empty-heading"
+              className="flex flex-col items-start gap-3 border-y border-brand-300 py-10"
             >
-              Clear filters
-            </Link>
-          ) : null}
-        </section>
-      ) : (
-        <section aria-labelledby="posts-heading" className="flex flex-col gap-3">
-          <div className="border-b border-brand-950/10 pb-2">
-            <h2
-              id="posts-heading"
-              className="text-h4 font-semibold text-brand-950"
-            >
-              Student posts
-            </h2>
-          </div>
-          <ul className="flex flex-col gap-3" aria-label="Posts">
-            {items.map((item) => (
-              <li key={item.post.id}>
-                <PostCard item={item} />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+              <h2 id="empty-heading" className="text-h2 text-brand-950">
+                {isFiltered ? "No posts match these filters" : "No posts yet"}
+              </h2>
+              <p className="text-body max-w-md text-brand-800">
+                {isFiltered
+                  ? "Try another sort or post type to see more."
+                  : "When students start posting, you will see their questions and experiences here."}
+              </p>
+              {isFiltered ? (
+                <Link
+                  href="/community"
+                  className="text-h5 inline-flex min-h-11 items-center text-brand-700 underline underline-offset-4"
+                >
+                  Clear filters
+                </Link>
+              ) : null}
+            </section>
+          ) : (
+            <section aria-labelledby="posts-heading">
+              <h2
+                id="posts-heading"
+                className="text-caption border-b border-brand-300 pb-3 text-brand-800"
+              >
+                {pluralize(items.length, "post")} in this view
+              </h2>
+              <ul className="mt-4 flex flex-col gap-4" aria-label="Posts">
+                {items.map((item) => (
+                  <li key={item.post.id}>
+                    <PostCard item={item} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+      </div>
     </main>
   );
 }

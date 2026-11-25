@@ -15,7 +15,7 @@ export function Input({ className, invalid, ...props }: InputProps) {
         "transition-[border-color,box-shadow] duration-200",
         "focus:border-brand-600 focus:ring-2 focus:ring-brand-600/30 focus:outline-none",
         "disabled:cursor-not-allowed disabled:opacity-60",
-        invalid ? "border-red-600" : "border-brand-950/20",
+        invalid ? "border-red-600" : "border-brand-400",
         className,
       )}
       {...props}

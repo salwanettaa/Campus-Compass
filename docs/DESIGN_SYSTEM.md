@@ -8,57 +8,54 @@
 
 ## 1. Prinsip Desain & Visual Direction
 
-Campus Compass menggabungkan kehangatan komunitas mahasiswa dengan kejelasan utilitas akademik:
-* **Tipografi**: Menggunakan font **Poppins** di seluruh antarmuka dengan skala tipe terstruktur.
-* **Palet Warna**: Palet biru 7-tingkat (dari `brand-950` yang solid hingga `brand-100` yang lembut) dengan rasio kontras ramah aksesibilitas (**WCAG AA 4.5:1**).
-* **Elevasi & Sudut**: Mengutamakan *rounded corners* modern (`rounded-3xl` dan `rounded-2xl`) serta bayangan lembut (`shadow-card` dan `shadow-nav`).
+Identitas: **biru Campus Compass, Poppins, dan peta dengan garis rute**.
+* **Struktur landing**: navbar mengambang, hero 2 baris, grid 6 kategori, panel contoh, rute 4 langkah, panel ajakan, footer.
+* **Liquid glass** (`liquid-glass`, `liquid-glass-dark`): hanya untuk lapisan mengambang (navbar landing, panel contoh, menu bawah HP). Maksimal 2 per layar.
+* **Motif rute**: garis putus-putus oranye di hero dan di antara langkah 01-04.
+* **Sudut**: tombol berbentuk pil, kartu `rounded-md` (16px).
 
 ---
 
 ## 2. Palet Warna (Color Palette Tokens)
 
-Semua token warna didefinisikan secara resmi di `src/app/globals.css`:
+Token didefinisikan di `src/app/globals.css`:
 
-| Token | Nilai Hex | Penggunaan Utama | Standar Aksesibilitas |
-| :--- | :--- | :--- | :--- |
-| **`brand-950`** | `#04202e` | Teks judul utama (*headings*), background navbar gelap | Kontras tertinggi terhadap putih (> 15:1) |
-| **`brand-900`** | `#0a3c55` | Tombol primer (*default*), ikon aktif, header card | Lolos WCAG AAA |
-| **`brand-800`** | `#0f5d83` | Teks sekunder, label formulir, teks paragraf pendukung | Lolos WCAG AA (7:1) |
-| **`brand-700`** | `#1279a2` | Teks aksen, link interaktif, button hover | Lolos WCAG AA (4.9:1) |
-| **`brand-600`** | `#1786b4` | Focus ring (`outline`), border aktif, badge kategori | Aksesibilitas fokus |
-| **`brand-400`** | `#4fb2db` | Garis batas dekoratif, divider sekunder | Bukan untuk teks tipis |
-| **`brand-300`** | `#98d4ee` | Border kartu (*card borders*), garis pemisah | Pemisah konten |
-| **`brand-100`** | `#e1f2fa` | Background chip, kartu aktif, hover background | Warna dasar netral |
+| Token | Hex | Penggunaan |
+| :--- | :--- | :--- |
+| **`brand-950`** | `#04202e` | Judul dan teks utama |
+| **`brand-900`** | `#0a3c55` | Item aktif, awal gradasi |
+| **`brand-800`** | `#0f5d83` | Teks sekunder |
+| **`brand-700`** | `#0f6d93` | Link (digelapkan agar teks kecil mencapai 4.5:1) |
+| **`brand-600`** | `#1786b4` | Focus ring |
+| **`brand-400`** | `#4a8aa8` | Tepi kontrol (bukan untuk teks) |
+| **`brand-300`** | `#c3e3f2` | Garis pemisah, teks aksen di latar gelap |
+| **`brand-100`** | `#e1f2fa` | Latar tonal |
+| **`route`** / **`route-on-dark`** | `#d46747` / `#f08a68` | Garis rute (dekorasi identitas) |
 
-### Background Gradien Aplikasi
-```css
-background: linear-gradient(160deg, #e1f2fa 0%, #f3f9fc 45%, #ffffff 100%) fixed;
-```
+Latar aplikasi: `linear-gradient(160deg, #e1f2fa 0%, #f3f9fc 45%, #ffffff 100%)`.
 
 ---
 
 ## 3. Skala Tipografi (Typography Scale)
 
-Seluruh teks menggunakan utility class bawaan Tailwind yang dipetakan langsung ke Poppins:
+Semua memakai **Poppins**.
 
-| Utility Class | Spesifikasi Font | Ukuran / Line Height | Contoh Penggunaan |
-| :--- | :--- | :--- | :--- |
-| **`text-h1`** | Poppins Bold (700) | `32px` / `40px` (`2rem` / `2.5rem`) | Judul utama halaman landing & dashboard |
-| **`text-h2`** | Poppins SemiBold (600) | `26px` / `34px` (`1.625rem` / `2.125rem`) | Header modul, judul wizard onboarding |
-| **`text-h3`** | Poppins SemiBold (600) | `20px` / `28px` (`1.25rem` / `1.75rem`) | Sub-judul kategori, judul panduan |
-| **`text-h4`** | Poppins Medium (500) | `16px` / `24px` (`1rem` / `1.5rem`) | Judul kartu artikel, teks tombol besar |
-| **`text-h5`** | Poppins Medium (500) | `14px` / `20px` (`0.875rem` / `1.25rem`) | Label navigasi, metadata penting |
-| **`text-body`** | Poppins Regular (400) | `14px` / `22px` (`0.875rem` / `1.375rem`) | Teks paragraf, isi konten diskusi, panduan |
-| **`text-caption`** | Poppins Regular (400) | `12px` / `18px` (`0.75rem` / `1.125rem`) | Timestamp, sitasi `[1]`, badge keterangan |
+| Utility Class | Weight | Ukuran |
+| :--- | :--- | :--- |
+| **`text-display`** | 700 | fluid 40-76px |
+| **`text-h1`** | 600 | fluid 32-46px |
+| **`text-h2`** | 600 | fluid 22-28px |
+| **`text-h3`** | 600 | 18px |
+| **`text-h4`** / **`text-h5`** | 500 | 16px / 14px |
+| **`text-lead`** | 400 | 17px |
+| **`text-body`** | 400 | 14px |
+| **`text-caption`** | 400 | 12px |
 
 ---
 
-## 4. Elevasi & Bayangan (Shadows)
+## 4. Elevasi
 
-* **`shadow-card`**: `0 10px 28px -12px rgb(4 32 46 / 0.28)`  
-  Digunakan pada container formulir, kartu panduan, kartu pengalaman, dan container dashboard.
-* **`shadow-nav`**: `0 12px 32px -16px rgb(4 32 46 / 0.45)`  
-  Digunakan khusus pada header navigasi mengambang (*floating navbar*) dan *sidebar*.
+Kartu memakai garis `brand-300` tanpa bayangan. Bayangan hanya ada pada lapisan liquid glass untuk menandai bahwa lapisan itu mengambang. Jika pengguna mengaktifkan *reduced transparency*, panel kaca menjadi solid.
 
 ---
 
