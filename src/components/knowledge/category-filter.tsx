@@ -17,7 +17,7 @@ export function CategoryFilter({
 }) {
   return (
     <nav aria-label="Guide categories">
-      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="flex snap-x gap-2 overflow-x-auto pb-2">
         {GUIDE_CATEGORIES.map((category) => {
           const selected = params.category === category;
           // Selecting the active category again clears it.
@@ -30,30 +30,29 @@ export function CategoryFilter({
               <Link
                 href={href}
                 aria-current={selected ? "true" : undefined}
+                aria-label={`${CATEGORY_INFO[category].label}, ${counts[category]} ${counts[category] === 1 ? "guide" : "guides"}`}
+                title={CATEGORY_INFO[category].description}
                 className={cn(
-                  "flex h-full flex-col gap-1 rounded-3xl p-4 shadow-card transition-colors duration-200",
+                  "flex min-h-11 shrink-0 snap-start items-center gap-3 rounded-lg border px-3 text-sm transition-colors duration-200",
                   "focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none",
                   selected
-                    ? "bg-brand-950 text-white"
-                    : "bg-white text-brand-950 hover:bg-brand-100",
+                    ? "border-brand-950 bg-brand-950 text-white"
+                    : "border-brand-950/15 bg-paper-raised text-brand-900 hover:bg-brand-100",
                 )}
               >
-                <span className="text-h4">{CATEGORY_INFO[category].label}</span>
-                <span
-                  className={cn(
-                    "text-caption",
-                    selected ? "text-brand-100" : "text-brand-800",
-                  )}
-                >
-                  {CATEGORY_INFO[category].description}
+                <span className="whitespace-nowrap">
+                  {CATEGORY_INFO[category].label}
                 </span>
                 <span
                   className={cn(
-                    "text-caption mt-1 font-medium",
-                    selected ? "text-white" : "text-brand-900",
+                    "font-mono text-[10px]",
+                    selected ? "text-brand-100" : "text-brand-700",
                   )}
                 >
                   {counts[category]} {counts[category] === 1 ? "guide" : "guides"}
+                </span>
+                <span className="sr-only">
+                  {CATEGORY_INFO[category].description}
                 </span>
               </Link>
             </li>

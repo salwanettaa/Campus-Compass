@@ -64,13 +64,13 @@ export function HelpfulButton({
         aria-pressed={active}
         aria-label={`Mark this ${target} as helpful`}
         className={cn(
-          "text-h5 inline-flex h-9 items-center gap-2 rounded-full px-4",
+          "text-h5 inline-flex min-h-11 items-center gap-2 rounded-lg border px-3.5",
           "transition-[background-color,color] duration-200",
           "focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none",
           "disabled:opacity-60",
           active
-            ? "bg-brand-950 text-white"
-            : "bg-brand-100 text-brand-950 hover:bg-brand-300/60",
+            ? "border-brand-950 bg-brand-950 text-white"
+            : "border-brand-950/15 bg-paper-raised text-brand-900 hover:bg-brand-100",
         )}
       >
         <ThumbsUp

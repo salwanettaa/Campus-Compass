@@ -15,7 +15,9 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
   return (
     <>
       <header className="flex flex-col gap-1">
-        <h1 className="text-h2 text-brand-950">Welcome back</h1>
+        <h1 className="text-3xl leading-tight font-semibold tracking-[-0.05em] text-brand-950">
+          Welcome back
+        </h1>
         <p className="text-body text-brand-800">
           Log in to continue your campus journey.
         </p>

@@ -24,10 +24,10 @@ function CommentItem({
       <article
         aria-label={`Comment by ${comment.author_display_name ?? "unknown author"}`}
         className={cn(
-          "flex flex-col gap-2 rounded-2xl p-4",
+          "flex flex-col gap-2 border border-brand-950/10 p-4",
           comment.is_accepted_answer
-            ? "bg-emerald-50 ring-1 ring-emerald-200"
-            : "bg-brand-100/60",
+            ? "border-l-2 border-l-emerald-700 bg-white/80"
+            : "border-l-2 border-l-brand-300 bg-paper-raised",
         )}
       >
         <div className="flex flex-wrap items-center gap-2">
@@ -61,7 +61,7 @@ function CommentItem({
         <ul
           className={cn(
             "flex flex-col gap-3",
-            depth < MAX_INDENT_DEPTH && "ml-3 border-l-2 border-brand-300 pl-4",
+            depth < MAX_INDENT_DEPTH &&             "ml-3 border-l border-brand-300 pl-3",
           )}
         >
           {node.replies.map((reply) => (
@@ -97,7 +97,7 @@ export function CommentThread({
         {pluralize(total, "comment")}
       </h2>
       {tree.length === 0 ? (
-        <p className="text-body rounded-2xl bg-brand-100/60 p-4 text-brand-900">
+        <p className="text-body border-l-2 border-brand-300 bg-paper-raised p-4 text-brand-900">
           No comments yet. Be the first to share what you know.
         </p>
       ) : (

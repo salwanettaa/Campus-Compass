@@ -36,6 +36,8 @@ export const metadata: Metadata = {
 
 // Class names are written out in full so Tailwind can detect them.
 const PALETTE = [
+  { token: "paper", hex: "#f5f3ec", cls: "bg-paper text-brand-950" },
+  { token: "paper-raised", hex: "#fbfaf6", cls: "bg-paper-raised text-brand-950" },
   { token: "brand-950", hex: "#04202e", cls: "bg-brand-950 text-white" },
   { token: "brand-900", hex: "#0a3c55", cls: "bg-brand-900 text-white" },
   { token: "brand-800", hex: "#0f5d83", cls: "bg-brand-800 text-white" },
@@ -82,13 +84,13 @@ export default function DesignSystemPage() {
       <header className="flex flex-col gap-2">
         <h1 className="text-h1 text-brand-950">Design System</h1>
         <p className="text-body text-brand-800">
-          Campus Compass UI tokens and components. Source: design reference
-          (Poppins + 7-step blue palette).
+          Campus Compass foundations: Poppins, campus blues, paper surfaces,
+          and practical components.
         </p>
       </header>
 
       <Section title="Typography">
-        <div className="flex flex-col divide-y divide-brand-300/60 rounded-3xl bg-white p-2 shadow-card">
+        <div className="flex flex-col divide-y divide-brand-300/60 border border-brand-950/10 bg-paper-raised p-2">
           {TYPE_SCALE.map((row) => (
             <div
               key={row.name}
@@ -107,7 +109,7 @@ export default function DesignSystemPage() {
           {PALETTE.map((color) => (
             <div
               key={color.token}
-              className={`${color.cls} flex aspect-square flex-col justify-end rounded-3xl p-4 shadow-card`}
+              className={`${color.cls} flex aspect-square flex-col justify-end rounded-xl border border-brand-950/10 p-4`}
             >
               <span
                 className={
@@ -125,7 +127,7 @@ export default function DesignSystemPage() {
       </Section>
 
       <Section title="Buttons">
-        <div className="flex flex-wrap items-center gap-4 rounded-3xl bg-white p-6 shadow-card">
+        <div className="flex flex-wrap items-center gap-4 border border-brand-950/10 bg-paper-raised p-6">
           <Button size="lg">
             Get Started
             <ArrowDown className="size-5" aria-hidden="true" />
@@ -139,12 +141,12 @@ export default function DesignSystemPage() {
           <Button disabled>Disabled</Button>
         </div>
         <div className="flex flex-wrap items-center gap-4">
-          <div className="rounded-3xl bg-brand-950 p-6">
+          <div className="rounded-xl bg-brand-950 p-6">
             <Button variant="pillOnDark" size="sm">
               Sign Up
             </Button>
           </div>
-          <div className="rounded-3xl bg-white p-6 shadow-card">
+          <div className="rounded-xl border border-brand-950/10 bg-paper-raised p-6">
             <Button variant="pillOnLight" size="sm">
               Sign Up
             </Button>
@@ -153,7 +155,7 @@ export default function DesignSystemPage() {
       </Section>
 
       <Section title="Icon buttons">
-        <div className="flex flex-wrap items-center gap-4 rounded-3xl bg-white p-6 shadow-card">
+        <div className="flex flex-wrap items-center gap-4 border border-brand-950/10 bg-paper-raised p-6">
           <IconButton variant="solid" aria-label="Home">
             <House />
           </IconButton>
@@ -184,7 +186,7 @@ export default function DesignSystemPage() {
       </Section>
 
       <Section title="Forms">
-        <div className="grid gap-6 rounded-3xl bg-white p-6 shadow-card md:grid-cols-2">
+        <div className="grid gap-6 border border-brand-950/10 bg-paper-raised p-6 md:grid-cols-2">
           <div className="flex flex-col gap-5">
             <Field htmlFor="ds-name" label="Display name" hint="A nickname other students will see.">
               <Input id="ds-name" placeholder="e.g. Rifal" />
@@ -217,7 +219,7 @@ export default function DesignSystemPage() {
       </Section>
 
       <Section title="Onboarding wizard (sample data)">
-        <div className="rounded-3xl bg-white p-6 shadow-card sm:p-8">
+        <div className="border border-brand-950/10 bg-paper-raised p-6 sm:p-8">
           <OnboardingForm
             campuses={SAMPLE_CAMPUSES}
             faculties={SAMPLE_FACULTIES}

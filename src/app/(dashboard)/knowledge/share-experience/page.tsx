@@ -15,13 +15,18 @@ export default function ShareExperiencePage() {
         <ArrowLeft className="size-4" aria-hidden="true" />
         Back to Knowledge Hub
       </Link>
-      <header className="flex flex-col gap-1">
-        <h1 className="text-h2 text-brand-950">Share your experience</h1>
-        <p className="text-body text-brand-800">
+      <header className="flex flex-col gap-2 border-b border-brand-950/15 pb-5">
+        <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
+          KNOWLEDGE HUB / YOUR STORY
+        </p>
+        <h1 className="text-3xl leading-tight font-semibold tracking-[-0.05em] text-brand-950 sm:text-4xl">
+          Share your experience
+        </h1>
+        <p className="text-body max-w-xl text-brand-800">
           Help new students by describing what you went through, step by step.
         </p>
       </header>
-      <div className="rounded-3xl bg-white p-6 shadow-card sm:p-8">
+      <div className="rounded-xl border border-brand-950/10 bg-paper-raised p-5 sm:p-8">
         <ExperienceForm />
       </div>
     </main>

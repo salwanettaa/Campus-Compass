@@ -51,7 +51,7 @@ export default async function DashboardLayout({
         onLogout={signOutAction}
         className="sticky top-6 hidden h-[calc(100dvh-3rem)] shrink-0 lg:flex"
       />
-      <div className="min-w-0 flex-1 pb-28 lg:pb-0">{children}</div>
+      <div className="min-w-0 flex-1 pb-32 lg:pb-0">{children}</div>
       <BottomNav />
     </div>
   );

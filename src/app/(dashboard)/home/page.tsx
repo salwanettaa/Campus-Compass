@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Route } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
@@ -35,35 +35,71 @@ export default async function HomePage() {
 
   const area = ADAPTATION_AREAS.find((a) => a.value === profile?.adaptation_area);
   const challenge = MAIN_CHALLENGES.find((c) => c.value === profile?.main_challenge);
+  const campusDetails = [
+    campusRes.data?.name,
+    programRes.data?.name,
+    profile?.semester ? `Semester ${profile.semester}` : null,
+  ].filter(Boolean);
 
   return (
-    <main className="flex flex-col gap-6">
-      <section className="rounded-3xl bg-linear-to-br from-brand-950 via-brand-900 to-brand-800 p-6 text-white shadow-card sm:p-8">
-        <p className="text-h5 text-brand-300">Welcome back</p>
-        <h1 className="text-h1 mt-1">{profile?.display_name ?? "Student"}</h1>
-        <p className="text-body mt-2 text-brand-100/90">
-          {[campusRes.data?.name, programRes.data?.name]
-            .filter(Boolean)
-            .join(" · ")}
-          {profile?.semester ? ` · Semester ${profile.semester}` : ""}
-        </p>
-      </section>
+    <main className="flex flex-col gap-8">
+      <header className="flex flex-col gap-4 border-b border-brand-950/15 pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="min-w-0">
+          <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
+            YOUR SPACE / HOME
+          </p>
+          <h1 className="mt-2 break-words text-4xl leading-tight font-semibold tracking-[-0.05em] text-brand-950 sm:text-5xl">
+            Welcome back, {profile?.display_name ?? "Student"}.
+          </h1>
+          <p className="text-body mt-3 max-w-xl text-brand-800">
+            Campus life comes one question and one useful step at a time.
+          </p>
+        </div>
+        {campusDetails.length > 0 ? (
+          <ul
+            className="flex flex-wrap gap-x-4 gap-y-2 sm:justify-end"
+            aria-label="Campus details"
+          >
+            {campusDetails.map((detail) => (
+              <li
+                key={detail}
+                className="border-l border-brand-300 pl-3 text-caption text-brand-800"
+              >
+                {detail}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </header>
 
       <section
         aria-labelledby="focus-heading"
-        className="flex flex-col gap-3 rounded-3xl bg-white p-6 shadow-card"
+        className="flex flex-col gap-5"
       >
-        <h2 id="focus-heading" className="text-h3 text-brand-950">
-          Your focus
-        </h2>
-        <dl className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <dt className="text-caption text-brand-800">Adaptation area</dt>
-            <dd className="text-h4 text-brand-950">{area?.label ?? "Not set"}</dd>
+        <div className="border-b border-brand-950/15 pb-3">
+          <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
+            CHECK-IN / CURRENT FOCUS
+          </p>
+          <h2 id="focus-heading" className="mt-1 text-2xl font-semibold tracking-tight text-brand-950">
+            What matters to you right now?
+          </h2>
+        </div>
+        <dl className="grid gap-x-8 sm:grid-cols-2">
+          <div className="border-t border-brand-950/15 py-3">
+            <dt className="font-mono text-[10px] uppercase tracking-wide text-brand-700">
+              Adaptation area
+            </dt>
+            <dd className="mt-1 text-lg font-medium text-brand-950">
+              {area?.label ?? "Not set"}
+            </dd>
           </div>
-          <div>
-            <dt className="text-caption text-brand-800">Main challenge</dt>
-            <dd className="text-h4 text-brand-950">{challenge?.label ?? "Not set"}</dd>
+          <div className="border-t border-brand-950/15 py-3">
+            <dt className="font-mono text-[10px] uppercase tracking-wide text-brand-700">
+              Main challenge
+            </dt>
+            <dd className="mt-1 text-lg font-medium text-brand-950">
+              {challenge?.label ?? "Not set"}
+            </dd>
           </div>
         </dl>
       </section>
@@ -71,17 +107,34 @@ export default async function HomePage() {
       <section
         id="my-journey"
         aria-labelledby="journey-heading"
-        className="flex scroll-mt-6 flex-col gap-3 rounded-3xl bg-white p-6 shadow-card"
+        className="grid scroll-mt-6 gap-6 border border-brand-950/10 bg-paper-raised p-5 sm:grid-cols-[1fr_auto] sm:items-center sm:p-6"
       >
-        <h2 id="journey-heading" className="text-h3 text-brand-950">
-          My Journey
-        </h2>
-        <Alert variant="info">
-          <span className="inline-flex items-center gap-2">
-            <Route className="size-4" aria-hidden="true" />
-            Your personal roadmap will appear here soon.
+        <div>
+          <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
+            MY JOURNEY / ROADMAP
+          </p>
+          <h2 id="journey-heading" className="mt-2 text-2xl font-semibold tracking-tight text-brand-950">
+            Small steps make campus feel more navigable.
+          </h2>
+          <p className="text-body mt-2 max-w-xl text-brand-800">
+            Your personal roadmap is still being prepared. Explore practical
+            guides and advice from senior students in the meantime.
+          </p>
+        </div>
+        <div className="flex flex-col items-start gap-3 border-t border-brand-950/15 pt-4 sm:border-t-0 sm:border-l sm:py-2 sm:pl-6">
+          <span className="font-mono text-[10px] tracking-wide text-brand-700">
+            ROADMAP / COMING SOON
           </span>
-        </Alert>
+          <ButtonLink
+            href="/knowledge"
+            variant="pillOnLight"
+            size="sm"
+            className="w-full sm:w-fit"
+          >
+            Explore guides
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </ButtonLink>
+        </div>
       </section>
     </main>
   );

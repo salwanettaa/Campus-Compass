@@ -27,7 +27,7 @@ export function Logo({ tone = "onLight", href = "/", className }: LogoProps) {
           "flex size-9 items-center justify-center rounded-xl",
           onDark
             ? "bg-white text-brand-900"
-            : "bg-linear-to-br from-brand-900 to-brand-600 text-white",
+            : "bg-brand-900 text-white",
         )}
       >
         <Compass className="size-5" aria-hidden="true" />

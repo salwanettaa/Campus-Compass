@@ -41,17 +41,17 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        "flex w-64 flex-col overflow-hidden rounded-3xl shadow-card",
+        "flex w-64 flex-col overflow-hidden rounded-2xl border border-brand-950/10 shadow-none",
         dark
-          ? "bg-linear-to-b from-brand-950 via-brand-900 to-brand-800 text-white"
-          : "bg-white text-brand-950",
+          ? "bg-brand-950 text-white"
+          : "bg-paper-raised text-brand-950",
         className,
       )}
     >
       <div
         className={cn(
           "px-5 py-5",
-          !dark && "bg-linear-to-b from-brand-900 to-brand-800",
+          !dark && "bg-brand-950",
         )}
       >
         <Logo tone="onDark" href="/home" />
@@ -67,7 +67,7 @@ export function Sidebar({
               href={item.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex items-center gap-3 rounded-2xl px-4 py-3 text-h5 transition-colors duration-200",
+                "flex items-center gap-3 rounded-lg px-4 py-3 text-h5 transition-colors duration-200",
                 dark
                   ? active
                     ? "bg-white/15 text-white"
@@ -93,7 +93,7 @@ export function Sidebar({
       <div
         className={cn(
           "flex flex-col gap-1 p-3",
-          dark ? "bg-black/20" : "bg-brand-100",
+          dark ? "bg-black/20" : "bg-paper",
         )}
       >
         <div className="flex items-center gap-3 px-3 py-2">
@@ -109,7 +109,7 @@ export function Sidebar({
           type="button"
           onClick={onLogout}
           className={cn(
-            "flex items-center gap-3 rounded-2xl px-4 py-2.5 text-h5 transition-colors duration-200",
+            "flex items-center gap-3 rounded-lg px-4 py-2.5 text-h5 transition-colors duration-200",
             dark
               ? "text-brand-100/85 hover:bg-white/10 hover:text-white"
               : "text-brand-800 hover:bg-white hover:text-brand-950",

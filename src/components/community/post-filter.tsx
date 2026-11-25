@@ -55,7 +55,7 @@ export function PostFilter({ className }: { className?: string }) {
         <Chip
           selected={current.type === null}
           onClick={() => update({ type: null })}
-          className="h-9 px-4"
+          className="min-h-11 px-4"
         >
           All types
         </Chip>
@@ -64,7 +64,7 @@ export function PostFilter({ className }: { className?: string }) {
             key={type}
             selected={current.type === type}
             onClick={() => update({ type })}
-            className="h-9 px-4"
+            className="min-h-11 px-4"
           >
             {TYPE_LABELS[type]}
           </Chip>

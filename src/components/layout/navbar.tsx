@@ -11,19 +11,25 @@ import { NAV_ITEMS, isActive } from "./nav-items";
 
 export type NavbarProps = {
   variant?: "dark" | "light";
+  logoHref?: string;
   /** Called when the Search entry is pressed. */
   onSearch?: () => void;
   className?: string;
 };
 
-export function Navbar({ variant = "dark", onSearch, className }: NavbarProps) {
+export function Navbar({
+  variant = "dark",
+  logoHref = "/home",
+  onSearch,
+  className,
+}: NavbarProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const dark = variant === "dark";
 
   const linkClass = (active: boolean) =>
     cn(
-      "rounded-full px-3.5 py-2 text-h5 transition-colors duration-200",
+      "rounded-lg px-3.5 py-2 text-h5 transition-colors duration-200",
       dark
         ? active
           ? "bg-white/15 text-white"
@@ -36,7 +42,7 @@ export function Navbar({ variant = "dark", onSearch, className }: NavbarProps) {
   return (
     <header
       className={cn(
-        "relative rounded-3xl px-5 py-3 shadow-nav",
+        "relative rounded-xl px-5 py-3 shadow-none",
         dark
           ? "bg-brand-950 text-white"
           : "border border-brand-300 bg-white text-brand-950",
@@ -44,7 +50,7 @@ export function Navbar({ variant = "dark", onSearch, className }: NavbarProps) {
       )}
     >
       <div className="flex items-center justify-between gap-4">
-        <Logo tone={dark ? "onDark" : "onLight"} href="/home" />
+        <Logo tone={dark ? "onDark" : "onLight"} href={logoHref} />
 
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {NAV_ITEMS.map((item) => {
@@ -60,13 +66,15 @@ export function Navbar({ variant = "dark", onSearch, className }: NavbarProps) {
               </Link>
             );
           })}
-          <button
-            type="button"
-            onClick={onSearch}
-            className={linkClass(false)}
-          >
-            Search
-          </button>
+          {onSearch ? (
+            <button
+              type="button"
+              onClick={onSearch}
+              className={linkClass(false)}
+            >
+              Search
+            </button>
+          ) : null}
           <ButtonLink
             href="/register"
             size="sm"
@@ -78,17 +86,19 @@ export function Navbar({ variant = "dark", onSearch, className }: NavbarProps) {
         </nav>
 
         <div className="flex items-center gap-1 lg:hidden">
-          <button
-            type="button"
-            onClick={onSearch}
-            aria-label="Search"
-            className={cn(
-              "flex size-10 items-center justify-center rounded-full",
-              dark ? "hover:bg-white/10" : "hover:bg-brand-100",
-            )}
-          >
-            <Search className="size-5" aria-hidden="true" />
-          </button>
+          {onSearch ? (
+            <button
+              type="button"
+              onClick={onSearch}
+              aria-label="Search"
+              className={cn(
+                "flex size-11 items-center justify-center rounded-full",
+                dark ? "hover:bg-white/10" : "hover:bg-brand-100",
+              )}
+            >
+              <Search className="size-5" aria-hidden="true" />
+            </button>
+          ) : null}
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
@@ -96,7 +106,7 @@ export function Navbar({ variant = "dark", onSearch, className }: NavbarProps) {
             aria-controls="navbar-mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             className={cn(
-              "flex size-10 items-center justify-center rounded-full",
+              "flex size-11 items-center justify-center rounded-full",
               dark ? "hover:bg-white/10" : "hover:bg-brand-100",
             )}
           >

@@ -46,7 +46,7 @@ export default async function PostPage({
   const { post, viewerHelpful } = result.data.post;
 
   return (
-    <main className="flex flex-col gap-6">
+    <main className="flex max-w-4xl flex-col gap-6">
       <Link
         href="/community"
         className="text-h5 inline-flex w-fit items-center gap-2 rounded-md text-brand-800 hover:underline focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
@@ -55,7 +55,7 @@ export default async function PostPage({
         Back to Community
       </Link>
 
-      <article className="flex flex-col gap-4 rounded-3xl bg-white p-6 shadow-card sm:p-8">
+      <article className="flex flex-col gap-4 rounded-xl border border-brand-950/10 bg-paper-raised p-5 sm:p-8">
         <div className="flex flex-wrap items-center gap-2">
           <TypeBadge type={post.post_type} />
           <span className="text-caption text-brand-800">
@@ -68,8 +68,10 @@ export default async function PostPage({
             </span>
           ) : null}
         </div>
-        <h1 className="text-h2 text-brand-950">{post.title}</h1>
-        <p className="text-caption text-brand-800">
+        <h1 className="text-3xl leading-tight font-semibold tracking-[-0.04em] text-brand-950 sm:text-4xl">
+          {post.title}
+        </h1>
+        <p className="text-caption border-b border-brand-950/10 pb-4 text-brand-800">
           {post.author_display_name ?? "Unknown author"} ·{" "}
           <time dateTime={post.created_at}>
             {formatRelativeTime(post.created_at)}

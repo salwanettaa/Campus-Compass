@@ -34,10 +34,15 @@ export default async function CommunityPage({
 
   return (
     <main className="flex flex-col gap-6">
-      <header className="flex flex-col gap-1">
-        <h1 className="text-h1 text-brand-950">Community</h1>
-        <p className="text-body text-brand-800">
-          Ask questions, share experiences, and learn from other students.
+      <header className="flex flex-col gap-2 border-b border-brand-950/15 pb-5">
+        <p className="font-mono text-[10px] tracking-[0.16em] text-brand-700">
+          STUDENT LIFE / 01
+        </p>
+        <h1 className="text-4xl leading-tight font-semibold tracking-[-0.05em] text-brand-950">
+          Community
+        </h1>
+        <p className="text-body max-w-xl text-brand-800">
+          Questions, lived experience, and practical answers from students.
         </p>
       </header>
 
@@ -65,7 +70,7 @@ export default async function CommunityPage({
       ) : items.length === 0 ? (
         <section
           aria-labelledby="empty-heading"
-          className="flex flex-col items-center gap-3 rounded-3xl bg-white p-8 text-center shadow-card"
+          className="flex flex-col items-center gap-3 border border-brand-950/10 border-l-2 border-l-brand-300 bg-paper-raised p-8 text-center"
         >
           <span className="flex size-12 items-center justify-center rounded-2xl bg-brand-100 text-brand-800">
             <MessageSquareDashed className="size-6" aria-hidden="true" />

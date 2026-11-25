@@ -28,13 +28,13 @@ export function GuideCard({
     <Link
       href={href}
       className={cn(
-        "group flex flex-col gap-3 rounded-3xl p-3 shadow-card",
-        "transition-[transform,box-shadow] duration-200 hover:-translate-y-1",
-        variant === "tinted" ? "bg-brand-300" : "bg-white",
+        "group flex flex-col gap-3 rounded-xl border border-brand-950/10 p-3",
+        "transition-colors duration-200 hover:bg-white",
+        variant === "tinted" ? "bg-brand-100" : "bg-paper-raised",
         className,
       )}
     >
-      <div className="relative aspect-4/3 overflow-hidden rounded-2xl bg-linear-to-br from-brand-900 via-brand-800 to-brand-600">
+      <div className="relative aspect-4/3 overflow-hidden bg-brand-950">
         {imageSrc ? (
           <Image
             src={imageSrc}
@@ -45,7 +45,7 @@ export function GuideCard({
           />
         ) : (
           <Compass
-            className="absolute inset-0 m-auto size-12 text-brand-100/80"
+            className="absolute inset-0 m-auto size-10 text-brand-300"
             aria-hidden="true"
           />
         )}
