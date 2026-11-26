@@ -71,20 +71,13 @@ function formatNestedLists(html) {
   });
 }
 
-function cleanHtml(html, { maxChars = 3200, stopBefore = [] } = {}) {
-  let prepared = html
-    .replace(/<\?[\s\S]*?\?>/g, "")
-    .replace(/<script[\s\S]*?<\/script>/gi, "")
-    .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<svg[\s\S]*?<\/svg>/gi, "")
-    .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<img\b[^>]*>/gi, "");
+function formatInlineMarkdown(html) {
+  let text = html
+    // Remove Google Docs gview "View" links so direct Download links stay clean.
+    .replace(/<a\b[^>]*docs\.google\.com\/gview[^>]*>[\s\S]*?<\/a>/gi, "");
 
-  // Keep label:<br>value on a single readable line before block conversion.
-  prepared = prepared.replace(/:\s*<br\s*\/?>\s*/gi, ": ");
-
-  // Convert links to readable plain-text references, removing empty/duplicate UI controls.
-  prepared = prepared.replace(
+  // Convert links to Markdown links `[label](url)`, stripping empty/UI noise controls.
+  text = text.replace(
     /<a\b([^>]*)>([\s\S]*?)<\/a>/gi,
     (_, attrs, rawInner) => {
       const hrefMatch = attrs.match(/href=["']([^"']+)["']/i);
@@ -106,15 +99,11 @@ function cleanHtml(html, { maxChars = 3200, stopBefore = [] } = {}) {
       ) {
         return ` ${inner} `;
       }
-      if (/docs\.google\.com\/gview/i.test(href)) {
-        return "";
-      }
       if (/^Download$/i.test(inner)) {
-        return ` (${href})\n`;
+        return `\n[Download](${href})\n`;
       }
-      // Button-style links (e.g. layanan-akademik flex buttons) sit nicely as bullet lines.
       if (/display:\s*flex|btn/i.test(attrs)) {
-        return `\n- ${inner}: ${href}\n`;
+        return `\n- [${inner}](${href})\n`;
       }
 
       const normHref = href
@@ -126,17 +115,63 @@ function cleanHtml(html, { maxChars = 3200, stopBefore = [] } = {}) {
         .replace(/\/+$/, "")
         .toLowerCase();
       if (normInner === normHref) {
-        return ` ${href} `;
+        const displayLabel = inner.replace(/^https?:\/\//i, "");
+        return ` [${displayLabel}](${href}) `;
       }
-      return ` ${inner} (${href}) `;
+      return ` [${inner}](${href}) `;
     },
   );
 
-  // Format section headings and nested lists cleanly.
-  prepared = prepared
-    .replace(/<h([1-6])\b[^>]*>/gi, "\n\n")
-    .replace(/<\/h[1-6]>/gi, "\n");
+  // Convert bold spans cleanly (trim internal spaces so markdown stays valid).
+  text = text.replace(/<(strong|b)\b[^>]*>([\s\S]*?)<\/\1>/gi, (_, __, inner) => {
+    const cleaned = inner
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\u00a0/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    return cleaned ? ` **${cleaned}** ` : "";
+  });
 
+  return text;
+}
+
+function cleanHtml(html, { maxChars = 3600, stopBefore = [] } = {}) {
+  let prepared = html
+    .replace(/<\?[\s\S]*?\?>/g, "")
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/<style[\s\S]*?<\/style>/gi, "")
+    .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<img\b[^>]*>/gi, "");
+
+  // Keep label:<br>value on a single readable line before block conversion.
+  prepared = prepared.replace(/:\s*<br\s*\/?>\s*/gi, ": ");
+
+  // Unwrap `<p>` tags nested directly inside `<li>` and keep `<br>` inside `<li>` inline so ordered lists stay intact.
+  prepared = prepared
+    .replace(/(<li\b[^>]*>)\s*<p\b[^>]*>/gi, "$1")
+    .replace(/<\/p>\s*(<\/li>)/gi, "$1")
+    .replace(/<li\b([^>]*)>([\s\S]*?)<\/li>/gi, (full, attrs, inner) =>
+      `<li${attrs}>${inner.replace(/<br\s*\/?>/gi, " ")}</li>`,
+    );
+
+  // Convert headings first; treat overly long `<h5/h6>` blocks (e.g. Elementor quotes) as paragraphs.
+  prepared = prepared.replace(
+    /<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi,
+    (_, level, rawInner) => {
+      const prefix = Number(level) <= 2 ? "##" : "###";
+      const withLinks = formatInlineMarkdown(rawInner).replace(/\*\*/g, "");
+      const titleText = decodeEntities(withLinks.replace(/<[^>]+>/g, " "))
+        .replace(/\u00a0/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (!titleText) return "\n";
+      if (titleText.length > 120) return `\n\n${titleText}\n\n`;
+      return `\n\n${prefix} ${titleText}\n\n`;
+    },
+  );
+
+  prepared = formatInlineMarkdown(prepared);
   prepared = formatNestedLists(prepared);
 
   const structured = prepared
@@ -159,17 +194,24 @@ function cleanHtml(html, { maxChars = 3200, stopBefore = [] } = {}) {
     .replace(/\n[ \t]+/g, "\n")
     .replace(/[ \t]+\n/g, "\n")
     .replace(/\u0000/g, " ")
-    // Collapse extra spaces right after list markers (e.g. "-  Label" -> "- Label").
-    .replace(/\n([ ]*(?:-|(?:\d+|[a-zA-Z])\.) )[ \t]+/g, "\n$1")
-    // Keep consecutive list items compact without blank lines between them.
+    // Promote standalone bold labels like `**Kurikulum 2026:**` into subtle subheadings `###`.
+    .replace(/^\*\*([^*\n]{3,80}?):\*\*$/gm, "### $1")
+    // Merge standalone document label + `[Download](url)` lines into clean bullets.
+    .replace(
+      /^([^\n#*\-[]+?)\n+\[Download\]\(([^)]+)\)$/gm,
+      "- [$1]($2)",
+    )
+    // Ensure exactly one space follows every list marker (e.g. "- ", "1. ", "a. ").
+    .replace(/\n([ ]*(?:-|(?:\d+|[a-zA-Z])\.))[ \t]*/g, "\n$1 ")
     .replace(/\n+(?=[ ]*(?:-|(?:\d+|[a-zA-Z])\.) )/g, "\n")
     .replace(/\n[ \t]*[-•]\s*(?=\n|$)/g, "")
     .replace(
-      /^\s*(Baca Selengkapnya|View All|Poster|More Information|Our Sponsors|Our Media Partners|Presented By)\s*$/gim,
+      /^\s*(?:#{2,3}\s*)?(Baca Selengkapnya|View All|Poster|More Information|Our Sponsors|Our Media Partners|Presented By)\s*$/gim,
       "",
     )
-    .replace(/\s+\(/g, " (")
-    .replace(/\s+([.,;:])/g, "$1")
+    .replace(/\s+([,;:])/g, "$1")
+    .replace(/\s+\.(?=\s|$)/g, ".")
+    .replace(/\*\*([^*\n]+?)\*\*([(\[A-Za-z0-9])/g, "**$1** $2")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
@@ -180,15 +222,18 @@ function cleanHtml(html, { maxChars = 3200, stopBefore = [] } = {}) {
     }
   }
 
-  // Clean up any dangling empty list marker caused by stopBefore truncation (e.g. trailing "i.").
-  text = text.replace(/\n[ ]*(?:-|(?:\d+|[a-zA-Z])\.)\s*$/, "").trim();
+  // Clean up any dangling empty list marker or empty heading caused by stopBefore truncation.
+  text = text
+    .replace(/\n[ ]*(?:-|(?:\d+|[a-zA-Z])\.)\s*$/, "")
+    .replace(/\n#{2,3}\s*$/, "")
+    .trim();
 
   if (text.length > maxChars) {
     const cut = text.slice(0, maxChars);
     const lastBreak = cut.lastIndexOf("\n");
     text =
       (lastBreak > maxChars * 0.6 ? cut.slice(0, lastBreak) : cut).trim() +
-      "\n\n(Selengkapnya tersedia pada tautan sumber resmi.)";
+      "\n\n*(Selengkapnya tersedia pada tautan sumber resmi.)*";
   }
 
   return text;

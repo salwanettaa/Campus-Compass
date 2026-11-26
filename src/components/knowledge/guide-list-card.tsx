@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BookmarkButton } from "@/components/knowledge/bookmark-button";
 import { VerifiedMeta } from "@/components/knowledge/verified-meta";
 import { categoryName } from "@/lib/knowledge/categories";
+import { stripMarkdownForExcerpt } from "@/lib/knowledge/format";
 import {
   AVAILABLE_PROGRAMS,
   type GuideRow,
@@ -18,7 +19,7 @@ export function GuideListCard({
   programs?: readonly ProgramOption[];
   initialBookmarked?: boolean;
 }) {
-  const excerpt = guide.content_raw.split("\n").find((line) => line.trim());
+  const excerpt = stripMarkdownForExcerpt(guide.content_raw);
   const program = guide.program_id
     ? programs.find((p) => p.id === guide.program_id) ??
       AVAILABLE_PROGRAMS.find((p) => p.id === guide.program_id)

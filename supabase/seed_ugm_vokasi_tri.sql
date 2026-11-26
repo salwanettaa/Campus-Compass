@@ -80,52 +80,52 @@ BEGIN
         'career_preparation', false,
         'Pada semester ganjil 2025/2026, Program Studi Teknologi Rekayasa Internet (TRI) Sekolah Vokasi UGM telah mengadakan hearing dengan mahasiswa untuk membahas berbagai kebijakan akademik dan program ke depannya. Berikut adalah rangkuman Hearing Prodi yang telah dilaksanakan:
 
-Program Magang dan Praktik Industri (PI)
+## Program Magang dan Praktik Industri (PI)
 
 Program magang tetap akan dilaksanakan mulai semester depan dengan beberapa perubahan signifikan:
 
-Kurikulum 2026:
+### Kurikulum 2026
 - Magang akan diintegrasikan dengan Proyek Integrasi (PI)
 - Waktu pelaksanaan PI tidak lagi dilaksanakan pada semester 4, melainkan digabung dengan magang pada semester 6 atau 7
 - Mahasiswa harus telah menyelesaikan minimal 20 SKS sebagai syarat mengikuti program
 
-Durasi Magang:
+### Durasi Magang
 - Minimal 4 bulan untuk perusahaan pada umumnya
 - Minimal 3 bulan untuk perusahaan besar (masih diperbolehkan)
 - Sistem penilaian akan berbeda antara perusahaan besar dan perusahaan kecil
 
-Status Angkatan 2024
+### Status Angkatan 2024
 
 Pelaksanaan PI untuk angkatan 2024 masih dipending dan akan dilaksanakan sekaligus dengan magang pada semester 6 atau 7.
 
-Magang dengan Mitra
+### Magang dengan Mitra
 
 Untuk program magang dengan mitra seperti HINO, ketersediaannya bergantung pada kebijakan perusahaan mitra. Informasi lebih lanjut akan dibagikan melalui grup WhatsApp prodi.
 
-Proyek Magang sebagai Tugas Akhir
+### Proyek Magang sebagai Tugas Akhir
 
 Proyek magang dapat dijadikan tugas akhir dengan ketentuan:
 - Memenuhi 5 Profil Lulusan TRI
 - Perlu didiskusikan dengan dosen pembimbing terkait pengembangan proyek
 
-Sertifikasi
+## Sertifikasi
 
-Sertifikasi yang Tersedia
+### Sertifikasi yang Tersedia
 
 Program studi akan menyediakan berbagai sertifikasi tambahan, antara lain:
 - Oracle (banyak pilihan gratis)
 - Sertifikasi BNSP
 - Sertifikasi pihak ketiga: DTS Kominfo dan beberapa kementerian
 
-Catatan: Rekognisi akademik hanya diberikan untuk kegiatan magang.
+**Catatan:** Rekognisi akademik hanya diberikan untuk kegiatan magang.
 
-Sertifikasi Oracle untuk Yudisium
+### Sertifikasi Oracle untuk Yudisium
 
 Sertifikasi Oracle dapat digunakan sebagai syarat yudisium dengan ketentuan:
 - Berada pada level Associate
 - Tidak dikenakan biaya
 
-Sertifikasi MTCNA dan Bahasa Inggris
+### Sertifikasi MTCNA dan Bahasa Inggris
 - Informasi teknis dapat ditanyakan kepada Pak Alif
 - Angkatan 2022 (IDP): Masih diperbolehkan menggunakan sertifikat bahasa Inggris
 - Angkatan 2023 ke bawah: Dapat menggunakan sertifikat lomba nasional juara 1-3 sebagai pengganti sertifikat bahasa Inggris
@@ -139,29 +139,21 @@ Sertifikat untuk asisten dosen tidak diberikan secara otomatis. Mahasiswa harus 
         v_ugm, v_tri,
         'Pengajuan Keringanan & Penyesuaian UKT Sarjana Terapan TRI',
         'administrative_guide', false,
-        'Keringanan UKT (Semester 9 dan 10 – Proyek Akhir)
+        '## Keringanan UKT (Semester 9 dan 10 – Proyek Akhir)
 
 Pengajuan keringanan UKT khusus bagi mahasiswa Sarjana Terapan Semester 9 dan 10 yang hanya mengambil mata kuliah Proyek Akhir.
+- Batas waktu pengajuan: 23 Januari 2026
+- Media pengajuan: Melalui simaster.ugm.ac.id
+- Dokumen pendukung: Mengisi [Form Keringanan UKT (untuk yang tinggal TA semester 9-10 DIV)](http://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2026/01/Form-Keringanan-UKT-untuk-yang-tinggal-TA-semester-9-10-DIV.docx)
 
-Batas waktu pengajuan: 23 Januari 2026
-
-Media pengajuan: Melalui simaster.ugm.ac.id
-
-Dokumen pendukung: Mengisi Form Keringanan UKT (untuk yang tinggal TA semester 9-10 DIV) (http://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2026/01/Form-Keringanan-UKT-untuk-yang-tinggal-TA-semester-9-10-DIV.docx)
-
-Keringanan UKT (Persentase Tertentu)
+## Keringanan UKT (Persentase Tertentu)
 
 Pengajuan keringanan UKT berdasarkan persentase tertentu bagi mahasiswa Sarjana Terapan.
-
-Mahasiswa WAJIB mengunggah Surat Rekomendasi dari Dosen Pembimbing Akademik
-
-Surat rekomendasi menggunakan format form resmi yang telah disediakan
-
-Batas waktu pengajuan: 23 Januari 2026
-
-Media pengajuan: Melalui simaster.ugm.ac.id
-
-Dokumen Wajib: Form Surat Rekomendasi Dosen Pembimbing Akademik (terlampir) (https://docs.google.com/document/d/1CkpcDaaAZParBY78vLzbpBDScm8ox895)',
+- Mahasiswa WAJIB mengunggah Surat Rekomendasi dari Dosen Pembimbing Akademik
+- Surat rekomendasi menggunakan format form resmi yang telah disediakan
+- Batas waktu pengajuan: 23 Januari 2026
+- Media pengajuan: Melalui simaster.ugm.ac.id
+- Dokumen Wajib: Form [Surat Rekomendasi Dosen Pembimbing Akademik (terlampir)](https://docs.google.com/document/d/1CkpcDaaAZParBY78vLzbpBDScm8ox895)',
         'official_campus_source', 'Official Prodi D4 TRI SV UGM — Pengajuan Keringanan & Penyesuaian UKT Sarjana Terapan TRI', 'https://tri.sv.ugm.ac.id/penyesuaian-ukt/',
         true, '2026-01-22T12:19:30Z'::timestamptz
     ),
@@ -170,66 +162,60 @@ Dokumen Wajib: Form Surat Rekomendasi Dosen Pembimbing Akademik (terlampir) (htt
         v_ugm, v_tri,
         'Persyaratan & Kelengkapan Dokumen Yudisium D4 TRI SV UGM',
         'administrative_guide', false,
-        'Persyaratan Yudisium Prodi TRI
-1. Proses Pengajuan Yudisium
+        '## Persyaratan Yudisium Prodi TRI
+
+## 1. Proses Pengajuan Yudisium
 
 Mahasiswa yang ingin mengajukan permohonan Yudisium harus mengisi formulir berikut:
-- Mengisi formulir permohonan Yudisium melalui tautan: http://ugm.id/YudisiumDTEDI
-2. Dokumen Persyaratan Yudisium
+- Mengisi formulir permohonan Yudisium melalui tautan: [ugm.id/YudisiumDTEDI](http://ugm.id/YudisiumDTEDI)
+
+## 2. Dokumen Persyaratan Yudisium
 
 Mahasiswa diwajibkan mengunggah dan mengumpulkan dokumen berikut:
-a. Formulir Permohonan Yudisium
-b. Formulir Pembatalan Mata Kuliah Pilihan
-c. Formulir Ceklist Judul Proyek Akhir
-d. Pas Foto Format.JPG (Rasio 4:6) dengan ketentuan:
+a. **Formulir Permohonan Yudisium**
+b. **Formulir Pembatalan Mata Kuliah Pilihan**
+c. **Formulir Ceklist Judul Proyek Akhir**
+d. **Pas Foto Format .JPG** (Rasio 4:6) dengan ketentuan:
   - Kemeja putih, blazer/jas hitam (bukan jas almamater)
   - Latar belakang biru tua, tidak memakai kacamata hitam
   - Foto jelas/tajam, bukan hasil scan/repro
-e. Transkrip Nilai Sementara dari Simaster
+e. **Transkrip Nilai Sementara dari Simaster**
   - Pastikan tidak ada nilai kosong atau "T"
   - Jika ada nilai kosong, segera lengkapi dan laporkan ke bagian akademik
-f. Scan Surat Tanda Terima Menyerahkan Skripsi & Bebas Perpustakaan UGM
-  - Unggah Proyek Akhir secara mandiri melalui: https://simaster.ugm.ac.id
-g. Scan Ijazah Terakhir (Bukan sertifikat hasil ujian)
-h. Scan Transkrip Nilai D3 (Untuk mahasiswa Alih Jenjang)
-i. Scan Sertifikat PPSMB
-j. Persentase Hasil Cek Plagiasi
+f. **Scan Surat Tanda Terima Menyerahkan Skripsi & Bebas Perpustakaan UGM**
+  - Unggah Proyek Akhir secara mandiri melalui: [simaster.ugm.ac.id](https://simaster.ugm.ac.id)
+g. **Scan Ijazah Terakhir** (Bukan sertifikat hasil ujian)
+h. **Scan Transkrip Nilai D3** (Untuk mahasiswa Alih Jenjang)
+i. **Scan Sertifikat PPSMB**
+j. **Persentase Hasil Cek Plagiasi**
   - Similarity Index maksimal 25% (ditandatangani oleh DPPA)
-k. Scan Sertifikat Kemampuan Bahasa Inggris
-  - 1. TEVocS dengan nilai minimal 60;
-2. AcEPT dengan nilai minimal 209;
-3. IELTS dengan nilai minimal 4.5;
-4. TOEFL IBT dengan nilai minimal 52; atau
-5. TOEIC dengan nilai minimal 495.
-  - Ketentuan selengkapnya: https://tri.sv.ugm.ac.id/syarat-inggris/
-l. Surat Sertifikat Kompetensi (Wajib untuk mahasiswa reguler mulai angkatan 2019)
+k. **Scan Sertifikat Kemampuan Bahasa Inggris**
+  - 1. TEVocS dengan nilai minimal 60; 2. AcEPT dengan nilai minimal 209; 3. IELTS dengan nilai minimal 4.5; 4. TOEFL IBT dengan nilai minimal 52; atau 5. TOEIC dengan nilai minimal 495.
+  - Ketentuan selengkapnya: [tri.sv.ugm.ac.id/syarat-inggris/](https://tri.sv.ugm.ac.id/syarat-inggris/)
+l. **Surat Sertifikat Kompetensi** (Wajib untuk mahasiswa reguler mulai angkatan 2019)
   - Sertifikat internasional minimal level associate expert: CCNA, MTCNA, HCIA, atau ACA
   - Sertifikat nasional yang diterbitkan oleh Badan Nasional Sertifikasi Profesi (BNSP)
   - Sertifikat kompetensi dari departemen
   - Sertifikat yang terdaftar dan dapat pengesahan dari ketua program studi
   - Dicantumkan dalam Berita Acara Yudisium
-m. Screenshot bukti Unggah Laporan Proyek Akhir dan Scan Lembar Pengesahan
-  - Unggah melalui tautan: http://ugm.id/ProyekAkhirDTEDI
-n. Bukti Pengajuan Publikasi/Makalah
+m. **Screenshot bukti Unggah Laporan Proyek Akhir dan Scan Lembar Pengesahan**
+  - Unggah melalui tautan: [ugm.id/ProyekAkhirDTEDI](http://ugm.id/ProyekAkhirDTEDI)
+n. **Bukti Pengajuan Publikasi/Makalah**
   - Berupa prosiding konferensi, HAKI, atau jurnal (berlaku untuk mahasiswa mulai angkatan 2019)
-o. Surat Keterangan Bebas Lab
+o. **Surat Keterangan Bebas Lab**
   - Pemohon melapor ke laboran untuk mengajukan bebas lab dengan melampirkan surat permohonan bebas lab
-  - Unduh form template surat permohonan bebas lab: http://ugm.id/TemplateSuratBebasLabTAJ
-3. Proses Sidang Yudisium
-a. Sidang Yudisium dilaksanakan melalui Rapat Pengurus Departemen.
-b. Berita Acara Yudisium akan dikirimkan ke peserta melalui email.
+  - Unduh form template surat permohonan bebas lab: [ugm.id/TemplateSuratBebasLabTAJ](http://ugm.id/TemplateSuratBebasLabTAJ)
 
-Dokumen Penting
+## 3. Proses Sidang Yudisium
+a. Sidang Yudisium dilaksanakan melalui **Rapat Pengurus Departemen**.
+b. **Berita Acara Yudisium** akan dikirimkan ke peserta melalui email.
 
-Template Surat Permohonan Bebas Lab (https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/Template-Surat-Permohonan-Bebas-Lab.doc)
-
-Lembar Perbaikan Proyek Akhir (https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/Lembar-Perbaikan-PA.doc)
-
-Template Laporan Proyek Akhir DTEDI UGM v1.3 (https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/Template-PA-DTEDI-v3.doc)
-
-Pedoman Penulisan Laporan Proyek Akhir DTEDI (https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/Ver-1.5-PEDOMAN-PENULISAN-PROYEK-AKHIR-DTEDI-1.docx-1.pdf)
-
-Panduan Penamaan File Karya Tugas Akhir (https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/panduan_penamaan_file.pdf)',
+## Dokumen Penting
+- [Template Surat Permohonan Bebas Lab](https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/Template-Surat-Permohonan-Bebas-Lab.doc)
+- [Lembar Perbaikan Proyek Akhir](https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/Lembar-Perbaikan-PA.doc)
+- [Template Laporan Proyek Akhir DTEDI UGM v1.3](https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/Template-PA-DTEDI-v3.doc)
+- [Pedoman Penulisan Laporan Proyek Akhir DTEDI](https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/Ver-1.5-PEDOMAN-PENULISAN-PROYEK-AKHIR-DTEDI-1.docx-1.pdf)
+- [Panduan Penamaan File Karya Tugas Akhir](https://tri.sv.ugm.ac.id/wp-content/uploads/sites/712/2025/03/panduan_penamaan_file.pdf)',
         'official_campus_source', 'Official Prodi D4 TRI SV UGM — Persyaratan & Kelengkapan Dokumen Yudisium D4 TRI SV UGM', 'https://tri.sv.ugm.ac.id/dokumen-yudisium/',
         true, '2026-10-13T05:08:45Z'::timestamptz
     ),
@@ -238,16 +224,16 @@ Panduan Penamaan File Karya Tugas Akhir (https://tri.sv.ugm.ac.id/wp-content/upl
         v_ugm, v_tri,
         'Alur Pendaftaran Wisuda Program Sarjana & Sarjana Terapan UGM',
         'administrative_guide', false,
-        '1. Pendaftaran Wisuda Periode I Tahun Akademik 2026/2027 dilakukan melalui laman https://simaster.ugm.ac.id dengan menggunakan akun Single Sign On (SSO) masing-masing. Apabila belum memiliki akun SSO UGM, dapat menghubungi Direktorat Teknologi Informasi (DTI).
+        '1. Pendaftaran Wisuda Periode I Tahun Akademik 2026/2027 dilakukan melalui laman [simaster.ugm.ac.id](https://simaster.ugm.ac.id) dengan menggunakan akun Single Sign On (SSO) masing-masing. Apabila belum memiliki akun SSO UGM, dapat menghubungi Direktorat Teknologi Informasi (DTI).
 2. Tahapan pendaftaran wisuda:
   a. Calon wisudawan/wati melakukan pemutakhiran nomor telepon (HP) dan email non UGM pada menu pengaturan, sub menu data akun;
   b. Calon wisudawan/wati memeriksa data pokok pada SIMASTER dan menyetujui apabila data sudah sesuai, melalui menu: Akademik Kemahasiswaan- Akademik-Data Mahasiswa-Data PDDikti;
   c. Calon wisudawan/wati melihat dan membandingkan data transaksi akademik antara SIMASTER dengan PDDikti melalui menu: Akademik Kemahasiswaan- AkademikData Mahasiswa-KHS Simaster-KHS PDDikti. Silakan hubungi Operator SIA Akademik Program Studi apabila terdapat perbedaan data Kode dan Nama Matakuliah, Jumlah SKS, dan Nilai;
   d. Memilih menu akademik, sub menu yudisium dan melengkapi biodata untuk keperluan penulisan ijazah, mengunggah scan dokumen ijazah terakhir, scan KTP atau paspor (bagi WNA), foto berwarna, dan dokumen pendukung perubahan data diri (jika ada), unggah SK Yudisium/SKL yang ditandatangan oleh Dekan/Wakil Dekan (sesuai Peraturan Rektor No 23 Tahun 2024 Pasal 48);
   e. Melengkapi persyaratan antara lain:
-    1. Mengisi data untuk keperluan Kartu Alumni GAMA Co-Brand dan Exit Survey, dapat dilakukan secara on-line melalui laman https://simaster.ugm.ac.id pada menu alumni, sub menu kartu GAMA Co-Brand.
-    2. Mengisi data Exit Survey, dapat dilakukan secara on-line melalui laman https://simaster.ugm.ac.id menu survei.
-    3. Mengunggah file VERSI FINAL karya tulis akhir (Tesis/Disertasi/Tugas Akhir) melalui laman https://simaster.ugm.ac.id dengan menggunakan akun email UGM/SSO UGM sesuai format pada list lampiran edaran ini.
+    1. Mengisi data untuk keperluan Kartu Alumni GAMA Co-Brand dan Exit Survey, dapat dilakukan secara on-line melalui laman [simaster.ugm.ac.id](https://simaster.ugm.ac.id) pada menu alumni, sub menu kartu GAMA Co-Brand.
+    2. Mengisi data Exit Survey, dapat dilakukan secara on-line melalui laman [simaster.ugm.ac.id](https://simaster.ugm.ac.id) menu survei.
+    3. Mengunggah file VERSI FINAL karya tulis akhir (Tesis/Disertasi/Tugas Akhir) melalui laman [simaster.ugm.ac.id](https://simaster.ugm.ac.id) dengan menggunakan akun email UGM/SSO UGM sesuai format pada list lampiran edaran ini.
   f. Memilih periode yudisium yang sudah ditawarkan oleh Fakultas/Sekolah Sarjana dan Sarjana Terapan/Program Studi;
   g. Melakukan pengecekan dan persetujuan isian data ijazah dengan klik preview ijazah;
   h. Mendaftar Wisuda Periode I Tahun Akademik 2026/2027 paling lambat tanggal 30 Oktober 2026 pukul 12:00 WIB dengan klik Daftar Wisuda (bagi peserta yang terlambat mendaftar dari tanggal penutupan, peserta dapat mendaftar pada periode berikutnya, yaitu Periode Februari 2027);',
@@ -259,25 +245,25 @@ Panduan Penamaan File Karya Tugas Akhir (https://tri.sv.ugm.ac.id/wp-content/upl
         v_ugm, v_tri,
         'FORKOMTRI — Himpunan Mahasiswa Teknologi Rekayasa Internet SV UGM',
         'social_community', false,
-        'Donor Darah 2025 (https://tri.sv.ugm.ac.id/donor-darah-2025/)
+        '### [Donor Darah 2025](https://tri.sv.ugm.ac.id/donor-darah-2025/)
 
-Yogyakarta, 22 November 2025 - Aksi kemanusiaan hasil kerja sama dengan PMI yang terbuka bagi mahasiswa dan masyarakat umum. Bertujuan untuk membantu pemenuhan stok darah medis sekaligus mengedukasi pentingnya pola...
+Yogyakarta, 22 November 2025 - Aksi kemanusiaan hasil kerja sama dengan PMI yang terbuka bagi mahasiswa dan masyarakat umum. Bertujuan untuk membantu pemenuhan stok darah medis sekaligus mengedukasi pentingnya pola ...
 
-Berbagi dan Beraksi 2025 (https://tri.sv.ugm.ac.id/berbagi-dan-beraksi-2025/)
+### [Berbagi dan Beraksi 2025](https://tri.sv.ugm.ac.id/berbagi-dan-beraksi-2025/)
 
-Yogyakarta, 20 September 2025 - Program pengabdian dan kepedulian sosial berupa aksi nyata penyaluran bantuan/kegiatan bakti sosial yang dilaksanakan di Panti Jompo. Kegiatan ini bertujuan menumbuhkan rasa empati sosial dan...
+Yogyakarta, 20 September 2025 - Program pengabdian dan kepedulian sosial berupa aksi nyata penyaluran bantuan/kegiatan bakti sosial yang dilaksanakan di Panti Jompo. Kegiatan ini bertujuan menumbuhkan rasa empati sosial dan ...
 
-Open House ForkomTRI (https://tri.sv.ugm.ac.id/open-house-forkomtri/)
+### [Open House ForkomTRI](https://tri.sv.ugm.ac.id/open-house-forkomtri/)
 
-Yogyakarta, 13 September 2025 - Agenda sosialisasi dan pengenalan organisasi HIMA Forkomtri kepada mahasiswa baru. Berisi pemaparan peran tiap divisi, program kerja unggulan, serta ajakan untuk berpartisipasi aktif dalam dinamika...
+Yogyakarta, 13 September 2025 - Agenda sosialisasi dan pengenalan organisasi HIMA Forkomtri kepada mahasiswa baru. Berisi pemaparan peran tiap divisi, program kerja unggulan, serta ajakan untuk berpartisipasi aktif dalam dinamika ...
 
-Cyber League 2025 (https://tri.sv.ugm.ac.id/cyber-league-2025/)
+### [Cyber League 2025](https://tri.sv.ugm.ac.id/cyber-league-2025/)
 
-Yogyakarta, 29 Agustus 2025 - Wadah penyaluran bakat olahraga dan ajang keakraban antar angkatan melalui pertandingan olahraga (Mini Soccer). Kegiatan ini dirancang untuk menjaga kebugaran fisik, sarana refreshing, serta memupuk...
+Yogyakarta, 29 Agustus 2025 - Wadah penyaluran bakat olahraga dan ajang keakraban antar angkatan melalui pertandingan olahraga (Mini Soccer). Kegiatan ini dirancang untuk menjaga kebugaran fisik, sarana refreshing, serta memupuk ...
 
-Wisudaan TRI Agustus 2025 (https://tri.sv.ugm.ac.id/wisudaan-tri-agustus-2025/)
+### [Wisudaan TRI Agustus 2025](https://tri.sv.ugm.ac.id/wisudaan-tri-agustus-2025/)
 
-Yogyakarta, 28 Agustus 2025 - Agenda apresiasi dan selebrasi pelepasan bagi para wisudawan/wisudawati Teknologi Rekayasa Internet SV UGM. Meliputi acara penyambutan khusus, penyerahan kenang-kenangan dari himpunan, serta sesi foto bersama...',
+Yogyakarta, 28 Agustus 2025 - Agenda apresiasi dan selebrasi pelepasan bagi para wisudawan/wisudawati Teknologi Rekayasa Internet SV UGM. Meliputi acara penyambutan khusus, penyerahan kenang-kenangan dari himpunan, serta sesi foto bersama ...',
         'official_campus_source', 'Official Prodi D4 TRI SV UGM — FORKOMTRI — Himpunan Mahasiswa Teknologi Rekayasa Internet SV UGM', 'https://tri.sv.ugm.ac.id/forkomtri/',
         true, '2026-10-07T17:28:16Z'::timestamptz
     ),
@@ -286,7 +272,7 @@ Yogyakarta, 28 Agustus 2025 - Agenda apresiasi dan selebrasi pelepasan bagi para
         v_ugm, v_tri,
         'National Networking Competition (NETCOMP) D4 TRI SV UGM',
         'scholarship_growth', false,
-        'TechNetworkers Unite: Empowering Networks, Safeguarding Integrity
+        '## TechNetworkers Unite: Empowering Networks, Safeguarding Integrity
 
 National Networking Competition (NETCOMP) 4.0 is a premier national event that empowers the next generation of tech enthusiasts in networking and cybersecurity. This year, NETCOMP introduces a Special Edition Workshop featuring the latest innovations in DevOps and Cloud Computing, offering participants hands-on experience with modern digital infrastructure and automation. Through competitions, workshops, national seminar, and industry expo NETCOMP 4.0 aims to inspire collaboration, innovation, and excellence in shaping Indonesia’s secure and connected digital future.',
         'official_campus_source', 'Official Prodi D4 TRI SV UGM — National Networking Competition (NETCOMP) D4 TRI SV UGM', 'https://tri.sv.ugm.ac.id/netcompugm/',
@@ -299,29 +285,29 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
         'academic_survival', false,
         'Halaman ini menyediakan berbagai layanan akademik yang dapat diakses oleh mahasiswa, dosen, dan staf. Silakan pilih layanan yang sesuai kebutuhan melalui pilihan di bawah ini.
 
-Surat & Permohonan Resmi
-- Permohonan Yudisium: http://ugm.id/YudisiumDTEDI
-- Template Surat Peminjaman Alat/Ruangan LAB: http://ugm.id/templateLABTAJ
-- Template Surat Bebas LAB: http://ugm.id/TemplateSuratBebasLabTAJ
+## Surat & Permohonan Resmi
+- [Permohonan Yudisium](http://ugm.id/YudisiumDTEDI)
+- [Template Surat Peminjaman Alat/Ruangan LAB](http://ugm.id/templateLABTAJ)
+- [Template Surat Bebas LAB](http://ugm.id/TemplateSuratBebasLabTAJ)
 
-Pengumpulan Laporan & Proyek
-- Pengumpulan Laporan Akhir Praktik Industri: https://ugm.id/FormLapAkhirPIDTEDI
-- Template Laporan Praktik Industri: https://tri.sv.ugm.ac.id/file/template-kp/
-- Upload Laporan Proyek Akhir: http://ugm.id/ProyekAkhirDTEDI
+## Pengumpulan Laporan & Proyek
+- [Pengumpulan Laporan Akhir Praktik Industri](https://ugm.id/FormLapAkhirPIDTEDI)
+- [Template Laporan Praktik Industri](https://tri.sv.ugm.ac.id/file/template-kp/)
+- [Upload Laporan Proyek Akhir](http://ugm.id/ProyekAkhirDTEDI)
 
-Formulir Permohonan & Peminjaman
-- Peminjaman VPS: http://ugm.id/FormPeminjamanVPS20242025
-- Permintaan Akses VPN: http://ugm.id/PengajuanAksesVpnTRI
-- Pengajuan Peminjaman Ruangan/Alat Lab: http://ugm.id/FormPeminjamanLabdanAlat
+## Formulir Permohonan & Peminjaman
+- [Peminjaman VPS](http://ugm.id/FormPeminjamanVPS20242025)
+- [Permintaan Akses VPN](http://ugm.id/PengajuanAksesVpnTRI)
+- [Pengajuan Peminjaman Ruangan/Alat Lab](http://ugm.id/FormPeminjamanLabdanAlat)
 
-Dokumen Panduan & Template
-- Buku Panduan Akademik: https://drive.google.com/file/d/1wHrGFufT5n4EnzdTVrY8ge5ighaLTxSQ/view?usp=sharing
-- Kelengkapan Dokumen Praktik Industri: https://drive.google.com/drive/folders/16FDv2nJyCPyFMQlXdUp14DtZWK7z4aqk
-- Form Rekomendasi Magang TRI: http://ugm.id/formmagangtri
+## Dokumen Panduan & Template
+- [Buku Panduan Akademik](https://drive.google.com/file/d/1wHrGFufT5n4EnzdTVrY8ge5ighaLTxSQ/view?usp=sharing)
+- [Kelengkapan Dokumen Praktik Industri](https://drive.google.com/drive/folders/16FDv2nJyCPyFMQlXdUp14DtZWK7z4aqk)
+- [Form Rekomendasi Magang TRI](http://ugm.id/formmagangtri)
 
-Daftar Mata Kuliah & Tracer Alumni
-- Daftar Mata Kuliah: http://ugm.id/krstri
-- Tracer Alumni: http://bit.ly/TracerAlumniDTEDI',
+## Daftar Mata Kuliah & Tracer Alumni
+- [Daftar Mata Kuliah](http://ugm.id/krstri)
+- [Tracer Alumni](http://bit.ly/TracerAlumniDTEDI)',
         'official_campus_source', 'Official Prodi D4 TRI SV UGM — Direktori Layanan Akademik, Praktikum & Laboratorium D4 TRI SV UGM', 'https://tri.sv.ugm.ac.id/layanan-akademik/',
         true, '2026-09-17T02:41:32Z'::timestamptz
     ),

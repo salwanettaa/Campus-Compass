@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Signpost } from "lucide-react";
 import { BookmarkButton } from "@/components/knowledge/bookmark-button";
+import { GuideContent } from "@/components/knowledge/guide-content";
 import { VerifiedMeta } from "@/components/knowledge/verified-meta";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
@@ -29,34 +30,6 @@ function safeUrl(value: string | null): string | null {
   } catch {
     return null;
   }
-}
-
-/** Turns embedded http(s) URLs in guide content into clickable safe external links. */
-function renderInlineLinks(text: string) {
-  const parts = text.split(/(https?:\/\/[^\s)<>]+)/g);
-  return parts.map((part, idx) => {
-    if (/^https?:\/\//.test(part)) {
-      const candidate = part.replace(/[.,;]+$/, "");
-      const trailing = part.slice(candidate.length);
-      const valid = safeUrl(candidate);
-      if (valid) {
-        return (
-          <span key={idx}>
-            <a
-              href={valid}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-brand-700 underline underline-offset-4 break-all hover:text-brand-950"
-            >
-              {candidate}
-            </a>
-            {trailing}
-          </span>
-        );
-      }
-    }
-    return part;
-  });
 }
 
 export default async function GuidePage({
@@ -143,9 +116,7 @@ export default async function GuidePage({
             <VerifiedMeta guide={guide} />
           </div>
 
-          <div className="text-lead text-pretty max-w-2xl whitespace-pre-line text-brand-950">
-            {renderInlineLinks(guide.content_raw)}
-          </div>
+          <GuideContent content={guide.content_raw} />
 
           <p className="text-caption text-pretty border-t border-brand-300 pt-4 text-brand-800">
             Always confirm official deadlines and requirements with your faculty or Simaster.
