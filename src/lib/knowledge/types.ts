@@ -68,6 +68,15 @@ export const AVAILABLE_PROGRAMS: readonly ProgramOption[] = [
   },
 ] as const;
 
+export type KnowledgeContext = {
+  source: "supabase" | "mock";
+  campusId: string | null;
+  campusName: string;
+  myProgram: ProgramOption;
+  programs: ProgramOption[];
+  bookmarkedGuideIds: string[];
+};
+
 /** One row of the table `guides` (only published guides are ever shown). */
 export type GuideRow = {
   id: string;

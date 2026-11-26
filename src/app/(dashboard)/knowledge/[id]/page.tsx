@@ -7,7 +7,11 @@ import { VerifiedMeta } from "@/components/knowledge/verified-meta";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
 import { categoryName } from "@/lib/knowledge/categories";
-import { getGuide, parseSimulation } from "@/lib/knowledge/data";
+import {
+  getGuide,
+  getKnowledgeContext,
+  parseSimulation,
+} from "@/lib/knowledge/data";
 import { AVAILABLE_PROGRAMS } from "@/lib/knowledge/types";
 
 export const metadata: Metadata = { title: "Guide" };
@@ -40,7 +44,10 @@ export default async function GuidePage({
     Array.isArray(raw.mock) ? raw.mock[0] : raw.mock,
   );
 
-  const result = await getGuide(id, simulation);
+  const [result, context] = await Promise.all([
+    getGuide(id, simulation),
+    getKnowledgeContext(),
+  ]);
 
   if (!result.ok) {
     return (
@@ -59,13 +66,15 @@ export default async function GuidePage({
   const guide = result.data;
   const sourceUrl = safeUrl(guide.source_url);
   const program = guide.program_id
-    ? AVAILABLE_PROGRAMS.find((p) => p.id === guide.program_id)
+    ? context.programs.find((p) => p.id === guide.program_id) ??
+      AVAILABLE_PROGRAMS.find((p) => p.id === guide.program_id)
     : null;
   const scopeLabel = guide.is_general
-    ? "General · UGM"
+    ? `General · ${context.campusName}`
     : program
       ? `${program.name} (${program.faculty})`
       : "Program guide";
+  const initialBookmarked = context.bookmarkedGuideIds.includes(guide.id);
 
   const aiQuery = encodeURIComponent(
     `Explain the official guide "${guide.title}" and summarize the key steps.`,
@@ -144,7 +153,11 @@ export default async function GuidePage({
           </ButtonLink>
         </div>
 
-        <GuideCardActions guideId={guide.id} guideTitle={guide.title} />
+        <GuideCardActions
+          guideId={guide.id}
+          guideTitle={guide.title}
+          initialBookmarked={initialBookmarked}
+        />
 
         <Alert variant="info">
           Sample pilot content. Always confirm official deadlines and requirements with your faculty or Simaster.

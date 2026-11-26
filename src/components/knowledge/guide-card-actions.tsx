@@ -1,28 +1,36 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { ArrowRight, Bookmark, Signpost } from "lucide-react";
+import { toggleBookmarkAction } from "@/lib/knowledge/actions";
 import { cn } from "@/lib/utils";
 
 interface GuideCardActionsProps {
   guideId: string;
   guideTitle: string;
+  initialBookmarked?: boolean;
 }
 
 /**
  * Quiet action row on each guide card:
- * - Bookmark toggle persisted locally
+ * - Bookmark toggle synced to Supabase `bookmarks` (with localStorage fallback)
  * - Direct link to discuss the guide in AI Navigator
  * - Link to read the full guide
  */
 export function GuideCardActions({
   guideId,
   guideTitle,
+  initialBookmarked = false,
 }: GuideCardActionsProps) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
+  const [pending, startTransition] = useTransition();
 
   useEffect(() => {
+    if (initialBookmarked) {
+      setIsBookmarked(true);
+      return;
+    }
     try {
       if (localStorage.getItem(`compass_bookmark_${guideId}`) === "true") {
         setIsBookmarked(true);
@@ -30,7 +38,7 @@ export function GuideCardActions({
     } catch {
       // Ignore storage access errors in restricted browsing contexts.
     }
-  }, [guideId]);
+  }, [guideId, initialBookmarked]);
 
   function toggleBookmark() {
     const nextState = !isBookmarked;
@@ -40,6 +48,13 @@ export function GuideCardActions({
     } catch {
       // Ignore storage access errors.
     }
+
+    startTransition(async () => {
+      const result = await toggleBookmarkAction(guideId, nextState);
+      if (!result.ok) {
+        setIsBookmarked(!nextState);
+      }
+    });
   }
 
   const aiQuery = encodeURIComponent(
@@ -52,10 +67,15 @@ export function GuideCardActions({
         <button
           type="button"
           onClick={toggleBookmark}
+          disabled={pending}
           aria-pressed={isBookmarked}
-          aria-label={isBookmarked ? `Remove bookmark for ${guideTitle}` : `Bookmark ${guideTitle}`}
+          aria-label={
+            isBookmarked
+              ? `Remove bookmark for ${guideTitle}`
+              : `Bookmark ${guideTitle}`
+          }
           className={cn(
-            "inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 text-h5 transition-colors duration-150",
+            "inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 text-h5 transition-colors duration-150 disabled:opacity-60",
             isBookmarked
               ? "border-brand-700 bg-brand-700 text-white"
               : "border-brand-300 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",

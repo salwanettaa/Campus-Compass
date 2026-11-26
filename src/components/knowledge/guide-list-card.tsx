@@ -2,16 +2,29 @@ import Link from "next/link";
 import { GuideCardActions } from "@/components/knowledge/guide-card-actions";
 import { VerifiedMeta } from "@/components/knowledge/verified-meta";
 import { categoryName } from "@/lib/knowledge/categories";
-import { AVAILABLE_PROGRAMS, type GuideRow } from "@/lib/knowledge/types";
+import {
+  AVAILABLE_PROGRAMS,
+  type GuideRow,
+  type ProgramOption,
+} from "@/lib/knowledge/types";
 
 /** One row in the guide index. Follows the PostCard surface grammar. */
-export function GuideListCard({ guide }: { guide: GuideRow }) {
+export function GuideListCard({
+  guide,
+  programs = AVAILABLE_PROGRAMS,
+  initialBookmarked = false,
+}: {
+  guide: GuideRow;
+  programs?: readonly ProgramOption[];
+  initialBookmarked?: boolean;
+}) {
   const excerpt = guide.content_raw.split("\n").find((line) => line.trim());
   const program = guide.program_id
-    ? AVAILABLE_PROGRAMS.find((p) => p.id === guide.program_id)
+    ? programs.find((p) => p.id === guide.program_id) ??
+      AVAILABLE_PROGRAMS.find((p) => p.id === guide.program_id)
     : null;
   const scopeLabel = guide.is_general
-    ? "General · UGM"
+    ? "General"
     : program
       ? program.shortName
       : "Program guide";
@@ -45,7 +58,11 @@ export function GuideListCard({ guide }: { guide: GuideRow }) {
         <VerifiedMeta guide={guide} />
       </div>
 
-      <GuideCardActions guideId={guide.id} guideTitle={guide.title} />
+      <GuideCardActions
+        guideId={guide.id}
+        guideTitle={guide.title}
+        initialBookmarked={initialBookmarked}
+      />
     </article>
   );
 }

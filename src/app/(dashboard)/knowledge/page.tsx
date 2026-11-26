@@ -12,6 +12,7 @@ import { Button, ButtonLink } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 import { SearchBar } from "@/components/ui/search-bar";
 import {
+  getKnowledgeContext,
   listExperiences,
   listGuides,
   parseSimulation,
@@ -35,7 +36,6 @@ export default async function KnowledgePage({
 }) {
   const raw = await searchParams;
   const parsed = parseKnowledgeParams(raw);
-  // Default dashboard view to the student's pilot program + general campus guides.
   const params = {
     ...parsed,
     scope: parsed.scope ?? "major",
@@ -44,17 +44,29 @@ export default async function KnowledgePage({
     Array.isArray(raw.mock) ? raw.mock[0] : raw.mock,
   );
 
-  const [guidesResult, experiencesResult] = await Promise.all([
+  const [context, guidesResult, experiencesResult] = await Promise.all([
+    getKnowledgeContext(),
     listGuides(simulation),
     listExperiences(simulation),
   ]);
 
+  const filterOptions = {
+    myProgram: context.myProgram,
+    programs: context.programs,
+  };
+
   const scopedGuides = guidesResult.ok
-    ? applyGuides(guidesResult.data, { ...params, category: null, q: "" })
+    ? applyGuides(
+        guidesResult.data,
+        { ...params, category: null, q: "" },
+        filterOptions,
+      )
     : [];
-  const guides = guidesResult.ok ? applyGuides(guidesResult.data, params) : [];
+  const guides = guidesResult.ok
+    ? applyGuides(guidesResult.data, params, filterOptions)
+    : [];
   const experiences = experiencesResult.ok
-    ? applyExperiences(experiencesResult.data, params)
+    ? applyExperiences(experiencesResult.data, params, filterOptions)
     : [];
   const counts = countByCategory(scopedGuides);
 
@@ -62,6 +74,9 @@ export default async function KnowledgePage({
     params.category !== null || params.q !== "" || params.scope !== "major";
   const retryHref = `/knowledge${buildKnowledgeQuery(params)}`;
   const currentPillar = params.pillar ?? "guides";
+  const bookmarkedSet = new Set(context.bookmarkedGuideIds);
+  const isUsingSampleData =
+    guidesResult.source !== "supabase" || experiencesResult.source !== "supabase";
 
   return (
     <main className="flex max-w-5xl flex-col gap-8">
@@ -79,7 +94,9 @@ export default async function KnowledgePage({
 
       <SmartScopeSwitcher
         params={params}
-        campusName="Universitas Gadjah Mada"
+        campusName={context.campusName}
+        myProgram={context.myProgram}
+        programs={context.programs}
       />
 
       <div className="flex flex-col gap-4">
@@ -98,9 +115,7 @@ export default async function KnowledgePage({
           {params.category ? (
             <input type="hidden" name="category" value={params.category} />
           ) : null}
-          {params.scope && params.scope !== "all" ? (
-            <input type="hidden" name="scope" value={params.scope} />
-          ) : null}
+          <input type="hidden" name="scope" value={params.scope} />
           {params.pillar && params.pillar !== "guides" ? (
             <input type="hidden" name="pillar" value={params.pillar} />
           ) : null}
@@ -147,7 +162,7 @@ export default async function KnowledgePage({
               </h3>
               <p className="text-body text-pretty max-w-md text-brand-800">
                 {isFiltered
-                  ? "Try different keywords, another category, or switch the program scope."
+                  ? "Try different keywords, another category, or switch to General guides."
                   : "Curated guides for this program will appear once verified by curators."}
               </p>
               <div className="flex flex-wrap items-center gap-3 pt-1">
@@ -166,7 +181,11 @@ export default async function KnowledgePage({
             <ul className="grid gap-4 md:grid-cols-2" aria-label="Guides">
               {guides.map((guide) => (
                 <li key={guide.id}>
-                  <GuideListCard guide={guide} />
+                  <GuideListCard
+                    guide={guide}
+                    programs={context.programs}
+                    initialBookmarked={bookmarkedSet.has(guide.id)}
+                  />
                 </li>
               ))}
             </ul>
@@ -220,7 +239,9 @@ export default async function KnowledgePage({
       )}
 
       <Alert variant="info">
-        Sample pilot guides for Universitas Gadjah Mada (D4 TRI Sekolah Vokasi). Always confirm official deadlines on Simaster or with your academic office.
+        {isUsingSampleData
+          ? `Showing sample Knowledge Hub content for ${context.campusName} because the guides or experiences table has no rows yet. Always confirm official deadlines on Simaster or with your academic office.`
+          : `Connected to ${context.campusName} database. Always confirm official deadlines on Simaster or with your academic office.`}
       </Alert>
     </main>
   );

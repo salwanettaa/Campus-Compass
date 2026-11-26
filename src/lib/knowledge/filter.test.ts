@@ -48,7 +48,7 @@ describe("buildKnowledgeQuery", () => {
     ).toBe("?q=a+b%26c&category=academic_survival");
   });
 
-  it("includes scope and pillar when provided and not default", () => {
+  it("includes scope (including all) and pillar when provided", () => {
     expect(
       buildKnowledgeQuery({
         category: null,
@@ -57,6 +57,13 @@ describe("buildKnowledgeQuery", () => {
         pillar: "experiences",
       }),
     ).toBe("?scope=prog-d4-tri&pillar=experiences");
+    expect(
+      buildKnowledgeQuery({
+        category: null,
+        q: "",
+        scope: "all",
+      }),
+    ).toBe("?scope=all");
   });
 });
 
@@ -101,6 +108,32 @@ describe("applyGuides", () => {
     expect(
       applyGuides(MOCK_GUIDES, { category: "social_community", q: "internship" }),
     ).toEqual([]);
+  });
+
+  it("filters cleanly by scope: all (general), major (D4 TRI), and another program", () => {
+    const general = applyGuides(MOCK_GUIDES, {
+      category: null,
+      q: "",
+      scope: "all",
+    });
+    expect(general.length).toBeGreaterThan(0);
+    expect(general.every((g) => g.is_general)).toBe(true);
+
+    const tri = applyGuides(MOCK_GUIDES, {
+      category: null,
+      q: "",
+      scope: "major",
+    });
+    expect(tri.length).toBeGreaterThan(0);
+    expect(tri.every((g) => g.program_id === "prog-d4-tri")).toBe(true);
+
+    const trpl = applyGuides(MOCK_GUIDES, {
+      category: null,
+      q: "",
+      scope: "prog-d4-trpl",
+    });
+    expect(trpl).toHaveLength(1);
+    expect(trpl[0].program_id).toBe("prog-d4-trpl");
   });
 });
 

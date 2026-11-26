@@ -1,10 +1,12 @@
 import { CATEGORY_INFO } from "./categories";
 import {
+  AVAILABLE_PROGRAMS,
   GUIDE_CATEGORIES,
   PILOT_PROGRAM,
   type ExperienceRow,
   type GuideCategory,
   type GuideRow,
+  type ProgramOption,
 } from "./types";
 
 export type KnowledgeScope = "all" | "major" | string;
@@ -29,7 +31,7 @@ function first(value: string | string[] | undefined) {
 /** Reads `?category=`, `?q=`, `?scope=`, and `?pillar=`; ignores invalid tokens. */
 export function parseKnowledgeParams(raw: RawParams): KnowledgeParams {
   const category = first(raw.category);
-  const scopeRaw = first(raw.scope);
+  const scopeRaw = first(raw.scope)?.trim();
   const pillarRaw = first(raw.pillar);
 
   const parsed: KnowledgeParams = {
@@ -48,12 +50,19 @@ export function parseKnowledgeParams(raw: RawParams): KnowledgeParams {
   return parsed;
 }
 
+/**
+ * Serializes active filter state to a query string.
+ * Always preserves `scope` (including `scope=all`) when set so switching to
+ * General does not fall back to the default `major` view.
+ */
 export function buildKnowledgeQuery(params: KnowledgeParams): string {
   const query = new URLSearchParams();
   if (params.q) query.set("q", params.q);
   if (params.category) query.set("category", params.category);
-  if (params.scope && params.scope !== "all") query.set("scope", params.scope);
-  if (params.pillar && params.pillar !== "guides") query.set("pillar", params.pillar);
+  if (params.scope) query.set("scope", params.scope);
+  if (params.pillar && params.pillar !== "guides") {
+    query.set("pillar", params.pillar);
+  }
   const text = query.toString();
   return text ? `?${text}` : "";
 }
@@ -63,30 +72,73 @@ function normalize(text: string) {
 }
 
 /**
- * Basic search: every word must appear in the title, category name, source
- * reference, or text. Published guides only, newest verification first.
- * Filtered by scope if specified.
+ * Matches a guide/experience `program_id` against a selected program option.
+ * Supports both live database UUIDs and fallback mock IDs (`prog-d4-tri`, etc.)
+ * mapped via program code so mock data still works when DB programs use UUIDs.
+ */
+export function matchesProgram(
+  rowProgramId: string | null,
+  targetProgram: ProgramOption,
+  allPrograms: readonly ProgramOption[] = AVAILABLE_PROGRAMS,
+): boolean {
+  if (!rowProgramId) return false;
+  if (rowProgramId === targetProgram.id) return true;
+
+  // Map DB program codes to mock IDs if the row comes from sample fallback data.
+  const code = targetProgram.code.toUpperCase();
+  if (rowProgramId === `prog-d4-${code.toLowerCase()}`) return true;
+  if (rowProgramId === `prog-s1-${code.toLowerCase()}`) return true;
+  if (code === "TRI" || code === "IF") {
+    if (
+      rowProgramId === PILOT_PROGRAM.id ||
+      rowProgramId === "00000000-0000-4000-8000-000000000011"
+    ) {
+      return true;
+    }
+  }
+
+  const matchedMock = allPrograms.find(
+    (p) => p.id === rowProgramId && p.code.toUpperCase() === code,
+  );
+  return Boolean(matchedMock);
+}
+
+/**
+ * Filters published guides by scope, category, and search terms.
+ * - No scope (unit tests): all published guides
+ * - `scope === "all"`: general campus guides (`is_general === true`)
+ * - `scope === "major"`: guides for `myProgram`
+ * - `scope === "<programId>"`: guides for that chosen program
  */
 export function applyGuides(
   guides: readonly GuideRow[],
   params: KnowledgeParams,
+  options?: {
+    myProgram?: ProgramOption;
+    programs?: readonly ProgramOption[];
+  },
 ): GuideRow[] {
   const words = normalize(params.q).split(/\s+/).filter(Boolean);
+  const myProgram = options?.myProgram ?? PILOT_PROGRAM;
+  const programs = options?.programs ?? AVAILABLE_PROGRAMS;
 
   return guides
     .filter((guide) => guide.is_published)
     .filter((guide) => !params.category || guide.category === params.category)
     .filter((guide) => {
-      // If no scope is specified or scope is "all", include all matching guides
-      if (!params.scope || params.scope === "all") return true;
+      if (!params.scope) return true;
+      if (params.scope === "all") return guide.is_general;
 
-      // "major" defaults to the pilot major (D4 TRI)
-      if (params.scope === "major" || params.scope === PILOT_PROGRAM.id) {
-        return guide.is_general || guide.program_id === PILOT_PROGRAM.id;
+      const targetProgram =
+        params.scope === "major"
+          ? myProgram
+          : programs.find((p) => p.id === params.scope);
+
+      if (!targetProgram) {
+        return guide.program_id === params.scope;
       }
 
-      // Specific program chosen
-      return guide.is_general || guide.program_id === params.scope;
+      return matchesProgram(guide.program_id, targetProgram, programs);
     })
     .filter((guide) => {
       if (words.length === 0) return true;
@@ -106,23 +158,37 @@ export function applyGuides(
 }
 
 /**
- * Filter experiences by search term and program scope.
+ * Filters senior experiences by search term and program scope.
+ * - No scope or `scope === "all"`: all experiences in the campus
+ * - `scope === "major"`: experiences for `myProgram`
+ * - `scope === "<programId>"`: experiences for that chosen program
  */
 export function applyExperiences(
   experiences: readonly ExperienceRow[],
   params: KnowledgeParams,
+  options?: {
+    myProgram?: ProgramOption;
+    programs?: readonly ProgramOption[];
+  },
 ): ExperienceRow[] {
   const words = normalize(params.q).split(/\s+/).filter(Boolean);
+  const myProgram = options?.myProgram ?? PILOT_PROGRAM;
+  const programs = options?.programs ?? AVAILABLE_PROGRAMS;
 
   return experiences
     .filter((exp) => {
       if (!params.scope || params.scope === "all") return true;
 
-      if (params.scope === "major" || params.scope === PILOT_PROGRAM.id) {
-        return exp.program_id === PILOT_PROGRAM.id || exp.program_id.includes("00000000-0000");
+      const targetProgram =
+        params.scope === "major"
+          ? myProgram
+          : programs.find((p) => p.id === params.scope);
+
+      if (!targetProgram) {
+        return exp.program_id === params.scope;
       }
 
-      return exp.program_id === params.scope;
+      return matchesProgram(exp.program_id, targetProgram, programs);
     })
     .filter((exp) => {
       if (words.length === 0) return true;

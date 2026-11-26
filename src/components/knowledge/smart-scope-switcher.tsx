@@ -18,28 +18,30 @@ import { cn } from "@/lib/utils";
 interface SmartScopeSwitcherProps {
   params: KnowledgeParams;
   campusName?: string;
+  myProgram?: ProgramOption;
+  programs?: readonly ProgramOption[];
 }
 
 /**
  * Campus and program scope filter.
- * Uses native links for primary tabs and the shared Select primitive for
- * exploring other programs, keeping the control strip borderless and calm.
+ * Dynamically renders the signed-in student's campus, primary program,
+ * and other programs under that campus.
  */
 export function SmartScopeSwitcher({
   params,
   campusName = "Universitas Gadjah Mada",
+  myProgram = PILOT_PROGRAM,
+  programs = AVAILABLE_PROGRAMS,
 }: SmartScopeSwitcherProps) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const currentScope = params.scope ?? "major";
 
   const isMajorActive =
-    currentScope === "major" || currentScope === PILOT_PROGRAM.id;
+    currentScope === "major" || currentScope === myProgram.id;
   const isAllActive = currentScope === "all";
 
-  const otherPrograms = AVAILABLE_PROGRAMS.filter(
-    (p) => p.id !== PILOT_PROGRAM.id,
-  );
+  const otherPrograms = programs.filter((p) => p.id !== myProgram.id);
   const selectedOtherProgram = otherPrograms.find(
     (p) => p.id === currentScope,
   );
@@ -68,8 +70,8 @@ export function SmartScopeSwitcher({
           {selectedOtherProgram
             ? `Browsing ${selectedOtherProgram.name}`
             : isAllActive
-              ? "All general campus guides"
-              : `${PILOT_PROGRAM.name} (${PILOT_PROGRAM.faculty})`}
+              ? "General guides across all programs"
+              : `${myProgram.name} (${myProgram.faculty})`}
         </p>
 
         <nav aria-label="Scope filter" className="flex flex-wrap gap-2">
@@ -83,7 +85,7 @@ export function SmartScopeSwitcher({
                 : "border-brand-300 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",
             )}
           >
-            {PILOT_PROGRAM.shortName}
+            {myProgram.shortName}
           </Link>
 
           <Link
@@ -96,34 +98,36 @@ export function SmartScopeSwitcher({
                 : "border-brand-300 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",
             )}
           >
-            All UGM (General)
+            General (All programs)
           </Link>
         </nav>
       </div>
 
-      <div className="w-full sm:w-64">
-        <label
-          htmlFor="other-programs-select"
-          className="text-caption mb-1 block text-brand-800"
-        >
-          Browse another program
-        </label>
-        <Select
-          id="other-programs-select"
-          value={selectedOtherProgram ? currentScope : ""}
-          onChange={(e) => handleProgramSelect(e.target.value)}
-          className="h-11 text-body"
-        >
-          <option value="" disabled>
-            Choose a program...
-          </option>
-          {otherPrograms.map((prog: ProgramOption) => (
-            <option key={prog.id} value={prog.id}>
-              {prog.shortName}
+      {otherPrograms.length > 0 ? (
+        <div className="w-full sm:w-64">
+          <label
+            htmlFor="other-programs-select"
+            className="text-caption mb-1 block text-brand-800"
+          >
+            Browse another program
+          </label>
+          <Select
+            id="other-programs-select"
+            value={selectedOtherProgram ? currentScope : ""}
+            onChange={(e) => handleProgramSelect(e.target.value)}
+            className="h-11 text-body"
+          >
+            <option value="" disabled>
+              Choose a program...
             </option>
-          ))}
-        </Select>
-      </div>
+            {otherPrograms.map((prog: ProgramOption) => (
+              <option key={prog.id} value={prog.id}>
+                {prog.shortName}
+              </option>
+            ))}
+          </Select>
+        </div>
+      ) : null}
     </div>
   );
 }
