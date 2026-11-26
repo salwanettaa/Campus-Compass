@@ -58,7 +58,7 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
   3. **Penting untuk juri**: Jika `Confirm email` dinyalakan lagi (karena Patch 03 mengecek `email_confirmed_at IS NOT NULL`), buat **1–2 akun demo pre-confirmed** di Supabase Auth dan cantumkan kredensial aksesnya secara aman di catatan submission (jangan pernah commit password/token ke Git!).
 
 ### Task 1.3 — Sambungkan Community ke Supabase (Live Read + Write)
-- **Owner**: Erick / Kalya (`feat/community-live`)
+- **Owner**: Erick (`feat/community-live`)
 - **Kontrak yang sudah ada**: `src/lib/community/types.ts` (mirror kolom `v_posts`, `v_comments`), `supabase/patches/02_community_helpful_accepted.sql` (`trg_votes_sync_helpful_count`, `set_accepted_answer()`).
 - **Langkah**:
   1. Ubah `listFeed()` dan `getThread()` di `src/lib/community/data.ts`:
@@ -79,7 +79,13 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
   2. Beri label eksplisit di bagian atas section: **`Preview only · Progress is not saved yet`** (mematuhi aturan transparansi mockup Handbook).
 - **Definition of Done**: Tampilan Home tidak kosong dan menunjukkan konsep *adaptation roadmap* dengan jelas untuk Video Semifinal.
 
-### Task 1.5 — Deliverables Non-Kode Semifinal (`30 Nov`)
+### Task 1.5 — Interactive UI Preview `AI Navigator` (Selesai — `feat/ai-navigator-preview`)
+- **Status**: ✅ Selesai (preview interaktif berlabel jujur `"Demo, not live"` tanpa panggilan Gemini API/backend dulu).
+- **Cakupan**:
+  - Pilihan 4 skenario pertanyaan kampus (termasuk SOP Lab Jaringan D4 TRI, Magang 6 Bulan & Sertifikasi, dan skenario *insufficient evidence* $\rightarrow$ *Ask in Community*).
+  - Menangkap parameter `?q=` dari tombol `Ask AI` di Knowledge Hub dan memperbarui panel `Sources` `[1]`, `[2]` secara dinamis.
+
+### Task 1.6 — Deliverables Non-Kode Semifinal (`30 Nov`)
 - **Proposal (PDF, maks 10 halaman konten, Bahasa Inggris)** + **Signed Declaration of Originality** (`s.id/DeclarationOfOriginalitySTACK2026`).
 - **Video Demo (maks 2 menit, 1080p, Bahasa Inggris)**:
   - Tunjukkan live flow: Onboarding $\rightarrow$ Home $\rightarrow$ Knowledge Hub $\rightarrow$ Community.

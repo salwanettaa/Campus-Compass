@@ -2,8 +2,10 @@ import { describe, expect, it } from "vitest";
 import { MOCK_GUIDES } from "@/lib/knowledge/mock-data";
 import {
   SAMPLE_MESSAGES,
+  SAMPLE_SCENARIOS,
   SAMPLE_SOURCES,
   citationNumbers,
+  pickInitialScenarioId,
 } from "./mock-data";
 
 describe("AI Navigator sample data", () => {
@@ -11,6 +13,12 @@ describe("AI Navigator sample data", () => {
     for (const source of SAMPLE_SOURCES) {
       const guide = MOCK_GUIDES.find((g) => g.id === source.guideId);
       expect(guide?.is_published).toBe(true);
+    }
+    for (const scenario of SAMPLE_SCENARIOS) {
+      for (const source of scenario.sources) {
+        const guide = MOCK_GUIDES.find((g) => g.id === source.guideId);
+        expect(guide?.is_published).toBe(true);
+      }
     }
   });
 
@@ -23,5 +31,28 @@ describe("AI Navigator sample data", () => {
       for (const n of used) expect(known.has(n)).toBe(true);
       expect([...new Set(used)].sort()).toEqual([...message.citations].sort());
     }
+
+    for (const scenario of SAMPLE_SCENARIOS) {
+      const scenarioKnown = new Set(scenario.sources.map((s) => s.index));
+      for (const message of scenario.messages) {
+        if (message.role !== "assistant") continue;
+        const used = citationNumbers(message.text);
+        if (!scenario.insufficientEvidence) {
+          expect(used.length).toBeGreaterThan(0);
+        }
+        for (const n of used) expect(scenarioKnown.has(n)).toBe(true);
+        expect([...new Set(used)].sort()).toEqual([...message.citations].sort());
+      }
+    }
+  });
+
+  it("picks matching demo scenarios from Knowledge Hub queries", () => {
+    expect(pickInitialScenarioId("SOP Laboratorium Jaringan D4 TRI")).toBe(
+      "tri-lab-sop",
+    );
+    expect(pickInitialScenarioId("Alur Magang Industri 6 Bulan")).toBe(
+      "tri-internship",
+    );
+    expect(pickInitialScenarioId()).toBe("krs-clash");
   });
 });
