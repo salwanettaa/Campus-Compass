@@ -126,7 +126,7 @@ export default async function KnowledgePage({
         {/* Main reading column */}
         <div className="flex min-w-0 flex-col gap-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="min-w-0 flex-1">
+            <div className="w-full min-w-0 sm:w-auto sm:flex-1">
               <PillarSwitch
                 params={params}
                 guidesCount={guides.length}
@@ -136,7 +136,7 @@ export default async function KnowledgePage({
 
             <a
               href="#knowledge-filters"
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-brand-400 bg-white px-3.5 text-caption font-medium text-brand-900 lg:hidden"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-brand-400 bg-paper-raised px-3.5 text-caption font-medium text-brand-900 lg:hidden"
             >
               <SlidersHorizontal className="size-3.5" aria-hidden="true" />
               <span>

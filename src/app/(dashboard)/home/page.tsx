@@ -3,9 +3,11 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
-import { RouteLine } from "@/components/ui/route-line";
+import { CompassRing } from "@/components/home/compass-ring";
 import { createClient } from "@/lib/supabase/server";
 import { ADAPTATION_AREAS, MAIN_CHALLENGES } from "@/lib/constants/onboarding";
+import { categoryName } from "@/lib/knowledge/categories";
+import type { GuideCategory } from "@/lib/knowledge/types";
 
 export const metadata: Metadata = { title: "Home" };
 
@@ -16,16 +18,24 @@ const SHORTCUTS = [
     description: "See what others asked and which answers helped.",
   },
   {
-    href: "/knowledge",
-    title: "Find a campus guide",
-    description: "Six categories, each guide with its source.",
-  },
-  {
     href: "/knowledge/share-experience",
     title: "Share what you learned",
     description: "Write down what worked so the next student can use it.",
   },
 ] as const;
+
+/** The guide category that best matches each adaptation area. */
+const AREA_GUIDES: Record<
+  (typeof ADAPTATION_AREAS)[number]["value"],
+  GuideCategory
+> = {
+  academic: "academic_survival",
+  social: "social_community",
+  administrative: "administrative_guide",
+  personal: "academic_survival",
+  facilities: "campus_essentials",
+  opportunity: "scholarship_growth",
+};
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -61,77 +71,83 @@ export default async function HomePage() {
     profile?.semester ? `Semester ${profile.semester}` : null,
   ].filter(Boolean);
 
+  const category = area ? AREA_GUIDES[area.value] : null;
+
   return (
-    <main className="flex w-full flex-col gap-10">
-      <header className="bg-hero-gradient overflow-hidden rounded-[2rem] text-white">
-        <div className="px-6 pt-8 sm:px-10 sm:pt-10">
-          <h1 className="text-h1 break-words">
-            Welcome back, {profile?.display_name ?? "Student"}.
-          </h1>
-          {campusDetails.length > 0 ? (
-            <p className="text-lead mt-3 text-brand-100">
-              {campusDetails.join(" · ")}
-            </p>
-          ) : null}
-        </div>
-        <RouteLine className="h-20" />
+    <main className="flex w-full flex-col gap-12">
+      <header>
+        <h1 className="text-h2 break-words text-brand-950">
+          Welcome back, {profile?.display_name ?? "Student"}.
+        </h1>
+        {campusDetails.length > 0 ? (
+          <p className="text-body mt-1 text-brand-800">{campusDetails.join(" · ")}</p>
+        ) : null}
       </header>
 
-      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:items-start lg:gap-12">
-        <section aria-labelledby="next-heading">
-          <h2 id="next-heading" className="text-h2 text-brand-950">
-            Where to go next
+      <section
+        aria-labelledby="focus-heading"
+        className="grid items-center gap-10 md:grid-cols-2 md:gap-12"
+      >
+        <CompassRing area={area?.value ?? null} />
+        <div className="flex flex-col items-start">
+          <h2 id="focus-heading" className="text-h1 text-brand-950">
+            {category ? "Start where you need help" : "Find your first guide"}
           </h2>
-          <ul className="mt-4 flex flex-col gap-4">
-            {SHORTCUTS.map((shortcut) => (
-              <li key={shortcut.href}>
-                <Link
-                  href={shortcut.href}
-                  className="bg-card-tint flex items-center justify-between gap-4 rounded-md border border-brand-300 p-5 transition-colors hover:border-brand-700"
-                >
-                  <span className="flex flex-col gap-1">
-                    <span className="text-h3 text-brand-950">{shortcut.title}</span>
-                    <span className="text-body text-brand-800">{shortcut.description}</span>
-                  </span>
-                  <ArrowRight className="size-5 shrink-0 text-brand-700" aria-hidden="true" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
+          <p className="text-lead mt-4 text-brand-800">
+            {area?.description ?? "Browse the six guide categories."}
+          </p>
+          {challenge ? (
+            <p className="text-body mt-3 text-brand-800">
+              Main challenge:{" "}
+              <span className="font-semibold text-brand-950">{challenge.label}</span>
+            </p>
+          ) : null}
+          <ButtonLink
+            href={category ? `/knowledge?category=${category}` : "/knowledge"}
+            size="lg"
+            className="mt-7 h-auto min-h-12 w-full py-3 text-center whitespace-normal sm:w-auto"
+          >
+            {category
+              ? `Read ${categoryName(category)} guides`
+              : "Browse campus guides"}
+          </ButtonLink>
+        </div>
+      </section>
 
-        <section
-          aria-labelledby="focus-heading"
-          className="h-fit rounded-md border border-brand-300 bg-paper-raised p-5 sm:p-6"
-        >
-          <h2 id="focus-heading" className="text-h2 text-brand-950">
-            Your current focus
-          </h2>
-          <dl className="mt-4 divide-y divide-brand-300 border-t border-brand-300">
-            <div className="py-3">
-              <dt className="text-caption text-brand-800">Adaptation area</dt>
-              <dd className="text-h4 mt-1 text-brand-950">{area?.label ?? "Not set"}</dd>
-            </div>
-            <div className="pt-3">
-              <dt className="text-caption text-brand-800">Main challenge</dt>
-              <dd className="text-h4 mt-1 text-brand-950">{challenge?.label ?? "Not set"}</dd>
-            </div>
-          </dl>
-        </section>
-      </div>
+      <section aria-labelledby="next-heading">
+        <h2 id="next-heading" className="text-h3 text-brand-950">
+          Also useful
+        </h2>
+        <ul className="mt-3 divide-y divide-brand-300 border-y border-brand-300">
+          {SHORTCUTS.map((shortcut) => (
+            <li key={shortcut.href}>
+              <Link
+                href={shortcut.href}
+                className="flex items-center justify-between gap-4 rounded-sm px-2 py-4 transition-colors hover:bg-brand-100 active:bg-brand-300"
+              >
+                <span className="flex flex-col gap-0.5">
+                  <span className="text-h4 text-brand-950">{shortcut.title}</span>
+                  <span className="text-body text-brand-800">{shortcut.description}</span>
+                </span>
+                <ArrowRight className="size-5 shrink-0 text-brand-700" aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section
         id="my-journey"
         aria-labelledby="journey-heading"
-        className="flex scroll-mt-6 flex-col items-start gap-3 border-t border-brand-300 pt-6"
+        className="scroll-mt-6 rounded-2xl bg-paper-raised p-5 sm:p-6"
       >
-        <h2 id="journey-heading" className="text-h2 text-brand-950">
-          My Journey
-        </h2>
-        <p className="text-h5 rounded-sm border border-brand-300 bg-brand-100 px-2 text-brand-950">
-          Coming soon
-        </p>
-        <p className="text-body max-w-xl text-brand-800">
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h2 id="journey-heading" className="text-h3 text-brand-950">
+            My Journey
+          </h2>
+          <p className="text-caption text-brand-700">Coming soon</p>
+        </div>
+        <p className="text-body mt-2 max-w-xl text-brand-800">
           Your personal roadmap is still being prepared. Until then, use the
           guides and the advice from senior students.
         </p>

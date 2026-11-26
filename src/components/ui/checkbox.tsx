@@ -25,8 +25,8 @@ export function Checkbox({
           type="checkbox"
           aria-invalid={invalid || undefined}
           className={cn(
-            "peer size-5 cursor-pointer appearance-none rounded-md border-2 bg-white",
-            "checked:border-brand-800 checked:bg-brand-800",
+            "peer size-5 cursor-pointer appearance-none rounded-[0.3rem] border-2 bg-paper-raised",
+            "checked:border-brand-800 checked:bg-fill",
             "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600",
             invalid ? "border-red-600" : "border-brand-400",
           )}

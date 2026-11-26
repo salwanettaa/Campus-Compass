@@ -13,10 +13,10 @@ const iconButtonVariants = cva(
       variant: {
         /** Active / selected state */
         solid:
-          "bg-brand-900 text-white hover:bg-brand-950",
+          "bg-fill text-white hover:brightness-110",
         /** Default state */
         outline:
-          "border border-brand-950/15 bg-paper-raised text-brand-800 hover:border-brand-600 hover:bg-white",
+          "border border-brand-950/15 bg-paper-raised text-brand-800 hover:border-brand-600 hover:bg-brand-100",
       },
       size: {
         md: "size-11 [&>svg]:size-5",

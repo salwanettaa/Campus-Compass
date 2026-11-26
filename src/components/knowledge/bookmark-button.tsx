@@ -105,8 +105,8 @@ export function BookmarkButton({
         "inline-flex shrink-0 items-center justify-center rounded-full border transition-colors duration-150 disabled:opacity-60",
         showLabel ? "min-h-11 gap-2 px-4 text-h5" : "size-11",
         isBookmarked
-          ? "border-brand-700 bg-brand-700 text-white"
-          : "border-brand-400 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",
+          ? "border-brand-700 bg-fill text-white"
+          : "border-brand-400 bg-paper-raised text-brand-900 hover:border-brand-700 active:bg-brand-100",
       )}
     >
       <Bookmark

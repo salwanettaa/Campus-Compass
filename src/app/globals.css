@@ -1,28 +1,44 @@
 @import "tailwindcss";
 
 /* =============================================================================
-   Campus Compass design tokens
-   Identity: the team's 7-step blue, Poppins, and the map-and-route mark.
-   Surfaces: soft blue wash, white cards, liquid glass on floating elements.
-   700 and 400 are darker than the original reference so small text reaches
-   4.5:1 and control edges reach 3:1.
+   Campus Compass design tokens: one dark theme for every page, built on the
+   team blue. Token names keep their roles: brand-950 is the strongest text,
+   brand-800 is muted text, brand-300 is the divider and brand-100 is a tonal
+   surface. Use "fill" for blue surfaces that carry white text, and "ink" or
+   "frost" on white controls.
    ============================================================================= */
 
 @theme {
-  --color-paper: #f3f9fc;
-  --color-paper-raised: #ffffff;
+  --color-paper: #04131c;
+  --color-paper-raised: #0a1f2c;
 
-  --color-brand-950: #04202e;
-  --color-brand-900: #0a3c55;
-  --color-brand-800: #0f5d83;
-  --color-brand-700: #0f6d93;
-  --color-brand-600: #1786b4;
+  --color-brand-950: #f1f9fd;
+  --color-brand-900: #dceff8;
+  --color-brand-800: #a6c8da;
+  --color-brand-700: #7ccdee;
+  --color-brand-600: #3fb0e0;
   --color-brand-400: #4a8aa8;
-  --color-brand-300: #c3e3f2;
-  --color-brand-100: #e1f2fa;
+  --color-brand-300: #17394b;
+  --color-brand-100: #0e2a3a;
 
-  /* The orange route from the logo. Decoration for "the way through" only. */
-  --color-route: #d46747;
+  --color-fill: #0f6d93;
+  --color-ink: #04202e;
+  --color-frost: #e1f2fa;
+
+  /* Status colours, tuned for dark surfaces. */
+  --color-emerald-50: #0c2620;
+  --color-emerald-700: #35a876;
+  --color-emerald-800: #7fe0b2;
+  --color-emerald-950: #d8f7e8;
+  --color-amber-800: #f3c46c;
+  --color-amber-900: #f8d391;
+  --color-red-50: #2a1317;
+  --color-red-600: #f87171;
+  --color-red-700: #ff9f9f;
+  --color-red-950: #ffdada;
+
+  /* The orange route from the logo. The one accent. */
+  --color-route: #f08a68;
   --color-route-on-dark: #f08a68;
 
   --radius-sm: 0.5rem;
@@ -30,55 +46,64 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-wix), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-tiro), ui-serif, Georgia, serif;
 }
 
 @utility bg-brand-gradient {
-  background-image: linear-gradient(120deg, var(--color-brand-900), var(--color-brand-800));
+  background-image: linear-gradient(120deg, #0f6d93, #0f5d83);
 }
-/* Hero and large panels. Every stop keeps white text well above 4.5:1. */
+/* Large blue panels. Every stop keeps white text well above 4.5:1. */
 @utility bg-hero-gradient {
   background-image:
-    radial-gradient(60% 55% at 85% 20%, rgb(23 134 180 / 0.45), transparent 70%),
-    linear-gradient(165deg, var(--color-brand-950) 0%, var(--color-brand-900) 60%, var(--color-brand-800) 100%);
+    radial-gradient(60% 55% at 85% 15%, rgb(23 134 180 / 0.4), transparent 70%),
+    linear-gradient(165deg, #04202e 0%, #0a3c55 65%, #0f5d83 100%);
 }
 @utility bg-card-tint {
-  background-image: linear-gradient(160deg, #ffffff 25%, #f1f9fd 100%);
+  background-image: linear-gradient(var(--color-paper-raised), var(--color-paper-raised));
+}
+/* The soft light behind a compass dial. At most one per screen. */
+@utility compass-glow {
+  background: radial-gradient(
+    closest-side,
+    transparent 48%,
+    rgb(23 134 180 / 0.42) 68%,
+    transparent 100%
+  );
 }
 
 /* -----------------------------------------------------------------------------
-   Liquid glass: a see-through fill, strong blur, a bright top edge and a soft
-   lift. Reserved for floating layers, at most two on a screen.
+   Liquid glass, for floating navigation and the sample preview: at most two on
+   a screen.
    ----------------------------------------------------------------------------- */
 @utility liquid-glass {
-  background: linear-gradient(135deg, rgb(255 255 255 / 0.92), rgb(255 255 255 / 0.8));
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgb(255 255 255 / 0.85);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.95),
-    inset 0 -1px 1px rgb(23 134 180 / 0.18),
-    0 16px 40px -20px rgb(4 32 46 / 0.4);
-}
-@utility liquid-glass-dark {
-  background: linear-gradient(135deg, rgb(255 255 255 / 0.18), rgb(255 255 255 / 0.06));
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgb(255 255 255 / 0.28);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.4),
-    inset 0 -1px 1px rgb(255 255 255 / 0.14),
-    0 16px 40px -20px rgb(0 0 0 / 0.5);
+  background: linear-gradient(150deg, rgb(15 52 72 / 0.82), rgb(7 31 44 / 0.82));
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgb(195 227 242 / 0.16);
+  box-shadow: inset 0 1px 0 rgb(195 227 242 / 0.12);
 }
 
 /* -----------------------------------------------------------------------------
-   Type scale (Poppins)
+   Type scale (Wix Madefor Display)
    ----------------------------------------------------------------------------- */
 @utility text-display {
   font-size: clamp(2.25rem, 1.2rem + 3.2vw, 3.5rem);
   line-height: 1.12;
   font-weight: 700;
   letter-spacing: -0.035em;
+}
+@utility text-hero {
+  font-size: clamp(2.5rem, 1.2rem + 4.6vw, 4.75rem);
+  line-height: 1.04;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+@utility text-h-section {
+  font-size: clamp(2.125rem, 1.4rem + 2.8vw, 3.5rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
 }
 @utility text-h1 {
   font-size: clamp(2rem, 1.5rem + 2vw, 2.875rem);
@@ -127,7 +152,7 @@
    Base
    ----------------------------------------------------------------------------- */
 html {
-  color-scheme: light;
+  color-scheme: dark;
   scroll-behavior: smooth;
 }
 
@@ -137,7 +162,7 @@ body {
   font-size: 0.875rem;
   line-height: 1.5rem;
   color: var(--color-brand-950);
-  background: linear-gradient(160deg, #e1f2fa 0%, #f3f9fc 45%, #ffffff 100%) fixed;
+  background: var(--color-paper);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -167,11 +192,7 @@ body {
 
 @media (prefers-reduced-transparency: reduce) {
   .liquid-glass {
-    background: #ffffff;
-    backdrop-filter: none;
-  }
-  .liquid-glass-dark {
-    background: var(--color-brand-900);
+    background: #0a2a3b;
     backdrop-filter: none;
   }
 }
@@ -192,6 +213,10 @@ body {
    motion, everything is simply visible.
    ----------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
+  .compass-needle {
+    animation: compass-settle 1.4s 0.2s cubic-bezier(0.3, 1.25, 0.5, 1) both;
+  }
+
   .route-draw {
     animation: route-draw 1.8s 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
   }
@@ -222,5 +247,14 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes compass-settle {
+  from {
+    rotate: -120deg;
+  }
+  to {
+    rotate: 0deg;
   }
 }

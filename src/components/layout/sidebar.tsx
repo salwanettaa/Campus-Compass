@@ -47,18 +47,18 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        "flex flex-col overflow-hidden border-r transition-[width] duration-200",
+        "flex flex-col overflow-hidden transition-[width] duration-200",
         collapsed ? "w-20" : "w-60",
         dark
-          ? "border-brand-950 bg-brand-950 text-white"
-          : "border-brand-300 text-brand-950",
+          ? "border-ink bg-ink text-white"
+          : "border-r border-brand-300 text-brand-950",
         className,
       )}
     >
       <div
         className={cn(
           "flex items-center pb-6",
-          collapsed ? "flex-col gap-2 px-2" : "justify-between gap-2 pr-2 pl-1",
+          collapsed ? "flex-col gap-2" : "justify-between gap-2",
         )}
       >
         <Logo tone={dark ? "onDark" : "onLight"} href="/home" compact={collapsed} />
@@ -82,7 +82,7 @@ export function Sidebar({
       <nav
         id={navigationId}
         aria-label="Main"
-        className="flex flex-1 flex-col gap-1 overflow-y-auto pr-3"
+        className="flex flex-1 flex-col gap-1 overflow-y-auto"
       >
         {NAV_ITEMS.map((item) => {
           const active = isActive(item, pathname);
@@ -95,12 +95,12 @@ export function Sidebar({
               aria-label={collapsed ? item.label : undefined}
               title={collapsed ? item.label : undefined}
               className={cn(
-                "flex min-h-11 items-center rounded-full text-body transition-colors duration-150",
+                "flex min-h-11 shrink-0 items-center rounded-xl text-body transition-colors duration-150",
                 collapsed ? "justify-center px-0" : "gap-3 px-3",
                 active
                   ? dark
                     ? "bg-white/15 font-semibold text-white"
-                    : "bg-brand-900 font-semibold text-white"
+                    : "bg-fill font-semibold text-white"
                   : quiet,
               )}
             >
@@ -115,7 +115,7 @@ export function Sidebar({
 
       <div
         className={cn(
-          "mt-3 mr-3 flex flex-col gap-1 border-t pt-3",
+          "mt-3 flex flex-col gap-1 border-t pt-3",
           dark ? "border-white/20" : "border-brand-300",
         )}
       >
@@ -127,7 +127,7 @@ export function Sidebar({
         >
           <span
             aria-hidden="true"
-            className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-700 text-h5 text-white"
+            className="flex size-9 shrink-0 items-center justify-center rounded-full bg-fill text-h5 text-white"
           >
             {initials(user.displayName)}
           </span>

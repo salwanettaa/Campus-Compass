@@ -23,7 +23,7 @@ export function SearchBar({
         "relative flex h-12 w-full items-center rounded-lg",
         "transition-shadow duration-200 focus-within:ring-2 focus-within:ring-brand-600",
         dark
-          ? "bg-brand-950 text-white"
+          ? "bg-ink text-white"
           : "border border-brand-400 bg-paper-raised text-brand-950",
         className,
       )}

@@ -8,41 +8,44 @@
 
 ## 1. Prinsip Desain & Visual Direction
 
-Identitas: **biru Campus Compass, Poppins, dan peta dengan garis rute**.
-* **Struktur landing**: navbar mengambang, hero 2 baris, grid 6 kategori, panel contoh, rute 4 langkah, panel ajakan, footer.
-* **Liquid glass** (`liquid-glass`, `liquid-glass-dark`): hanya untuk lapisan mengambang (navbar landing, panel contoh, menu bawah HP). Maksimal 2 per layar.
-* **Motif rute**: garis putus-putus oranye di hero dan di antara langkah 01-04.
-* **Sudut**: tombol berbentuk pil, kartu `rounded-md` (16px).
+Identitas: **satu tema gelap dengan biru tim Campus Compass, kompas, dan garis rute**. Berlaku di semua halaman.
+
+* **Tipografi**: Wix Madefor Display. Tiro Kannada italic hanya untuk satu kata yang ditekankan pada judul besar.
+* **Kompas** adalah motif utama: dial interaktif di hero landing (`CompassFinder`) dan `CompassRing` di Home serta halaman auth. `CompassRing` menunjukkan pilihan, bukan skor atau progres.
+* **Glow** (`compass-glow`): hanya di belakang kompas, maksimal satu per layar.
+* **Glass** (`liquid-glass`): navigasi mengambang dan panel contoh di landing, maksimal 2 per layar.
+* **Garis rute** oranye: satu-satunya aksen.
+* **Sudut**: tombol berbentuk pil, kartu minimal 16px, panel besar 32-40px.
 
 ---
 
 ## 2. Palet Warna (Color Palette Tokens)
 
-Token didefinisikan di `src/app/globals.css`:
+Token didefinisikan di `src/app/globals.css`. Nama token mengikuti perannya.
 
 | Token | Hex | Penggunaan |
 | :--- | :--- | :--- |
-| **`brand-950`** | `#04202e` | Judul dan teks utama |
-| **`brand-900`** | `#0a3c55` | Item aktif, awal gradasi |
-| **`brand-800`** | `#0f5d83` | Teks sekunder |
-| **`brand-700`** | `#0f6d93` | Link (digelapkan agar teks kecil mencapai 4.5:1) |
-| **`brand-600`** | `#1786b4` | Focus ring |
+| **`paper`** / **`paper-raised`** | `#04131c` / `#0a1f2c` | Latar halaman / kartu |
+| **`brand-950`** | `#f1f9fd` | Judul dan teks utama |
+| **`brand-900`** | `#dceff8` | Teks di panel gradasi biru |
+| **`brand-800`** | `#a6c8da` | Teks sekunder (jangan di panel gradasi terang) |
+| **`brand-700`** | `#7ccdee` | Link. Di panel gradasi hanya untuk teks besar |
+| **`brand-600`** | `#3fb0e0` | Focus ring, lingkar kompas |
 | **`brand-400`** | `#4a8aa8` | Tepi kontrol (bukan untuk teks) |
-| **`brand-300`** | `#c3e3f2` | Garis pemisah, teks aksen di latar gelap |
-| **`brand-100`** | `#e1f2fa` | Latar tonal |
-| **`route`** / **`route-on-dark`** | `#d46747` / `#f08a68` | Garis rute (dekorasi identitas) |
-
-Latar aplikasi: `linear-gradient(160deg, #e1f2fa 0%, #f3f9fc 45%, #ffffff 100%)`.
+| **`brand-300`** | `#17394b` | Garis pemisah |
+| **`brand-100`** | `#0e2a3a` | Latar tonal |
+| **`fill`** | `#0f6d93` | Isian biru dengan teks putih |
+| **`ink`** / **`frost`** | `#04202e` / `#e1f2fa` | Teks dan hover pada permukaan terang |
+| **`route`** | `#f08a68` | Garis rute dan jarum kompas |
 
 ---
 
 ## 3. Skala Tipografi (Typography Scale)
 
-Semua memakai **Poppins**.
-
 | Utility Class | Weight | Ukuran |
 | :--- | :--- | :--- |
-| **`text-display`** | 700 | fluid 40-76px |
+| **`text-hero`** | 600 | fluid 40-76px |
+| **`text-h-section`** | 600 | fluid 34-56px |
 | **`text-h1`** | 600 | fluid 32-46px |
 | **`text-h2`** | 600 | fluid 22-28px |
 | **`text-h3`** | 600 | 18px |
@@ -55,7 +58,7 @@ Semua memakai **Poppins**.
 
 ## 4. Elevasi
 
-Kartu memakai garis `brand-300` tanpa bayangan. Bayangan hanya ada pada lapisan liquid glass untuk menandai bahwa lapisan itu mengambang. Jika pengguna mengaktifkan *reduced transparency*, panel kaca menjadi solid.
+Kartu memakai garis `brand-300` atau latar `paper-raised` tanpa bayangan. Jika pengguna mengaktifkan *reduced transparency*, panel kaca menjadi solid.
 
 ---
 
@@ -63,7 +66,7 @@ Kartu memakai garis `brand-300` tanpa bayangan. Bayangan hanya ada pada lapisan 
 
 ### A. Komponen Antarmuka Form (`src/components/ui/`)
 1. **`Button` & `ButtonLink`**:
-   - Varian: `primary` (brand-900), `secondary` (brand-100), `outline` (border brand-300), `ghost` (transparan), `danger` (red-600).
+   - Varian: `primary` (gradasi biru), `pillOnDark` (putih), `outline` (border brand-300), `ghost` (transparan), `danger` (red-600).
    - Ukuran: `sm`, `md` (default), `lg`.
 2. **`Input` & `PasswordInput`**:
    - Dilengkapi focus ring `brand-600` dan toggle visibility kata sandi.

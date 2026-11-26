@@ -20,7 +20,10 @@ function Shell({ children }: { children: React.ReactNode }) {
       </header>
       <main className="grid gap-8 pb-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-16">
         <section className="flex flex-col gap-4 lg:sticky lg:top-8">
-          <h1 className="text-h1 text-brand-950">Make this space yours.</h1>
+          <h1 className="text-hero text-brand-950">
+            Make this space{" "}
+            <em className="font-serif font-normal text-brand-700">yours.</em>
+          </h1>
           <p className="text-lead max-w-md text-brand-800">
             Set your campus, semester, and current focus. We&apos;ll use them to
             shape what you see.

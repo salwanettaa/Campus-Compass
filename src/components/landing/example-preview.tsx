@@ -58,7 +58,7 @@ export function ExamplePreview({ items }: { items: readonly PreviewItem[] }) {
             className={cn(
               "text-h5 min-h-11 rounded-full px-2 transition-colors duration-150",
               index === selected
-                ? "bg-brand-900 text-white"
+                ? "bg-fill text-white"
                 : "text-brand-900 hover:bg-brand-100",
             )}
           >

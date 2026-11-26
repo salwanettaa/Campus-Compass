@@ -44,8 +44,8 @@ export function Navbar({
       className={cn(
         "relative rounded-xl px-5 py-3 shadow-none",
         dark
-          ? "bg-brand-950 text-white"
-          : "border border-brand-300 bg-white text-brand-950",
+          ? "bg-ink text-white"
+          : "border border-brand-300 bg-paper-raised text-brand-950",
         className,
       )}
     >

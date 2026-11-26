@@ -36,29 +36,29 @@ export const metadata: Metadata = {
 
 // Class names are written out in full so Tailwind can detect them.
 const PALETTE = [
-  { token: "paper", hex: "#f3f9fc", cls: "bg-paper text-brand-950" },
-  { token: "paper-raised", hex: "#ffffff", cls: "bg-paper-raised text-brand-950" },
-  { token: "brand-950", hex: "#04202e", cls: "bg-brand-950 text-white" },
-  { token: "brand-900", hex: "#0a3c55", cls: "bg-brand-900 text-white" },
-  { token: "brand-800", hex: "#0f5d83", cls: "bg-brand-800 text-white" },
-  { token: "brand-700", hex: "#0f6d93", cls: "bg-brand-700 text-white" },
-  { token: "brand-600", hex: "#1786b4", cls: "bg-brand-600 text-white" },
+  { token: "paper", hex: "#04131c", cls: "bg-paper text-brand-950" },
+  { token: "paper-raised", hex: "#0a1f2c", cls: "bg-paper-raised text-brand-950" },
+  { token: "brand-950", hex: "#f1f9fd", cls: "bg-brand-950 text-ink" },
+  { token: "brand-900", hex: "#dceff8", cls: "bg-brand-900 text-ink" },
+  { token: "brand-800", hex: "#a6c8da", cls: "bg-brand-800 text-ink" },
+  { token: "brand-700", hex: "#7ccdee", cls: "bg-brand-700 text-ink" },
+  { token: "brand-600", hex: "#3fb0e0", cls: "bg-brand-600 text-ink" },
   { token: "brand-400", hex: "#4a8aa8", cls: "bg-brand-400 text-brand-950", chip: true },
-  { token: "brand-300", hex: "#c3e3f2", cls: "bg-brand-300 text-brand-950" },
-  { token: "brand-100", hex: "#e1f2fa", cls: "bg-brand-100 text-brand-950" },
-  { token: "route", hex: "#d46747", cls: "bg-route text-white" },
+  { token: "brand-300", hex: "#17394b", cls: "bg-brand-300 text-brand-950" },
+  { token: "brand-100", hex: "#0e2a3a", cls: "bg-brand-100 text-brand-950" },
+  { token: "route", hex: "#f08a68", cls: "bg-route text-white" },
 ] as const;
 
 const TYPE_SCALE = [
-  { cls: "text-display", name: "Display", spec: "Poppins Bold, fluid 40 to 76", sample: "Campus Compass" },
-  { cls: "text-h1", name: "Heading 1", spec: "Poppins SemiBold, fluid 32 to 46", sample: "Knowledge Hub" },
-  { cls: "text-h2", name: "Heading 2", spec: "Poppins SemiBold, fluid 22 to 28", sample: "Senior experiences" },
-  { cls: "text-h3", name: "Heading 3", spec: "Poppins SemiBold 18 / 28", sample: "Course registration step by step" },
-  { cls: "text-h4", name: "Heading 4", spec: "Poppins Medium 16 / 24", sample: "Academic Survival" },
-  { cls: "text-h5", name: "Heading 5", spec: "Poppins Medium 14 / 20", sample: "Sort by" },
-  { cls: "text-lead", name: "Lead", spec: "Poppins Regular 17 / 28", sample: "Campus guides and student experiences." },
-  { cls: "text-body", name: "Body", spec: "Poppins Regular 14 / 24", sample: "Check prerequisites before registering." },
-  { cls: "text-caption", name: "Caption", spec: "Poppins Regular 12 / 18", sample: "Last verified 5 November 2026" },
+  { cls: "text-display", name: "Display", spec: "Wix Madefor Display Bold, fluid 40 to 76", sample: "Campus Compass" },
+  { cls: "text-h1", name: "Heading 1", spec: "Wix Madefor Display SemiBold, fluid 32 to 46", sample: "Knowledge Hub" },
+  { cls: "text-h2", name: "Heading 2", spec: "Wix Madefor Display SemiBold, fluid 22 to 28", sample: "Senior experiences" },
+  { cls: "text-h3", name: "Heading 3", spec: "Wix Madefor Display SemiBold 18 / 28", sample: "Course registration step by step" },
+  { cls: "text-h4", name: "Heading 4", spec: "Wix Madefor Display Medium 16 / 24", sample: "Academic Survival" },
+  { cls: "text-h5", name: "Heading 5", spec: "Wix Madefor Display Medium 14 / 20", sample: "Sort by" },
+  { cls: "text-lead", name: "Lead", spec: "Wix Madefor Display Regular 17 / 28", sample: "Campus guides and student experiences." },
+  { cls: "text-body", name: "Body", spec: "Wix Madefor Display Regular 14 / 24", sample: "Check prerequisites before registering." },
+  { cls: "text-caption", name: "Caption", spec: "Wix Madefor Display Regular 12 / 18", sample: "Last verified 5 November 2026" },
 ] as const;
 
 function Section({
@@ -87,7 +87,7 @@ export default function DesignSystemPage() {
       <header className="flex flex-col gap-2">
         <h1 className="text-h1 text-brand-950">Design System</h1>
         <p className="text-body text-brand-800">
-          Campus Compass foundations: Poppins, campus blues, liquid glass, and practical components.
+          Campus Compass foundations: Wix Madefor Display, campus blues, liquid glass, and practical components.
         </p>
       </header>
 

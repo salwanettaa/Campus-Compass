@@ -68,8 +68,8 @@ export function HelpfulButton({
           "transition-colors duration-150",
           "disabled:opacity-60",
           active
-            ? "border-brand-700 bg-brand-700 text-white"
-            : "border-brand-300 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",
+            ? "border-brand-700 bg-fill text-white"
+            : "border-brand-300 bg-paper-raised text-brand-900 hover:border-brand-700 active:bg-brand-100",
         )}
       >
         <ThumbsUp
