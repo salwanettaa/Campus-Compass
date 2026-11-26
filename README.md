@@ -1,93 +1,149 @@
 # Campus Compass — Student Adaptation & Community Knowledge Platform
 
-> **Status**: Documentation & Architecture Approved (Aligned with Feature Blueprint v1.0)  
-> **Repository**: `hybrid-campus-platform`  
-> **Blueprint Acuan**: `Campus_Compass_Feature_Blueprint.pdf`  
-> **Deadline Vibe Coding MVP**: Senin, 23 November 2026  
-> **Deadline Testing & QA**: Sabtu, 28 November 2026  
-> **Kanban Jira**: [campuscompassstack2026.atlassian.net](https://campuscompassstack2026.atlassian.net/jira/software/projects/KAN/boards/1)
+**Campus Compass** is a responsive web application built for **STACK 2026 by GDGoC ITB** (*Case 1: Smarter Campus and Learning*) by team **Nanti Makan Sushi**.
+
+> *"Reddit-inspired community, Glassdoor-organized experiences, and source-grounded AI guidance — designed to help university students navigate academic, administrative, and campus life."*
 
 ---
 
-## 1. Executive Summary & Product Positioning
+## 1. Problem & Pilot Scope
 
-**Campus Compass** adalah platform adaptasi mahasiswa yang mengumpulkan pengalaman antarmahasiswa, diskusi komunitas, dan informasi resmi kampus ke dalam satu ekosistem terpadu.
+First- and second-year university students often spend excessive time searching across fragmented group chats, scattered websites, and unverified social feeds for basic campus information.
 
-> *"Reddit-inspired community, Glassdoor-organized experiences, and AI-powered guidance — designed to help students navigate academic, social, and campus life."*
-
-Platform ini dibangun di atas 3 pilar utama:
-1. **Community**: Ruang interaksi mahasiswa untuk saling bertanya, berdiskusi, berbagi pengalaman, dan saling membantu (*Reddit-inspired*).
-2. **Knowledge**: Pengorganisasian pengalaman senior berformat dan informasi resmi kampus ke dalam panduan yang terkurasi (*Glassdoor-organized*).
-3. **Intelligence**: Pencarian sumber relevan dan pengubahan informasi menjadi panduan tindakan adaptasi yang nyata (*AI-powered with RAG*).
+- **Pilot Campus**: Universitas Gadjah Mada (UGM)
+- **Pilot Program**: Sekolah Vokasi — D4 Teknologi Rekayasa Internet (TRI), alongside sample exploration options for other programs (`D4 TRPL`, `S1 TI`, `S1 Ilkom`, `S1 Manajemen`).
+- **Privacy by Design (UU PDP)**: The platform intentionally avoids collecting sensitive student IDs (NIM) or real full names, using privacy-friendly display pseudonyms (`profiles.display_name`) and tenant-isolated PostgreSQL Row Level Security (RLS).
 
 ---
 
-## 2. 4 Area Utama Aplikasi
+## 2. Core Modules & Current Implementation Status
 
-Aplikasi dirancang sebagai *responsive web app* dengan 4 modul utama (Home & My Journey, Community, Knowledge Hub, dan AI Navigator):
+To keep development progress transparent across competition stages:
 
-| Area Utama | Peran & Fungsi | Pertanyaan yang Dijawab |
-| :--- | :--- | :--- |
-| **1. Home & my journey** | Dashboard personal, snapshot adaptasi, rekomendasi topik, quick actions, Peta langkah adaptasi, rekomendasi tindakan, checklist, dan refleksi progres. | *Apa yang relevan untuk saya sekarang?* *Apa langkah berikutnya yang bisa saya lakukan?* |
-| **2. Community** | Feed diskusi, pertanyaan, jawaban, voting helpful, accepted answer, bookmark. | *Siapa yang bisa membantu dan apa pengalaman orang lain?* |
-| **3. Knowledge Hub** | 6 Kategori panduan kampus terkurasi & pengalaman senior berformat. | *Di mana informasi yang dapat saya gunakan kembali?* |
-| **4. AI Navigator** | Chatbot RAG berbasis retrieval dokumen resmi dan konten komunitas yang diizinkan. | *Apa jawaban yang relevan dan dari mana sumbernya?* |
-
----
-
-## 3. Pembagian Peran Tim
-
-| Anggota Tim | Peran | Fokus Tanggung Jawab Utama |
-| :--- | :--- | :--- |
-| **Rifal** | Product & UI/UX Direction | Visi produk, visual style, moodboard, panduan UI/UX, dan storytelling demo hackathon. |
-| **Kalya** | Frontend & User Experience | Alur onboarding tantangan, navigasi responsif 4 modul utama, dan implementasi antarmuka Next.js. |
-| **Erick** | Technical Setup & AI Dev | Konfirmasi tech stack, pipeline RAG, integrasi Google Gemini API, dan grounding anti-halusinasi. |
-| **Netta** | Backend, Database & AI Architecture | Skema database PostgreSQL Supabase (7 kelompok tabel), pgvector, RLS, dan kepatuhan UU PDP. |
+| Module | Route | Current Status | What Exists Today |
+| :--- | :--- | :--- | :--- |
+| **Auth & Onboarding** | `/register`, `/login`, `/onboarding` | **Live (Supabase)** | Email/password authentication via Supabase Auth (`@supabase/ssr`), plus onboarding wizard to set `campus_id`, `program_id`, `semester`, `adaptation_area`, and `main_challenge`. |
+| **Knowledge Hub** | `/knowledge`, `/knowledge/[id]`, `/knowledge/share-experience` | **Live (Supabase + Sample Fallback)** | Multi-tenant Split-Rail layout with program scope switcher (`My Program`, `General`, `Browse another program`), 6 curated guide categories, full-text search, guide detail view, DB-synced bookmarks (`public.bookmarks`), and STAR-format senior experience submission (`public.experiences`). Falls back to labeled sample data if database tables are empty. |
+| **Home** | `/home` | **Partial (Live Profile)** | Displays signed-in student's campus, program, semester, and focus area from `profiles`. `#my-journey` currently displays a `"Coming soon"` placeholder. |
+| **Community** | `/community`, `/community/[id]` | **UI Preview (Sample Data)** | Feed, type/sort filtering, nested comment thread view, and optimistic `HelpfulButton` UI are implemented against isolated mock fixtures (`src/lib/community/mock-data.ts`). DB triggers & RPC (`02_community_helpful_accepted.sql`) are deployed for live wiring. |
+| **AI Navigator** | `/ai-navigator` | **Interactive Preview (Not Live AI)** | Interactive 4-scenario preview (including UGM D4 TRI lab SOP, 6-month internship/certification, and insufficient-evidence fallback to Community) with clickable Knowledge Hub `Sources` and `?q=` topic handoff. Live Gemini API + `pgvector` RAG is scheduled for the next development phase. |
 
 ---
 
-## 4. Struktur Repositori Inti (The Lean Spec)
+## 3. Tech Stack & Architecture
 
-```
-hybrid-campus-platform/
-├── Campus_Compass_Feature_Blueprint.pdf # Dokumen acuan fitur & konsep hackathon resmi
-├── AGENTS.md                          # Master Prompt & Guardrails untuk AI Coding Agent
-├── README.md                          # Ringkasan proyek & status kanban
-├── CONTRIBUTING.md                    # Panduan branching Git & commit convention
-├── .env.example                       # Template konfigurasi environment variable
+- **Framework**: Next.js `16.4.6` (App Router, Server Components, Server Actions) & React `19.3.0`
+- **Language**: TypeScript (`strict` mode)
+- **Styling**: Tailwind CSS `v4` with project design tokens (`src/app/globals.css`, `docs/DESIGN_SYSTEM.md`) & `lucide-react` icons
+- **Backend & Database**: Supabase (Auth, PostgreSQL, `pgvector`, Row Level Security)
+- **Validation & Utilities**: `zod`, `class-variance-authority`, `clsx`, `tailwind-merge`
+- **Testing & Quality**: Vitest `4.1.12`, ESLint `9` (`eslint-config-next`), TypeScript compiler (`tsc --noEmit`)
+
+### Repository Structure
+
+```text
 ├── docs/
-│   ├── PRODUCT_SPEC.md                # PRD lengkap: 4 modul utama, skenario demo hackathon, akun, UU PDP
-│   ├── TECH_AND_DATABASE.md           # Tech stack, DDL SQL Supabase (7 kelompok tabel), RLS & Gemini RAG
-│   └── TEAM_ASSESSMENT_GUIDE.md       # Panduan review & checklist assessment per anggota tim
-├── assets/
-│   ├── moodboard/                     # Aset palet warna & visual theme (Rifal)
-│   ├── references/                    # Benchmark UI dashboard & mobile drawer (Rifal & Kalya)
-│   └── diagrams/                      # Ekspor diagram arsitektur & flow (Erick & Netta)
-├── research/
-│   ├── interview-notes/               # Rekap respon survei Google Form mahasiswa teranonimkan
-│   ├── findings/                      # Rangkuman temuan & affinity mapping riset
-│   └── synthetic-data/                # Mock fixture terisolasi untuk unit testing ([SYNTHETIC])
-└── src/                               # Tempat kode aplikasi Next.js (Mulai Vibe Coding 23 Nov)
+│   ├── PRODUCT_SPEC.md          # Product scope, 4 core modules, UU PDP rules, demo flow
+│   ├── TECH_AND_DATABASE.md     # PostgreSQL schema v2, RLS policies, RPC match_campus_chunks
+│   ├── DESIGN_SYSTEM.md         # Color palette tokens, typography scale, elevation & components
+│   ├── DEVELOPMENT_PLAN.md      # Phased plan (Semifinal -> Pre-Final -> Final Day)
+│   └── QA.md                    # QA and setup verification notes
+├── supabase/
+│   ├── patches/                 # Hardening & Community trigger/RPC SQL patches (01, 02, 03)
+│   ├── tests/                   # SQL tenant-isolation verification scripts
+│   ├── seed.sql                 # Synthetic demo university seed
+│   └── seed_ugm_vokasi_tri.sql  # UGM + Sekolah Vokasi D4 TRI seed (programs, guides, experiences)
+├── src/
+│   ├── app/                     # Next.js App Router pages ((auth), (dashboard), onboarding, design-system)
+│   ├── components/              # Modular UI primitives and module-specific components
+│   ├── lib/                     # Data layers, filters, Zod schemas, Supabase SSR clients
+│   └── types/                   # Shared database row types
+├── AGENTS.md                    # Operating rules and guardrails for AI coding assistants
+├── CONTRIBUTING.md              # Branching model and conventional commit standards
+└── .env.example                 # Environment variable template (no secrets committed)
 ```
 
 ---
 
-## 5. Dokumentasi Acuan untuk Vibe Coding
+## 4. Local Setup & Verification
 
-| Kebutuhan | Dokumen Acuan | Keterangan |
-| :--- | :--- | :--- |
-| **Biar Produk Gak Goyah** | [`docs/PRODUCT_SPEC.md`](docs/PRODUCT_SPEC.md) | Batasan scope, 4 modul utama, alur onboarding, UU PDP, dan skenario demo. |
-| **Biar Kode & Data Gak Goyah** | [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md) | DDL SQL Supabase lengkap, RPC pgvector, prompt Gemini, struktur `src/`. |
-| **Review Tim Sebelum Coding** | [`docs/TEAM_ASSESSMENT_GUIDE.md`](docs/TEAM_ASSESSMENT_GUIDE.md) | Checklist pengecekan spesifik untuk Rifal, Kalya, Erick, dan Netta. |
-| **Instruksi Coding Agent** | [`AGENTS.md`](AGENTS.md) | Master prompt hemat token untuk coding assistant. |
+### Prerequisites
+- **Node.js** `>= 20.9.0` and `npm`
+- A **Supabase** project (Cloud or local CLI)
+
+### 1. Install Dependencies
+```bash
+npm install
+```
+
+### 2. Configure Environment Variables
+Copy `.env.example` to `.env.local` and fill in your Supabase project credentials:
+```bash
+cp .env.example .env.local
+```
+Required for current features:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+*(Planned for live AI Navigator phase: `GEMINI_API_KEY`, `GEMINI_MODEL`, `GEMINI_EMBEDDING_MODEL` — server-side only, never exposed to client bundles).*
+
+### 3. Database Setup (Supabase SQL Editor)
+Run scripts in order:
+1. Schema V2 DDL, triggers, views (`v_posts`, `v_comments`), RPCs, and RLS policies from [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md).
+2. [`supabase/patches/01_profiles_tenant_hardening.sql`](supabase/patches/01_profiles_tenant_hardening.sql)
+3. [`supabase/patches/02_community_helpful_accepted.sql`](supabase/patches/02_community_helpful_accepted.sql)
+4. Seed campus & Knowledge Hub data: [`supabase/seed_ugm_vokasi_tri.sql`](supabase/seed_ugm_vokasi_tri.sql) (or [`supabase/seed.sql`](supabase/seed.sql) for generic demo data).
+5. *(Optional)* [`supabase/patches/03_campus_domain_check.sql`](supabase/patches/03_campus_domain_check.sql) to restrict onboarding to verified campus email domains.
+
+### 4. Run & Verify
+```bash
+# Development server (http://localhost:3000)
+npm run dev
+
+# Full CI verification suite
+npm run lint
+npx next typegen
+npx tsc --noEmit
+npm test
+npm run build
+```
 
 ---
 
-## 6. Skenario Demo Hackathon (6 Adegan Utama)
+## 5. Known Limitations & Simulated Functionality
 
-1. **Onboarding**: Mahasiswa baru memilih kampus, prodi, semester, dan tantangan *Time Management*.
-2. **Home**: Dashboard memprioritaskan panduan dan diskusi yang sesuai konteks secara instan.
-3. **Community**: Pengguna membuat pertanyaan; rekan mahasiswa memberi jawaban; penanya menandai *Helpful*.
-4. **Knowledge Hub**: Pengalaman atau diskusi berkualitas tersedia sebagai panduan terkurasi 6 kategori.
-5. **AI Navigator**: AI menjawab pertanyaan dengan sumber asli dari database (*RAG with source cards*).
-6. **My Journey**: Mahasiswa memperoleh langkah berikutnya dan menandai progres tindakan adaptasi.
+- **Community Module**: Uses static fixtures (`src/lib/community/mock-data.ts`) on `/community` and `/community/[id]`; creating posts, posting replies, and persisting helpful votes to `public.votes` are scheduled next.
+- **AI Navigator**: Currently runs an interactive scenario preview (`Demo, not live`) without live LLM calls or `pgvector` retrieval.
+- **My Journey**: Displays a `"Coming soon"` section on `/home#my-journey`; rule-based milestone tracking via `journey_steps` and `user_journey_progress` is planned for later phases.
+- **Request a Guide**: `RequestGuideModal` on `/knowledge` currently confirms requests in the UI without persisting to a backend table.
+- **Campus Email Enforcement**: Domain restriction (`03_campus_domain_check.sql`) is not yet enabled in the default sign-up flow so reviewers can test onboarding flexibly.
+
+---
+
+## 6. Material AI Assistance & Third-Party Resources
+
+### AI Assistance Disclosure
+In accordance with STACK 2026 competition rules, the team discloses that AI coding assistants (including Google Antigravity / Gemini models) were used as development productivity tools for:
+- Drafting boilerplate TypeScript/Next.js components, unit tests, and SQL seed scripts.
+- Conducting code reviews against security/RLS rules (`AGENTS.md`) and UI consistency audits (`baseline-ui`, `improve-ui`, `better-*` skills).
+- Reviewing English documentation structure and refactoring layouts.
+
+All architecture decisions, product specifications, database schemas, UI/UX direction, and final code merges were reviewed, tested, and verified by team members.
+
+### Third-Party Libraries & Tools
+- [Next.js](https://nextjs.org/), [React](https://react.dev/), [Tailwind CSS](https://tailwindcss.com/)
+- [Supabase](https://supabase.com/) (`@supabase/ssr`, `@supabase/supabase-js`)
+- [Lucide Icons](https://lucide.dev/), [Zod](https://zod.dev/), [Class Variance Authority](https://cva.style/)
+- [Vitest](https://vitest.dev/), [ESLint](https://eslint.org/)
+- Agent UI skills installed in `.agents/skills/`: `ibelick/ui-skills` & `jakubkrehel/skills`
+
+---
+
+## 7. Team Members (**Nanti Makan Sushi**)
+
+| Member | Role | Core Focus |
+| :--- | :--- | :--- |
+| **Salwanetta Jauza Y** *(Leader)* | Backend, Database & Knowledge Hub | Supabase PostgreSQL schema, RLS tenant isolation, Knowledge Hub, & project coordination |
+| **Kalya Andriana** | Frontend & User Experience | Onboarding flow, responsive navigation, Home & My Journey UI |
+| **Rifaludin** | Product & UI/UX Direction | Visual identity, Design System (`docs/DESIGN_SYSTEM.md`), moodboard, & storytelling |
+| **Erick** | Technical Lead & AI Integration | Tech setup, auth & community architecture, planned Gemini API RAG pipeline |
