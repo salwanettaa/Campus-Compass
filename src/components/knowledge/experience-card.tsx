@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { CheckCircle2, Signpost, UserRound } from "lucide-react";
 import { HelpfulButton } from "@/components/community/helpful-button";
+import { ButtonLink } from "@/components/ui/button";
 import { PERSONAL_EXPERIENCE_LABEL } from "@/lib/knowledge/categories";
 import type { ExperienceRow } from "@/lib/knowledge/types";
 
@@ -72,13 +72,14 @@ export function ExperienceCard({ experience }: { experience: ExperienceRow }) {
         )}
 
         <div className="flex flex-wrap items-center gap-2">
-          <Link
+          <ButtonLink
             href={`/ai-navigator?q=${aiQuery}`}
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-brand-300 bg-white px-4 text-h5 text-brand-900 transition-colors duration-150 hover:border-brand-700 active:bg-brand-100"
+            variant="outline"
+            size="sm"
           >
             <Signpost className="size-4 text-brand-700" aria-hidden="true" />
             <span>Ask AI</span>
-          </Link>
+          </ButtonLink>
           <HelpfulButton
             initialCount={experience.helpful_count}
             target="experience"

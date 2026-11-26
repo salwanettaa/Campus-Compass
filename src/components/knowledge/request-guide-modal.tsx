@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { HelpCircle, X } from "lucide-react";
+import { useId, useRef, useState } from "react";
+import { ArrowRight, X } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
@@ -13,9 +13,10 @@ import { GUIDE_CATEGORIES } from "@/lib/knowledge/types";
 
 /**
  * Native <dialog> modal for requesting a missing campus guide.
- * Uses showModal() for built-in Escape closing, inert backdrop, and focus return.
+ * Uses a quiet text-link trigger so it does not compete with the page primary CTA.
  */
 export function RequestGuideModal() {
+  const uid = useId();
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [topic, setTopic] = useState("");
   const [category, setCategory] = useState<string>(GUIDE_CATEGORIES[0]);
@@ -45,21 +46,30 @@ export function RequestGuideModal() {
     setNote("");
   }
 
+  const titleId = `${uid}-title`;
+  const topicId = `${uid}-topic`;
+  const catId = `${uid}-cat`;
+  const noteId = `${uid}-note`;
+
   return (
     <>
-      <Button type="button" variant="outline" onClick={openDialog}>
-        <HelpCircle className="size-4" aria-hidden="true" />
+      <button
+        type="button"
+        onClick={openDialog}
+        className="inline-flex min-h-11 items-center gap-1.5 text-h5 text-brand-700 underline underline-offset-4 hover:text-brand-950"
+      >
         <span>Request a guide</span>
-      </Button>
+        <ArrowRight className="size-4" aria-hidden="true" />
+      </button>
 
       <dialog
         ref={dialogRef}
-        aria-labelledby="request-guide-title"
+        aria-labelledby={titleId}
         className="m-auto w-[min(32rem,calc(100%-2rem))] overscroll-contain rounded-md border border-brand-300 bg-paper-raised p-6 text-brand-950 backdrop:bg-brand-950/50"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-1">
-            <h2 id="request-guide-title" className="text-h2 text-brand-950">
+            <h2 id={titleId} className="text-h2 text-brand-950">
               Request a campus guide
             </h2>
             <p className="text-body text-pretty text-brand-800">
@@ -87,13 +97,9 @@ export function RequestGuideModal() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} noValidate className="mt-5 flex flex-col gap-4">
-            <Field
-              htmlFor="req-topic"
-              label="Guide topic"
-              error={error ?? undefined}
-            >
+            <Field htmlFor={topicId} label="Guide topic" error={error ?? undefined}>
               <Input
-                id="req-topic"
+                id={topicId}
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 invalid={Boolean(error)}
@@ -102,9 +108,9 @@ export function RequestGuideModal() {
               />
             </Field>
 
-            <Field htmlFor="req-cat" label="Category">
+            <Field htmlFor={catId} label="Category">
               <Select
-                id="req-cat"
+                id={catId}
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
@@ -117,12 +123,12 @@ export function RequestGuideModal() {
             </Field>
 
             <Field
-              htmlFor="req-note"
+              htmlFor={noteId}
               label="Additional context (optional)"
               hint="Mention the office, portal, or issue you ran into."
             >
               <Textarea
-                id="req-note"
+                id={noteId}
                 rows={3}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}

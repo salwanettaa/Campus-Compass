@@ -45,7 +45,7 @@ export default async function DashboardLayout({
   if (!profile || !profile.onboarding_completed) redirect("/onboarding");
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-1 gap-8 px-4 pt-6 sm:px-6 lg:gap-12 lg:py-6">
+    <div className="flex w-full flex-1 gap-8 px-4 pt-6 sm:px-6 lg:gap-10 lg:px-10 lg:py-6">
       <Sidebar
         user={{ displayName: profile.display_name }}
         onLogout={signOutAction}

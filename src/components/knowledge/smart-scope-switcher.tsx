@@ -23,9 +23,9 @@ interface SmartScopeSwitcherProps {
 }
 
 /**
- * Campus and program scope filter.
+ * Campus and program scope filter for the Split-Rail sidebar.
  * Dynamically renders the signed-in student's campus, primary program,
- * and other programs under that campus.
+ * General cross-program option, and a Select for exploring other programs.
  */
 export function SmartScopeSwitcher({
   params,
@@ -58,53 +58,44 @@ export function SmartScopeSwitcher({
 
   return (
     <div
-      className={cn(
-        "flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between",
-        pending && "opacity-75",
-      )}
+      className={cn("flex flex-col gap-3", pending && "opacity-75")}
       aria-busy={pending || undefined}
     >
-      <div className="flex flex-col gap-2">
-        <p className="text-caption text-brand-800">
-          {campusName} ·{" "}
-          {selectedOtherProgram
-            ? `Browsing ${selectedOtherProgram.name}`
-            : isAllActive
-              ? "General guides across all programs"
-              : `${myProgram.name} (${myProgram.faculty})`}
-        </p>
-
-        <nav aria-label="Scope filter" className="flex flex-wrap gap-2">
-          <Link
-            href={`/knowledge${buildKnowledgeQuery({ ...params, scope: "major" })}`}
-            aria-current={isMajorActive ? "page" : undefined}
-            className={cn(
-              "inline-flex min-h-11 items-center rounded-full border px-4 text-body transition-colors duration-150",
-              isMajorActive
-                ? "border-brand-700 bg-brand-700 font-semibold text-white"
-                : "border-brand-300 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",
-            )}
-          >
-            {myProgram.shortName}
-          </Link>
-
-          <Link
-            href={`/knowledge${buildKnowledgeQuery({ ...params, scope: "all" })}`}
-            aria-current={isAllActive ? "page" : undefined}
-            className={cn(
-              "inline-flex min-h-11 items-center rounded-full border px-4 text-body transition-colors duration-150",
-              isAllActive
-                ? "border-brand-700 bg-brand-700 font-semibold text-white"
-                : "border-brand-300 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",
-            )}
-          >
-            General (All programs)
-          </Link>
-        </nav>
+      <div className="flex flex-col gap-0.5">
+        <h3 className="text-h5 text-brand-950">Program scope</h3>
+        <p className="text-caption text-brand-800">{campusName}</p>
       </div>
 
+      <nav aria-label="Scope filter" className="flex flex-wrap gap-2 lg:flex-col">
+        <Link
+          href={`/knowledge${buildKnowledgeQuery({ ...params, scope: "major" })}`}
+          aria-current={isMajorActive ? "page" : undefined}
+          className={cn(
+            "inline-flex min-h-11 items-center rounded-full border px-4 text-body transition-colors duration-150",
+            isMajorActive
+              ? "border-brand-700 bg-brand-700 font-semibold text-white"
+              : "border-brand-400 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",
+          )}
+        >
+          {myProgram.shortName}
+        </Link>
+
+        <Link
+          href={`/knowledge${buildKnowledgeQuery({ ...params, scope: "all" })}`}
+          aria-current={isAllActive ? "page" : undefined}
+          className={cn(
+            "inline-flex min-h-11 items-center rounded-full border px-4 text-body transition-colors duration-150",
+            isAllActive
+              ? "border-brand-700 bg-brand-700 font-semibold text-white"
+              : "border-brand-400 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",
+          )}
+        >
+          General (All programs)
+        </Link>
+      </nav>
+
       {otherPrograms.length > 0 ? (
-        <div className="w-full sm:w-64">
+        <div>
           <label
             htmlFor="other-programs-select"
             className="text-caption mb-1 block text-brand-800"
