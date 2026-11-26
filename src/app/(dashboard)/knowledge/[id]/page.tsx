@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Signpost } from "lucide-react";
-import { GuideCardActions } from "@/components/knowledge/guide-card-actions";
+import { BookmarkButton } from "@/components/knowledge/bookmark-button";
 import { VerifiedMeta } from "@/components/knowledge/verified-meta";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
@@ -81,7 +81,7 @@ export default async function GuidePage({
   );
 
   return (
-    <main className="flex max-w-4xl flex-col gap-6">
+    <main className="flex w-full max-w-4xl flex-col gap-6">
       <Link
         href="/knowledge"
         className="text-h5 inline-flex min-h-11 w-fit items-center gap-2 rounded-md text-brand-800 hover:underline"
@@ -91,16 +91,24 @@ export default async function GuidePage({
       </Link>
 
       <article className="flex flex-col gap-5 rounded-md border border-brand-300 bg-paper-raised p-6 sm:p-8">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <p className="text-caption font-medium text-brand-700">
-            {categoryName(guide.category)}
-          </p>
-          <p className="text-caption text-brand-800">{scopeLabel}</p>
-        </div>
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="flex flex-col gap-1">
+            <p className="text-caption font-medium text-brand-700">
+              {categoryName(guide.category)}
+              <span className="text-brand-800"> · {scopeLabel}</span>
+            </p>
+            <h1 className="text-h1 text-balance break-words text-brand-950">
+              {guide.title}
+            </h1>
+          </div>
 
-        <h1 className="text-h1 text-balance break-words text-brand-950">
-          {guide.title}
-        </h1>
+          <BookmarkButton
+            guideId={guide.id}
+            guideTitle={guide.title}
+            initialBookmarked={initialBookmarked}
+            showLabel
+          />
+        </div>
 
         <div className="border-b border-brand-300 pb-4">
           <VerifiedMeta guide={guide} />
@@ -153,15 +161,9 @@ export default async function GuidePage({
           </ButtonLink>
         </div>
 
-        <GuideCardActions
-          guideId={guide.id}
-          guideTitle={guide.title}
-          initialBookmarked={initialBookmarked}
-        />
-
-        <Alert variant="info">
-          Sample pilot content. Always confirm official deadlines and requirements with your faculty or Simaster.
-        </Alert>
+        <p className="text-caption text-pretty border-t border-brand-300 pt-4 text-brand-800">
+          Always confirm official deadlines and requirements with your faculty or Simaster.
+        </p>
       </article>
     </main>
   );
