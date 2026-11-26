@@ -45,7 +45,7 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
 ### Task 1.1 — Seed Data Lengkap UGM & D4 TRI ke Supabase Cloud
 - **Owner**: Netta / Rifal
 - **Langkah**:
-  1. Jalankan [`supabase/seed_ugm_vokasi_tri.sql`](../supabase/seed_ugm_vokasi_tri.sql) di **Supabase SQL Editor** agar `campuses` (UGM), `faculties` (SV, FT, FEB), `programs` (`TRI`, `TRPL`, `TI`, `MN`), `guides`, dan `experiences` masuk ke DB.
+  1. Jalankan [`supabase/seed_ugm_pilot.sql`](../supabase/seed_ugm_pilot.sql) di **Supabase SQL Editor** agar `campuses` (UGM), `faculties` (SV, FT, FEB), `programs` (`TRI`, `TRPL`, `TI`, `MN`), `guides`, dan `experiences` masuk ke DB.
   2. Perbanyak isi `guides` hingga mencakup **minimal 2 panduan per kategori (total 12–15 panduan)** di 6 kategori (`academic_survival`, `social_community`, `administrative_guide`, `campus_essentials`, `scholarship_growth`, `career_preparation`) dan **5+ `experiences`** (tandai mana hasil wawancara senior dan mana contoh sintetis).
   3. Tambahkan seed awal `posts` dan `comments` untuk UGM D4 TRI agar halaman Community langsung terisi saat live.
 - **Definition of Done**: Banner di bawah `/knowledge` menampilkan `Connected to Universitas Gadjah Mada.` (bukan lagi sample fallback).

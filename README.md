@@ -52,7 +52,7 @@ To keep development progress transparent across competition stages:
 │   ├── patches/                 # Hardening & Community trigger/RPC SQL patches (01, 02, 03)
 │   ├── tests/                   # SQL tenant-isolation verification scripts
 │   ├── seed.sql                 # Synthetic demo university seed
-│   └── seed_ugm_vokasi_tri.sql  # UGM + Sekolah Vokasi D4 TRI seed (programs, guides, experiences)
+│   └── seed_ugm_pilot.sql       # UGM Pilot seed (General UGM + SV D4 TRI, programs, guides, experiences)
 ├── src/
 │   ├── app/                     # Next.js App Router pages ((auth), (dashboard), onboarding, design-system)
 │   ├── components/              # Modular UI primitives and module-specific components
@@ -92,7 +92,7 @@ Run scripts in order:
 1. Schema V2 DDL, triggers, views (`v_posts`, `v_comments`), RPCs, and RLS policies from [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md).
 2. [`supabase/patches/01_profiles_tenant_hardening.sql`](supabase/patches/01_profiles_tenant_hardening.sql)
 3. [`supabase/patches/02_community_helpful_accepted.sql`](supabase/patches/02_community_helpful_accepted.sql)
-4. Seed campus & Knowledge Hub data: [`supabase/seed_ugm_vokasi_tri.sql`](supabase/seed_ugm_vokasi_tri.sql) (or [`supabase/seed.sql`](supabase/seed.sql) for generic demo data).
+4. Seed campus & Knowledge Hub data: [`supabase/seed_ugm_pilot.sql`](supabase/seed_ugm_pilot.sql) (or [`supabase/seed.sql`](supabase/seed.sql) for generic demo data).
 5. *(Optional)* [`supabase/patches/03_campus_domain_check.sql`](supabase/patches/03_campus_domain_check.sql) to restrict onboarding to verified campus email domains.
 
 ### 4. Run & Verify

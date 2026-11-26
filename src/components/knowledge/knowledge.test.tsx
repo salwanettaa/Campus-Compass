@@ -1,10 +1,12 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { SampleChat } from "@/components/ai-navigator/sample-chat";
+import { GuideContent } from "./guide-content";
 import { CategoryFilter } from "./category-filter";
 import { ExperienceCard } from "./experience-card";
 import { GuideListCard } from "./guide-list-card";
 import { countByCategory } from "@/lib/knowledge/filter";
+import { stripMarkdownForExcerpt } from "@/lib/knowledge/format";
 import { MOCK_EXPERIENCES, MOCK_GUIDES } from "@/lib/knowledge/mock-data";
 
 describe("knowledge components (server render)", () => {
@@ -63,5 +65,32 @@ describe("knowledge components (server render)", () => {
     expect(html).toContain("Demo, not live");
     expect(html).not.toContain("disabled");
     expect(html).toContain("Source 1");
+  });
+
+  it("GuideContent renders structured headings, nested lists, bold labels, and safe links", () => {
+    const md = [
+      "## Dokumen Persyaratan",
+      "a. **Pas Foto**",
+      "  - Kemeja putih",
+      "  - Latar biru",
+      "- [Unduh Form](https://tri.sv.ugm.ac.id/form.docx)",
+      "- [Bad Link](javascript:alert(1))",
+    ].join("\n");
+    const html = renderToStaticMarkup(<GuideContent content={md} />);
+    expect(html).toContain("<h2");
+    expect(html).toContain("<ol");
+    expect(html).toContain("list-[lower-alpha]");
+    expect(html).toContain("<ul");
+    expect(html).toContain("<strong");
+    expect(html).toContain('href="https://tri.sv.ugm.ac.id/form.docx"');
+    expect(html).toContain("Bad Link");
+    expect(html).not.toContain("javascript:alert");
+  });
+
+  it("stripMarkdownForExcerpt cleans headings, bold, and markdown links", () => {
+    const excerpt = stripMarkdownForExcerpt(
+      "## Judul Bagian\n- Isi [Form UKT](https://ugm.ac.id) dengan **teliti**.",
+    );
+    expect(excerpt).toBe("Isi Form UKT dengan teliti.");
   });
 });

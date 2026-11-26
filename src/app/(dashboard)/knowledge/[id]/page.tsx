@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Signpost } from "lucide-react";
 import { BookmarkButton } from "@/components/knowledge/bookmark-button";
+import { GuideContent } from "@/components/knowledge/guide-content";
 import { VerifiedMeta } from "@/components/knowledge/verified-meta";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
@@ -90,7 +91,7 @@ export default async function GuidePage({
         <span>Back to Knowledge Hub</span>
       </Link>
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-10">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-8">
         <article className="flex flex-col gap-5 rounded-md border border-brand-300 bg-paper-raised p-6 sm:p-8">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="flex flex-col gap-1">
@@ -115,9 +116,7 @@ export default async function GuidePage({
             <VerifiedMeta guide={guide} />
           </div>
 
-          <div className="text-lead text-pretty max-w-2xl whitespace-pre-line text-brand-950">
-            {guide.content_raw}
-          </div>
+          <GuideContent content={guide.content_raw} />
 
           <p className="text-caption text-pretty border-t border-brand-300 pt-4 text-brand-800">
             Always confirm official deadlines and requirements with your faculty or Simaster.
