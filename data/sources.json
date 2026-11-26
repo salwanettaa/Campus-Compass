@@ -1,0 +1,149 @@
+{
+  "version": 1,
+  "campus": {
+    "slug": "ugm",
+    "name": "Universitas Gadjah Mada",
+    "domain": "ugm.ac.id"
+  },
+  "adapters": [
+    {
+      "id": "ugm-sv-tri",
+      "adapter": "wordpress-rest",
+      "programCode": "TRI",
+      "baseUrl": "https://tri.sv.ugm.ac.id/wp-json/wp/v2",
+      "sourceLabel": "Official Prodi D4 TRI SV UGM",
+      "entries": [
+        {
+          "id": "41000000-0000-4000-8000-000000000001",
+          "type": "pages",
+          "slug": "hearing",
+          "category": "career_preparation",
+          "titleOverride": "Kebijakan Magang, Praktik Industri & Sertifikasi D4 TRI (Hearing Prodi)",
+          "maxChars": 2400,
+          "stopBefore": ["Kurikulum dan Pembelajaran"]
+        },
+        {
+          "id": "41000000-0000-4000-8000-000000000002",
+          "type": "pages",
+          "slug": "penyesuaian-ukt",
+          "category": "administrative_guide",
+          "titleOverride": "Pengajuan Keringanan & Penyesuaian UKT Sarjana Terapan TRI",
+          "maxChars": 1800
+        },
+        {
+          "id": "41000000-0000-4000-8000-000000000003",
+          "type": "pages",
+          "slug": "dokumen-yudisium",
+          "category": "administrative_guide",
+          "titleOverride": "Persyaratan & Kelengkapan Dokumen Yudisium D4 TRI SV UGM",
+          "maxChars": 2400
+        },
+        {
+          "id": "41000000-0000-4000-8000-000000000004",
+          "type": "pages",
+          "slug": "ketentuan-wisuda",
+          "category": "administrative_guide",
+          "titleOverride": "Alur Pendaftaran Wisuda Program Sarjana & Sarjana Terapan UGM",
+          "maxChars": 2200,
+          "stopBefore": ["Ketentuan unggah foto"]
+        },
+        {
+          "id": "41000000-0000-4000-8000-000000000005",
+          "type": "pages",
+          "slug": "forkomtri",
+          "category": "social_community",
+          "titleOverride": "FORKOMTRI — Himpunan Mahasiswa Teknologi Rekayasa Internet SV UGM",
+          "maxChars": 1800,
+          "stopBefore": ["Rilis Berita"]
+        },
+        {
+          "id": "41000000-0000-4000-8000-000000000006",
+          "type": "pages",
+          "slug": "netcompugm",
+          "category": "scholarship_growth",
+          "titleOverride": "National Networking Competition (NETCOMP) D4 TRI SV UGM",
+          "maxChars": 1500
+        }
+      ]
+    }
+  ],
+  "curatedEntries": [
+    {
+      "id": "41000000-0000-4000-8000-000000000007",
+      "programCode": "TRI",
+      "isGeneral": false,
+      "title": "Direktori Layanan Akademik, Praktikum & Laboratorium D4 TRI SV UGM",
+      "category": "academic_survival",
+      "content": "Prodi D4 TRI menyediakan portal terpusat untuk keperluan perkuliahan dan praktikum laboratorium:\n\n1. Laboratorium Pendukung (DTEDI SV UGM):\n- Lab TAJ (Telekomunikasi dan Jaringan)\n- Lab Layanan Internet & Lab Jaringan Komputer\n- Lab Keamanan Siber & Lab Komputasi Awan\n\n2. Layanan Peminjaman & Surat Lab:\n- Peminjaman ruangan, perangkat lab, VPS, dan akses VPN praktikum\n- Template surat peminjaman alat dan surat bebas laboratorium (syarat yudisium)\n\n3. Dokumen Akademik & Proyek Akhir:\n- Kalender akademik, jadwal kuliah, panduan Praktik Industri/Magang, dosen pembimbing, dan pengumpulan laporan Proyek Akhir.",
+      "sourceType": "official_campus_source",
+      "sourceReference": "Portal Akademik & Layanan Prodi D4 TRI SV UGM",
+      "sourceUrl": "https://tri.sv.ugm.ac.id/layanan-akademik/"
+    },
+    {
+      "id": "41000000-0000-4000-8000-000000000091",
+      "programCode": "TRPL",
+      "isGeneral": false,
+      "title": "Standar Version Control Git & CI/CD Praktikum TRPL SV UGM [Sample]",
+      "category": "academic_survival",
+      "content": "Panduan contoh untuk eksplorasi prodi lain: mahasiswa D4 TRPL mengikuti konvensi commit terstruktur dan workflow Git pada mata kuliah proyek perangkat lunak.",
+      "sourceType": "curated_guide",
+      "sourceReference": "Sample Program Exploration Entry (TRPL)",
+      "sourceUrl": null
+    },
+    {
+      "id": "41000000-0000-4000-8000-000000000092",
+      "programCode": "TI",
+      "isGeneral": false,
+      "title": "Panduan Jalur Minat Riset AI & Sistem Cerdas FT UGM [Sample]",
+      "category": "academic_survival",
+      "content": "Panduan contoh untuk eksplorasi prodi lain: informasi pemilihan peminatan AI dan Sistem Cerdas dibuka pada pertengahan masa studi sarjana.",
+      "sourceType": "curated_guide",
+      "sourceReference": "Sample Program Exploration Entry (TI)",
+      "sourceUrl": null
+    },
+    {
+      "id": "42000000-0000-4000-8000-000000000001",
+      "programCode": null,
+      "isGeneral": true,
+      "title": "Panduan Lengkap Simaster & Pengisian KRS Tiap Semester",
+      "category": "administrative_guide",
+      "content": "KRS (Kartu Rencana Studi) wajib diisi seluruh mahasiswa UGM melalui portal Simaster.\n\n1. Cek Status UKT: Pastikan tagihan lunas atau mengantongi surat dispensasi.\n\n2. Batas SKS: Sesuaikan dengan IPK semester sebelumnya.\n\n3. Persetujuan DPA: Hubungi Dosen Pembimbing Akademik setelah submit KRS.",
+      "sourceType": "official_campus_source",
+      "sourceReference": "Portal Akademik UGM (Simaster)",
+      "sourceUrl": "https://simaster.ugm.ac.id"
+    },
+    {
+      "id": "42000000-0000-4000-8000-000000000002",
+      "programCode": null,
+      "isGeneral": true,
+      "title": "Layanan Kesehatan Mahasiswa di Gadjah Mada Medical Center (GMC)",
+      "category": "campus_essentials",
+      "content": "Mahasiswa aktif UGM berhak mengakses layanan kesehatan primer di Gadjah Mada Medical Center (GMC), Jl. Colombo.\n\n1. Layanan: Dokter umum, gigi, konseling psikologi, dan farmasi.\n\n2. Syarat: Tunjukkan KTM fisik atau e-KTM Simaster aktif.\n\n3. Rujukan: Dokter GMC menerbitkan rujukan ke RSA UGM bila diperlukan.",
+      "sourceType": "official_campus_source",
+      "sourceReference": "Gadjah Mada Medical Center (GMC) UGM",
+      "sourceUrl": "https://gmc.ugm.ac.id"
+    },
+    {
+      "id": "42000000-0000-4000-8000-000000000003",
+      "programCode": null,
+      "isGeneral": true,
+      "title": "Portal Beasiswa & Kemahasiswaan UGM (Ditmawa)",
+      "category": "scholarship_growth",
+      "content": "Direktorat Kemahasiswaan (Ditmawa) UGM mengelola pengajuan beasiswa mitra yayasan, korporasi, dan pemerintah melalui portal terpadu.\n\n1. Portal Resmi: Cek pengumuman dan syarat berkas di ditmawa.ugm.ac.id / simaster.\n\n2. Berkas Umum: Transkrip nilai terbaru, surat keterangan aktif, dan esai kontribusi.",
+      "sourceType": "official_campus_source",
+      "sourceReference": "Direktorat Kemahasiswaan (Ditmawa) UGM",
+      "sourceUrl": "https://ditmawa.ugm.ac.id"
+    },
+    {
+      "id": "42000000-0000-4000-8000-000000000004",
+      "programCode": null,
+      "isGeneral": true,
+      "title": "Akses Wi-Fi Kampus (UGM-Hotspot) & Jaringan Eduroam",
+      "category": "campus_essentials",
+      "content": "Akses internet nirkabel tersedia di area gedung kuliah, perpustakaan, dan ruang terbuka kampus UGM.\n\n1. UGM-Hotspot: Login menggunakan akun SSO (@mail.ugm.ac.id).\n\n2. Eduroam: Autentikasi 802.1x EAP menggunakan email UGM lengkap dan kata sandi SSO.",
+      "sourceType": "official_campus_source",
+      "sourceReference": "DSSDI Universitas Gadjah Mada",
+      "sourceUrl": "https://dssdi.ugm.ac.id"
+    }
+  ]
+}

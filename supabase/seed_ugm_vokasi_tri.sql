@@ -1,6 +1,6 @@
 -- =============================================================================
 -- SEED DATA PILOT UGM & SEKOLAH VOKASI D4 TEKNOLOGI REKAYASA INTERNET (TRI)
--- Curated official student guides from https://tri.sv.ugm.ac.id/ + UGM General
+-- Generated automatically by scripts/sync-sources.mjs from data/curated/guides.json
 -- Jalankan di Supabase SQL Editor SETELAH schema v2 di docs/TECH_AND_DATABASE.md
 -- dan patches 01 & 02. Aman dijalankan berulang kali (idempotent).
 -- =============================================================================
@@ -59,17 +59,16 @@ BEGIN
     SELECT id INTO v_trpl FROM public.programs WHERE campus_id = v_ugm AND code = 'TRPL';
     SELECT id INTO v_ti   FROM public.programs WHERE campus_id = v_ugm AND code = 'TI';
 
-    -- Remove legacy uncurated IDs from earlier seed runs if present
+    -- Remove legacy uncurated IDs from earlier seed iterations if present
     DELETE FROM public.guides
     WHERE id IN (
-        '41000000-0000-4000-8000-000000000007',
         '41000000-0000-4000-8000-000000000008',
         '41000000-0000-4000-8000-000000000009',
         '41000000-0000-4000-8000-000000000010',
         '41000000-0000-4000-8000-000000000011'
     );
 
-    -- 4. Guides — Curated Official Content from https://tri.sv.ugm.ac.id/
+    -- 4. Guides — Program-specific & General Campus Guides
     INSERT INTO public.guides (
         id, campus_id, program_id, title, category, is_general, content_raw,
         source_type, source_reference, source_url, is_published, last_verified_at
@@ -337,13 +336,12 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
         'official_campus_source', 'Official Prodi D4 TRI SV UGM — National Networking Competition (NETCOMP) D4 TRI SV UGM', 'https://tri.sv.ugm.ac.id/netcompugm/',
         true, '2026-01-19T08:00:44Z'::timestamptz
     ),
-    -- Curated summary of Academic & Lab Services directory on tri.sv.ugm.ac.id
     (
         '41000000-0000-4000-8000-000000000007',
         v_ugm, v_tri,
         'Direktori Layanan Akademik, Praktikum & Laboratorium D4 TRI SV UGM',
         'academic_survival', false,
-        E'Prodi D4 TRI menyediakan portal terpusat untuk keperluan perkuliahan dan praktikum laboratorium:
+        'Prodi D4 TRI menyediakan portal terpusat untuk keperluan perkuliahan dan praktikum laboratorium:
 
 1. Laboratorium Pendukung (DTEDI SV UGM):
 - Lab TAJ (Telekomunikasi dan Jaringan)
@@ -357,9 +355,8 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
 3. Dokumen Akademik & Proyek Akhir:
 - Kalender akademik, jadwal kuliah, panduan Praktik Industri/Magang, dosen pembimbing, dan pengumpulan laporan Proyek Akhir.',
         'official_campus_source', 'Portal Akademik & Layanan Prodi D4 TRI SV UGM', 'https://tri.sv.ugm.ac.id/layanan-akademik/',
-        true, timezone('utc'::text, now()) - interval '7 days'
+        true, timezone('utc'::text, now())
     ),
-    -- Mockup guides untuk perbandingan program lain (TRPL & TI)
     (
         '41000000-0000-4000-8000-000000000091',
         v_ugm, v_trpl,
@@ -367,7 +364,7 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
         'academic_survival', false,
         'Panduan contoh untuk eksplorasi prodi lain: mahasiswa D4 TRPL mengikuti konvensi commit terstruktur dan workflow Git pada mata kuliah proyek perangkat lunak.',
         'curated_guide', 'Sample Program Exploration Entry (TRPL)', NULL,
-        true, timezone('utc'::text, now()) - interval '30 days'
+        true, timezone('utc'::text, now())
     ),
     (
         '41000000-0000-4000-8000-000000000092',
@@ -376,27 +373,14 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
         'academic_survival', false,
         'Panduan contoh untuk eksplorasi prodi lain: informasi pemilihan peminatan AI dan Sistem Cerdas dibuka pada pertengahan masa studi sarjana.',
         'curated_guide', 'Sample Program Exploration Entry (TI)', NULL,
-        true, timezone('utc'::text, now()) - interval '30 days'
-    )
-    ON CONFLICT (id) DO UPDATE
-    SET title = EXCLUDED.title,
-        category = EXCLUDED.category,
-        content_raw = EXCLUDED.content_raw,
-        source_reference = EXCLUDED.source_reference,
-        source_url = EXCLUDED.source_url,
-        last_verified_at = EXCLUDED.last_verified_at;
-
-    -- 5. Guides — General UGM (is_general = true requires campus_id IS NULL per chk_guide_scope)
-    INSERT INTO public.guides (
-        id, campus_id, program_id, title, category, is_general, content_raw,
-        source_type, source_reference, source_url, is_published, last_verified_at
-    ) VALUES
+        true, timezone('utc'::text, now())
+    ),
     (
         '42000000-0000-4000-8000-000000000001',
         NULL, NULL,
         'Panduan Lengkap Simaster & Pengisian KRS Tiap Semester',
         'administrative_guide', true,
-        E'KRS (Kartu Rencana Studi) wajib diisi seluruh mahasiswa UGM melalui portal Simaster.
+        'KRS (Kartu Rencana Studi) wajib diisi seluruh mahasiswa UGM melalui portal Simaster.
 
 1. Cek Status UKT: Pastikan tagihan lunas atau mengantongi surat dispensasi.
 
@@ -404,14 +388,14 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
 
 3. Persetujuan DPA: Hubungi Dosen Pembimbing Akademik setelah submit KRS.',
         'official_campus_source', 'Portal Akademik UGM (Simaster)', 'https://simaster.ugm.ac.id',
-        true, timezone('utc'::text, now()) - interval '8 days'
+        true, timezone('utc'::text, now())
     ),
     (
         '42000000-0000-4000-8000-000000000002',
         NULL, NULL,
         'Layanan Kesehatan Mahasiswa di Gadjah Mada Medical Center (GMC)',
         'campus_essentials', true,
-        E'Mahasiswa aktif UGM berhak mengakses layanan kesehatan primer di Gadjah Mada Medical Center (GMC), Jl. Colombo.
+        'Mahasiswa aktif UGM berhak mengakses layanan kesehatan primer di Gadjah Mada Medical Center (GMC), Jl. Colombo.
 
 1. Layanan: Dokter umum, gigi, konseling psikologi, dan farmasi.
 
@@ -419,42 +403,47 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
 
 3. Rujukan: Dokter GMC menerbitkan rujukan ke RSA UGM bila diperlukan.',
         'official_campus_source', 'Gadjah Mada Medical Center (GMC) UGM', 'https://gmc.ugm.ac.id',
-        true, timezone('utc'::text, now()) - interval '14 days'
+        true, timezone('utc'::text, now())
     ),
     (
         '42000000-0000-4000-8000-000000000003',
         NULL, NULL,
         'Portal Beasiswa & Kemahasiswaan UGM (Ditmawa)',
         'scholarship_growth', true,
-        E'Direktorat Kemahasiswaan (Ditmawa) UGM mengelola pengajuan beasiswa mitra yayasan, korporasi, dan pemerintah melalui portal terpadu.
+        'Direktorat Kemahasiswaan (Ditmawa) UGM mengelola pengajuan beasiswa mitra yayasan, korporasi, dan pemerintah melalui portal terpadu.
 
 1. Portal Resmi: Cek pengumuman dan syarat berkas di ditmawa.ugm.ac.id / simaster.
 
 2. Berkas Umum: Transkrip nilai terbaru, surat keterangan aktif, dan esai kontribusi.',
         'official_campus_source', 'Direktorat Kemahasiswaan (Ditmawa) UGM', 'https://ditmawa.ugm.ac.id',
-        true, timezone('utc'::text, now()) - interval '18 days'
+        true, timezone('utc'::text, now())
     ),
     (
         '42000000-0000-4000-8000-000000000004',
         NULL, NULL,
         'Akses Wi-Fi Kampus (UGM-Hotspot) & Jaringan Eduroam',
         'campus_essentials', true,
-        E'Akses internet nirkabel tersedia di area gedung kuliah, perpustakaan, dan ruang terbuka kampus UGM.
+        'Akses internet nirkabel tersedia di area gedung kuliah, perpustakaan, dan ruang terbuka kampus UGM.
 
 1. UGM-Hotspot: Login menggunakan akun SSO (@mail.ugm.ac.id).
 
 2. Eduroam: Autentikasi 802.1x EAP menggunakan email UGM lengkap dan kata sandi SSO.',
         'official_campus_source', 'DSSDI Universitas Gadjah Mada', 'https://dssdi.ugm.ac.id',
-        true, timezone('utc'::text, now()) - interval '14 days'
+        true, timezone('utc'::text, now())
     )
     ON CONFLICT (id) DO UPDATE
-    SET title = EXCLUDED.title,
+    SET campus_id = EXCLUDED.campus_id,
+        program_id = EXCLUDED.program_id,
+        title = EXCLUDED.title,
         category = EXCLUDED.category,
+        is_general = EXCLUDED.is_general,
         content_raw = EXCLUDED.content_raw,
+        source_type = EXCLUDED.source_type,
         source_reference = EXCLUDED.source_reference,
-        source_url = EXCLUDED.source_url;
+        source_url = EXCLUDED.source_url,
+        last_verified_at = EXCLUDED.last_verified_at;
 
-    -- 6. Senior Experiences — Labeled Synthetic Entries for Pilot Demo
+    -- 5. Senior Experiences — Labeled Synthetic Entries for Pilot Demo
     INSERT INTO public.experiences (
         id, campus_id, program_id, author_id, title, semester_context,
         situation, challenge, solution, result, advice_for_juniors, tags
