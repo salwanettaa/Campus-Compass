@@ -14,6 +14,60 @@ export const GUIDE_CATEGORIES = [
 ] as const;
 export type GuideCategory = (typeof GUIDE_CATEGORIES)[number];
 
+export type ProgramOption = {
+  id: string;
+  name: string;
+  shortName: string;
+  faculty: string;
+  code: string;
+  isPilot?: boolean;
+};
+
+export const PILOT_PROGRAM: ProgramOption = {
+  id: "prog-d4-tri",
+  name: "D4 Teknologi Rekayasa Internet",
+  shortName: "D4 TRI (Vokasi)",
+  faculty: "Sekolah Vokasi UGM",
+  code: "TRI",
+  isPilot: true,
+};
+
+export const AVAILABLE_PROGRAMS: readonly ProgramOption[] = [
+  PILOT_PROGRAM,
+  {
+    id: "prog-d4-trpl",
+    name: "D4 Teknologi Rekayasa Perangkat Lunak",
+    shortName: "D4 TRPL (Vokasi)",
+    faculty: "Sekolah Vokasi UGM",
+    code: "TRPL",
+    isPilot: false,
+  },
+  {
+    id: "prog-s1-ti",
+    name: "S1 Teknologi Informasi",
+    shortName: "S1 TI (Teknik)",
+    faculty: "Fakultas Teknik UGM",
+    code: "TI",
+    isPilot: false,
+  },
+  {
+    id: "prog-s1-ilkom",
+    name: "S1 Ilmu Komputer",
+    shortName: "S1 Ilkom (FMIPA)",
+    faculty: "Fakultas MIPA UGM",
+    code: "ILKOM",
+    isPilot: false,
+  },
+  {
+    id: "prog-s1-mn",
+    name: "S1 Manajemen",
+    shortName: "S1 Manajemen (FEB)",
+    faculty: "Fakultas Ekonomika dan Bisnis UGM",
+    code: "MN",
+    isPilot: false,
+  },
+] as const;
+
 /** One row of the table `guides` (only published guides are ever shown). */
 export type GuideRow = {
   id: string;

@@ -1,13 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { sourceLabel } from "./categories";
 import {
+  applyExperiences,
   applyGuides,
   buildKnowledgeQuery,
   countByCategory,
   isStale,
   parseKnowledgeParams,
 } from "./filter";
-import { MOCK_GUIDES } from "./mock-data";
+import { MOCK_EXPERIENCES, MOCK_GUIDES } from "./mock-data";
 import { GUIDE_CATEGORIES } from "./types";
 
 describe("parseKnowledgeParams", () => {
@@ -28,6 +29,15 @@ describe("parseKnowledgeParams", () => {
   it("uses the first value when a param is repeated", () => {
     expect(parseKnowledgeParams({ q: ["one", "two"] }).q).toBe("one");
   });
+
+  it("accepts scope and pillar parameters", () => {
+    const parsed = parseKnowledgeParams({
+      scope: "prog-d4-tri",
+      pillar: "experiences",
+    });
+    expect(parsed.scope).toBe("prog-d4-tri");
+    expect(parsed.pillar).toBe("experiences");
+  });
 });
 
 describe("buildKnowledgeQuery", () => {
@@ -36,6 +46,17 @@ describe("buildKnowledgeQuery", () => {
     expect(
       buildKnowledgeQuery({ category: "academic_survival", q: "a b&c" }),
     ).toBe("?q=a+b%26c&category=academic_survival");
+  });
+
+  it("includes scope and pillar when provided and not default", () => {
+    expect(
+      buildKnowledgeQuery({
+        category: null,
+        q: "",
+        scope: "prog-d4-tri",
+        pillar: "experiences",
+      }),
+    ).toBe("?scope=prog-d4-tri&pillar=experiences");
   });
 });
 
@@ -80,6 +101,26 @@ describe("applyGuides", () => {
     expect(
       applyGuides(MOCK_GUIDES, { category: "social_community", q: "internship" }),
     ).toEqual([]);
+  });
+});
+
+describe("applyExperiences", () => {
+  it("filters experiences by keyword and sorts by helpful_count", () => {
+    const result = applyExperiences(MOCK_EXPERIENCES, {
+      category: null,
+      q: "Telkom",
+    });
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0].title).toContain("Telkom");
+  });
+
+  it("filters experiences by major scope", () => {
+    const result = applyExperiences(MOCK_EXPERIENCES, {
+      category: null,
+      q: "",
+      scope: "major",
+    });
+    expect(result.length).toBeGreaterThanOrEqual(3);
   });
 });
 
