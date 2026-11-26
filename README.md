@@ -2,7 +2,7 @@
 
 **Campus Compass** is a responsive web application built for **STACK 2026 by GDGoC ITB** (*Case 1: Smarter Campus and Learning*) by team **Nanti Makan Sushi**.
 
-> *"Reddit-inspired community, Glassdoor-organized experiences, and source-grounded AI guidance — designed to help university students navigate academic, administrative, and campus life."*
+> *"A centralized student community, structured knowledge hub, and source-grounded AI guidance — designed to help university students navigate academic, administrative, and campus life."*
 
 ---
 
