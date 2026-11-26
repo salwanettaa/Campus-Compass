@@ -162,9 +162,7 @@ Pengajuan keringanan UKT berdasarkan persentase tertentu bagi mahasiswa Sarjana 
         v_ugm, v_tri,
         'Persyaratan & Kelengkapan Dokumen Yudisium D4 TRI SV UGM',
         'administrative_guide', false,
-        '## Persyaratan Yudisium Prodi TRI
-
-## 1. Proses Pengajuan Yudisium
+        '## 1. Proses Pengajuan Yudisium
 
 Mahasiswa yang ingin mengajukan permohonan Yudisium harus mengisi formulir berikut:
 - Mengisi formulir permohonan Yudisium melalui tautan: [ugm.id/YudisiumDTEDI](http://ugm.id/YudisiumDTEDI)

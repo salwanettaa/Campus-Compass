@@ -34,11 +34,11 @@ function InlineTokens({ tokens }: { tokens: InlineToken[] }) {
             href={token.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-baseline gap-1 font-medium text-brand-700 underline decoration-brand-400 underline-offset-4 break-words hover:text-brand-950 hover:decoration-brand-950"
+            className="inline font-medium text-brand-700 underline decoration-brand-400 underline-offset-4 break-words hover:text-brand-950 hover:decoration-brand-950"
           >
-            <span>{token.label}</span>
+            {token.label}
             <ExternalLink
-              className="inline size-3.5 shrink-0 translate-y-[1px]"
+              className="ml-1 inline size-3.5 align-[-2px]"
               aria-hidden="true"
             />
           </a>
@@ -92,14 +92,14 @@ export function GuideContent({ content }: { content: string }) {
   const blocks = parseGuideBlocks(content);
 
   return (
-    <div className="flex max-w-[68ch] flex-col gap-4 text-[1rem] leading-[1.7] text-brand-950 sm:text-[1.0625rem]">
+    <div className="flex w-full flex-col gap-4 text-[1rem] leading-[1.7] text-brand-950 sm:text-[1.0625rem]">
       {blocks.map((block, idx) => {
         if (block.type === "heading") {
           if (block.level === 2) {
             return (
               <h2
                 key={idx}
-                className="text-h3 mt-4 border-b border-brand-300/70 pb-1.5 text-balance text-brand-950 first:mt-0"
+                className="text-h3 mt-5 border-b border-brand-300/70 pb-1.5 text-balance text-brand-950 first:mt-0"
               >
                 <InlineTokens tokens={parseInlineTokens(block.text)} />
               </h2>

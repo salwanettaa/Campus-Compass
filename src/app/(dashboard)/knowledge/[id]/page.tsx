@@ -91,7 +91,7 @@ export default async function GuidePage({
         <span>Back to Knowledge Hub</span>
       </Link>
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-10">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-8">
         <article className="flex flex-col gap-5 rounded-md border border-brand-300 bg-paper-raised p-6 sm:p-8">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="flex flex-col gap-1">

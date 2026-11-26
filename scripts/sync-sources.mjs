@@ -222,6 +222,9 @@ function cleanHtml(html, { maxChars = 3600, stopBefore = [] } = {}) {
     }
   }
 
+  // Clean up redundant page heading that repeats the guide title right before section 1.
+  text = text.replace(/^## Persyaratan Yudisium Prodi TRI\n+/, "");
+
   // Clean up any dangling empty list marker or empty heading caused by stopBefore truncation.
   text = text
     .replace(/\n[ ]*(?:-|(?:\d+|[a-zA-Z])\.)\s*$/, "")
