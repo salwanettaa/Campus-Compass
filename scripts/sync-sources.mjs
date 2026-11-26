@@ -34,19 +34,120 @@ function decodeEntities(text) {
     .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(Number(num)));
 }
 
-function cleanHtml(html, { maxChars = 2400, stopBefore = [] } = {}) {
-  const withoutNoise = html
+function formatNestedLists(html) {
+  const stack = [];
+  return html.replace(/<\/?(ul|ol|li)\b[^>]*>/gi, (tag) => {
+    const lower = tag.toLowerCase();
+    if (lower.startsWith("<ul")) {
+      stack.push({ type: "ul", count: 0 });
+      return "\n";
+    }
+    if (lower.startsWith("<ol")) {
+      const typeMatch = tag.match(/type=["']([aAiI1])["']/);
+      stack.push({ type: "ol", style: typeMatch?.[1] ?? "1", count: 0 });
+      return "\n";
+    }
+    if (lower.startsWith("</ul") || lower.startsWith("</ol")) {
+      stack.pop();
+      return "\n";
+    }
+    if (lower.startsWith("<li")) {
+      const top = stack[stack.length - 1];
+      // Use a temporary sentinel for intentional nested-list indent so raw HTML spaces can be trimmed.
+      const indent = "\u0000".repeat(Math.max(0, stack.length - 1) * 2);
+      if (!top || top.type === "ul") {
+        return `\n${indent}- `;
+      }
+      top.count += 1;
+      const marker =
+        top.style === "a"
+          ? `${String.fromCharCode(96 + top.count)}.`
+          : top.style === "A"
+            ? `${String.fromCharCode(64 + top.count)}.`
+            : `${top.count}.`;
+      return `\n${indent}${marker} `;
+    }
+    return "\n";
+  });
+}
+
+function cleanHtml(html, { maxChars = 3200, stopBefore = [] } = {}) {
+  let prepared = html
+    .replace(/<\?[\s\S]*?\?>/g, "")
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .replace(/<!--[\s\S]*?-->/g, "");
+    .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<img\b[^>]*>/gi, "");
 
-  const structured = withoutNoise
-    .replace(/<li[^>]*>/gi, "\n- ")
-    .replace(/<\/(p|div|h[1-6]|tr|li|ul|ol|section|article)>/gi, "\n")
+  // Keep label:<br>value on a single readable line before block conversion.
+  prepared = prepared.replace(/:\s*<br\s*\/?>\s*/gi, ": ");
+
+  // Convert links to readable plain-text references, removing empty/duplicate UI controls.
+  prepared = prepared.replace(
+    /<a\b([^>]*)>([\s\S]*?)<\/a>/gi,
+    (_, attrs, rawInner) => {
+      const hrefMatch = attrs.match(/href=["']([^"']+)["']/i);
+      const href = hrefMatch ? decodeEntities(hrefMatch[1]).trim() : "";
+      const inner = decodeEntities(rawInner.replace(/<[^>]+>/g, " "))
+        .replace(/\u00a0/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      if (!inner) return "";
+      if (/^(Baca Selengkapnya|View All|More Information|View)$/i.test(inner)) {
+        return "";
+      }
+      if (
+        !href ||
+        href.startsWith("#") ||
+        /^(mailto:|tel:)/i.test(href) ||
+        /wa\.me|api\.whatsapp\.com/i.test(href)
+      ) {
+        return ` ${inner} `;
+      }
+      if (/docs\.google\.com\/gview/i.test(href)) {
+        return "";
+      }
+      if (/^Download$/i.test(inner)) {
+        return ` (${href})\n`;
+      }
+      // Button-style links (e.g. layanan-akademik flex buttons) sit nicely as bullet lines.
+      if (/display:\s*flex|btn/i.test(attrs)) {
+        return `\n- ${inner}: ${href}\n`;
+      }
+
+      const normHref = href
+        .replace(/^https?:\/\//i, "")
+        .replace(/\/+$/, "")
+        .toLowerCase();
+      const normInner = inner
+        .replace(/^https?:\/\//i, "")
+        .replace(/\/+$/, "")
+        .toLowerCase();
+      if (normInner === normHref) {
+        return ` ${href} `;
+      }
+      return ` ${inner} (${href}) `;
+    },
+  );
+
+  // Format section headings and nested lists cleanly.
+  prepared = prepared
+    .replace(/<h([1-6])\b[^>]*>/gi, "\n\n")
+    .replace(/<\/h[1-6]>/gi, "\n");
+
+  prepared = formatNestedLists(prepared);
+
+  const structured = prepared
+    .replace(/<p\b[^>]*>/gi, "\n")
+    .replace(/<\/p>/gi, "\n")
+    .replace(/<\/(div|tr|section|article|blockquote)>/gi, "\n")
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<[^>]+>/g, " ");
 
   let text = decodeEntities(structured)
+    .replace(/\u00a0/g, " ")
     .replace(/\r/g, "")
     // Strip personal email/phone strings (UU PDP hygiene).
     .replace(
@@ -57,12 +158,18 @@ function cleanHtml(html, { maxChars = 2400, stopBefore = [] } = {}) {
     .replace(/[ \t]+/g, " ")
     .replace(/\n[ \t]+/g, "\n")
     .replace(/[ \t]+\n/g, "\n")
-    .replace(/^\s*-\s*$/gm, "")
+    .replace(/\u0000/g, " ")
+    // Collapse extra spaces right after list markers (e.g. "-  Label" -> "- Label").
+    .replace(/\n([ ]*(?:-|(?:\d+|[a-zA-Z])\.) )[ \t]+/g, "\n$1")
+    // Keep consecutive list items compact without blank lines between them.
+    .replace(/\n+(?=[ ]*(?:-|(?:\d+|[a-zA-Z])\.) )/g, "\n")
+    .replace(/\n[ \t]*[-•]\s*(?=\n|$)/g, "")
     .replace(
       /^\s*(Baca Selengkapnya|View All|Poster|More Information|Our Sponsors|Our Media Partners|Presented By)\s*$/gim,
       "",
     )
-    .replace(/-\s*\n+\s*/g, "- ")
+    .replace(/\s+\(/g, " (")
+    .replace(/\s+([.,;:])/g, "$1")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
@@ -72,6 +179,9 @@ function cleanHtml(html, { maxChars = 2400, stopBefore = [] } = {}) {
       text = text.slice(0, idx).trim();
     }
   }
+
+  // Clean up any dangling empty list marker caused by stopBefore truncation (e.g. trailing "i.").
+  text = text.replace(/\n[ ]*(?:-|(?:\d+|[a-zA-Z])\.)\s*$/, "").trim();
 
   if (text.length > maxChars) {
     const cut = text.slice(0, maxChars);

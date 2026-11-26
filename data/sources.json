@@ -19,7 +19,7 @@
           "slug": "hearing",
           "category": "career_preparation",
           "titleOverride": "Kebijakan Magang, Praktik Industri & Sertifikasi D4 TRI (Hearing Prodi)",
-          "maxChars": 2400,
+          "maxChars": 3200,
           "stopBefore": ["Kurikulum dan Pembelajaran"]
         },
         {
@@ -28,7 +28,7 @@
           "slug": "penyesuaian-ukt",
           "category": "administrative_guide",
           "titleOverride": "Pengajuan Keringanan & Penyesuaian UKT Sarjana Terapan TRI",
-          "maxChars": 1800
+          "maxChars": 2400
         },
         {
           "id": "41000000-0000-4000-8000-000000000003",
@@ -36,7 +36,7 @@
           "slug": "dokumen-yudisium",
           "category": "administrative_guide",
           "titleOverride": "Persyaratan & Kelengkapan Dokumen Yudisium D4 TRI SV UGM",
-          "maxChars": 2400
+          "maxChars": 4500
         },
         {
           "id": "41000000-0000-4000-8000-000000000004",
@@ -44,7 +44,7 @@
           "slug": "ketentuan-wisuda",
           "category": "administrative_guide",
           "titleOverride": "Alur Pendaftaran Wisuda Program Sarjana & Sarjana Terapan UGM",
-          "maxChars": 2200,
+          "maxChars": 3200,
           "stopBefore": ["Ketentuan unggah foto"]
         },
         {
@@ -53,7 +53,7 @@
           "slug": "forkomtri",
           "category": "social_community",
           "titleOverride": "FORKOMTRI — Himpunan Mahasiswa Teknologi Rekayasa Internet SV UGM",
-          "maxChars": 1800,
+          "maxChars": 2400,
           "stopBefore": ["Rilis Berita"]
         },
         {
@@ -62,23 +62,21 @@
           "slug": "netcompugm",
           "category": "scholarship_growth",
           "titleOverride": "National Networking Competition (NETCOMP) D4 TRI SV UGM",
-          "maxChars": 1500
+          "maxChars": 1800,
+          "stopBefore": ["Our Sponsors"]
+        },
+        {
+          "id": "41000000-0000-4000-8000-000000000007",
+          "type": "pages",
+          "slug": "layanan-akademik",
+          "category": "academic_survival",
+          "titleOverride": "Direktori Layanan Akademik, Praktikum & Laboratorium D4 TRI SV UGM",
+          "maxChars": 3200
         }
       ]
     }
   ],
   "curatedEntries": [
-    {
-      "id": "41000000-0000-4000-8000-000000000007",
-      "programCode": "TRI",
-      "isGeneral": false,
-      "title": "Direktori Layanan Akademik, Praktikum & Laboratorium D4 TRI SV UGM",
-      "category": "academic_survival",
-      "content": "Prodi D4 TRI menyediakan portal terpusat untuk keperluan perkuliahan dan praktikum laboratorium:\n\n1. Laboratorium Pendukung (DTEDI SV UGM):\n- Lab TAJ (Telekomunikasi dan Jaringan)\n- Lab Layanan Internet & Lab Jaringan Komputer\n- Lab Keamanan Siber & Lab Komputasi Awan\n\n2. Layanan Peminjaman & Surat Lab:\n- Peminjaman ruangan, perangkat lab, VPS, dan akses VPN praktikum\n- Template surat peminjaman alat dan surat bebas laboratorium (syarat yudisium)\n\n3. Dokumen Akademik & Proyek Akhir:\n- Kalender akademik, jadwal kuliah, panduan Praktik Industri/Magang, dosen pembimbing, dan pengumpulan laporan Proyek Akhir.",
-      "sourceType": "official_campus_source",
-      "sourceReference": "Portal Akademik & Layanan Prodi D4 TRI SV UGM",
-      "sourceUrl": "https://tri.sv.ugm.ac.id/layanan-akademik/"
-    },
     {
       "id": "41000000-0000-4000-8000-000000000091",
       "programCode": "TRPL",

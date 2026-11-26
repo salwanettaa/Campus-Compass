@@ -31,6 +31,34 @@ function safeUrl(value: string | null): string | null {
   }
 }
 
+/** Turns embedded http(s) URLs in guide content into clickable safe external links. */
+function renderInlineLinks(text: string) {
+  const parts = text.split(/(https?:\/\/[^\s)<>]+)/g);
+  return parts.map((part, idx) => {
+    if (/^https?:\/\//.test(part)) {
+      const candidate = part.replace(/[.,;]+$/, "");
+      const trailing = part.slice(candidate.length);
+      const valid = safeUrl(candidate);
+      if (valid) {
+        return (
+          <span key={idx}>
+            <a
+              href={valid}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-700 underline underline-offset-4 break-all hover:text-brand-950"
+            >
+              {candidate}
+            </a>
+            {trailing}
+          </span>
+        );
+      }
+    }
+    return part;
+  });
+}
+
 export default async function GuidePage({
   params,
   searchParams,
@@ -116,7 +144,7 @@ export default async function GuidePage({
           </div>
 
           <div className="text-lead text-pretty max-w-2xl whitespace-pre-line text-brand-950">
-            {guide.content_raw}
+            {renderInlineLinks(guide.content_raw)}
           </div>
 
           <p className="text-caption text-pretty border-t border-brand-300 pt-4 text-brand-800">
