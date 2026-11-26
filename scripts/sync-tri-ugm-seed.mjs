@@ -1,94 +1,21 @@
 /**
- * Fetches official public student guides from Prodi D4 Teknologi Rekayasa Internet
- * (https://tri.sv.ugm.ac.id) via its public WordPress REST API, sanitizes HTML
- * and personal contact info, and generates an idempotent Supabase SQL seed file:
+ * Curated extractor for official public student guides from Prodi D4 TRI SV UGM
+ * (https://tri.sv.ugm.ac.id) via its public WordPress REST API.
+ *
+ * Only keeps student-actionable guides (excludes news promos, empty menu
+ * stubs, and redundant page-builder UI blocks), sanitizes HTML & personal
+ * contacts, and writes an idempotent SQL seed to:
  *   supabase/seed_ugm_vokasi_tri.sql
  *
  * Usage:
- *   node scripts/sync-tri-ugm-seed.mjs --inspect   # Preview extracted guides
- *   node scripts/sync-tri-ugm-seed.mjs             # Write supabase/seed_ugm_vokasi_tri.sql
+ *   node scripts/sync-tri-ugm-seed.mjs --inspect
+ *   node scripts/sync-tri-ugm-seed.mjs
  */
 
 import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const WP_BASE = "https://tri.sv.ugm.ac.id/wp-json/wp/v2";
-
-/** Curated mapping from public tri.sv.ugm.ac.id pages/posts -> Knowledge Hub categories. */
-const CURATED_SOURCES = [
-  {
-    type: "pages",
-    slug: "akademik",
-    id: "41000000-0000-4000-8000-000000000001",
-    category: "academic_survival",
-    titleOverride: "Layanan & Panduan Akademik Prodi D4 TRI SV UGM",
-  },
-  {
-    type: "pages",
-    slug: "rekognisi-pembelajaran-lampau-rpl",
-    id: "41000000-0000-4000-8000-000000000002",
-    category: "academic_survival",
-  },
-  {
-    type: "pages",
-    slug: "penyesuaian-ukt",
-    id: "41000000-0000-4000-8000-000000000003",
-    category: "administrative_guide",
-    titleOverride: "Pengajuan Keringanan & Penyesuaian UKT Sarjana Terapan TRI",
-  },
-  {
-    type: "pages",
-    slug: "layanan-akademik",
-    id: "41000000-0000-4000-8000-000000000004",
-    category: "administrative_guide",
-    titleOverride: "Portal Layanan Administrasi Akademik Mahasiswa D4 TRI",
-  },
-  {
-    type: "pages",
-    slug: "ketentuan-wisuda",
-    id: "41000000-0000-4000-8000-000000000005",
-    category: "administrative_guide",
-  },
-  {
-    type: "pages",
-    slug: "dokumen-yudisium",
-    id: "41000000-0000-4000-8000-000000000006",
-    category: "administrative_guide",
-    titleOverride: "Persyaratan & Kelengkapan Dokumen Yudisium D4 TRI SV UGM",
-  },
-  {
-    type: "pages",
-    slug: "forkomtri",
-    id: "41000000-0000-4000-8000-000000000007",
-    category: "social_community",
-    titleOverride: "FORKOMTRI — Forum Komunikasi Mahasiswa Teknologi Rekayasa Internet",
-  },
-  {
-    type: "pages",
-    slug: "hearing",
-    id: "41000000-0000-4000-8000-000000000008",
-    category: "social_community",
-  },
-  {
-    type: "pages",
-    slug: "netcompugm",
-    id: "41000000-0000-4000-8000-000000000009",
-    category: "scholarship_growth",
-    titleOverride: "National Networking Competition (NETCOMP) — Ajang Kompetisi D4 TRI",
-  },
-  {
-    type: "posts",
-    slug: "periotect-pimnas",
-    id: "41000000-0000-4000-8000-000000000010",
-    category: "scholarship_growth",
-  },
-  {
-    type: "posts",
-    slug: "isc-2026",
-    id: "41000000-0000-4000-8000-000000000011",
-    category: "career_preparation",
-  },
-];
 
 function decodeEntities(text) {
   return text
@@ -105,7 +32,7 @@ function decodeEntities(text) {
     .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(Number(num)));
 }
 
-function cleanHtml(html) {
+function cleanHtml(html, { maxChars = 2400, stopBefore = [] } = {}) {
   const withoutNoise = html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
@@ -117,31 +44,95 @@ function cleanHtml(html) {
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<[^>]+>/g, " ");
 
-  const decoded = decodeEntities(structured)
+  let text = decodeEntities(structured)
     .replace(/\r/g, "")
-    // Remove accidental email/phone strings to align with UU PDP hygiene.
+    // Strip personal email/phone strings (UU PDP hygiene).
     .replace(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, "[official campus email]")
     .replace(/(\+62|08)[0-9\-\s]{8,15}/g, "[official contact]")
     .replace(/[ \t]+/g, " ")
     .replace(/\n[ \t]+/g, "\n")
-    // Drop empty bullet markers and button labels left by page-builder HTML
+    .replace(/[ \t]+\n/g, "\n")
+    // Drop page-builder noise lines
     .replace(/^\s*-\s*$/gm, "")
-    .replace(/^\s*Baca Selengkapnya\s*$/gim, "")
+    .replace(/^\s*(Baca Selengkapnya|View All|Poster|More Information|Our Sponsors|Our Media Partners|Presented By)\s*$/gim, "")
     .replace(/-\s*\n+\s*/g, "- ")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
-  // Cap overly long reference pages cleanly at paragraph boundaries (~2,500 chars)
-  if (decoded.length <= 2500) return decoded;
-  const truncated = decoded.slice(0, 2500);
-  const lastNewline = truncated.lastIndexOf("\n");
-  return (lastNewline > 1500 ? truncated.slice(0, lastNewline) : truncated) +
-    "\n\n(Selengkapnya dapat dibaca pada tautan sumber resmi di bawah.)";
+  for (const marker of stopBefore) {
+    const idx = text.indexOf(marker);
+    if (idx !== -1) {
+      text = text.slice(0, idx).trim();
+    }
+  }
+
+  if (text.length > maxChars) {
+    const cut = text.slice(0, maxChars);
+    const lastBreak = cut.lastIndexOf("\n");
+    text = (lastBreak > maxChars * 0.6 ? cut.slice(0, lastBreak) : cut).trim() +
+      "\n\n(Selengkapnya tersedia pada tautan sumber resmi.)";
+  }
+
+  return text;
 }
 
 function sqlEscape(str) {
   return str.replace(/'/g, "''");
 }
+
+const CURATED_SOURCES = [
+  {
+    type: "pages",
+    slug: "hearing",
+    id: "41000000-0000-4000-8000-000000000001",
+    category: "career_preparation",
+    titleOverride: "Kebijakan Magang, Praktik Industri & Sertifikasi D4 TRI (Hearing Prodi)",
+    maxChars: 2400,
+    stopBefore: ["Kurikulum dan Pembelajaran"],
+  },
+  {
+    type: "pages",
+    slug: "penyesuaian-ukt",
+    id: "41000000-0000-4000-8000-000000000002",
+    category: "administrative_guide",
+    titleOverride: "Pengajuan Keringanan & Penyesuaian UKT Sarjana Terapan TRI",
+    maxChars: 1800,
+  },
+  {
+    type: "pages",
+    slug: "dokumen-yudisium",
+    id: "41000000-0000-4000-8000-000000000003",
+    category: "administrative_guide",
+    titleOverride: "Persyaratan & Kelengkapan Dokumen Yudisium D4 TRI SV UGM",
+    maxChars: 2400,
+  },
+  {
+    type: "pages",
+    slug: "ketentuan-wisuda",
+    id: "41000000-0000-4000-8000-000000000004",
+    category: "administrative_guide",
+    titleOverride: "Alur Pendaftaran Wisuda Program Sarjana & Sarjana Terapan UGM",
+    maxChars: 2200,
+    stopBefore: ["Ketentuan unggah foto"],
+  },
+  {
+    type: "pages",
+    slug: "forkomtri",
+    id: "41000000-0000-4000-8000-000000000005",
+    category: "social_community",
+    titleOverride: "FORKOMTRI — Himpunan Mahasiswa Teknologi Rekayasa Internet SV UGM",
+    maxChars: 1800,
+    stopBefore: ["Rilis Berita"],
+  },
+  {
+    type: "pages",
+    slug: "netcompugm",
+    id: "41000000-0000-4000-8000-000000000006",
+    category: "scholarship_growth",
+    titleOverride: "National Networking Competition (NETCOMP) D4 TRI SV UGM",
+    maxChars: 1500,
+  },
+];
 
 async function fetchWpItems(type) {
   const res = await fetch(`${WP_BASE}/${type}?per_page=100`);
@@ -153,18 +144,13 @@ async function fetchWpItems(type) {
 
 async function main() {
   const inspectMode = process.argv.includes("--inspect");
-  const [pages, posts] = await Promise.all([
-    fetchWpItems("pages"),
-    fetchWpItems("posts"),
-  ]);
-
-  const byType = { pages, posts };
+  const pages = await fetchWpItems("pages");
   const extracted = [];
 
   for (const spec of CURATED_SOURCES) {
-    const item = byType[spec.type].find((entry) => entry.slug === spec.slug);
+    const item = pages.find((entry) => entry.slug === spec.slug);
     if (!item) {
-      console.warn(`[WARN] Slug not found: ${spec.type}/${spec.slug}`);
+      console.warn(`[WARN] Slug not found: ${spec.slug}`);
       continue;
     }
 
@@ -173,15 +159,13 @@ async function main() {
         .replace(/<[^>]+>/g, "")
         .trim(),
     );
-    const content = cleanHtml(item.content?.rendered ?? "");
-    if (content.length < 60) {
-      console.warn(`[SKIP] Content too short (${content.length} chars): ${spec.slug}`);
-      continue;
-    }
+    const content = cleanHtml(item.content?.rendered ?? "", {
+      maxChars: spec.maxChars,
+      stopBefore: spec.stopBefore,
+    });
 
     extracted.push({
       id: spec.id,
-      slug: spec.slug,
       title,
       category: spec.category,
       content,
@@ -195,9 +179,9 @@ async function main() {
     for (const g of extracted) {
       console.log(`\n=== [${g.category}] ${g.title} (${g.content.length} chars) ===`);
       console.log(`URL: ${g.sourceUrl}`);
-      console.log(g.content.slice(0, 450));
+      console.log(g.content);
     }
-    console.log(`\nTotal extracted: ${extracted.length} guides.`);
+    console.log(`\nTotal curated official TRI guides: ${extracted.length}`);
     return;
   }
 
@@ -217,7 +201,7 @@ async function main() {
 
   const sql = `-- =============================================================================
 -- SEED DATA PILOT UGM & SEKOLAH VOKASI D4 TEKNOLOGI REKAYASA INTERNET (TRI)
--- Generated/augmented from public official pages at https://tri.sv.ugm.ac.id/
+-- Curated official student guides from https://tri.sv.ugm.ac.id/ + UGM General
 -- Jalankan di Supabase SQL Editor SETELAH schema v2 di docs/TECH_AND_DATABASE.md
 -- dan patches 01 & 02. Aman dijalankan berulang kali (idempotent).
 -- =============================================================================
@@ -276,12 +260,32 @@ BEGIN
     SELECT id INTO v_trpl FROM public.programs WHERE campus_id = v_ugm AND code = 'TRPL';
     SELECT id INTO v_ti   FROM public.programs WHERE campus_id = v_ugm AND code = 'TI';
 
-    -- 4. Guides — Real Public Official Content from https://tri.sv.ugm.ac.id/
+    -- Remove legacy uncurated IDs from earlier seed runs if present
+    DELETE FROM public.guides
+    WHERE id IN (
+        '41000000-0000-4000-8000-000000000007',
+        '41000000-0000-4000-8000-000000000008',
+        '41000000-0000-4000-8000-000000000009',
+        '41000000-0000-4000-8000-000000000010',
+        '41000000-0000-4000-8000-000000000011'
+    );
+
+    -- 4. Guides — Curated Official Content from https://tri.sv.ugm.ac.id/
     INSERT INTO public.guides (
         id, campus_id, program_id, title, category, is_general, content_raw,
         source_type, source_reference, source_url, is_published, last_verified_at
     ) VALUES
 ${sqlRows},
+    -- Curated summary of Academic & Lab Services directory on tri.sv.ugm.ac.id
+    (
+        '41000000-0000-4000-8000-000000000007',
+        v_ugm, v_tri,
+        'Direktori Layanan Akademik, Praktikum & Laboratorium D4 TRI SV UGM',
+        'academic_survival', false,
+        E'Prodi D4 TRI menyediakan portal terpusat untuk keperluan perkuliahan dan praktikum laboratorium:\n\n1. Laboratorium Pendukung (DTEDI SV UGM):\n- Lab TAJ (Telekomunikasi dan Jaringan)\n- Lab Layanan Internet & Lab Jaringan Komputer\n- Lab Keamanan Siber & Lab Komputasi Awan\n\n2. Layanan Peminjaman & Surat Lab:\n- Peminjaman ruangan, perangkat lab, VPS, dan akses VPN praktikum\n- Template surat peminjaman alat dan surat bebas laboratorium (syarat yudisium)\n\n3. Dokumen Akademik & Proyek Akhir:\n- Kalender akademik, jadwal kuliah, panduan Praktik Industri/Magang, dosen pembimbing, dan pengumpulan laporan Proyek Akhir.',
+        'official_campus_source', 'Portal Akademik & Layanan Prodi D4 TRI SV UGM', 'https://tri.sv.ugm.ac.id/layanan-akademik/',
+        true, timezone('utc'::text, now()) - interval '7 days'
+    ),
     -- Mockup guides untuk perbandingan program lain (TRPL & TI)
     (
         '41000000-0000-4000-8000-000000000091',
@@ -398,7 +402,7 @@ END $$;
 
   const outPath = resolve(process.cwd(), "supabase/seed_ugm_vokasi_tri.sql");
   writeFileSync(outPath, sql, "utf8");
-  console.log(`Wrote ${extracted.length} official TRI guides + general/sample entries to ${outPath}`);
+  console.log(`Wrote ${extracted.length} curated official TRI guides + clean directory & general/sample entries to ${outPath}`);
 }
 
 main().catch((err) => {
