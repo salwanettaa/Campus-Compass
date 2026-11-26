@@ -31,7 +31,7 @@ export function Logo({
       <span
         className={cn(
           "flex size-9 shrink-0 items-center justify-center rounded-xl text-white",
-          onDark ? "bg-white/15" : "bg-brand-950",
+          "bg-white/10",
         )}
       >
         <WayfinderMark className="size-6" />

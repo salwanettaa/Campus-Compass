@@ -35,7 +35,7 @@ export function PillarSwitch({
   return (
     <nav
       aria-label="Content type"
-      className="flex gap-6 border-b border-brand-300"
+      className="flex gap-4 border-b border-brand-300 sm:gap-6"
     >
       {items.map((item) => {
         const active = currentPillar === item.id;

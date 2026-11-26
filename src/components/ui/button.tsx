@@ -20,7 +20,7 @@ export const buttonVariants = cva(
           "border border-brand-400 bg-transparent text-brand-950 hover:border-brand-700 hover:text-brand-700 active:bg-brand-100",
         /** Action on a green or dark background */
         pillOnDark:
-          "bg-white font-semibold text-brand-900 hover:bg-brand-100 active:bg-brand-300",
+          "bg-white font-semibold text-ink hover:bg-frost active:bg-brand-700",
         /** Navbar action on a light background */
         pillOnLight: "bg-brand-gradient text-white hover:brightness-90 active:brightness-75",
         ghost: "text-brand-900 hover:bg-brand-100 active:bg-brand-300",

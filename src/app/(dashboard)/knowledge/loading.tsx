@@ -4,7 +4,7 @@ export default function KnowledgeLoading() {
       <div className="h-24 border-b border-brand-300" />
       <div className="h-12 rounded-full bg-brand-100" />
       {[0, 1, 2].map((i) => (
-        <div key={i} className="h-32 rounded-md border border-brand-300 bg-white/70" />
+        <div key={i} className="h-32 rounded-md border border-brand-300 bg-paper-raised" />
       ))}
       <span className="sr-only">Loading guides and experiences</span>
     </div>

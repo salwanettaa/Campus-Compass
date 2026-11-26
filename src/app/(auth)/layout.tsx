@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { CompassRing } from "@/components/home/compass-ring";
 import { Logo } from "@/components/layout/logo";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
@@ -7,12 +8,18 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     <div className="grid w-full flex-1 lg:grid-cols-[1fr_1.1fr]">
       <aside className="hidden flex-col justify-between gap-10 bg-hero-gradient p-10 text-white lg:flex xl:p-14">
         <Logo tone="onDark" href="/" />
+        <div className="mx-auto w-full max-w-72">
+          <CompassRing area={null} caption="Next stop" title="Your campus" />
+        </div>
         <div className="max-w-md">
-          <p className="text-h1">
+          <p className="text-h2 text-balance xl:text-[2.5rem] xl:leading-tight">
             <span className="block">Nobody hands you a map.</span>
-            <span className="block text-brand-300">Students draw one together.</span>
+            <span className="block text-brand-700">
+              Students draw one{" "}
+              <em className="font-serif font-normal">together.</em>
+            </span>
           </p>
-          <p className="text-lead mt-5 text-white">
+          <p className="text-lead mt-5 text-brand-900">
             Find practical answers, keep useful sources close, and choose a next
             step that fits your campus life.
           </p>

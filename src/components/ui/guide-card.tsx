@@ -30,12 +30,12 @@ export function GuideCard({
       href={href}
       className={cn(
         "group flex flex-col gap-3 rounded-xl border border-brand-950/10 p-3",
-        "transition-colors duration-200 hover:bg-white",
+        "transition-colors duration-200 hover:bg-brand-100",
         variant === "tinted" ? "bg-brand-100" : "bg-paper-raised",
         className,
       )}
     >
-      <div className="relative aspect-4/3 overflow-hidden bg-brand-950">
+      <div className="relative aspect-4/3 overflow-hidden bg-ink">
         {imageSrc ? (
           <Image
             src={imageSrc}

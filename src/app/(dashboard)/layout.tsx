@@ -49,7 +49,7 @@ export default async function DashboardLayout({
       <Sidebar
         user={{ displayName: profile.display_name }}
         onLogout={signOutAction}
-        className="sticky top-6 hidden h-[calc(100dvh-3rem)] shrink-0 lg:flex"
+        className="liquid-glass sticky top-6 hidden h-[calc(100dvh-3rem)] shrink-0 rounded-3xl border p-3 lg:flex"
       />
       <div className="min-w-0 flex-1 pb-28 lg:pt-2 lg:pb-12">{children}</div>
       <BottomNav onLogout={signOutAction} />

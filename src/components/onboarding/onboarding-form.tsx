@@ -117,7 +117,7 @@ export function OnboardingForm({
               <span
                 className={cn(
                   "h-1.5 rounded-full transition-colors duration-300",
-                  done || current ? "bg-brand-800" : "bg-brand-300/70",
+                  done || current ? "bg-fill" : "bg-brand-300/70",
                 )}
               />
               <span
