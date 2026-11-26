@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "AI Navigator" };
 
 export default function AiNavigatorPage() {
   return (
-    <main className="flex max-w-5xl flex-col gap-6">
+    <main className="flex w-full flex-col gap-6">
       <PageHeader
         title="AI Navigator"
         description="A future way to connect campus questions to reliable sources and next steps."

@@ -2,7 +2,6 @@ import {
   BookOpen,
   House,
   MessagesSquare,
-  Route,
   Signpost,
   type LucideIcon,
 } from "lucide-react";
@@ -32,7 +31,6 @@ export const NAV_ITEMS: readonly NavItem[] = [
     icon: BookOpen,
     match: "/knowledge",
   },
-  { label: "My Journey", href: "/home#my-journey", icon: Route },
   {
     label: "AI Navigator",
     href: "/ai-navigator",

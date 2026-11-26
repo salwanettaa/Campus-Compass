@@ -81,7 +81,7 @@ export default async function GuidePage({
   );
 
   return (
-    <main className="flex w-full max-w-4xl flex-col gap-6">
+    <main className="flex w-full flex-col gap-6">
       <Link
         href="/knowledge"
         className="text-h5 inline-flex min-h-11 w-fit items-center gap-2 rounded-md text-brand-800 hover:underline"
@@ -90,81 +90,88 @@ export default async function GuidePage({
         <span>Back to Knowledge Hub</span>
       </Link>
 
-      <article className="flex flex-col gap-5 rounded-md border border-brand-300 bg-paper-raised p-6 sm:p-8">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div className="flex flex-col gap-1">
-            <p className="text-caption font-medium text-brand-700">
-              {categoryName(guide.category)}
-              <span className="text-brand-800"> · {scopeLabel}</span>
-            </p>
-            <h1 className="text-h1 text-balance break-words text-brand-950">
-              {guide.title}
-            </h1>
-          </div>
-
-          <BookmarkButton
-            guideId={guide.id}
-            guideTitle={guide.title}
-            initialBookmarked={initialBookmarked}
-            showLabel
-          />
-        </div>
-
-        <div className="border-b border-brand-300 pb-4">
-          <VerifiedMeta guide={guide} />
-        </div>
-
-        <div className="text-lead text-pretty max-w-2xl whitespace-pre-line text-brand-950">
-          {guide.content_raw}
-        </div>
-
-        {guide.source_reference || sourceUrl ? (
-          <div className="flex max-w-2xl flex-col gap-1.5 rounded-md border border-brand-300 bg-card-tint p-4">
-            <h2 className="text-h5 text-brand-950">Source</h2>
-            {guide.source_reference ? (
-              <p className="text-body text-brand-900">
-                {guide.source_reference}
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-10">
+        <article className="flex flex-col gap-5 rounded-md border border-brand-300 bg-paper-raised p-6 sm:p-8">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="flex flex-col gap-1">
+              <p className="text-caption font-medium text-brand-700">
+                {categoryName(guide.category)}
+                <span className="text-brand-800"> · {scopeLabel}</span>
               </p>
-            ) : null}
-            {sourceUrl ? (
-              <a
-                href={sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-h5 inline-flex min-h-11 w-fit items-center gap-1.5 text-brand-700 underline underline-offset-4 hover:text-brand-950"
-              >
-                <span>Open official source</span>
-                <ExternalLink className="size-4" aria-hidden="true" />
-                <span className="sr-only">(opens in a new tab)</span>
-              </a>
-            ) : null}
-          </div>
-        ) : null}
-
-        <div className="flex flex-col justify-between gap-4 rounded-md border border-brand-300 bg-card-tint p-4 sm:flex-row sm:items-center">
-          <div className="flex items-start gap-3">
-            <Signpost className="mt-0.5 size-5 shrink-0 text-brand-700" aria-hidden="true" />
-            <div className="flex flex-col gap-0.5">
-              <h2 className="text-h5 text-brand-950">Questions about this guide?</h2>
-              <p className="text-body text-pretty text-brand-800">
-                Ask AI Navigator to walk through these steps with citations.
-              </p>
+              <h1 className="text-h1 text-balance break-words text-brand-950">
+                {guide.title}
+              </h1>
             </div>
-          </div>
-          <ButtonLink
-            href={`/ai-navigator?q=${aiQuery}`}
-            variant="outline"
-            size="sm"
-            className="shrink-0 self-start sm:self-auto"
-          >
-            Ask AI Navigator
-          </ButtonLink>
-        </div>
 
-        <p className="text-caption text-pretty border-t border-brand-300 pt-4 text-brand-800">
-          Always confirm official deadlines and requirements with your faculty or Simaster.
-        </p>
-      </article>
+            <BookmarkButton
+              guideId={guide.id}
+              guideTitle={guide.title}
+              initialBookmarked={initialBookmarked}
+              showLabel
+            />
+          </div>
+
+          <div className="border-b border-brand-300 pb-4">
+            <VerifiedMeta guide={guide} />
+          </div>
+
+          <div className="text-lead text-pretty max-w-2xl whitespace-pre-line text-brand-950">
+            {guide.content_raw}
+          </div>
+
+          <p className="text-caption text-pretty border-t border-brand-300 pt-4 text-brand-800">
+            Always confirm official deadlines and requirements with your faculty or Simaster.
+          </p>
+        </article>
+
+        <aside
+          aria-label="Guide references and actions"
+          className="flex flex-col gap-6 border-t border-brand-300 pt-6 lg:sticky lg:top-6 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-6"
+        >
+          {guide.source_reference || sourceUrl ? (
+            <div className="flex flex-col gap-1.5">
+              <h2 className="text-h5 text-brand-950">Source</h2>
+              {guide.source_reference ? (
+                <p className="text-body text-pretty text-brand-900">
+                  {guide.source_reference}
+                </p>
+              ) : null}
+              {sourceUrl ? (
+                <a
+                  href={sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-h5 inline-flex min-h-11 w-fit items-center gap-1.5 text-brand-700 underline underline-offset-4 hover:text-brand-950"
+                >
+                  <span>Open official source</span>
+                  <ExternalLink className="size-4" aria-hidden="true" />
+                  <span className="sr-only">(opens in a new tab)</span>
+                </a>
+              ) : null}
+            </div>
+          ) : null}
+
+          <div className="flex flex-col gap-3 border-t border-brand-300 pt-5">
+            <div className="flex items-start gap-2.5">
+              <Signpost className="mt-0.5 size-5 shrink-0 text-brand-700" aria-hidden="true" />
+              <div className="flex flex-col gap-0.5">
+                <h2 className="text-h5 text-brand-950">Questions about this guide?</h2>
+                <p className="text-body text-pretty text-brand-800">
+                  Ask AI Navigator to walk through these steps with citations.
+                </p>
+              </div>
+            </div>
+            <ButtonLink
+              href={`/ai-navigator?q=${aiQuery}`}
+              variant="outline"
+              size="sm"
+              className="w-fit"
+            >
+              Ask AI Navigator
+            </ButtonLink>
+          </div>
+        </aside>
+      </div>
     </main>
   );
 }

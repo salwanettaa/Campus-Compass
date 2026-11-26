@@ -62,7 +62,7 @@ export default async function HomePage() {
   ].filter(Boolean);
 
   return (
-    <main className="flex max-w-5xl flex-col gap-10">
+    <main className="flex w-full flex-col gap-10">
       <header className="bg-hero-gradient overflow-hidden rounded-[2rem] text-white">
         <div className="px-6 pt-8 sm:px-10 sm:pt-10">
           <h1 className="text-h1 break-words">
@@ -77,7 +77,7 @@ export default async function HomePage() {
         <RouteLine className="h-20" />
       </header>
 
-      <div className="grid gap-10 xl:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] xl:gap-14">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:items-start lg:gap-12">
         <section aria-labelledby="next-heading">
           <h2 id="next-heading" className="text-h2 text-brand-950">
             Where to go next

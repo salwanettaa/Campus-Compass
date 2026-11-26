@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useState, useSyncExternalStore, useTransition } from "react";
 import { Bookmark } from "lucide-react";
 import { toggleBookmarkAction } from "@/lib/knowledge/actions";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,16 @@ interface BookmarkButtonProps {
   showLabel?: boolean;
 }
 
+const BOOKMARK_EVENT = "compass-bookmark-change";
+
+function readLocalBookmark(guideId: string): boolean {
+  try {
+    return window.localStorage.getItem(`compass_bookmark_${guideId}`) === "true";
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Quiet bookmark toggle synced to Supabase `public.bookmarks` with
  * `localStorage` fallback for unseeded sample guides.
@@ -23,28 +33,39 @@ export function BookmarkButton({
   initialBookmarked = false,
   showLabel = false,
 }: BookmarkButtonProps) {
-  const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
+  const [dbSaved, setDbSaved] = useState(initialBookmarked);
   const [pending, startTransition] = useTransition();
 
-  useEffect(() => {
-    if (initialBookmarked) {
-      setIsBookmarked(true);
-      return;
-    }
-    try {
-      if (localStorage.getItem(`compass_bookmark_${guideId}`) === "true") {
-        setIsBookmarked(true);
-      }
-    } catch {
-      // Ignore storage access errors in restricted browsing contexts.
-    }
-  }, [guideId, initialBookmarked]);
+  const localSaved = useSyncExternalStore(
+    (onStoreChange) => {
+      const handleStorage = (event: StorageEvent) => {
+        if (event.key === `compass_bookmark_${guideId}`) onStoreChange();
+      };
+      const handleLocal = (event: Event) => {
+        if ((event as CustomEvent<string>).detail === guideId) onStoreChange();
+      };
+      window.addEventListener("storage", handleStorage);
+      window.addEventListener(BOOKMARK_EVENT, handleLocal);
+      return () => {
+        window.removeEventListener("storage", handleStorage);
+        window.removeEventListener(BOOKMARK_EVENT, handleLocal);
+      };
+    },
+    () => readLocalBookmark(guideId),
+    () => false,
+  );
+
+  const isBookmarked = dbSaved || localSaved;
 
   function handleToggle() {
     const nextState = !isBookmarked;
-    setIsBookmarked(nextState);
+    setDbSaved(nextState);
     try {
-      localStorage.setItem(`compass_bookmark_${guideId}`, String(nextState));
+      window.localStorage.setItem(
+        `compass_bookmark_${guideId}`,
+        String(nextState),
+      );
+      window.dispatchEvent(new CustomEvent(BOOKMARK_EVENT, { detail: guideId }));
     } catch {
       // Ignore storage access errors.
     }
@@ -52,7 +73,18 @@ export function BookmarkButton({
     startTransition(async () => {
       const result = await toggleBookmarkAction(guideId, nextState);
       if (!result.ok) {
-        setIsBookmarked(!nextState);
+        setDbSaved(!nextState);
+        try {
+          window.localStorage.setItem(
+            `compass_bookmark_${guideId}`,
+            String(!nextState),
+          );
+          window.dispatchEvent(
+            new CustomEvent(BOOKMARK_EVENT, { detail: guideId }),
+          );
+        } catch {
+          // Ignore storage access errors.
+        }
       }
     });
   }

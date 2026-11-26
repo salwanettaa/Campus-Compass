@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Share your experience" };
 
 export default function ShareExperiencePage() {
   return (
-    <main className="flex flex-col gap-6">
+    <main className="flex w-full flex-col gap-6">
       <Link
         href="/knowledge"
         className="text-h5 inline-flex w-fit items-center gap-2 rounded-md text-brand-800 hover:underline focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
@@ -20,7 +20,7 @@ export default function ShareExperiencePage() {
         title="Share your experience"
         description="Help new students by describing what you went through, step by step."
       />
-      <div className="max-w-2xl">
+      <div className="max-w-3xl">
         <ExperienceForm />
       </div>
     </main>
