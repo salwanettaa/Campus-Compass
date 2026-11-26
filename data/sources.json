@@ -105,7 +105,7 @@
       "isGeneral": true,
       "title": "Panduan Lengkap Simaster & Pengisian KRS Tiap Semester",
       "category": "administrative_guide",
-      "content": "KRS (Kartu Rencana Studi) wajib diisi seluruh mahasiswa UGM melalui portal Simaster.\n\n1. Cek Status UKT: Pastikan tagihan lunas atau mengantongi surat dispensasi.\n\n2. Batas SKS: Sesuaikan dengan IPK semester sebelumnya.\n\n3. Persetujuan DPA: Hubungi Dosen Pembimbing Akademik setelah submit KRS.",
+      "content": "KRS (Kartu Rencana Studi) wajib diisi seluruh mahasiswa UGM melalui portal [simaster.ugm.ac.id](https://simaster.ugm.ac.id).\n\n1. **Cek Status UKT:** Pastikan tagihan lunas atau mengantongi surat dispensasi.\n2. **Batas SKS:** Sesuaikan dengan IPK semester sebelumnya.\n3. **Persetujuan DPA:** Hubungi Dosen Pembimbing Akademik setelah submit KRS.",
       "sourceType": "official_campus_source",
       "sourceReference": "Portal Akademik UGM (Simaster)",
       "sourceUrl": "https://simaster.ugm.ac.id"
@@ -116,7 +116,7 @@
       "isGeneral": true,
       "title": "Layanan Kesehatan Mahasiswa di Gadjah Mada Medical Center (GMC)",
       "category": "campus_essentials",
-      "content": "Mahasiswa aktif UGM berhak mengakses layanan kesehatan primer di Gadjah Mada Medical Center (GMC), Jl. Colombo.\n\n1. Layanan: Dokter umum, gigi, konseling psikologi, dan farmasi.\n\n2. Syarat: Tunjukkan KTM fisik atau e-KTM Simaster aktif.\n\n3. Rujukan: Dokter GMC menerbitkan rujukan ke RSA UGM bila diperlukan.",
+      "content": "Mahasiswa aktif UGM berhak mengakses layanan kesehatan primer di Gadjah Mada Medical Center ([gmc.ugm.ac.id](https://gmc.ugm.ac.id)), Jl. Colombo.\n\n1. **Layanan:** Dokter umum, gigi, konseling psikologi, dan farmasi.\n2. **Syarat:** Tunjukkan KTM fisik atau e-KTM Simaster aktif.\n3. **Rujukan:** Dokter GMC menerbitkan rujukan ke RSA UGM bila diperlukan.",
       "sourceType": "official_campus_source",
       "sourceReference": "Gadjah Mada Medical Center (GMC) UGM",
       "sourceUrl": "https://gmc.ugm.ac.id"
@@ -127,7 +127,7 @@
       "isGeneral": true,
       "title": "Portal Beasiswa & Kemahasiswaan UGM (Ditmawa)",
       "category": "scholarship_growth",
-      "content": "Direktorat Kemahasiswaan (Ditmawa) UGM mengelola pengajuan beasiswa mitra yayasan, korporasi, dan pemerintah melalui portal terpadu.\n\n1. Portal Resmi: Cek pengumuman dan syarat berkas di ditmawa.ugm.ac.id / simaster.\n\n2. Berkas Umum: Transkrip nilai terbaru, surat keterangan aktif, dan esai kontribusi.",
+      "content": "Direktorat Kemahasiswaan (Ditmawa) UGM mengelola pengajuan beasiswa mitra yayasan, korporasi, dan pemerintah melalui portal terpadu.\n\n1. **Portal Resmi:** Cek pengumuman dan syarat berkas di [ditmawa.ugm.ac.id](https://ditmawa.ugm.ac.id) atau [simaster.ugm.ac.id](https://simaster.ugm.ac.id).\n2. **Berkas Umum:** Transkrip nilai terbaru, surat keterangan aktif, dan esai kontribusi.",
       "sourceType": "official_campus_source",
       "sourceReference": "Direktorat Kemahasiswaan (Ditmawa) UGM",
       "sourceUrl": "https://ditmawa.ugm.ac.id"
@@ -138,7 +138,7 @@
       "isGeneral": true,
       "title": "Akses Wi-Fi Kampus (UGM-Hotspot) & Jaringan Eduroam",
       "category": "campus_essentials",
-      "content": "Akses internet nirkabel tersedia di area gedung kuliah, perpustakaan, dan ruang terbuka kampus UGM.\n\n1. UGM-Hotspot: Login menggunakan akun SSO (@mail.ugm.ac.id).\n\n2. Eduroam: Autentikasi 802.1x EAP menggunakan email UGM lengkap dan kata sandi SSO.",
+      "content": "Akses internet nirkabel tersedia di area gedung kuliah, perpustakaan, dan ruang terbuka kampus UGM ([dssdi.ugm.ac.id](https://dssdi.ugm.ac.id)).\n\n1. **UGM-Hotspot:** Login menggunakan akun SSO (@mail.ugm.ac.id).\n2. **Eduroam:** Autentikasi 802.1x EAP menggunakan email UGM lengkap dan kata sandi SSO.",
       "sourceType": "official_campus_source",
       "sourceReference": "DSSDI Universitas Gadjah Mada",
       "sourceUrl": "https://dssdi.ugm.ac.id"

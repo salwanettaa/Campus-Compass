@@ -332,13 +332,11 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
         NULL, NULL,
         'Panduan Lengkap Simaster & Pengisian KRS Tiap Semester',
         'administrative_guide', true,
-        'KRS (Kartu Rencana Studi) wajib diisi seluruh mahasiswa UGM melalui portal Simaster.
+        'KRS (Kartu Rencana Studi) wajib diisi seluruh mahasiswa UGM melalui portal [simaster.ugm.ac.id](https://simaster.ugm.ac.id).
 
-1. Cek Status UKT: Pastikan tagihan lunas atau mengantongi surat dispensasi.
-
-2. Batas SKS: Sesuaikan dengan IPK semester sebelumnya.
-
-3. Persetujuan DPA: Hubungi Dosen Pembimbing Akademik setelah submit KRS.',
+1. **Cek Status UKT:** Pastikan tagihan lunas atau mengantongi surat dispensasi.
+2. **Batas SKS:** Sesuaikan dengan IPK semester sebelumnya.
+3. **Persetujuan DPA:** Hubungi Dosen Pembimbing Akademik setelah submit KRS.',
         'official_campus_source', 'Portal Akademik UGM (Simaster)', 'https://simaster.ugm.ac.id',
         true, timezone('utc'::text, now())
     ),
@@ -347,13 +345,11 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
         NULL, NULL,
         'Layanan Kesehatan Mahasiswa di Gadjah Mada Medical Center (GMC)',
         'campus_essentials', true,
-        'Mahasiswa aktif UGM berhak mengakses layanan kesehatan primer di Gadjah Mada Medical Center (GMC), Jl. Colombo.
+        'Mahasiswa aktif UGM berhak mengakses layanan kesehatan primer di Gadjah Mada Medical Center ([gmc.ugm.ac.id](https://gmc.ugm.ac.id)), Jl. Colombo.
 
-1. Layanan: Dokter umum, gigi, konseling psikologi, dan farmasi.
-
-2. Syarat: Tunjukkan KTM fisik atau e-KTM Simaster aktif.
-
-3. Rujukan: Dokter GMC menerbitkan rujukan ke RSA UGM bila diperlukan.',
+1. **Layanan:** Dokter umum, gigi, konseling psikologi, dan farmasi.
+2. **Syarat:** Tunjukkan KTM fisik atau e-KTM Simaster aktif.
+3. **Rujukan:** Dokter GMC menerbitkan rujukan ke RSA UGM bila diperlukan.',
         'official_campus_source', 'Gadjah Mada Medical Center (GMC) UGM', 'https://gmc.ugm.ac.id',
         true, timezone('utc'::text, now())
     ),
@@ -364,9 +360,8 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
         'scholarship_growth', true,
         'Direktorat Kemahasiswaan (Ditmawa) UGM mengelola pengajuan beasiswa mitra yayasan, korporasi, dan pemerintah melalui portal terpadu.
 
-1. Portal Resmi: Cek pengumuman dan syarat berkas di ditmawa.ugm.ac.id / simaster.
-
-2. Berkas Umum: Transkrip nilai terbaru, surat keterangan aktif, dan esai kontribusi.',
+1. **Portal Resmi:** Cek pengumuman dan syarat berkas di [ditmawa.ugm.ac.id](https://ditmawa.ugm.ac.id) atau [simaster.ugm.ac.id](https://simaster.ugm.ac.id).
+2. **Berkas Umum:** Transkrip nilai terbaru, surat keterangan aktif, dan esai kontribusi.',
         'official_campus_source', 'Direktorat Kemahasiswaan (Ditmawa) UGM', 'https://ditmawa.ugm.ac.id',
         true, timezone('utc'::text, now())
     ),
@@ -375,11 +370,10 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
         NULL, NULL,
         'Akses Wi-Fi Kampus (UGM-Hotspot) & Jaringan Eduroam',
         'campus_essentials', true,
-        'Akses internet nirkabel tersedia di area gedung kuliah, perpustakaan, dan ruang terbuka kampus UGM.
+        'Akses internet nirkabel tersedia di area gedung kuliah, perpustakaan, dan ruang terbuka kampus UGM ([dssdi.ugm.ac.id](https://dssdi.ugm.ac.id)).
 
-1. UGM-Hotspot: Login menggunakan akun SSO (@mail.ugm.ac.id).
-
-2. Eduroam: Autentikasi 802.1x EAP menggunakan email UGM lengkap dan kata sandi SSO.',
+1. **UGM-Hotspot:** Login menggunakan akun SSO (@mail.ugm.ac.id).
+2. **Eduroam:** Autentikasi 802.1x EAP menggunakan email UGM lengkap dan kata sandi SSO.',
         'official_campus_source', 'DSSDI Universitas Gadjah Mada', 'https://dssdi.ugm.ac.id',
         true, timezone('utc'::text, now())
     )

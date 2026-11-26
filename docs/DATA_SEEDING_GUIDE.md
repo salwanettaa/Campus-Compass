@@ -18,17 +18,17 @@ Alih-alih membuat satu script terpisah untuk setiap jurusan atau kampus, reposit
                          ▼  [1. Config] data/sources.json
   Universal Engine: scripts/sync-sources.mjs
     ├─ Adapter Dispatch (wordpress-rest, extensible to html/pdf)
-    ├─ HTML Cleanup & Page-Builder Noise Stripping
-    └─ UU PDP Hygiene (Redaksi email/no HP pribadi)
+    ├─ HTML Cleanup & Markdown Serializer (##, **, nested lists, [Label](url))
+    └─ UU PDP Hygiene (Redaksi email/no HP & blokir wa.me pribadi)
                          │
                          ▼  [2. Transform] data/curated/guides.json
-  Human-Readable Curated JSON (mudah di-review & diedit via PR)
+  Human-Readable Curated JSON (Markdown terstruktur, mudah di-review PR)
                          │
                          ▼  [3. Load] supabase/seed_ugm_vokasi_tri.sql
   Supabase PostgreSQL (ON CONFLICT DO UPDATE / Idempotent)
                          │
-                         ▼  [Phase 2 - AI RAG]
-  public.content_chunks (Chunking + text-embedding-004 768d)
+                         ├─▶ [UI Renderer] GuideContent + stripMarkdownForExcerpt()
+                         └─▶ [Phase 2 - AI RAG] public.content_chunks (768d)
 ```
 
 ### Mengapa Pola Ini Dipilih?
@@ -43,9 +43,10 @@ Alih-alih membuat satu script terpisah untuk setiap jurusan atau kampus, reposit
 | File | Fungsi |
 | :--- | :--- |
 | [`data/sources.json`](../data/sources.json) | Registry sumber resmi (adapter, `baseUrl`, daftar `slug`, mapping `category`, aturan potong `stopBefore`, serta entri terkurasi manual & `[Sample]`). |
-| [`scripts/sync-sources.mjs`](../scripts/sync-sources.mjs) | Mesin ETL tunggal: mengambil data dari adapter, membersihkan HTML/noise, melacak status perubahan (`new` / `updated` / `unchanged`), menulis JSON terkurasi, dan membangun file SQL. |
-| [`data/curated/guides.json`](../data/curated/guides.json) | Snapshot data panduan bersih dalam format JSON terstruktur. |
+| [`scripts/sync-sources.mjs`](../scripts/sync-sources.mjs) | Mesin ETL tunggal: mengambil data dari adapter, membersihkan HTML/noise ke **Markdown terstruktur** (heading `##`/`###`, `**bold**`, nested list, `[Label](url)`), melacak status perubahan, menulis JSON terkurasi, dan membangun file SQL. |
+| [`data/curated/guides.json`](../data/curated/guides.json) | Snapshot data panduan bersih dalam format JSON terstruktur (`content` berupa Markdown). |
 | [`supabase/seed_ugm_vokasi_tri.sql`](../supabase/seed_ugm_vokasi_tri.sql) | Script SQL siap eksekusi untuk Supabase (`campuses`, `faculties`, `programs`, `guides`, dan `experiences` berlabel). |
+| [`src/lib/knowledge/format.ts`](../src/lib/knowledge/format.ts) & [`GuideContent`](../src/components/knowledge/guide-content.tsx) | Parser & komponen renderer Markdown UI (heading, nested `<ol>`/`<ul>`, `<strong>`, link eksternal aman `http(s)` saja, dan pembersih excerpt pada [`GuideListCard`](../src/components/knowledge/guide-list-card.tsx)). |
 
 ---
 
@@ -91,12 +92,19 @@ Untuk menambahkan sumber prodi lain (misal prodi dengan website WordPress serupa
 
 ---
 
-## 6. Aturan Kurasi, Privasi (UU PDP), & Integritas Data
+## 6. Standar Format Konten (Markdown) & Aturan Kurasi (UU PDP)
 
-1. **Selektif (*Quality over Quantity*)**: Hanya masukkan dokumen yang benar-benar membantu adaptasi/administrasi mahasiswa (misal: kebijakan magang, keringanan UKT, yudisium, wisuda, himpunan/kompetisi, layanan lab). Jangan memasukkan halaman menu tombol kosong atau berita kegiatan yang tidak bersifat panduan.
-2. **Wajib Atribusi Sumber**: Setiap panduan resmi harus menyimpan `source_type = 'official_campus_source'`, `source_reference`, dan `source_url` valid (`http://` / `https://`) menuju halaman sumber aslinya.
-3. **Kepatuhan Tenant Scope (`chk_guide_scope`)**:
+1. **Format Konten (`guides.content_raw` = Markdown Terstruktur)**:
+   - Jangan pernah menyimpan HTML mentah dari website kampus (berisiko XSS dan merusak tata letak CSS) maupun teks polos tanpa struktur.
+   - `scripts/sync-sources.mjs` menserialisasi isi web ke **Markdown ringkas**:
+     - Subjudul utama `##` dan subbagian `###` (heading pembuka yang hanya mengulang judul panduan dibuang otomatis).
+     - Penekanan penting memakai `**bold**`, dan nested list memakai `1.`, `a.`, serta indentasi 2 spasi (`  - `) untuk sub-poin.
+     - Tautan dokumen/formulir ditulis sebagai `[Label Dokumen](https://...)` agar URL panjang tidak mengganggu keterbacaan.
+   - Di frontend, halaman detail [`knowledge/[id]`](../src/app/%28dashboard%29/knowledge/%5Bid%5D/page.tsx) me-render Markdown lewat `<GuideContent />` (lebar penuh kartu, validasi URL `http:`/`https:` via `safeHttpUrl()`), dan kartu ringkasan memakai `stripMarkdownForExcerpt()`.
+2. **Selektif (*Quality over Quantity*)**: Hanya masukkan dokumen atau direktori layanan yang membantu adaptasi/administrasi mahasiswa (misal: kebijakan magang, keringanan UKT, yudisium, wisuda, himpunan/kompetisi, direktori layanan lab). Jangan memasukkan berita kegiatan seremonial lepas atau halaman kosong tanpa informasi/tautan bermanfaat.
+3. **Wajib Atribusi Sumber**: Setiap panduan resmi harus menyimpan `source_type = 'official_campus_source'`, `source_reference`, dan `source_url` valid (`http://` / `https://`) menuju halaman sumber aslinya.
+4. **Kepatuhan Tenant Scope (`chk_guide_scope`)**:
    - Panduan umum lintas jurusan (`is_general = true`) **wajib** memiliki `campus_id = NULL` sesuai constraint `chk_guide_scope` pada [`docs/TECH_AND_DATABASE.md`](TECH_AND_DATABASE.md).
    - Panduan spesifik jurusan (`is_general = false`) **wajib** mengisi `campus_id` dan `program_id`.
-4. **Sanitasi Data Pribadi (UU PDP)**: Engine otomatis menyensor pola email dan nomor telepon pribadi dari konten hasil ekstraksi (`[official campus email]`, `[official contact]`), dan melarang pengumpulan NIM/nama lengkap asli mahasiswa.
-5. **Transparansi Data Sintetis**: Entri yang bukan berasal dari dokumen resmi atau wawancara terverifikasi (misal contoh perbandingan prodi lain atau contoh awal *senior experiences*) **wajib** diberi penanda eksplisit (`[Sample]` / `[Synthetic Demo]`).
+5. **Sanitasi Data Pribadi (UU PDP)**: Engine otomatis menyensor pola email dan nomor telepon pribadi (`[official campus email]`, `[official contact]`), memblokir link WhatsApp pribadi (`wa.me`), dan melarang pengumpulan NIM/nama lengkap asli mahasiswa.
+6. **Transparansi Data Sintetis**: Entri yang bukan berasal dari dokumen resmi atau wawancara terverifikasi (misal contoh perbandingan prodi lain atau contoh awal *senior experiences*) **wajib** diberi penanda eksplisit (`[Sample]` / `[Synthetic Demo]`).
