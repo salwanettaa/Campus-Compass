@@ -35,7 +35,7 @@ function Message({ message }: { message: SampleMessage }) {
 /** Static layout preview of the chat and its source cards. Nothing here is interactive. */
 export function SampleChat() {
   return (
-    <div className="grid gap-10 xl:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
       <section aria-labelledby="chat-heading" className="flex flex-col gap-5">
         <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-brand-300 pb-3">
           <h2 id="chat-heading" className="text-h2 text-brand-950">
@@ -53,7 +53,10 @@ export function SampleChat() {
         </ol>
       </section>
 
-      <section aria-labelledby="sources-heading" className="flex flex-col gap-3">
+      <section
+        aria-labelledby="sources-heading"
+        className="flex flex-col gap-3 lg:sticky lg:top-6 lg:border-l lg:border-brand-300 lg:pl-6"
+      >
         <h2 id="sources-heading" className="text-h2 border-b border-brand-300 pb-3 text-brand-950">
           Sources
         </h2>

@@ -46,7 +46,7 @@ export default async function PostPage({
   const { post, viewerHelpful } = result.data.post;
 
   return (
-    <main className="flex max-w-4xl flex-col gap-6">
+    <main className="flex w-full flex-col gap-6">
       <Link
         href="/community"
         className="text-h5 inline-flex w-fit items-center gap-2 rounded-md text-brand-800 hover:underline focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"

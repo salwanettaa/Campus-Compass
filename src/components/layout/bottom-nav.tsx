@@ -7,7 +7,7 @@ import { LogOut, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { NAV_ITEMS, isActive } from "./nav-items";
 
-const MORE_LABELS = new Set(["My Journey", "AI Navigator"]);
+const MORE_LABELS = new Set(["AI Navigator"]);
 
 const itemClass = (active: boolean) =>
   cn(

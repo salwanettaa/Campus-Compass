@@ -34,7 +34,7 @@ export default async function CommunityPage({
   const isFiltered = params.type !== null || params.sort === "unanswered";
 
   return (
-    <main className="flex max-w-5xl flex-col gap-6">
+    <main className="flex w-full flex-col gap-6">
       <PageHeader
         title="Community"
         description="Questions, lived experience, and practical answers from students."
@@ -44,8 +44,8 @@ export default async function CommunityPage({
         You are viewing sample posts. Live community content is coming soon.
       </Alert>
 
-      <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_15rem] xl:items-start xl:gap-10">
-        <div className="xl:order-2 xl:sticky xl:top-6">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start lg:gap-10">
+        <div className="lg:order-2 lg:sticky lg:top-6 lg:border-l lg:border-brand-300 lg:pl-6">
           <Suspense fallback={<div className="h-24" aria-hidden="true" />}>
             <PostFilter />
           </Suspense>
