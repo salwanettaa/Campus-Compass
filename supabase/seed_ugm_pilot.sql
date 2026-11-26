@@ -1,5 +1,5 @@
 -- =============================================================================
--- SEED DATA PILOT UGM & SEKOLAH VOKASI D4 TEKNOLOGI REKAYASA INTERNET (TRI)
+-- SEED DATA PILOT UGM (GENERAL & SEKOLAH VOKASI D4 TRI)
 -- Generated automatically by scripts/sync-sources.mjs from data/curated/guides.json
 -- Jalankan di Supabase SQL Editor SETELAH schema v2 di docs/TECH_AND_DATABASE.md
 -- dan patches 01 & 02. Aman dijalankan berulang kali (idempotent).

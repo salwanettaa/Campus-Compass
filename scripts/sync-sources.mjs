@@ -2,9 +2,9 @@
  * Config-Driven Data Seeding Engine (Extract -> Curate JSON -> Generate SQL).
  *
  * Reads `data/sources.json`, runs registered adapters (currently `wordpress-rest`
- * for UGM D4 TRI, extensible to other programs/campuses via config only),
+ * for UGM General & D4 TRI, extensible to other programs/campuses via config only),
  * writes sanitized output to `data/curated/guides.json`, and generates the
- * idempotent Supabase SQL seed at `supabase/seed_ugm_vokasi_tri.sql`.
+ * idempotent Supabase SQL seed at `supabase/seed_ugm_pilot.sql`.
  *
  * Usage:
  *   node scripts/sync-sources.mjs --inspect      # Preview extracted output without writing files
@@ -17,7 +17,7 @@ import { dirname, resolve } from "node:path";
 
 const SOURCES_PATH = resolve(process.cwd(), "data/sources.json");
 const CURATED_PATH = resolve(process.cwd(), "data/curated/guides.json");
-const SQL_OUT_PATH = resolve(process.cwd(), "supabase/seed_ugm_vokasi_tri.sql");
+const SQL_OUT_PATH = resolve(process.cwd(), "supabase/seed_ugm_pilot.sql");
 
 function decodeEntities(text) {
   return text
@@ -367,7 +367,7 @@ function buildSqlSeed(guides) {
     .join(",\n");
 
   return `-- =============================================================================
--- SEED DATA PILOT UGM & SEKOLAH VOKASI D4 TEKNOLOGI REKAYASA INTERNET (TRI)
+-- SEED DATA PILOT UGM (GENERAL & SEKOLAH VOKASI D4 TRI)
 -- Generated automatically by scripts/sync-sources.mjs from data/curated/guides.json
 -- Jalankan di Supabase SQL Editor SETELAH schema v2 di docs/TECH_AND_DATABASE.md
 -- dan patches 01 & 02. Aman dijalankan berulang kali (idempotent).

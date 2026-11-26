@@ -10,10 +10,10 @@ Dokumen ini menjelaskan standar teknis dan aturan kurasi **Data Seeding** pada C
 
 ## 1. Arsitektur: *Config-Driven ETL + Idempotent Seeding*
 
-Alih-alih membuat satu script terpisah untuk setiap jurusan atau kampus, repositori ini memisahkan **konfigurasi sumber (`data/sources.json`)**, **satu mesin universal (`scripts/sync-sources.mjs`)**, **dataset terkurasi (`data/curated/guides.json`)**, dan **output SQL (`supabase/seed_ugm_vokasi_tri.sql`)**:
+Alih-alih membuat satu script terpisah untuk setiap jurusan atau kampus, repositori ini memisahkan **konfigurasi sumber (`data/sources.json`)**, **satu mesin universal (`scripts/sync-sources.mjs`)**, **dataset terkurasi (`data/curated/guides.json`)**, dan **output SQL (`supabase/seed_ugm_pilot.sql`)**:
 
 ```text
-  Public Official Web (tri.sv.ugm.ac.id/wp-json/wp/v2)
+  Public Official Web (tri.sv.ugm.ac.id, ditmawa.ugm.ac.id, akademik.ugm.ac.id)
                          │
                          ▼  [1. Config] data/sources.json
   Universal Engine: scripts/sync-sources.mjs
@@ -24,7 +24,7 @@ Alih-alih membuat satu script terpisah untuk setiap jurusan atau kampus, reposit
                          ▼  [2. Transform] data/curated/guides.json
   Human-Readable Curated JSON (Markdown terstruktur, mudah di-review PR)
                          │
-                         ▼  [3. Load] supabase/seed_ugm_vokasi_tri.sql
+                         ▼  [3. Load] supabase/seed_ugm_pilot.sql
   Supabase PostgreSQL (ON CONFLICT DO UPDATE / Idempotent)
                          │
                          ├─▶ [UI Renderer] GuideContent + stripMarkdownForExcerpt()
@@ -45,7 +45,7 @@ Alih-alih membuat satu script terpisah untuk setiap jurusan atau kampus, reposit
 | [`data/sources.json`](../data/sources.json) | Registry sumber resmi (adapter, `baseUrl`, daftar `slug`, mapping `category`, aturan potong `stopBefore`, serta entri terkurasi manual & `[Sample]`). |
 | [`scripts/sync-sources.mjs`](../scripts/sync-sources.mjs) | Mesin ETL tunggal: mengambil data dari adapter, membersihkan HTML/noise ke **Markdown terstruktur** (heading `##`/`###`, `**bold**`, nested list, `[Label](url)`), melacak status perubahan, menulis JSON terkurasi, dan membangun file SQL. |
 | [`data/curated/guides.json`](../data/curated/guides.json) | Snapshot data panduan bersih dalam format JSON terstruktur (`content` berupa Markdown). |
-| [`supabase/seed_ugm_vokasi_tri.sql`](../supabase/seed_ugm_vokasi_tri.sql) | Script SQL siap eksekusi untuk Supabase (`campuses`, `faculties`, `programs`, `guides`, dan `experiences` berlabel). |
+| [`supabase/seed_ugm_pilot.sql`](../supabase/seed_ugm_pilot.sql) | Script SQL siap eksekusi untuk Supabase (`campuses`, `faculties`, `programs`, `guides`, dan `experiences` berlabel). |
 | [`src/lib/knowledge/format.ts`](../src/lib/knowledge/format.ts) & [`GuideContent`](../src/components/knowledge/guide-content.tsx) | Parser & komponen renderer Markdown UI (heading, nested `<ol>`/`<ul>`, `<strong>`, link eksternal aman `http(s)` saja, dan pembersih excerpt pada [`GuideListCard`](../src/components/knowledge/guide-list-card.tsx)). |
 
 ---
@@ -65,7 +65,7 @@ node scripts/sync-sources.mjs
 node scripts/sync-sources.mjs --from-curated
 ```
 
-Setelah [`supabase/seed_ugm_vokasi_tri.sql`](../supabase/seed_ugm_vokasi_tri.sql) ter-update, jalankan isinya di **Supabase SQL Editor** (setelah Schema V2 serta Patch `01` dan `02` terpasang).
+Setelah [`supabase/seed_ugm_pilot.sql`](../supabase/seed_ugm_pilot.sql) ter-update, jalankan isinya di **Supabase SQL Editor** (setelah Schema V2 serta Patch `01` dan `02` terpasang).
 
 ---
 
