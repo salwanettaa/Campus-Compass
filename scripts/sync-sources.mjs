@@ -72,7 +72,9 @@ function formatNestedLists(html) {
 }
 
 function formatInlineMarkdown(html) {
+  // Merge adjacent bold tags (`<b>A</b> <b>B</b>` -> `<b>A B</b>`) before Markdown conversion.
   let text = html
+    .replace(/<\/(strong|b)>\s*<\1\b[^>]*>/gi, " ")
     // Remove Google Docs gview "View" links so direct Download links stay clean.
     .replace(/<a\b[^>]*docs\.google\.com\/gview[^>]*>[\s\S]*?<\/a>/gi, "");
 
@@ -147,10 +149,10 @@ function cleanHtml(html, { maxChars = 3600, stopBefore = [] } = {}) {
   // Keep label:<br>value on a single readable line before block conversion.
   prepared = prepared.replace(/:\s*<br\s*\/?>\s*/gi, ": ");
 
-  // Unwrap `<p>` tags nested directly inside `<li>` and keep `<br>` inside `<li>` inline so ordered lists stay intact.
+  // Unwrap `<p>` inside `<li>`/`<td>`/`<th>` so bullets and table rows stay on one line.
   prepared = prepared
-    .replace(/(<li\b[^>]*>)\s*<p\b[^>]*>/gi, "$1")
-    .replace(/<\/p>\s*(<\/li>)/gi, "$1")
+    .replace(/(<(?:li|td|th)\b[^>]*>)\s*<p\b[^>]*>/gi, "$1")
+    .replace(/<\/p>\s*(<\/(?:li|td|th)>)/gi, "$1")
     .replace(/<li\b([^>]*)>([\s\S]*?)<\/li>/gi, (full, attrs, inner) =>
       `<li${attrs}>${inner.replace(/<br\s*\/?>/gi, " ")}</li>`,
     );
@@ -174,10 +176,19 @@ function cleanHtml(html, { maxChars = 3600, stopBefore = [] } = {}) {
   prepared = formatInlineMarkdown(prepared);
   prepared = formatNestedLists(prepared);
 
+  // Remove table header rows and format data rows (`<tr>...</tr>`) as clean list items.
+  prepared = prepared
+    .replace(/<thead\b[^>]*>[\s\S]*?<\/thead>/gi, "")
+    .replace(/<tr\b[^>]*>\s*<td\b[^>]*>\s*\d+\s*<\/td>/gi, "\n- ")
+    .replace(/<tr\b[^>]*>/gi, "\n- ")
+    .replace(/<\/td>\s*<td\b[^>]*>/gi, " — ")
+    .replace(/<\/(td|th)>/gi, " ")
+    .replace(/<\/tr>/gi, "\n");
+
   const structured = prepared
     .replace(/<p\b[^>]*>/gi, "\n")
     .replace(/<\/p>/gi, "\n")
-    .replace(/<\/(div|tr|section|article|blockquote)>/gi, "\n")
+    .replace(/<\/(div|section|article|blockquote)>/gi, "\n")
     .replace(/<br\s*\/?>/gi, "\n")
     .replace(/<[^>]+>/g, " ");
 
@@ -201,8 +212,8 @@ function cleanHtml(html, { maxChars = 3600, stopBefore = [] } = {}) {
       /^([^\n#*\-[]+?)\n+\[Download\]\(([^)]+)\)$/gm,
       "- [$1]($2)",
     )
-    // Ensure exactly one space follows every list marker (e.g. "- ", "1. ", "a. ").
-    .replace(/\n([ ]*(?:-|(?:\d+|[a-zA-Z])\.))[ \t]*/g, "\n$1 ")
+    // Ensure exactly one space follows real list markers (avoid mangling decimals like 0.00).
+    .replace(/\n([ ]*(?:-|(?:\d+|[a-zA-Z])\.)(?=[ \t]))[ \t]*/g, "\n$1 ")
     .replace(/\n+(?=[ ]*(?:-|(?:\d+|[a-zA-Z])\.) )/g, "\n")
     .replace(/\n[ \t]*[-•]\s*(?=\n|$)/g, "")
     .replace(
@@ -211,6 +222,8 @@ function cleanHtml(html, { maxChars = 3600, stopBefore = [] } = {}) {
     )
     .replace(/\s+([,;:])/g, "$1")
     .replace(/\s+\.(?=\s|$)/g, ".")
+    .replace(/[ \t]+—$/gm, "")
+    .replace(/\*\*[ \t]*([^*\n]+?)[ \t]*\*\*/g, "**$1**")
     .replace(/\*\*([^*\n]+?)\*\*([(\[A-Za-z0-9])/g, "**$1** $2")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
@@ -222,8 +235,21 @@ function cleanHtml(html, { maxChars = 3600, stopBefore = [] } = {}) {
     }
   }
 
-  // Clean up redundant page heading that repeats the guide title right before section 1.
-  text = text.replace(/^## Persyaratan Yudisium Prodi TRI\n+/, "");
+  // Clean up redundant page headings that repeat the guide title.
+  text = text
+    .replace(/^## Persyaratan Yudisium Prodi TRI\n+/, "")
+    .replace(/^## Fasilitas Penunjang Kegiatan Kemahasiswaan\n+/, "");
+
+  // Collapse duplicate consecutive non-empty headings/labels (e.g. `## Stadion Pancasila` + `**Stadion Pancasila**`).
+  const dedupedLines = [];
+  let prevNonEmptyNorm = "";
+  for (const line of text.split("\n")) {
+    const normCur = line.replace(/^#{2,3}\s+/, "").replace(/\*\*/g, "").trim().toLowerCase();
+    if (normCur && normCur === prevNonEmptyNorm) continue;
+    dedupedLines.push(line);
+    if (normCur) prevNonEmptyNorm = normCur;
+  }
+  text = dedupedLines.join("\n").replace(/\n{3,}/g, "\n\n").trim();
 
   // Clean up any dangling empty list marker or empty heading caused by stopBefore truncation.
   text = text
@@ -286,11 +312,12 @@ const ADAPTERS = {
           ? "updated"
           : "unchanged";
 
+      const isGeneral = Boolean(sourceConfig.isGeneral);
       results.push({
         id: entry.id,
         adapterId: sourceConfig.id,
-        programCode: sourceConfig.programCode,
-        isGeneral: false,
+        programCode: isGeneral ? null : sourceConfig.programCode,
+        isGeneral,
         title,
         category: entry.category,
         content,
@@ -509,7 +536,7 @@ async function main() {
     sourceType: entry.sourceType,
     sourceReference: entry.sourceReference,
     sourceUrl: entry.sourceUrl,
-    lastVerifiedAt: null,
+    lastVerifiedAt: entry.lastVerifiedAt ?? null,
     syncStatus: "manual",
   }));
 

@@ -310,6 +310,148 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
         true, '2026-09-17T02:41:32Z'::timestamptz
     ),
     (
+        '42000000-0000-4000-8000-000000000011',
+        NULL, NULL,
+        'Fasilitas Penunjang Mahasiswa UGM: Olahraga, Asrama, Trans Gadjah Mada & Parkir',
+        'campus_essentials', true,
+        '## Stadion Pancasila
+
+Stadion ini terletak di kawasan lembah UGM dan digunakan untuk kegiatan sepak bola, atletik, hoki, serta kegiatan-kegiatan lain yang diizinkan Rektor UGM.
+
+## Lapangan Tenis
+
+Lapangan ini berlokasi di lembah UGM dan digunakan oleh Unit Tenis UGM, mahasiswa, dan sivitas akademika UGM lainnya.
+
+## GOR Pancasila
+
+GOR Pancasila terdiri dari hall, tribun penonton, Sekretariat Manajemen GOR, ruang ganti, loket tiket dan ruang VIP. Hall dapat digunakan untuk kegiatan oleharaga Bola Basket, Bola Voli, Bulutangkis, dan Futsal.
+
+## Lapangan Softball/Baseball
+
+**Lapangan Soft Ball/Base Ball**,
+
+Lapangan khusus untuk soft ball/base ball yang tersedia dapat pula digunakan oleh pihak eksternal setelah memperoleh izin dari Rektor/Direktur Kemahasiswaan.
+
+## Asrama Mahasiswa
+
+UGM menyediakan fasilitas asrama sebagai tempat tinggal sekaligus wahana interaksi lintas kultural. Universitas Gadjah Mada Residence adalah fasilitas hunian yang disediakan untuk mahasiswa, dosen, peserta pelatihan, tamu fakultas, program Studi, lembaga maupun pusat studi di lingkungan UGM.
+
+Lokasi asrama mahasiswa
+- **Asrama Putra Darma Putra** Jl. Andong, Baciro (3 km dari kampus) – 3 lantai, 96 kamar
+- **Asrama Putra Cemaralima** Karanggayam, Depok, Sleman (1 km dari kampus) – 4 lantai, 48 kamar
+- **Asrama Putri Ratnaningsih** Jl. Kartini, Sagan, Yogyakarta (500 m dari kampus) – 2 lantai, 30 kamar
+- **Bulaksumur Residence** Sisi timur UGM (dekat Fakultas Peternakan) – 4 lantai, 168 kamar
+
+## Sarana Transportasi Lokal UGM
+
+**Transportasi lokal UGM**
+
+Sebagai implementasi gerakan UGM Green Campus maka Universitas menghadirkan Green Transportation berupa layanan Trans Gadjah Mada, yaitu layanan bus listrik yang merupakan salah satu moda transportasi ramah lingkungan yang beroperasi di dalam kampus.
+Moda transportasi tersebut dimaksudkan untuk mempermudah mobilitas sivitas UGM di lingkungan kampus.
+
+Sarana-prasarana transportasi di dalam kampus ditata dengan mempertimbangkan berbagai aspek, yakni keselamatan, kenyamanan, terciptanya udara bersih, dan keterhubungan antar berbagai bagian kampus. Untuk itu, prioritas diberikan berbeda pada berbagai jenis moda transportasi ramah lingkungan seperti sepeda kampus, mobil listrik dan bus listrik Trans Gadjah Mada.
+
+[Rute dan Estimasi Waktu Trans Gadjah Mada](https://dppa.ugm.ac.id/bus-listrik-trans-gajah-mada-sebagai-alternatif-transportasi-masal-yang-ramah-lingkungan/)
+
+Layanan Sepeda Kampus disediakan bagi mahasiswa, dosen dan tenaga kependidikan serta tamu Universitas Gadjah Mada. Sepeda Kampus beroperasi di dalam area kampus UGM dan melayani pergerakan antar stasiun. Untuk meminjam Sepeda Kampus, silakan datangi stasiun sepeda terdekat, tunjukkan single ID Card anda (KTM bagi Mahasiswa, Kartu Pegawai bagi Dosen dan Tenaga Kependidikan), petugas akan meng-input data peminjam dalam Sistem Informasi Sepeda Kampus setelah itu Sepeda Kampus langsung bisa digunakan.
+
+## Kantong Parkir UGM
+
+Pengelolaan parkir dilingkungan Universitas Gadjah Mada dilakukan dalam upaya mengatur parkir bagi komuter civitas akademika UGM mendukung program **kampus educopolis**
+
+UGM menyediakan kantong parkir kendaraan di setiap fakultas dan unit kerja, serta kantong parkir yang bersifat umum. Guna menjaga keamanan dan ketertiban lingkungan Kampus UGM, Sivitas akademika dilarang untuk meninggalkan kendaraan bermotor secara sengaja di lingkungan kampus.
+
+## Perpustakaan Pusat UGM
+
+Perpustakaan merupakan unit kerja yang membantu pelaksanaan Tri Dharma lembaga induknya melalui penyediaan sumberdaya informasi, fasilitas fisik penunjang kegiatan pendidikan dan pembelajaran, serta lay anan lain yang mendorong peningkatan literasi informasi, softskills, kinerja dan visibilitas sivitas akademika Universitas Gadjah Mada maupun pembelajaran sepanjang hayat.
+
+[Fasilitas Perpustakaan Pusat UGM](https://lib.ugm.ac.id/)',
+        'official_campus_source', 'Direktorat Kemahasiswaan UGM (Ditmawa) — Fasilitas Penunjang Mahasiswa UGM: Olahraga, Asrama, Trans Gadjah Mada & Parkir', 'https://ditmawa.ugm.ac.id/fasilitas-kemahasiswaan/',
+        true, '2023-01-17T05:23:10Z'::timestamptz
+    ),
+    (
+        '42000000-0000-4000-8000-000000000012',
+        NULL, NULL,
+        'Direktori Layanan & Pedoman Kemahasiswaan Ditmawa UGM (Pendanaan, PKM, Wirausaha & Difabel)',
+        'scholarship_growth', true,
+        'UGM melalui Direktorat Kemahasiswaan menyediakan layanan esensial terkait kebutuhan mahasiswa dalam melaksanakan kegiatan belajar mengajar baik intra dan extra-kurikuler. Layanan ini termasuk: bantuan dana untuk kegiatan kemahasiswaan, fasilitas gelanggang mahasiswa, pemilihan mahasiswa berprestasi, beasiswa, wirausaha, serta program kreativitas/pekan ilmiah mahasiswa nasional.
+
+UGM juga memberikan layanan terkait kebutuhan individu/keluarga seperti layanan: Kesehatan jiwa dan mental, advokasi hukum, dan layanan penitipan anak bagi mahasiswa yang berstatus sebagai Ibu.
+
+Untuk membantu memperlancar mahasiswa difable dalam melakukan kegiatan belajar mengajar di lingkungan kampus, dan extra-kurikuler melalui kegiatan UKM, UGM juga menyediakan beberapa layanan terkait. Informasi mengenai layanan tersebut dapat di akses pada berkas Layanan Fasilitas Difabel (no. 10 dan no. 11).
+- [PEDOMAN PROGRAM BANTUAN DANA UNTUK KEGIATAN KEMAHASISWAAN](http://ditmawa.ugm.ac.id/prosedur-layanan/pedoman-program-bantuan-dana-untuk-kegiatan-kemahasiswaan/)
+- [PEDOMAN PELAYANAN FASILITAS GELANGGANG MAHASISWA](http://ditmawa.ugm.ac.id/prosedur-layanan/pedoman-pelayanan-fasilitas-gelanggang-mahasiswa/)
+- [PEDOMAN PEMILIHAN MAHASISWA BERPRESTASI](http://ditmawa.ugm.ac.id/prosedur-layanan/pedoman-pemilihan-mahasiswa-berprestasi/)
+- [PEDOMAN PELAYANAN BEASISWA](http://ditmawa.ugm.ac.id/prosedur-layanan/pedoman-pelayanan-beasiswa/)
+- [PEDOMAN PROGRAM MAHASISWA WIRAUSAHA](http://ditmawa.ugm.ac.id/prosedur-layanan/pedoman-program-mahasiswa-wirausaha/)
+- [PEDOMAN PROGRAM KREATIVITAS MAHASISWA/ PEKAN ILMIAH MAHASISWA NASIONAL](http://ditmawa.ugm.ac.id/prosedur-layanan/pedoman-program-kreativitas-mahasiswa-pekan-ilmiah-mahasiswa-nasional/)
+- [LAYANAN KESEHATAN DAN BIMBINGAN KONSELING](http://ditmawa.ugm.ac.id/prosedur-layanan/layanan-kesehatan-dan-bimbingan-konseling-mahasiswa/)
+- [LAYANAN ADVOKASI HUKUM KEPADA MAHASISWA](http://ditmawa.ugm.ac.id/prosedur-layanan/layanan-advokasi-hukum-kepada-mahasiswa/)
+- [LAYANAN PENITIPAN ANAK BAGI MAHASISWA BERSTATUS IBU](http://ditmawa.ugm.ac.id/prosedur-layanan/layanan-penitipan-anak-bagi-mahasiswa-berstatus-ibu/)
+- [LAYANAN FASILITAS DIFABEL](https://ukm.ugm.ac.id/khusus/peduli-difabel/)
+- [Buku Saku Lingkungan Sehat & Difabel Friendly Untuk New Normal](https://hpu.ugm.ac.id/2020/12/03/buku-saku-lingkungan-sehat-difabel-friendly-untuk-new-normal/)',
+        'official_campus_source', 'Direktorat Kemahasiswaan UGM (Ditmawa) — Direktori Layanan & Pedoman Kemahasiswaan Ditmawa UGM (Pendanaan, PKM, Wirausaha & Difabel)', 'https://ditmawa.ugm.ac.id/prosedur-layanan/',
+        true, '2021-11-09T03:45:26Z'::timestamptz
+    ),
+    (
+        '42000000-0000-4000-8000-000000000021',
+        NULL, NULL,
+        'Aturan Akademik Umum UGM: Registrasi, Herregistrasi, KRS & Cuti Akademik',
+        'administrative_guide', true,
+        '### Pendaftaran/registrasi mahasiswa
+
+Setiap semester akademik, mahasiswa wajib melaksanakan dua jenis registrasi, yaitu:
+  a. **Registrasi administrasi,** yaitu melunasi kewajiban pembayaran biaya pendidikan melalui Bank yang telah ditunjuk oleh UGM. Mahasiswa kemudian memperoleh status terdaftar dengan pengesahan (pemberian tanda terdaftar) pada Kartu Mahasiswa atau Gamacard oleh petugas registrasi.
+  b. **Registrasi akademik,** yaitu mencatatkan diri di fakultas masing-masing (dengan menunjukkan bukti pembayaran dari Bank tadi) untuk dapat mengikuti kegiatan akademik semester yang bersangkutan.
+
+Bagi mahasiswa yang tidak melakukan pendaftaran ulang atau cuti akademik, status kemahasiswaannya pada semester yang bersangkutan menjadi batal dan tidak diperkenankan mengikuti kegiatan akademik serta menggunakan fasilitas yang tersedia.
+
+### Cuti akademik dan herregistrasi setelah cuti akademik
+  a. **Cuti akademik**
+    1. Cuti akademik hanya diperbolehkan apabila mahasiswa sudah memiliki izin tertulis dari dekan atau rektor.
+    2. Cuti akademik lebih dari 2 tahun, baik berturut-turut maupun tidak, harus mengajukan surat permohonan cuti akademik kepada rektor dengan tembusan dekan.
+    3. Masa cuti akademik tidak diperhitungkan sebagai masa aktif dalam kaitannya dengan batas waktu studi.
+    4. Selama masa cuti akademik mahasiswa tidak perlu membayar SPP.
+    5. Mahasiswa tidak diperkenankan mengambil cuti akademik sebelum evaluasi empat semester pertama. Apabila ada alasan tertentu (misal: hamil/melahirkan, sakit dan harus dirawat di rumah sakit) dan hal tersebut mendapatkan persetujuan rektor dapat diberi izin cuti akademik, namun masa cutinya tetap akan diperhitungkan sebagai masa studi aktif dan dipakai sebagai dasar perhitungan dalam evaluasi.
+  b. **Herregistrasi setelah cuti akademik**
+Mahasiswa yang ingin aktif kuliah kembali setelah menjalani cuti akademik harus melaksanakan tahapan-tahapan sbb.:
+    1. Mengajukan surat permohon aktif kuliah kepada dekan (bagi yang sebelumnya mendapat izin cuti dari dekan) atau kepada rektor (bagi yang sebelumnya mendapat izin cuti dari rektor). Surat permohonan ini harus sudah diajukan paling lambat 1 bulan sebelum kegiatan semester bersangkutan berjalan.
+    2. Melakukan herregistrasi dengan menunjukkan surat izin aktif kuliah dan Kartu Mahasiswa di Kantor Registrasi UGM dan melakukan pembayaran SPP/BOP.
+
+### Kartu Rencana Studi
+
+Pada saat memasuki semester baru, setiap mahasiswa harus menentukan program belajarnya untuk semester yang akan berjalan. Matakuliah yang akan ditempuh harus didaftarkan di Seksi Akademik dan Kemahasiswaan Fakultas dengan cara mengisikan Daftar Rencana Studi ke Sistem Informasi Akademik di masing-masing fakultas/jurusan. Rencana Studi tersebut juga harus mendapat persetujuan dari Dosen Pembimbing Akademik yang telah ditunjuk. Beban SKS yang hendak ditempuh harus berdasarkan perolehan IP pada semester sebelumnya dengan aturan sebagai berikut:
+
+**IP Semester** — ** Beban belajar**
+
+0.00 - 1,49 — 12 sks
+
+1,50 - 1,99 — 15 sks
+
+2,00 - 2,49 — 18 sks
+
+2,50 - 2,99 — 21 sks
+
+3,00 - 4,00 — 24 sks
+
+Apabila pada semester sebelumnya mahasiswa melaksanakan cuti akademik maka besarnya beban sks yang dapat ditempuh adalah beban minimal (12 sks).
+
+Bagi mahasiswa baru, jumlah beban belajar per-semester ditentukan oleh struktur kurikulum dan kebijakan masing-masing fakultas.
+
+### Perkuliahan
+
+Mahasiswa yang kehadirannya di kelas kurang dari 75% dari jadwal yang ditentukan tidak diperkenankan mengikuti ujian matakuliah yang bersangkutan.
+
+### Evaluasi Studi
+
+Evaluasi studi dilakukan dalam 3 tahap, yaitu:
+  a. **Evaluasi pertama** yang diterapkan setelah mahasiswa mengikuti pendidikan selama 4 semester pertama berturut-turut sejak diterima sebagai mahasiswa baru. Evaluasi dilakukan pada akhir semester 4. Pada evaluasi ini mahasiswa harus sudah mengumpulkan minimal 30 sks dengan IPK minimal 2,00. Apabila tidak memenuhi syarat tersebut, mahasiswa bersangkutan tidak diperkenankan lagi untuk melanjutkan studinya di UGM atau drop out.
+  b. **Evaluasi tahap kedua** yang diterapkan menjelang masa studi kesarjanaan terprogram akan berakhir sesuai dengan jangka waktu yan ditentukan oleh masing-masing program studi. Evaluasi tahap ini diterapkan kepada mahasiswa yang mempunyai masalah dengan pencapaian prestasi akademik yang jauh dari ketentuan yang berlaku.
+  c. **Evaluasi akhir** yang diberlakukan pada akhir batas masa studi yaitu pada semester ke-14 atau setelah 7 tahun masa studi.',
+        'official_campus_source', 'Direktorat Pendidikan dan Pengajaran UGM — Aturan Akademik Umum UGM: Registrasi, Herregistrasi, KRS & Cuti Akademik', 'https://akademik.ugm.ac.id/aturan-akademik/',
+        true, '2016-11-30T04:53:31Z'::timestamptz
+    ),
+    (
         '41000000-0000-4000-8000-000000000091',
         v_ugm, v_trpl,
         'Standar Version Control Git & CI/CD Praktikum TRPL SV UGM [Sample]',
@@ -330,28 +472,39 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
     (
         '42000000-0000-4000-8000-000000000001',
         NULL, NULL,
-        'Panduan Lengkap Simaster & Pengisian KRS Tiap Semester',
+        'Panduan Lengkap Simaster, Presensi QR & Aktivasi Email SSO UGM',
         'administrative_guide', true,
-        'KRS (Kartu Rencana Studi) wajib diisi seluruh mahasiswa UGM melalui portal [simaster.ugm.ac.id](https://simaster.ugm.ac.id).
+        'SIMASTER ([simaster.ugm.ac.id](https://simaster.ugm.ac.id)) adalah platform terintegrasi UGM untuk seluruh layanan akademik, presensi QR, KRS, jadwal ujian, hingga pengecekan status UKT.
 
-1. **Cek Status UKT:** Pastikan tagihan lunas atau mengantongi surat dispensasi.
-2. **Batas SKS:** Sesuaikan dengan IPK semester sebelumnya.
-3. **Persetujuan DPA:** Hubungi Dosen Pembimbing Akademik setelah submit KRS.',
-        'official_campus_source', 'Portal Akademik UGM (Simaster)', 'https://simaster.ugm.ac.id',
-        true, timezone('utc'::text, now())
+## Cara Masuk ke SIMASTER
+1. Buka portal [simaster.ugm.ac.id](https://simaster.ugm.ac.id) (tersedia versi **Simaster UGM Student vNEXT** dan **Parent vNEXT**).
+2. Login memakai username SSO (bagian depan email UGM sebelum `@mail.ugm.ac.id`) dan kata sandi SSO.
+3. Pastikan **Status UKT** lunas atau mengantongi surat dispensasi sebelum masa pengisian KRS, lalu hubungi DPA setelah submit KRS.
+
+## Dokumen Panduan Resmi (PIONIRPEDIA 2026)
+- [Panduan Aktivasi Email Universitas Gadjah Mada (PDF)](https://pionir.ugm.ac.id/2026/dokumen/Ketentuan/Panduan%20Aktivasi%20Email%20Universitas%20Gadjah%20Mada.pdf)
+- [Panduan Akses Simaster Universitas Gadjah Mada (PDF)](https://pionir.ugm.ac.id/2026/dokumen/Ketentuan/Panduan%20Akses%20Simaster%20Universitas%20Gadjah%20Mada.pdf)',
+        'official_campus_source', 'PIONIRPEDIA 2026 & Portal Akademik UGM (Simaster)', 'https://pionir.ugm.ac.id/2026/pionirpedia/',
+        true, '2026-07-25T08:00:00Z'::timestamptz
     ),
     (
         '42000000-0000-4000-8000-000000000002',
         NULL, NULL,
         'Layanan Kesehatan Mahasiswa di Gadjah Mada Medical Center (GMC)',
         'campus_essentials', true,
-        'Mahasiswa aktif UGM berhak mengakses layanan kesehatan primer di Gadjah Mada Medical Center ([gmc.ugm.ac.id](https://gmc.ugm.ac.id)), Jl. Colombo.
+        'Gadjah Mada Medical Center ([gmc.ugm.ac.id](https://gmc.ugm.ac.id)) adalah pusat layanan kesehatan primer resmi di bawah naungan UGM yang berlokasi di **Jalan SEKIP Blok L3, Sendowo, Sinduadi, Sleman**.
 
-1. **Layanan:** Dokter umum, gigi, konseling psikologi, dan farmasi.
-2. **Syarat:** Tunjukkan KTM fisik atau e-KTM Simaster aktif.
-3. **Rujukan:** Dokter GMC menerbitkan rujukan ke RSA UGM bila diperlukan.',
-        'official_campus_source', 'Gadjah Mada Medical Center (GMC) UGM', 'https://gmc.ugm.ac.id',
-        true, timezone('utc'::text, now())
+## Layanan & Jam Operasional
+- **Layanan:** Poli Umum, Poli Gigi, Konseling Psikologi, Fitness Center, serta armada ambulans darurat (dan rujukan ke RSA UGM bila diperlukan).
+- **Jam Operasional:** Senin–Jumat 07.30–19.30 WIB, Sabtu 08.00–18.00 WIB.
+
+## Alur Pendaftaran Poli Umum
+1. **Pasien Baru:** Datang ke loket pendaftaran, siapkan identitas kepesertaan (KTM / e-KTM Simaster), sampaikan keluhan, dan tunggu nomor antrean.
+2. **Pasien Lama:** Gunakan mesin anjungan mandiri, pilih kategori & masukkan identitas, pilih klinik umum, lalu konfirmasi persetujuan umum.
+
+- Info resmi & pembaruan: [Instagram @klinik_gmc](https://www.instagram.com/klinik_gmc/)',
+        'official_campus_source', 'PIONIRPEDIA 2026 — Gadjah Mada Medical Center (GMC) UGM', 'https://gmc.ugm.ac.id/',
+        true, '2026-07-25T08:00:00Z'::timestamptz
     ),
     (
         '42000000-0000-4000-8000-000000000003',
@@ -376,6 +529,43 @@ National Networking Competition (NETCOMP) 4.0 is a premier national event that e
 2. **Eduroam:** Autentikasi 802.1x EAP menggunakan email UGM lengkap dan kata sandi SSO.',
         'official_campus_source', 'DSSDI Universitas Gadjah Mada', 'https://dssdi.ugm.ac.id',
         true, timezone('utc'::text, now())
+    ),
+    (
+        '42000000-0000-4000-8000-000000000005',
+        NULL, NULL,
+        'Perpustakaan Pusat UGM: Cara Masuk QR Gate, Ruang Belajar & Jam Buka',
+        'campus_essentials', true,
+        'Perpustakaan Pusat UGM ([lib.ugm.ac.id](https://lib.ugm.ac.id/)) di kawasan Bulaksumur menyediakan ruang belajar mandiri/diskusi, koleksi cetak & digital, jurnal ilmiah, Wi-Fi, serta lebih dari 100 unit komputer.
+
+## Cara Masuk Menggunakan QR Code Gate
+1. Buka fitur **Presensi / Attendance** di Simaster / aplikasi kampus.
+2. Pindai QR Code pada **Gate IN** dengan layar HP menyala terang menghadap scanner.
+3. Gunakan QR Code yang sama saat keluar melalui **Gate OUT**.
+
+## Jam Operasional Layanan
+- **08.00–16.00 WIB:** Ruang Koleksi Langka, Koleksi Ilmu Sosial, dan Terbitan Berkala.
+- **08.00–20.00 WIB:** Ruang ETD, Ruang Sirkulasi, dan Ruang Belajar Mandiri Lantai 5.
+- **08.00–22.00 WIB:** Ruang WOW, Ruang Belajar Mandiri Lantai 1, Ruang Diskusi, TGCL, dan Information Desk.
+
+- Info layanan perpustakaan: [Instagram @perpustakaan_ugm](https://www.instagram.com/perpustakaan_ugm/)',
+        'official_campus_source', 'PIONIRPEDIA 2026 — Perpustakaan Pusat UGM', 'https://lib.ugm.ac.id/',
+        true, '2026-07-25T08:00:00Z'::timestamptz
+    ),
+    (
+        '42000000-0000-4000-8000-000000000006',
+        NULL, NULL,
+        'Organisasi Kemahasiswaan & Unit Kegiatan Mahasiswa (UKM) UGM',
+        'social_community', true,
+        'Unit Kegiatan Mahasiswa (UKM) di UGM berperan sebagai wadah pengembangan soft skills, minat, dan bakat yang terbagi dalam **4 Sekretariat Bersama (Sekber)**:
+
+- **Sekber Kerohanian:** Jama''ah Salahuddin, Kamadhis, KMHD, dan Unit Kerohanian Kristen (UKK).
+- **Sekber Kesenian:** GMCO (orkestra), Teater Gadjah Mada, Unit Seni Rupa (USER), Swagayugama, UKJGS, dan Unit Tari Bali.
+- **Sekber Olahraga:** Sepakbola & Futsal, Bulutangkis, Tenis Lapangan, Softball-Baseball, Merpati Putih, PSHT, Perisai Diri, dan Karate Inkai.
+- **Sekber Khusus:** MAPAGAMA (pecinta alam), Gama Cendekia (penalaran), UPII, Peduli Difabel, Pers Mahasiswa (Bulaksumur & Balairung), English Debating Society, MENWA, SEMA, dan KOPMA UGM.
+
+- Informasi orientasi & daftar direktori kampus lengkap: [PIONIRPEDIA 2026](https://pionir.ugm.ac.id/2026/pionirpedia/)',
+        'official_campus_source', 'PIONIRPEDIA 2026 — Organisasi Kemahasiswaan UGM', 'https://pionir.ugm.ac.id/2026/pionirpedia/',
+        true, '2026-07-25T08:00:00Z'::timestamptz
     )
     ON CONFLICT (id) DO UPDATE
     SET campus_id = EXCLUDED.campus_id,

@@ -74,6 +74,48 @@
           "maxChars": 3200
         }
       ]
+    },
+    {
+      "id": "ugm-ditmawa",
+      "adapter": "wordpress-rest",
+      "isGeneral": true,
+      "baseUrl": "https://ditmawa.ugm.ac.id/wp-json/wp/v2",
+      "sourceLabel": "Direktorat Kemahasiswaan UGM (Ditmawa)",
+      "entries": [
+        {
+          "id": "42000000-0000-4000-8000-000000000011",
+          "type": "pages",
+          "slug": "fasilitas-kemahasiswaan",
+          "category": "campus_essentials",
+          "titleOverride": "Fasilitas Penunjang Mahasiswa UGM: Olahraga, Asrama, Trans Gadjah Mada & Parkir",
+          "maxChars": 4800
+        },
+        {
+          "id": "42000000-0000-4000-8000-000000000012",
+          "type": "pages",
+          "slug": "prosedur-layanan",
+          "category": "scholarship_growth",
+          "titleOverride": "Direktori Layanan & Pedoman Kemahasiswaan Ditmawa UGM (Pendanaan, PKM, Wirausaha & Difabel)",
+          "maxChars": 3600
+        }
+      ]
+    },
+    {
+      "id": "ugm-akademik",
+      "adapter": "wordpress-rest",
+      "isGeneral": true,
+      "baseUrl": "https://akademik.ugm.ac.id/wp-json/wp/v2",
+      "sourceLabel": "Direktorat Pendidikan dan Pengajaran UGM",
+      "entries": [
+        {
+          "id": "42000000-0000-4000-8000-000000000021",
+          "type": "pages",
+          "slug": "aturan-akademik",
+          "category": "administrative_guide",
+          "titleOverride": "Aturan Akademik Umum UGM: Registrasi, Herregistrasi, KRS & Cuti Akademik",
+          "maxChars": 4800
+        }
+      ]
     }
   ],
   "curatedEntries": [
@@ -103,12 +145,13 @@
       "id": "42000000-0000-4000-8000-000000000001",
       "programCode": null,
       "isGeneral": true,
-      "title": "Panduan Lengkap Simaster & Pengisian KRS Tiap Semester",
+      "title": "Panduan Lengkap Simaster, Presensi QR & Aktivasi Email SSO UGM",
       "category": "administrative_guide",
-      "content": "KRS (Kartu Rencana Studi) wajib diisi seluruh mahasiswa UGM melalui portal [simaster.ugm.ac.id](https://simaster.ugm.ac.id).\n\n1. **Cek Status UKT:** Pastikan tagihan lunas atau mengantongi surat dispensasi.\n2. **Batas SKS:** Sesuaikan dengan IPK semester sebelumnya.\n3. **Persetujuan DPA:** Hubungi Dosen Pembimbing Akademik setelah submit KRS.",
+      "content": "SIMASTER ([simaster.ugm.ac.id](https://simaster.ugm.ac.id)) adalah platform terintegrasi UGM untuk seluruh layanan akademik, presensi QR, KRS, jadwal ujian, hingga pengecekan status UKT.\n\n## Cara Masuk ke SIMASTER\n1. Buka portal [simaster.ugm.ac.id](https://simaster.ugm.ac.id) (tersedia versi **Simaster UGM Student vNEXT** dan **Parent vNEXT**).\n2. Login memakai username SSO (bagian depan email UGM sebelum `@mail.ugm.ac.id`) dan kata sandi SSO.\n3. Pastikan **Status UKT** lunas atau mengantongi surat dispensasi sebelum masa pengisian KRS, lalu hubungi DPA setelah submit KRS.\n\n## Dokumen Panduan Resmi (PIONIRPEDIA 2026)\n- [Panduan Aktivasi Email Universitas Gadjah Mada (PDF)](https://pionir.ugm.ac.id/2026/dokumen/Ketentuan/Panduan%20Aktivasi%20Email%20Universitas%20Gadjah%20Mada.pdf)\n- [Panduan Akses Simaster Universitas Gadjah Mada (PDF)](https://pionir.ugm.ac.id/2026/dokumen/Ketentuan/Panduan%20Akses%20Simaster%20Universitas%20Gadjah%20Mada.pdf)",
       "sourceType": "official_campus_source",
-      "sourceReference": "Portal Akademik UGM (Simaster)",
-      "sourceUrl": "https://simaster.ugm.ac.id"
+      "sourceReference": "PIONIRPEDIA 2026 & Portal Akademik UGM (Simaster)",
+      "sourceUrl": "https://pionir.ugm.ac.id/2026/pionirpedia/",
+      "lastVerifiedAt": "2026-07-25T08:00:00Z"
     },
     {
       "id": "42000000-0000-4000-8000-000000000002",
@@ -116,10 +159,11 @@
       "isGeneral": true,
       "title": "Layanan Kesehatan Mahasiswa di Gadjah Mada Medical Center (GMC)",
       "category": "campus_essentials",
-      "content": "Mahasiswa aktif UGM berhak mengakses layanan kesehatan primer di Gadjah Mada Medical Center ([gmc.ugm.ac.id](https://gmc.ugm.ac.id)), Jl. Colombo.\n\n1. **Layanan:** Dokter umum, gigi, konseling psikologi, dan farmasi.\n2. **Syarat:** Tunjukkan KTM fisik atau e-KTM Simaster aktif.\n3. **Rujukan:** Dokter GMC menerbitkan rujukan ke RSA UGM bila diperlukan.",
+      "content": "Gadjah Mada Medical Center ([gmc.ugm.ac.id](https://gmc.ugm.ac.id)) adalah pusat layanan kesehatan primer resmi di bawah naungan UGM yang berlokasi di **Jalan SEKIP Blok L3, Sendowo, Sinduadi, Sleman**.\n\n## Layanan & Jam Operasional\n- **Layanan:** Poli Umum, Poli Gigi, Konseling Psikologi, Fitness Center, serta armada ambulans darurat (dan rujukan ke RSA UGM bila diperlukan).\n- **Jam Operasional:** Senin–Jumat 07.30–19.30 WIB, Sabtu 08.00–18.00 WIB.\n\n## Alur Pendaftaran Poli Umum\n1. **Pasien Baru:** Datang ke loket pendaftaran, siapkan identitas kepesertaan (KTM / e-KTM Simaster), sampaikan keluhan, dan tunggu nomor antrean.\n2. **Pasien Lama:** Gunakan mesin anjungan mandiri, pilih kategori & masukkan identitas, pilih klinik umum, lalu konfirmasi persetujuan umum.\n\n- Info resmi & pembaruan: [Instagram @klinik_gmc](https://www.instagram.com/klinik_gmc/)",
       "sourceType": "official_campus_source",
-      "sourceReference": "Gadjah Mada Medical Center (GMC) UGM",
-      "sourceUrl": "https://gmc.ugm.ac.id"
+      "sourceReference": "PIONIRPEDIA 2026 — Gadjah Mada Medical Center (GMC) UGM",
+      "sourceUrl": "https://gmc.ugm.ac.id/",
+      "lastVerifiedAt": "2026-07-25T08:00:00Z"
     },
     {
       "id": "42000000-0000-4000-8000-000000000003",
@@ -142,6 +186,30 @@
       "sourceType": "official_campus_source",
       "sourceReference": "DSSDI Universitas Gadjah Mada",
       "sourceUrl": "https://dssdi.ugm.ac.id"
+    },
+    {
+      "id": "42000000-0000-4000-8000-000000000005",
+      "programCode": null,
+      "isGeneral": true,
+      "title": "Perpustakaan Pusat UGM: Cara Masuk QR Gate, Ruang Belajar & Jam Buka",
+      "category": "campus_essentials",
+      "content": "Perpustakaan Pusat UGM ([lib.ugm.ac.id](https://lib.ugm.ac.id/)) di kawasan Bulaksumur menyediakan ruang belajar mandiri/diskusi, koleksi cetak & digital, jurnal ilmiah, Wi-Fi, serta lebih dari 100 unit komputer.\n\n## Cara Masuk Menggunakan QR Code Gate\n1. Buka fitur **Presensi / Attendance** di Simaster / aplikasi kampus.\n2. Pindai QR Code pada **Gate IN** dengan layar HP menyala terang menghadap scanner.\n3. Gunakan QR Code yang sama saat keluar melalui **Gate OUT**.\n\n## Jam Operasional Layanan\n- **08.00–16.00 WIB:** Ruang Koleksi Langka, Koleksi Ilmu Sosial, dan Terbitan Berkala.\n- **08.00–20.00 WIB:** Ruang ETD, Ruang Sirkulasi, dan Ruang Belajar Mandiri Lantai 5.\n- **08.00–22.00 WIB:** Ruang WOW, Ruang Belajar Mandiri Lantai 1, Ruang Diskusi, TGCL, dan Information Desk.\n\n- Info layanan perpustakaan: [Instagram @perpustakaan_ugm](https://www.instagram.com/perpustakaan_ugm/)",
+      "sourceType": "official_campus_source",
+      "sourceReference": "PIONIRPEDIA 2026 — Perpustakaan Pusat UGM",
+      "sourceUrl": "https://lib.ugm.ac.id/",
+      "lastVerifiedAt": "2026-07-25T08:00:00Z"
+    },
+    {
+      "id": "42000000-0000-4000-8000-000000000006",
+      "programCode": null,
+      "isGeneral": true,
+      "title": "Organisasi Kemahasiswaan & Unit Kegiatan Mahasiswa (UKM) UGM",
+      "category": "social_community",
+      "content": "Unit Kegiatan Mahasiswa (UKM) di UGM berperan sebagai wadah pengembangan soft skills, minat, dan bakat yang terbagi dalam **4 Sekretariat Bersama (Sekber)**:\n\n- **Sekber Kerohanian:** Jama'ah Salahuddin, Kamadhis, KMHD, dan Unit Kerohanian Kristen (UKK).\n- **Sekber Kesenian:** GMCO (orkestra), Teater Gadjah Mada, Unit Seni Rupa (USER), Swagayugama, UKJGS, dan Unit Tari Bali.\n- **Sekber Olahraga:** Sepakbola & Futsal, Bulutangkis, Tenis Lapangan, Softball-Baseball, Merpati Putih, PSHT, Perisai Diri, dan Karate Inkai.\n- **Sekber Khusus:** MAPAGAMA (pecinta alam), Gama Cendekia (penalaran), UPII, Peduli Difabel, Pers Mahasiswa (Bulaksumur & Balairung), English Debating Society, MENWA, SEMA, dan KOPMA UGM.\n\n- Informasi orientasi & daftar direktori kampus lengkap: [PIONIRPEDIA 2026](https://pionir.ugm.ac.id/2026/pionirpedia/)",
+      "sourceType": "official_campus_source",
+      "sourceReference": "PIONIRPEDIA 2026 — Organisasi Kemahasiswaan UGM",
+      "sourceUrl": "https://pionir.ugm.ac.id/2026/pionirpedia/",
+      "lastVerifiedAt": "2026-07-25T08:00:00Z"
     }
   ]
 }
