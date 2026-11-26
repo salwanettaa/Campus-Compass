@@ -48,7 +48,7 @@ Saat diminta melakukan vibe coding atau membuat komponen:
 
 ---
 
-## 4. Skill UI & Anti-Slop (Wajib Terpasang di `.agents/skills/`)
+## 4. Skill Antislop (Wajib Jika Terpasang)
 
 Project ini menggunakan dua paket skill UI yang terpasang di `.agents/skills/` (`skills-lock.json`):
 1. **`ibelick/ui-skills`**: `baseline-ui` dan `improve-ui`
