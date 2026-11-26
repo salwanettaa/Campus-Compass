@@ -33,10 +33,10 @@ export function CategoryFilter({
                 aria-label={`${CATEGORY_INFO[category].label}, ${counts[category]} ${counts[category] === 1 ? "guide" : "guides"}`}
                 title={CATEGORY_INFO[category].description}
                 className={cn(
-                  "flex min-h-11 h-full items-center justify-between gap-3 rounded-xl border px-3.5 py-2.5 text-body transition-all duration-150 shadow-2xs",
+                  "flex min-h-11 h-full items-center justify-between gap-3 rounded-md border px-3.5 py-2 text-body transition-colors duration-150",
                   selected
-                    ? "border-brand-700 bg-brand-700 font-semibold text-white shadow-xs"
-                    : "bg-card-tint border-brand-300 text-brand-900 hover:border-brand-700 hover:bg-white",
+                    ? "border-brand-700 bg-brand-700 font-semibold text-white"
+                    : "bg-card-tint border-brand-300 text-brand-900 hover:border-brand-700",
                 )}
               >
                 <span>{CATEGORY_INFO[category].label}</span>

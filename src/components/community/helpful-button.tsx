@@ -9,8 +9,8 @@ export type HelpfulToggleResult = { ok: boolean; message?: string };
 export type HelpfulButtonProps = {
   initialCount: number;
   initialActive?: boolean;
-  /** What is being rated, for screen readers: "post" or "comment". */
-  target?: "post" | "comment";
+  /** What is being rated, for screen readers. */
+  target?: "post" | "comment" | "experience";
   /**
    * Saves the vote (later: a Server Action that writes to `votes`).
    * Without it the button only changes locally, which is what the mock UI uses.

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Bookmark, Bot, ChevronRight } from "lucide-react";
+import { ArrowRight, Bookmark, Signpost } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface GuideCardActionsProps {
@@ -10,6 +10,12 @@ interface GuideCardActionsProps {
   guideTitle: string;
 }
 
+/**
+ * Quiet action row on each guide card:
+ * - Bookmark toggle persisted locally
+ * - Direct link to discuss the guide in AI Navigator
+ * - Link to read the full guide
+ */
 export function GuideCardActions({
   guideId,
   guideTitle,
@@ -18,72 +24,67 @@ export function GuideCardActions({
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(`compass_bookmark_${guideId}`);
-      if (stored === "true") {
+      if (localStorage.getItem(`compass_bookmark_${guideId}`) === "true") {
         setIsBookmarked(true);
       }
     } catch {
-      // Ignore localStorage availability issues in SSR/private browsing
+      // Ignore storage access errors in restricted browsing contexts.
     }
   }, [guideId]);
 
-  const toggleBookmark = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  function toggleBookmark() {
     const nextState = !isBookmarked;
     setIsBookmarked(nextState);
     try {
       localStorage.setItem(`compass_bookmark_${guideId}`, String(nextState));
     } catch {
-      // Ignore
+      // Ignore storage access errors.
     }
-  };
+  }
 
   const aiQuery = encodeURIComponent(
-    `Bantu jelaskan panduan resmi "${guideTitle}" beserta langkah-langkah praktisnya untuk mahasiswa.`,
+    `Explain the official guide "${guideTitle}" and summarize the key steps.`,
   );
 
   return (
-    <div className="flex items-center justify-between gap-2 pt-3 border-t border-brand-200 mt-auto">
-      <div className="flex items-center gap-1.5">
-        {/* Bookmark toggle */}
+    <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-3">
+      <div className="flex items-center gap-2">
         <button
           type="button"
           onClick={toggleBookmark}
-          aria-label={isBookmarked ? "Hapus dari simpanan" : "Simpan panduan ini"}
-          title={isBookmarked ? "Tersimpan" : "Simpan panduan"}
+          aria-pressed={isBookmarked}
+          aria-label={isBookmarked ? `Remove bookmark for ${guideTitle}` : `Bookmark ${guideTitle}`}
           className={cn(
-            "inline-flex size-9 items-center justify-center rounded-lg border transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none",
+            "inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 text-h5 transition-colors duration-150",
             isBookmarked
-              ? "border-amber-600 bg-amber-50 text-amber-800"
-              : "border-brand-300 bg-white text-brand-700 hover:border-brand-500 hover:text-brand-950",
+              ? "border-brand-700 bg-brand-700 text-white"
+              : "border-brand-300 bg-white text-brand-900 hover:border-brand-700 active:bg-brand-100",
           )}
         >
           <Bookmark
-            className={cn("size-4", isBookmarked && "fill-amber-700")}
+            className="size-4"
+            fill={isBookmarked ? "currentColor" : "none"}
             aria-hidden="true"
           />
+          <span>{isBookmarked ? "Saved" : "Save"}</span>
         </button>
 
-        {/* AI Bridge Button */}
         <Link
           href={`/ai-navigator?q=${aiQuery}`}
-          title="Tanyakan ke AI Navigator dengan rujukan panduan ini"
-          className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-brand-300 bg-white px-2.5 text-caption font-medium text-brand-800 hover:border-brand-600 hover:text-brand-950 transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none"
+          className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-brand-300 bg-white px-3.5 text-h5 text-brand-900 transition-colors duration-150 hover:border-brand-700 active:bg-brand-100"
         >
-          <Bot className="size-3.5 text-brand-700" aria-hidden="true" />
-          <span>Tanya AI</span>
+          <Signpost className="size-4 text-brand-700" aria-hidden="true" />
+          <span>Ask AI</span>
         </Link>
       </div>
 
-      {/* Read Guide Link */}
       <Link
         href={`/knowledge/${guideId}`}
-        className="inline-flex h-9 items-center gap-1 text-caption font-semibold text-brand-800 hover:text-brand-950 group focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:outline-none rounded-md px-1.5"
+        className="group inline-flex min-h-11 items-center gap-1.5 rounded-md px-2 text-h5 text-brand-700 underline-offset-4 hover:text-brand-950 hover:underline"
       >
-        <span>Baca Panduan</span>
-        <ChevronRight
-          className="size-3.5 transition-transform duration-150 group-hover:translate-x-0.5"
+        <span>Read guide</span>
+        <ArrowRight
+          className="size-4 transition-transform duration-150 group-hover:translate-x-0.5"
           aria-hidden="true"
         />
       </Link>

@@ -48,19 +48,14 @@ Saat diminta melakukan vibe coding atau membuat komponen:
 
 ---
 
-## 4. Skill Antislop (Wajib Jika Terpasang)
+## 4. Skill UI & Anti-Slop (Wajib Terpasang di `.agents/skills/`)
 
-Sebelum mengerjakan UI, teks, atau komentar kode, muat skill `antislop:antislop` (inti) bersama skill yang sesuai:
+Project ini menggunakan dua paket skill UI yang terpasang di `.agents/skills/` (`skills-lock.json`):
+1. **`ibelick/ui-skills`**: `baseline-ui` dan `improve-ui`
+2. **`jakubkrehel/skills`**: `better-interface`, `better-layout`, `better-ui`, `better-colors`, `better-typography`, `better-writing`, `better-accessibility`, `better-motion`
 
-| Jenis pekerjaan | Skill tambahan |
-| :--- | :--- |
-| Membuat atau mengubah antarmuka (warna, layout, komponen, animasi) | `antislop:antislop-ui` |
-| Layout responsif dan tampilan mobile | `antislop:antislop-layoutmobile` |
-| Aksesibilitas (kontras, keyboard, fokus, state interaksi) | `antislop:antislop-human` |
-| Teks di aplikasi dan dokumentasi (headline, CTA, copy) | `antislop:antislop-copywriting` |
-| Komentar kode | `antislop:antislop-code` |
-
-- Jika aturan skill bertentangan dengan `docs/PRODUCT_SPEC.md`, `docs/TECH_AND_DATABASE.md`, atau aturan di file ini, **ikuti aturan proyek**.
-- Jika plugin belum terpasang, lanjutkan pekerjaan tanpa skill ini dan beri tahu pengguna. Cara memasang (jalankan satu per satu):
-  1. `/plugin marketplace add https://github.com/miqdadbadjuber/anti-slop`
-  2. `/plugin install antislop@anti-slop`
+**Aturan Wajib Sebelum Menulis/Mengubah UI:**
+1. Baca dan patuhi [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) serta token aktual di `src/app/globals.css` (`brand-950`, `900`, `800`, `700`, `600`, `400`, `300`, `100`, `paper`, `paper-raised`, `route`). Dilarang mengarang token warna yang tidak ada (seperti `brand-200` atau `brand-500`), menambah bayangan pada kartu biasa, atau mencampur emoji ke dalam kontrol UI (gunakan ikon `lucide-react`).
+2. Muat `baseline-ui` sebelum mengubah komponen antarmuka apa pun, bersama skill `better-*` yang relevan (layout, ui, colors, typography, writing, accessibility).
+3. Gunakan `improve-ui` saat diminta mengaudit atau merapikan tampilan yang sudah ada, dan verifikasi tampilan langsung di browser sebelum menyatakan selesai.
+4. Jika aturan skill bertentangan dengan `docs/PRODUCT_SPEC.md`, `docs/TECH_AND_DATABASE.md`, `docs/DESIGN_SYSTEM.md`, atau aturan di file ini, **ikuti aturan proyek**.
