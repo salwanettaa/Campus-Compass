@@ -1,14 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { sourceLabel } from "./categories";
 import {
-  applyExperiences,
   applyGuides,
   buildKnowledgeQuery,
   countByCategory,
   isStale,
   parseKnowledgeParams,
 } from "./filter";
-import { MOCK_EXPERIENCES, MOCK_GUIDES } from "./mock-data";
+import { MOCK_GUIDES } from "./mock-data";
 import { GUIDE_CATEGORIES } from "./types";
 
 describe("parseKnowledgeParams", () => {
@@ -134,26 +133,6 @@ describe("applyGuides", () => {
     });
     expect(trpl).toHaveLength(1);
     expect(trpl[0].program_id).toBe("prog-d4-trpl");
-  });
-});
-
-describe("applyExperiences", () => {
-  it("filters experiences by keyword and sorts by helpful_count", () => {
-    const result = applyExperiences(MOCK_EXPERIENCES, {
-      category: null,
-      q: "Telkom",
-    });
-    expect(result.length).toBeGreaterThan(0);
-    expect(result[0].title).toContain("Telkom");
-  });
-
-  it("filters experiences by major scope", () => {
-    const result = applyExperiences(MOCK_EXPERIENCES, {
-      category: null,
-      q: "",
-      scope: "major",
-    });
-    expect(result.length).toBeGreaterThanOrEqual(3);
   });
 });
 

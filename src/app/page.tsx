@@ -12,11 +12,10 @@ import { RouteLine } from "@/components/ui/route-line";
 import { MOCK_COMMENTS, MOCK_POSTS } from "@/lib/community/mock-data";
 import {
   CATEGORY_INFO,
-  PERSONAL_EXPERIENCE_LABEL,
   sourceLabel,
 } from "@/lib/knowledge/categories";
 import { formatVerifiedDate } from "@/lib/knowledge/filter";
-import { MOCK_EXPERIENCES, MOCK_GUIDES } from "@/lib/knowledge/mock-data";
+import { MOCK_GUIDES } from "@/lib/knowledge/mock-data";
 import { GUIDE_CATEGORIES } from "@/lib/knowledge/types";
 
 const STEPS = [
@@ -52,7 +51,6 @@ function previewItems(): PreviewItem[] {
     (comment) => comment.post_id === post.id && comment.is_accepted_answer,
   );
   const guide = MOCK_GUIDES[3];
-  const story = MOCK_EXPERIENCES[0];
 
   return [
     {
@@ -70,14 +68,6 @@ function previewItems(): PreviewItem[] {
       replyLabel: "Source",
       reply: guide.source_reference ?? "No source listed.",
       note: "Each guide shows where it came from and when it was last checked.",
-    },
-    {
-      label: "Story",
-      title: story.title,
-      body: `${story.situation} ${story.challenge}`,
-      replyLabel: "Advice for juniors",
-      reply: story.advice_for_juniors,
-      note: PERSONAL_EXPERIENCE_LABEL,
     },
   ];
 }

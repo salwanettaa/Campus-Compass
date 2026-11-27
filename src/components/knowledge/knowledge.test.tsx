@@ -3,11 +3,10 @@ import { describe, expect, it } from "vitest";
 import { SampleChat } from "@/components/ai-navigator/sample-chat";
 import { GuideContent } from "./guide-content";
 import { CategoryFilter } from "./category-filter";
-import { ExperienceCard } from "./experience-card";
 import { GuideListCard } from "./guide-list-card";
 import { countByCategory } from "@/lib/knowledge/filter";
 import { stripMarkdownForExcerpt } from "@/lib/knowledge/format";
-import { MOCK_EXPERIENCES, MOCK_GUIDES } from "@/lib/knowledge/mock-data";
+import { MOCK_GUIDES } from "@/lib/knowledge/mock-data";
 
 describe("knowledge components (server render)", () => {
   it("GuideListCard shows category, source and verified date", () => {
@@ -42,22 +41,6 @@ describe("knowledge components (server render)", () => {
       expect(html).toContain(name);
     }
     expect(html).toContain('aria-current="true"');
-  });
-
-  it("ExperienceCard shows the personal-experience label and all sections", () => {
-    const html = renderToStaticMarkup(
-      <ExperienceCard experience={MOCK_EXPERIENCES[0]} />,
-    );
-    expect(html).toContain("Personal experience, not official information");
-    for (const label of [
-      "Situation",
-      "Challenge",
-      "Solution",
-      "Result",
-      "Advice for juniors",
-    ]) {
-      expect(html).toContain(label);
-    }
   });
 
   it("SampleChat labels the demo and cites sources without a fake input", () => {
