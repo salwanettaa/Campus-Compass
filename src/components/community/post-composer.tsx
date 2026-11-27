@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { HelpCircle, Info, MessageSquare, Send } from "lucide-react";
+import { Eye, EyeOff, HelpCircle, Info, MessageSquare, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -24,6 +24,7 @@ export type PostComposerProps = {
     communityId?: string;
     department: string;
     scope: "general" | "university" | "department";
+    isAnonymous?: boolean;
   }) => void;
 };
 
@@ -48,6 +49,7 @@ export function PostComposer({
   const [expanded, setExpanded] = useState(false);
   const [content, setContent] = useState("");
   const [postType, setPostType] = useState<SocialPostType>("discussion");
+  const [isAnonymous, setIsAnonymous] = useState(false);
   const [prevDefaultCommunityId, setPrevDefaultCommunityId] =
     useState(defaultCommunityId);
   const [communityId, setCommunityId] = useState(defaultCommunityId);
@@ -93,10 +95,12 @@ export function PostComposer({
       communityId: communityId || undefined,
       department,
       scope: activeScope,
+      isAnonymous,
     });
 
     setContent("");
     setPostType("discussion");
+    setIsAnonymous(false);
     setError(null);
     setExpanded(false);
   }
@@ -144,14 +148,29 @@ export function PostComposer({
           <div className="flex items-start gap-3">
             <div
               aria-hidden="true"
-              className="flex size-10 shrink-0 items-center justify-center rounded-full bg-fill text-h5 font-semibold text-white"
+              className={cn(
+                "flex size-10 shrink-0 items-center justify-center rounded-full text-h5 font-semibold text-white transition-colors",
+                isAnonymous ? "bg-brand-900" : "bg-fill",
+              )}
             >
-              {initials}
+              {isAnonymous ? (
+                <EyeOff className="size-5" aria-hidden="true" />
+              ) : (
+                initials
+              )}
             </div>
-            <div className="flex min-w-0 flex-1 flex-col gap-1">
-              <span className="text-h5 font-semibold text-brand-950">
-                {viewer.displayName}
-              </span>
+            <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-h5 font-semibold text-brand-950">
+                  {isAnonymous ? "Anonymous Student" : viewer.displayName}
+                </span>
+                {isAnonymous ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.6875rem] font-medium text-brand-700">
+                    <EyeOff className="size-3" aria-hidden="true" />
+                    Name hidden
+                  </span>
+                ) : null}
+              </div>
               <span className="text-caption text-brand-800">
                 Posting to {scopeLabel}
               </span>
@@ -232,21 +251,49 @@ export function PostComposer({
             </Select>
           </div>
 
-          <div className="flex items-center justify-end gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => {
-                setExpanded(false);
-                setError(null);
-              }}
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-brand-300 pt-3">
+            <button
+              type="button"
+              role="switch"
+              aria-checked={isAnonymous}
+              onClick={() => setIsAnonymous((prev) => !prev)}
+              className={cn(
+                "inline-flex min-h-9 items-center gap-2 rounded-full border px-3 text-caption font-medium transition-colors",
+                isAnonymous
+                  ? "border-brand-700 bg-brand-100 font-semibold text-brand-950"
+                  : "border-brand-300 bg-paper text-brand-800 hover:border-brand-600 hover:text-brand-950",
+              )}
             >
-              Cancel
-            </Button>
-            <Button type="submit" size="sm">
-              <Send className="size-3.5" aria-hidden="true" />
-              {postType === "question" ? "Post Question" : "Post"}
-            </Button>
+              {isAnonymous ? (
+                <>
+                  <EyeOff className="size-3.5 text-brand-700" aria-hidden="true" />
+                  <span>Posting as Anonymous</span>
+                </>
+              ) : (
+                <>
+                  <Eye className="size-3.5 text-brand-700" aria-hidden="true" />
+                  <span>Show name ({viewer.displayName})</span>
+                </>
+              )}
+            </button>
+
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  setExpanded(false);
+                  setIsAnonymous(false);
+                  setError(null);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button type="submit" size="sm">
+                <Send className="size-3.5" aria-hidden="true" />
+                {postType === "question" ? "Post Question" : "Post"}
+              </Button>
+            </div>
           </div>
         </form>
       )}

@@ -73,4 +73,17 @@ describe("Social Community prototype", () => {
     expect(html).toContain(questionPost.department);
     expect(html).toContain(questionPost.authorName);
   });
+
+  it("renders anonymous badge and masked author info on anonymous posts", () => {
+    const anonPost = MOCK_SOCIAL_POSTS.find((p) => p.isAnonymous)!;
+    const html = renderToStaticMarkup(
+      <SocialPostCard
+        post={anonPost}
+        onToggleLike={() => {}}
+        onOpenThread={() => {}}
+      />,
+    );
+    expect(html).toContain("Anonymous Student");
+    expect(html).toContain("Anonymous");
+  });
 });

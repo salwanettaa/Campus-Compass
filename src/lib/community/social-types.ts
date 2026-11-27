@@ -81,6 +81,7 @@ export type SocialPost = {
   department: string;
   authorName: string;
   authorInitials: string;
+  isAnonymous?: boolean;
   createdAtLabel: string;
   postType: SocialPostType;
   content: string;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CornerDownRight, Heart, MessageCircle, Send, X } from "lucide-react";
+import { CornerDownRight, EyeOff, Heart, MessageCircle, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type { SocialCommunity, SocialPost } from "@/lib/community/social-types";
@@ -83,16 +83,29 @@ export function ThreadModal({
           <article className="flex gap-3.5 border-b border-brand-300 pb-5">
             <div
               aria-hidden="true"
-              className="flex size-10 shrink-0 items-center justify-center rounded-full bg-fill text-h5 font-semibold text-white"
+              className={cn(
+                "flex size-10 shrink-0 items-center justify-center rounded-full text-h5 font-semibold text-white",
+                post.isAnonymous ? "bg-brand-900" : "bg-fill",
+              )}
             >
-              {post.authorInitials}
+              {post.isAnonymous ? (
+                <EyeOff className="size-5" aria-hidden="true" />
+              ) : (
+                post.authorInitials
+              )}
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-2">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <div>
+                <div className="flex flex-wrap items-center gap-x-2">
                   <span className="text-h5 font-semibold text-brand-950">
                     {post.authorName}
-                  </span>{" "}
+                  </span>
+                  {post.isAnonymous ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.6875rem] font-medium text-brand-700">
+                      <EyeOff className="size-3" aria-hidden="true" />
+                      Anonymous
+                    </span>
+                  ) : null}
                   <span className="text-caption text-brand-800">
                     {post.university} · {post.department}
                   </span>
