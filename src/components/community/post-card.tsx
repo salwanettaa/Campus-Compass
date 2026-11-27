@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CheckCircle2, MessageCircle } from "lucide-react";
 import { HelpfulButton } from "@/components/community/helpful-button";
+import { SavePostButton } from "@/components/community/save-post-button";
 import { TypeBadge } from "@/components/community/type-badge";
 import {
   categoryLabel,
@@ -70,6 +71,7 @@ export function PostCard({ item }: { item: FeedItem }) {
             initialActive={viewerHelpful}
             target="post"
           />
+          <SavePostButton postId={post.id} postTitle={post.title} />
         </div>
       </div>
     </article>

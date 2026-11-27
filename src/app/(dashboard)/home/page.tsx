@@ -1,40 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen, Compass, ListTodo, MessagesSquare } from "lucide-react";
+import { CompassRing } from "@/components/home/compass-ring";
+import { SavedItemsSection } from "@/components/home/saved-items-section";
+import { JourneySummaryCard } from "@/components/journey/journey-summary-card";
+import { MyTasksPanel } from "@/components/tasks/my-tasks-panel";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
-import { CompassRing } from "@/components/home/compass-ring";
-import { createClient } from "@/lib/supabase/server";
-import { ADAPTATION_AREAS, MAIN_CHALLENGES } from "@/lib/constants/onboarding";
+import { getSavedBookmarkIds } from "@/lib/bookmarks/data";
+import { categoryLabel } from "@/lib/community/format";
+import { listFeed } from "@/lib/community/data";
+import {
+  ADAPTATION_AREAS,
+  MAIN_CHALLENGES,
+  normalizeAdaptationProfile,
+  type AdaptationArea,
+} from "@/lib/constants/onboarding";
+import { getUserJourneyData } from "@/lib/journey/data";
 import { categoryName } from "@/lib/knowledge/categories";
+import { listGuides } from "@/lib/knowledge/data";
 import type { GuideCategory } from "@/lib/knowledge/types";
+import { createClient } from "@/lib/supabase/server";
+import { getUserTasks } from "@/lib/tasks/data";
 
 export const metadata: Metadata = { title: "Home" };
 
-const SHORTCUTS = [
-  {
-    href: "/community",
-    title: "Read student questions",
-    description: "See what others asked and which answers helped.",
-  },
-  {
-    href: "/knowledge/share-experience",
-    title: "Share what you learned",
-    description: "Write down what worked so the next student can use it.",
-  },
-] as const;
-
-/** The guide category that best matches each adaptation area. */
-const AREA_GUIDES: Record<
-  (typeof ADAPTATION_AREAS)[number]["value"],
-  GuideCategory
-> = {
-  academic: "academic_survival",
+/** The Knowledge Hub guide category that best matches each adaptation area. */
+const AREA_GUIDES: Record<AdaptationArea, GuideCategory> = {
   social: "social_community",
-  administrative: "administrative_guide",
-  personal: "academic_survival",
-  facilities: "campus_essentials",
-  opportunity: "scholarship_growth",
+  academic: "academic_survival",
+  internship: "career_preparation",
+  scholarship: "scholarship_growth",
+  competition: "scholarship_growth",
 };
 
 export default async function HomePage() {
@@ -45,113 +42,355 @@ export default async function HomePage() {
 
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("display_name, campus_id, program_id, semester, adaptation_area, main_challenge")
+    .select(
+      "display_name, campus_id, program_id, semester, adaptation_area, main_challenge",
+    )
     .eq("id", user?.id ?? "")
     .maybeSingle();
 
   if (profileError) return <HomeLoadError />;
 
-  const [campusRes, programRes] = await Promise.all([
+  const normalized = normalizeAdaptationProfile(
+    profile?.adaptation_area,
+    profile?.main_challenge,
+  );
+
+  const [
+    campusRes,
+    programRes,
+    journeyRes,
+    tasksRes,
+    guidesRes,
+    feedRes,
+    savedBookmarks,
+  ] = await Promise.all([
     profile?.campus_id
-      ? supabase.from("campuses").select("name").eq("id", profile.campus_id).maybeSingle()
+      ? supabase
+          .from("campuses")
+          .select("name")
+          .eq("id", profile.campus_id)
+          .maybeSingle()
       : Promise.resolve({ data: null, error: null }),
     profile?.program_id
-      ? supabase.from("programs").select("name").eq("id", profile.program_id).maybeSingle()
+      ? supabase
+          .from("programs")
+          .select("name")
+          .eq("id", profile.program_id)
+          .maybeSingle()
       : Promise.resolve({ data: null, error: null }),
+    getUserJourneyData(normalized.area, normalized.challenge),
+    getUserTasks(),
+    listGuides(),
+    listFeed(),
+    getSavedBookmarkIds(),
   ]);
 
   // Missing profile data must not look like "not set": show an error instead.
   if (campusRes.error || programRes.error) return <HomeLoadError />;
 
-  const area = ADAPTATION_AREAS.find((a) => a.value === profile?.adaptation_area);
-  const challenge = MAIN_CHALLENGES.find((c) => c.value === profile?.main_challenge);
+  const area = ADAPTATION_AREAS.find((a) => a.value === normalized.area);
+  const challenge = MAIN_CHALLENGES.find(
+    (c) => c.value === normalized.challenge,
+  );
   const campusDetails = [
     campusRes.data?.name,
     programRes.data?.name,
     profile?.semester ? `Semester ${profile.semester}` : null,
   ].filter(Boolean);
 
-  const category = area ? AREA_GUIDES[area.value] : null;
+  const guideCategory = AREA_GUIDES[normalized.area];
+  const allGuides = guidesRes.ok ? guidesRes.data : [];
+  const recommendedGuides = allGuides
+    .filter((guide) => guide.category === guideCategory)
+    .slice(0, 3);
+
+  const allPosts = feedRes.ok ? feedRes.data : [];
+  const sortedDiscussions = [...allPosts]
+    .sort((a, b) => {
+      const aMatch = a.post.category === normalized.area ? 1 : 0;
+      const bMatch = b.post.category === normalized.area ? 1 : 0;
+      if (aMatch !== bMatch) return bMatch - aMatch;
+      return Date.parse(b.post.created_at) - Date.parse(a.post.created_at);
+    })
+    .slice(0, 3);
+
+  const unfinishedTasks = tasksRes.tasks.filter((t) => t.status === "todo");
+  const { journey } = journeyRes;
 
   return (
-    <main className="flex w-full flex-col gap-12">
-      <header>
+    <main className="flex w-full flex-col gap-10">
+      {/* A. Personal Dashboard */}
+      <header className="flex flex-col gap-2">
         <h1 className="text-h2 break-words text-brand-950">
           Welcome back, {profile?.display_name ?? "Student"}.
         </h1>
         {campusDetails.length > 0 ? (
-          <p className="text-body mt-1 text-brand-800">{campusDetails.join(" · ")}</p>
+          <p className="text-body text-brand-800">
+            {campusDetails.join(" · ")}
+          </p>
         ) : null}
       </header>
 
       <section
         aria-labelledby="focus-heading"
-        className="grid items-center gap-10 md:grid-cols-2 md:gap-12"
+        className="grid items-center gap-8 rounded-2xl border border-brand-300 bg-paper-raised p-5 sm:p-6 md:grid-cols-[0.85fr_1.15fr] md:gap-10"
       >
-        <CompassRing area={area?.value ?? null} />
-        <div className="flex flex-col items-start">
+        <CompassRing area={normalized.area} />
+        <div className="flex flex-col items-start gap-3">
+          <span className="rounded-full bg-brand-100 px-3 py-1 text-caption font-medium text-brand-700">
+            {area?.label ?? "Academic"} Focus
+          </span>
           <h2 id="focus-heading" className="text-h1 text-brand-950">
-            {category ? "Start where you need help" : "Find your first guide"}
+            {journey.definition.title}
           </h2>
-          <p className="text-lead mt-4 text-brand-800">
-            {area?.description ?? "Browse the six guide categories."}
+          <p className="text-lead text-brand-800">
+            {area?.description ?? journey.definition.description}
           </p>
           {challenge ? (
-            <p className="text-body mt-3 text-brand-800">
+            <p className="text-body text-brand-800">
               Main challenge:{" "}
-              <span className="font-semibold text-brand-950">{challenge.label}</span>
+              <span className="font-semibold text-brand-950">
+                {challenge.label}
+              </span>
             </p>
           ) : null}
-          <ButtonLink
-            href={category ? `/knowledge?category=${category}` : "/knowledge"}
-            size="lg"
-            className="mt-7 h-auto min-h-12 w-full py-3 text-center whitespace-normal sm:w-auto"
+          <p className="text-caption text-brand-700">
+            Journey progress: {journey.progress.completed} of{" "}
+            {journey.progress.total} steps completed (
+            {journey.progress.percentage}%)
+          </p>
+          <div className="mt-2 flex flex-wrap gap-3">
+            <ButtonLink href="/journey" size="md">
+              Continue Journey
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </ButtonLink>
+            <ButtonLink
+              href={`/knowledge?category=${guideCategory}`}
+              variant="outline"
+              size="md"
+            >
+              Read {categoryName(guideCategory)}
+            </ButtonLink>
+          </div>
+        </div>
+      </section>
+
+      {/* B. My Journey & C. My Tasks side-by-side on large screens, stacked on mobile */}
+      <div className="grid gap-8 xl:grid-cols-2 xl:items-start">
+        <JourneySummaryCard
+          journey={journey}
+          schemaReady={journeyRes.schemaReady}
+        />
+
+        <MyTasksPanel
+          initialTasks={tasksRes.tasks}
+          defaultCategory={normalized.area}
+          schemaReady={tasksRes.schemaReady}
+          loadError={tasksRes.error}
+        />
+      </div>
+
+      {/* Saved Items from Knowledge Hub & Community */}
+      <SavedItemsSection
+        guides={allGuides}
+        posts={allPosts.map((item) => item.post)}
+        dbSavedGuideIds={savedBookmarks.guideIds}
+        dbSavedPostIds={savedBookmarks.postIds}
+      />
+
+      {/* D. Recommended for You */}
+      <section aria-labelledby="recommended-heading" className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <BookOpen className="size-5 text-brand-700" aria-hidden="true" />
+            <h2 id="recommended-heading" className="text-h3 text-brand-950">
+              Recommended for You
+            </h2>
+          </div>
+          <Link
+            href={`/knowledge?category=${guideCategory}`}
+            className="text-caption text-brand-700 hover:underline"
           >
-            {category
-              ? `Read ${categoryName(category)} guides`
-              : "Browse campus guides"}
-          </ButtonLink>
+            View all in Knowledge Hub
+          </Link>
         </div>
-      </section>
 
-      <section aria-labelledby="next-heading">
-        <h2 id="next-heading" className="text-h3 text-brand-950">
-          Also useful
-        </h2>
-        <ul className="mt-3 divide-y divide-brand-300 border-y border-brand-300">
-          {SHORTCUTS.map((shortcut) => (
-            <li key={shortcut.href}>
+        {recommendedGuides.length > 0 ? (
+          <div className="grid gap-4 md:grid-cols-3">
+            {recommendedGuides.map((guide) => (
               <Link
-                href={shortcut.href}
-                className="flex items-center justify-between gap-4 rounded-sm px-2 py-4 transition-colors hover:bg-brand-100 active:bg-brand-300"
+                key={guide.id}
+                href={`/knowledge/${guide.id}`}
+                className="flex flex-col justify-between gap-3 rounded-2xl border border-brand-300 bg-paper-raised p-5 transition-colors hover:border-brand-600 hover:bg-brand-100/50"
               >
-                <span className="flex flex-col gap-0.5">
-                  <span className="text-h4 text-brand-950">{shortcut.title}</span>
-                  <span className="text-body text-brand-800">{shortcut.description}</span>
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-caption text-brand-700">
+                    {categoryName(guide.category)}
+                  </span>
+                  <h3 className="text-h4 text-brand-950">{guide.title}</h3>
+                  <p className="text-body line-clamp-2 text-brand-800">
+                    {guide.content_raw}
+                  </p>
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-caption font-medium text-brand-700">
+                  Read guide
+                  <ArrowRight className="size-3.5" aria-hidden="true" />
                 </span>
-                <ArrowRight className="size-5 shrink-0 text-brand-700" aria-hidden="true" />
               </Link>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-brand-300 bg-paper-raised p-5 text-body text-brand-800">
+            No guides found for {categoryName(guideCategory)} yet.{" "}
+            <Link href="/knowledge" className="text-brand-700 underline">
+              Explore Knowledge Hub
+            </Link>
+            .
+          </div>
+        )}
       </section>
 
-      <section
-        id="my-journey"
-        aria-labelledby="journey-heading"
-        className="scroll-mt-6 rounded-2xl bg-paper-raised p-5 sm:p-6"
-      >
-        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h2 id="journey-heading" className="text-h3 text-brand-950">
-            My Journey
+      {/* E. Latest Discussions & F. Continue Your Activity */}
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
+        <section
+          aria-labelledby="discussions-heading"
+          className="flex flex-col gap-4 rounded-2xl border border-brand-300 bg-paper-raised p-5 sm:p-6"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <MessagesSquare
+                className="size-5 text-brand-700"
+                aria-hidden="true"
+              />
+              <h2 id="discussions-heading" className="text-h3 text-brand-950">
+                Latest Discussions
+              </h2>
+            </div>
+            <Link
+              href="/community"
+              className="text-caption text-brand-700 hover:underline"
+            >
+              Open Community
+            </Link>
+          </div>
+
+          {sortedDiscussions.length > 0 ? (
+            <ul className="divide-y divide-brand-300 border-y border-brand-300">
+              {sortedDiscussions.map(({ post, commentCount }) => (
+                <li key={post.id}>
+                  <Link
+                    href={`/community/${post.id}`}
+                    className="flex items-center justify-between gap-4 px-1 py-3.5 transition-colors hover:bg-brand-100/50"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-caption text-brand-700">
+                          {categoryLabel(post.category)}
+                        </span>
+                        <span className="text-caption text-brand-800">
+                          · {commentCount}{" "}
+                          {commentCount === 1 ? "comment" : "comments"}
+                        </span>
+                      </div>
+                      <p className="text-h5 truncate text-brand-950">
+                        {post.title}
+                      </p>
+                    </div>
+                    <ArrowRight
+                      className="size-4 shrink-0 text-brand-700"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-body text-brand-800">
+              No discussions available right now.
+            </p>
+          )}
+        </section>
+
+        <section
+          aria-labelledby="activity-heading"
+          className="flex flex-col gap-4 rounded-2xl border border-brand-300 bg-paper-raised p-5 sm:p-6"
+        >
+          <h2 id="activity-heading" className="text-h3 text-brand-950">
+            Continue Your Activity
           </h2>
-          <p className="text-caption text-brand-700">Coming soon</p>
-        </div>
-        <p className="text-body mt-2 max-w-xl text-brand-800">
-          Your personal roadmap is still being prepared. Until then, use the
-          guides and the advice from senior students.
-        </p>
-      </section>
+
+          {journey.nextAction || unfinishedTasks.length > 0 ? (
+            <ul className="flex flex-col gap-3">
+              {journey.nextAction ? (
+                <li>
+                  <Link
+                    href="/journey"
+                    className="flex items-center justify-between gap-3 rounded-xl border border-brand-300 bg-paper p-3.5 transition-colors hover:border-brand-600"
+                  >
+                    <div className="flex min-w-0 items-start gap-3">
+                      <Compass
+                        className="mt-0.5 size-4 shrink-0 text-brand-700"
+                        aria-hidden="true"
+                      />
+                      <div className="min-w-0">
+                        <p className="text-caption text-brand-700">
+                          Next My Journey step · {journey.currentStage.title}
+                        </p>
+                        <p className="text-body truncate text-brand-950">
+                          {journey.nextAction.title}
+                        </p>
+                      </div>
+                    </div>
+                    <ArrowRight
+                      className="size-4 shrink-0 text-brand-700"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </li>
+              ) : null}
+
+              {unfinishedTasks.slice(0, 3).map((task) => (
+                <li key={task.id}>
+                  <a
+                    href="#my-tasks"
+                    className="flex items-center justify-between gap-3 rounded-xl border border-brand-300 bg-paper p-3.5 transition-colors hover:border-brand-600"
+                  >
+                    <div className="flex min-w-0 items-start gap-3">
+                      <ListTodo
+                        className="mt-0.5 size-4 shrink-0 text-route-on-dark"
+                        aria-hidden="true"
+                      />
+                      <div className="min-w-0">
+                        <p className="text-caption text-brand-800">
+                          Unfinished task
+                          {task.due_date ? ` · Due ${task.due_date}` : ""}
+                        </p>
+                        <p className="text-body truncate text-brand-950">
+                          {task.title}
+                        </p>
+                      </div>
+                    </div>
+                    <ArrowRight
+                      className="size-4 shrink-0 text-brand-700"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="rounded-xl border border-dashed border-brand-300 bg-paper p-5 text-body text-brand-800">
+              You have no pending tasks or journey steps right now. Add a task
+              in <a href="#my-tasks" className="text-brand-700 underline">My Tasks</a>{" "}
+              or review your reflection in{" "}
+              <Link href="/journey" className="text-brand-700 underline">
+                My Journey
+              </Link>
+              .
+            </div>
+          )}
+        </section>
+      </div>
     </main>
   );
 }

@@ -10,9 +10,10 @@ import { Field, fieldAria } from "@/components/ui/field";
 import { Select } from "@/components/ui/select";
 import {
   ADAPTATION_AREAS,
-  MAIN_CHALLENGES,
   MAX_SEMESTER,
   MIN_SEMESTER,
+  getChallengesForArea,
+  isValidChallengeForArea,
 } from "@/lib/constants/onboarding";
 import { cn } from "@/lib/utils";
 import { completeOnboardingAction } from "@/app/onboarding/actions";
@@ -69,8 +70,13 @@ export function OnboardingForm({
   const stepValid = [
     Boolean(campusId && facultyId && programId),
     Boolean(semester),
-    Boolean(area && challenge),
+    Boolean(area && isValidChallengeForArea(area, challenge)),
   ];
+
+  const availableChallenges = useMemo(
+    () => getChallengesForArea(area),
+    [area],
+  );
 
   function goNext() {
     if (!stepValid[step]) {
@@ -272,7 +278,12 @@ export function OnboardingForm({
                   title={option.label}
                   description={option.description}
                   checked={area === option.value}
-                  onChange={() => setArea(option.value)}
+                  onChange={() => {
+                    setArea(option.value);
+                    if (!isValidChallengeForArea(option.value, challenge)) {
+                      setChallenge("");
+                    }
+                  }}
                 />
               ))}
             </div>
@@ -285,18 +296,24 @@ export function OnboardingForm({
 
           <fieldset className="flex flex-col gap-3">
             <legend className="mb-1 text-h5 text-brand-950">Main challenge</legend>
-            <div className="flex flex-wrap gap-2">
-              {MAIN_CHALLENGES.map((option) => (
-                <Chip
-                  key={option.value}
-                  selected={challenge === option.value}
-                  onClick={() => setChallenge(option.value)}
-                >
-                  {option.label}
-                </Chip>
-              ))}
-            </div>
-            {showErrors && !challenge ? (
+            {availableChallenges.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {availableChallenges.map((option) => (
+                  <Chip
+                    key={option.value}
+                    selected={challenge === option.value}
+                    onClick={() => setChallenge(option.value)}
+                  >
+                    {option.label}
+                  </Chip>
+                ))}
+              </div>
+            ) : (
+              <p className="text-body text-brand-800">
+                Select an adaptation area above to see matching challenges.
+              </p>
+            )}
+            {showErrors && (!challenge || !isValidChallengeForArea(area, challenge)) ? (
               <p role="alert" className="text-caption text-red-700">
                 Choose your main challenge.
               </p>

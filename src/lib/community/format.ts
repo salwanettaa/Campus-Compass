@@ -1,4 +1,7 @@
-import { ADAPTATION_AREAS } from "@/lib/constants/onboarding";
+import {
+  ADAPTATION_AREAS,
+  LEGACY_AREA_LABELS,
+} from "@/lib/constants/onboarding";
 
 const MINUTE = 60_000;
 const HOUR = 60 * MINUTE;
@@ -21,10 +24,11 @@ export function formatRelativeTime(iso: string, now: number = Date.now()) {
   });
 }
 
-/** Label for `posts.category`; falls back to a readable version of the token. */
+/** Label for `posts.category`; falls back to legacy labels or a readable token. */
 export function categoryLabel(category: string) {
   const known = ADAPTATION_AREAS.find((area) => area.value === category);
   if (known) return known.label;
+  if (category in LEGACY_AREA_LABELS) return LEGACY_AREA_LABELS[category];
   const text = category.replace(/_/g, " ");
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
