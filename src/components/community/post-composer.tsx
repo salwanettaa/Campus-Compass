@@ -266,13 +266,13 @@ export function PostComposer({
             >
               {isAnonymous ? (
                 <>
-                  <EyeOff className="size-3.5 text-brand-700" aria-hidden="true" />
-                  <span>Posting as Anonymous</span>
+                  <Eye className="size-3.5 text-brand-700" aria-hidden="true" />
+                  <span>Show my name ({viewer.displayName})</span>
                 </>
               ) : (
                 <>
-                  <Eye className="size-3.5 text-brand-700" aria-hidden="true" />
-                  <span>Show name ({viewer.displayName})</span>
+                  <EyeOff className="size-3.5 text-brand-700" aria-hidden="true" />
+                  <span>Post as Anonymous</span>
                 </>
               )}
             </button>

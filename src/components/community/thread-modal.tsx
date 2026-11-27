@@ -1,15 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { CornerDownRight, EyeOff, Heart, MessageCircle, Send, X } from "lucide-react";
+import {
+  CornerDownRight,
+  Eye,
+  EyeOff,
+  Heart,
+  MessageCircle,
+  Send,
+  X,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import type { SocialCommunity, SocialPost } from "@/lib/community/social-types";
+import type {
+  SocialCommunity,
+  SocialPost,
+  ViewerCommunityProfile,
+} from "@/lib/community/social-types";
 import { cn } from "@/lib/utils";
 
 export type ThreadModalProps = {
   post: SocialPost | null;
   community?: SocialCommunity;
+  viewer?: ViewerCommunityProfile;
   onClose: () => void;
   onTogglePostLike: (postId: string) => void;
   onToggleReplyLike: (postId: string, replyId: string) => void;
@@ -17,12 +30,14 @@ export type ThreadModalProps = {
     postId: string,
     content: string,
     replyToAuthor?: string,
+    isAnonymous?: boolean,
   ) => void;
 };
 
 export function ThreadModal({
   post,
   community,
+  viewer,
   onClose,
   onTogglePostLike,
   onToggleReplyLike,
@@ -30,9 +45,19 @@ export function ThreadModal({
 }: ThreadModalProps) {
   const [replyText, setReplyText] = useState("");
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  const [isAnonymous, setIsAnonymous] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   if (!post) return null;
+
+  const displayName = viewer?.displayName || "Student";
+  const viewerInitials =
+    displayName
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((p) => p[0]?.toUpperCase() ?? "")
+      .join("") || "ST";
 
   function handleReplySubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -42,9 +67,10 @@ export function ThreadModal({
       setError("Write a reply first.");
       return;
     }
-    onSubmitReply(post.id, trimmed, replyingTo ?? undefined);
+    onSubmitReply(post.id, trimmed, replyingTo ?? undefined, isAnonymous);
     setReplyText("");
     setReplyingTo(null);
+    setIsAnonymous(false);
     setError(null);
   }
 
@@ -170,16 +196,31 @@ export function ThreadModal({
                   >
                     <div
                       aria-hidden="true"
-                      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-100 text-caption font-semibold text-brand-700"
+                      className={cn(
+                        "flex size-8 shrink-0 items-center justify-center rounded-full text-caption font-semibold",
+                        reply.isAnonymous
+                          ? "bg-brand-900 text-white"
+                          : "bg-brand-100 text-brand-700",
+                      )}
                     >
-                      {reply.authorInitials}
+                      {reply.isAnonymous ? (
+                        <EyeOff className="size-4" aria-hidden="true" />
+                      ) : (
+                        reply.authorInitials
+                      )}
                     </div>
                     <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                       <div className="flex flex-wrap items-baseline justify-between gap-2">
-                        <div>
+                        <div className="flex flex-wrap items-center gap-x-2">
                           <span className="text-h5 font-semibold text-brand-950">
                             {reply.authorName}
-                          </span>{" "}
+                          </span>
+                          {reply.isAnonymous ? (
+                            <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.6875rem] font-medium text-brand-700">
+                              <EyeOff className="size-3" aria-hidden="true" />
+                              Anonymous
+                            </span>
+                          ) : null}
                           <span className="text-caption text-brand-800">
                             {reply.university} · {reply.department}
                           </span>
@@ -248,6 +289,63 @@ export function ThreadModal({
           onSubmit={handleReplySubmit}
           className="flex flex-col gap-2.5 border-t border-brand-300 bg-paper p-4"
         >
+          {/* Identity preview & Anonymous button */}
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <div
+                aria-hidden="true"
+                className={cn(
+                  "flex size-7 shrink-0 items-center justify-center rounded-full text-caption font-semibold text-white transition-colors",
+                  isAnonymous ? "bg-brand-900" : "bg-fill",
+                )}
+              >
+                {isAnonymous ? (
+                  <EyeOff className="size-3.5" aria-hidden="true" />
+                ) : (
+                  viewerInitials
+                )}
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-caption font-medium text-brand-950">
+                  {isAnonymous
+                    ? "Replying as Anonymous Student"
+                    : `Replying as ${displayName}`}
+                </span>
+                {isAnonymous ? (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.625rem] font-medium text-brand-700">
+                    <EyeOff className="size-3" aria-hidden="true" />
+                    Name hidden
+                  </span>
+                ) : null}
+              </div>
+            </div>
+
+            <button
+              type="button"
+              role="switch"
+              aria-checked={isAnonymous}
+              onClick={() => setIsAnonymous((prev) => !prev)}
+              className={cn(
+                "inline-flex min-h-8 items-center gap-1.5 rounded-full border px-2.5 text-caption transition-colors",
+                isAnonymous
+                  ? "border-brand-700 bg-brand-100 font-semibold text-brand-950"
+                  : "border-brand-300 bg-paper text-brand-800 hover:border-brand-600 hover:text-brand-950",
+              )}
+            >
+              {isAnonymous ? (
+                <>
+                  <Eye className="size-3 text-brand-700" aria-hidden="true" />
+                  <span>Show my name ({displayName})</span>
+                </>
+              ) : (
+                <>
+                  <EyeOff className="size-3 text-brand-700" aria-hidden="true" />
+                  <span>Reply as Anonymous</span>
+                </>
+              )}
+            </button>
+          </div>
+
           {replyingTo ? (
             <div className="flex items-center justify-between rounded-lg border border-brand-300 bg-paper-raised px-3 py-1.5 text-caption text-brand-700">
               <span>

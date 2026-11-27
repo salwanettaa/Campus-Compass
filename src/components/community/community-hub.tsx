@@ -253,7 +253,9 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
     postId: string,
     content: string,
     replyToAuthor?: string,
+    isAnonymous?: boolean,
   ) {
+    const isAnon = Boolean(isAnonymous);
     const initials =
       viewer.displayName
         .trim()
@@ -272,8 +274,9 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
             {
               id: `rep-local-${Date.now()}`,
               postId,
-              authorName: viewer.displayName,
-              authorInitials: initials,
+              authorName: isAnon ? "Anonymous Student" : viewer.displayName,
+              authorInitials: isAnon ? "?" : initials,
+              isAnonymous: isAnon,
               university: viewer.universityShort,
               department: viewer.department,
               createdAtLabel: "just now",
@@ -794,6 +797,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
             ? communityById.get(activeThreadPost.communityId)
             : undefined
         }
+        viewer={viewer}
         onClose={() => setOpenThreadPostId(null)}
         onTogglePostLike={handleTogglePostLike}
         onToggleReplyLike={handleToggleReplyLike}

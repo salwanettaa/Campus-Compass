@@ -65,6 +65,7 @@ export type SocialReply = {
   postId: string;
   authorName: string;
   authorInitials: string;
+  isAnonymous?: boolean;
   university: string;
   department: string;
   createdAtLabel: string;
