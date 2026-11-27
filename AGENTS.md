@@ -16,8 +16,8 @@ Kamu bertindak sebagai Senior Full-Stack Engineer yang mendampingi tim mengemban
 1. **Patuhi Product Positioning**: Campus Compass adalah platform gabungan **Reddit-inspired Community**, **Glassdoor-organized Experiences**, dan **AI Navigator** untuk adaptasi mahasiswa.
 2. **4 Modul Utama Aplikasi**:
    - `Home`: Dashboard personal, welcome context, snapshot adaptasi, rekomendasi topik, serta **My Journey** (roadmap adaptasi rule-based, checklist tindakan, dan reflection check-in).
-   - `Community`: Q&A mahasiswa, post types (`question`, `experience`, `guide`, `opportunity`), helpful vote, accepted answer.
-   - `Knowledge Hub`: 6 kategori panduan kampus terkurasi & pengalaman senior terstruktur.
+   - `Community`: Q&A dan forum mahasiswa, post types (`question`, `experience`, `guide`, `opportunity`), mode anonim, helpful vote, accepted answer.
+   - `Knowledge Hub`: 6 kategori panduan kampus terkurasi resmi & tautan terverifikasi.
    - `AI Navigator`: Chat RAG berbasis retrieval dokumen resmi & tips komunitas terverifikasi lengkap dengan sitasi sumber (*source cards*).
 3. **Patuhi Skema Database**: Baca [`docs/TECH_AND_DATABASE.md`](docs/TECH_AND_DATABASE.md). Gunakan nama tabel dan kolom SQL yang sudah ditetapkan (tabel `campuses`, `faculties`, `programs`, `profiles`, `posts`, `comments`, `experiences`, `guides`, `journey_steps`, `content_chunks`). Dilarang mengarang kolom atau tabel baru.
 4. **Patuhi Tumpukan Teknologi**: Next.js (App Router), TypeScript (Strict), Tailwind CSS, Supabase (Auth, PostgreSQL, pgvector), dan Google Gemini API (`@google/genai`).

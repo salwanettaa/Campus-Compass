@@ -186,30 +186,13 @@ Ruang interaksi antar-mahasiswa untuk saling bertanya dan membantu.
 
 ------------------------------------------------------------------------
 
-### Area 3: Knowledge Hub & Senior Experiences (Glassdoor-Organized)
+### Area 3: Knowledge Hub (Curated Campus Guides)
 
-Menyimpan panduan terkurasi dan pengalaman terstruktur yang dapat
-digunakan kembali sebagai referensi jangka panjang.
+Menyimpan panduan terkurasi dari regulasi resmi universitas dan fakultas/program studi yang dapat digunakan kembali sebagai referensi jangka panjang dengan tautan sumber resmi dan stempel verifikasi kedaluwarsa (180 hari).
 
-#### A. Structured Senior Experiences
+*(Catatan Arsitektur: Cerita pengalaman dan tips adaptasi mahasiswa senior dipusatkan di modul Community melalui jenis postingan `experience` agar diskusi dan tanya-jawab berlangsung dua arah).*
 
-Pengalaman mahasiswa disimpan dalam format terstruktur agar lebih mudah
-dicari, dipahami, dan diterapkan oleh mahasiswa lain.
-
-Format kontribusi mencakup:
-
--   **Situation**: Situasi atau konteks pengalaman.
--   **Challenge**: Tantangan yang dihadapi.
--   **Solution**: Solusi atau pendekatan yang dicoba.
--   **Result**: Hasil dari solusi yang dilakukan.
--   **Advice for Juniors**: Saran praktis untuk mahasiswa yang
-    menghadapi situasi serupa.
-
-Kontributor dapat memiliki label verifikasi (*Verified Contributor*)
-untuk membantu pengguna mengenali pengalaman dari kontributor yang telah
-diverifikasi.
-
-#### B. Six Knowledge Hub Categories
+#### Six Knowledge Hub Categories
 
 1.  **Academic Survival**: Metode belajar, strategi tugas, praktikum,
     ujian, dan sistem perkuliahan.
