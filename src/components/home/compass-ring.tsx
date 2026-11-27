@@ -1,4 +1,7 @@
-import { ADAPTATION_AREAS } from "@/lib/constants/onboarding";
+import {
+  ADAPTATION_AREAS,
+  normalizeAdaptationProfile,
+} from "@/lib/constants/onboarding";
 
 const CENTER = 160;
 const RADIUS = 128;
@@ -29,7 +32,10 @@ export function CompassRing({
   /** Centre text. Defaults to the chosen area. */
   title?: string;
 }) {
-  const index = ADAPTATION_AREAS.findIndex((entry) => entry.value === area);
+  const normalizedArea = area ? normalizeAdaptationProfile(area, null).area : null;
+  const index = ADAPTATION_AREAS.findIndex(
+    (entry) => entry.value === normalizedArea,
+  );
   const selected = ADAPTATION_AREAS[index];
 
   return (

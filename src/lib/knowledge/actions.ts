@@ -157,6 +157,7 @@ export async function toggleBookmarkAction(
     }
 
     revalidatePath("/knowledge");
+    revalidatePath("/home");
     return { ok: true, savedInDb: true };
   } catch {
     return { ok: true, savedInDb: false };

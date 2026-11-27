@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
   ADAPTATION_AREA_VALUES,
+  CHALLENGES_BY_AREA,
   MAIN_CHALLENGE_VALUES,
   MAX_SEMESTER,
   MIN_SEMESTER,
+  normalizeAdaptationProfile,
 } from "@/lib/constants/onboarding";
 import { onboardingSchema } from "./onboarding";
 
@@ -13,7 +15,7 @@ const valid = {
   programId: "5b4d3eaf-7c6f-4081-8c3d-4e5f6a7b8c9d",
   semester: "3",
   adaptationArea: ADAPTATION_AREA_VALUES[0],
-  mainChallenge: MAIN_CHALLENGE_VALUES[0],
+  mainChallenge: CHALLENGES_BY_AREA[ADAPTATION_AREA_VALUES[0]][0].value,
 };
 
 describe("onboardingSchema", () => {
@@ -69,16 +71,72 @@ describe("onboardingSchema", () => {
     ).toBe(false);
   });
 
-  it("accepts every declared adaptation area and challenge", () => {
+  it("accepts every declared adaptation area with its matching challenges", () => {
+    expect(ADAPTATION_AREA_VALUES).toEqual([
+      "social",
+      "academic",
+      "internship",
+      "scholarship",
+      "competition",
+    ]);
     for (const adaptationArea of ADAPTATION_AREA_VALUES) {
-      expect(
-        onboardingSchema.safeParse({ ...valid, adaptationArea }).success,
-      ).toBe(true);
+      for (const challenge of CHALLENGES_BY_AREA[adaptationArea]) {
+        expect(
+          onboardingSchema.safeParse({
+            ...valid,
+            adaptationArea,
+            mainChallenge: challenge.value,
+          }).success,
+        ).toBe(true);
+      }
     }
-    for (const mainChallenge of MAIN_CHALLENGE_VALUES) {
-      expect(
-        onboardingSchema.safeParse({ ...valid, mainChallenge }).success,
-      ).toBe(true);
-    }
+  });
+
+  it("rejects a challenge that belongs to a different adaptation area", () => {
+    expect(
+      onboardingSchema.safeParse({
+        ...valid,
+        adaptationArea: "social",
+        mainChallenge: "interview_preparation",
+      }).success,
+    ).toBe(false);
+  });
+
+  it("never leaves any challenge unreferenced", () => {
+    expect(MAIN_CHALLENGE_VALUES.length).toBe(18);
+  });
+});
+
+describe("normalizeAdaptationProfile", () => {
+  it("preserves current valid area and challenge without migration flag", () => {
+    expect(
+      normalizeAdaptationProfile("scholarship", "preparing_application_documents"),
+    ).toEqual({
+      area: "scholarship",
+      challenge: "preparing_application_documents",
+      migratedFromLegacy: false,
+    });
+  });
+
+  it("migrates legacy areas and challenges safely", () => {
+    expect(
+      normalizeAdaptationProfile("administrative", "administrative_procedures"),
+    ).toEqual({
+      area: "academic",
+      challenge: "understanding_academic_systems",
+      migratedFromLegacy: true,
+    });
+    expect(
+      normalizeAdaptationProfile("opportunity", "scholarships_competitions"),
+    ).toEqual({
+      area: "scholarship",
+      challenge: "finding_suitable_scholarships",
+      migratedFromLegacy: true,
+    });
+    expect(normalizeAdaptationProfile(null, null)).toEqual({
+      area: "academic",
+      challenge: "study_methods",
+      migratedFromLegacy: false,
+    });
   });
 });

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { CommentThread } from "@/components/community/comment-thread";
 import { HelpfulButton } from "@/components/community/helpful-button";
+import { SavePostButton } from "@/components/community/save-post-button";
 import { TypeBadge } from "@/components/community/type-badge";
 import { Alert } from "@/components/ui/alert";
 import { ButtonLink } from "@/components/ui/button";
@@ -80,12 +81,13 @@ export default async function PostPage({
         <p className="text-lead max-w-2xl whitespace-pre-line text-brand-950">
           {post.content}
         </p>
-        <div>
+        <div className="flex flex-wrap items-center gap-3">
           <HelpfulButton
             initialCount={post.helpful_count}
             initialActive={viewerHelpful}
             target="post"
           />
+          <SavePostButton postId={post.id} postTitle={post.title} showLabel />
         </div>
       </article>
 
