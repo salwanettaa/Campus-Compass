@@ -9,6 +9,7 @@ import {
   ListTodo,
   Pencil,
   Plus,
+  RotateCcw,
   Trash2,
   X,
 } from "lucide-react";
@@ -625,7 +626,30 @@ export function MyTasksPanel({
                   </div>
                 </div>
 
-                <div className="flex shrink-0 items-center gap-1 pl-8 sm:pl-0">
+                <div className="flex shrink-0 items-center gap-1.5 pl-8 sm:pl-0">
+                  <button
+                    type="button"
+                    disabled={isPending}
+                    onClick={() => handleToggle(task)}
+                    className={cn(
+                      "inline-flex min-h-8 items-center gap-1 rounded-full border px-3 text-caption font-medium transition-colors",
+                      isCompleted
+                        ? "border-brand-300 bg-paper-raised text-brand-800 hover:border-brand-600 hover:text-brand-950"
+                        : "border-emerald-700/60 bg-emerald-50/40 text-emerald-950 hover:bg-emerald-700 hover:text-white",
+                    )}
+                  >
+                    {isCompleted ? (
+                      <>
+                        <RotateCcw className="size-3.5" aria-hidden="true" />
+                        Undo
+                      </>
+                    ) : (
+                      <>
+                        <Check className="size-3.5" aria-hidden="true" />
+                        Done
+                      </>
+                    )}
+                  </button>
                   <button
                     type="button"
                     aria-label={`Edit "${task.title}"`}
