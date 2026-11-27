@@ -143,7 +143,7 @@ All architecture decisions, product specifications, database schemas, UI/UX dire
 
 | Member | Role | Core Focus |
 | :--- | :--- | :--- |
-| **Salwanetta Jauza Y** *(Leader)* | Backend, Database & Knowledge Hub | Supabase PostgreSQL schema, RLS tenant isolation, Knowledge Hub, & project coordination |
-| **Kalya Andriana** | Frontend & User Experience | Onboarding flow, responsive navigation, Home & My Journey UI |
-| **Rifaludin** | Product & UI/UX Direction | Visual identity, Design System (`docs/DESIGN_SYSTEM.md`), moodboard, & storytelling |
-| **Erick** | Technical Lead & AI Integration | Tech setup, auth & community architecture, planned Gemini API RAG pipeline |
+| **Salwanetta Jauza Y** *(Leader)* | Team Leader, Knowledge Hub & Data/AI Lead | Supabase PostgreSQL schema, RLS tenant isolation, Knowledge Hub, Gemini embeddings & RAG pipeline |
+| **Erick Surbakti** | UI/UX, Security & Full-Stack AI Lead | Visual design system, dark-blue tokens, Next.js auth/onboarding backend, PostgreSQL RLS security, & Gemini RAG integration |
+| **Kalya Andriana** | Community & Frontend Lead | Community forum architecture, discussion feed, Q&A flows, responsive navigation (`Sidebar` & `BottomNav`) |
+| **Rifaludin** | QA, Usability Testing, Demo & Pitch Lead | Visual design moodboard, 2-minute demo video script & production, pilot usability testing, & final pitch narrative |

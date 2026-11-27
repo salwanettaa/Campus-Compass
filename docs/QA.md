@@ -21,7 +21,8 @@ my journey di home aja
 - kalo mau liat jawaban orang harus contribute sesuatu. tp yg year 1 bisa dibuat survey ttg kampus apa jadi informasinya banyak buat ai belajar 
 - knowledge hub masukin yg general, ada yg perjurusan. sistem rag nya khusus demo aja jd ngelatih spesifik baca jurusan a, gmn carnya biar ga kena limit.
 
-erick community
-kalya home
-netta knowledge
+erick ui/ux
+kalya community
+netta knowledge & data
+rifal qa & demo
 

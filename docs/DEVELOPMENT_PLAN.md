@@ -58,7 +58,7 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
   3. **Penting untuk juri**: Jika `Confirm email` dinyalakan lagi (karena Patch 03 mengecek `email_confirmed_at IS NOT NULL`), buat **1–2 akun demo pre-confirmed** di Supabase Auth dan cantumkan kredensial aksesnya secara aman di catatan submission (jangan pernah commit password/token ke Git!).
 
 ### Task 1.3 — Interactive UI Preview `Community` (Mockup Berlabel Jujur, Belum ke Supabase)
-- **Owner**: Erick (`feat/community-preview`)
+- **Owner**: Kalya (`feat/community-preview`)
 - **Tujuan**: Melengkapi tampilan dan interaksi Community sesuai catatan [`docs/QA.md`](QA.md) untuk Demo Semifinal **tanpa** menyambungkan ke Supabase dulu (wiring live DB disimpan untuk **Fase Pra-Final**).
 - **Langkah**:
   1. Tambahkan **tab scope** di `/community`: `General` (semua komunitas), `My Campus (UGM)`, dan `My Program` (filter per jurusan) memakai data mock (`MOCK_POSTS`).
@@ -67,7 +67,7 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
 - **Definition of Done**: Di Video Demo Semifinal, alur buka tab `General`/`UGM`/`Jurusan`, buat pertanyaan/komentar, dan preview Add Community bisa didemokan secara interaktif dengan label jujur.
 
 ### Task 1.4 — Home, `My Journey` & `My Tasks` (Selesai di Kode — PR #13 `8452f72`)
-- **Owner**: Kalya
+- **Owner**: Erick (UI/UX) & Kalya (Frontend Integration)
 - **Status**: ✅ Selesai di kode (`src/app/(dashboard)/journey/page.tsx`, `src/app/(dashboard)/home/page.tsx`, `src/components/tasks/my-tasks-panel.tsx`).
 - **Cakupan**:
   1. Memperbarui `adaptation_area` menjadi 5 area (`social`, `academic`, `internship`, `scholarship`, `competition`) dan menyediakan rule-based `personalizeJourney()` berbasis `adaptation_area` + `main_challenge`.
@@ -93,7 +93,7 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
 **Target Produk**: Menyambungkan **Community ke Supabase Live**, mengimplementasikan **Abstract Week 2** (*Gemini API RAG Integration*), dan menjalankan **Pilot Trial Awal** untuk validasi, sambil **tetap menyimpan 3 tugas substantif untuk Final Day (`19 Dec`)**.
 
 ### Task 2.0 — Sambungkan `Community` ke Supabase (Live Read + Write)
-- **Owner**: Erick (`feat/community-live`)
+- **Owner**: Kalya (`feat/community-live`) & Netta
 - **Kontrak yang sudah ada**: `src/lib/community/types.ts` (mirror kolom `v_posts`, `v_comments`), `supabase/patches/02_community_helpful_accepted.sql` (`trg_votes_sync_helpful_count`, `set_accepted_answer()`).
 - **Langkah**:
   1. Ubah `listFeed()` dan `getThread()` di `src/lib/community/data.ts` untuk query `v_posts` (`status = 'published'`), filter scope (`General` / `campus_id` / `program_id`), hitung `commentCount` dari `v_comments`, dan cek `votes` user login.
@@ -108,7 +108,7 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
   3. Pastikan setiap baris `content_chunks` mengisi `campus_id`, `program_id`, `is_general`, serta `guide_id` / `experience_id` dengan benar agar isolasi tenant tetap ketat.
 
 ### Task 2.2 — Live `AI Navigator` (Gemini RAG + Source Citations)
-- **Owner**: Erick (`feat/ai-navigator`)
+- **Owner**: Erick (`feat/ai-navigator`) & Netta
 - **Kontrak DB**: RPC `public.match_campus_chunks(query_embedding, p_campus_id, p_program_id, match_threshold, match_count)` di `docs/TECH_AND_DATABASE.md`.
 - **Langkah**:
   1. Install `@google/genai` dan pastikan `GEMINI_API_KEY` hanya dibaca di server (API Route `src/app/api/ai-navigator/route.ts` atau Server Action).
@@ -132,19 +132,19 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
 **Aturan Handbook**: Tim check-in dengan *starting commit*, lalu mengerjakan **2–3 substantive tasks** secara live selama *Build Session* (**bobot 10% Final Day Execution**). Jangan kerjakan 3 tugas di bawah ini sebelum hari Final!
 
 ### Final Task A — Dynamic `journey_steps` per Kampus/Prodi/Semester & Rekomendasi Guide Otomatis
-- **Owner**: Kalya & Netta
+- **Owner**: Erick & Netta
 - **Ruang Lingkup**:
   1. Migrasikan konten roadmap yang saat ini masih hardcoded di `src/lib/journey/roadmap-data.ts` ke tabel `public.journey_steps` di Supabase agar terikat ke `campus_id`, `program_id`, dan `semester` (mulai dari UGM D4 TRI Semester 1–4+).
   2. Kembangkan logika *rule-based* (tanpa ML, sesuai Abstract Section 6) agar mempertimbangkan `profiles.semester` dan `program_id` — bukan hanya `adaptation_area` & `main_challenge` — serta otomatis menampilkan **3 rekomendasi panduan Knowledge Hub (`guides`)** yang relevan per langkah/fokus area.
 
 ### Final Task B — Fitur Moderasi & Verifikasi Dasar
-- **Owner**: Erick & Netta
+- **Owner**: Kalya & Netta
 - **Ruang Lingkup** (*sesuai Abstract Week 3: "moderation"*):
   1. Tambahkan tombol **Report** pada post/komentar Community atau experience untuk menandai konten bermasalah (update status ke `reported` sesuai kebijakan RLS/RPC aman).
   2. Tambahkan tampilan/alur kurator untuk memverifikasi `is_verified_contributor` atau meninjau konten terlapor.
 
 ### Final Task C — AI-to-Community Fallback & Perbaikan Usability Pilot Test
-- **Owner**: Erick & Rifal
+- **Owner**: Erick, Kalya & Rifal
 - **Ruang Lingkup**:
   1. Saat AI Navigator menyatakan *insufficient evidence*, tampilkan tombol **"Ask in Community"** yang langsung membawa pertanyaan user ke form Create Post di `/community`.
   2. Selesaikan 1–2 perbaikan UI/UX nyata yang ditemukan dari uji coba mahasiswa pada Task 2.3.
@@ -171,3 +171,6 @@ Dan cek manual di browser desktop (`>= 1024px`) serta mobile (`375px`):
 - [ ] Community feed, create post, comment, helpful vote, dan accepted answer tersimpan di Supabase *(target Pra-Final / Semifinal jika PR mendarat)*.
 - [ ] AI Navigator menjawab berbasis chunk + menampilkan Source Cards yang bisa diklik *(target Pra-Final)*.
 - [ ] Dynamic `journey_steps` per `campus_id`/`program_id`/`semester` & rekomendasi otomatis panduan Knowledge Hub *(target Final Day)*.
+
+
+---
