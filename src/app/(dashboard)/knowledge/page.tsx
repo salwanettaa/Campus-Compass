@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SlidersHorizontal } from "lucide-react";
 import { CategoryFilter } from "@/components/knowledge/category-filter";
-import { ExperienceCard } from "@/components/knowledge/experience-card";
 import { GuideListCard } from "@/components/knowledge/guide-list-card";
-import { PillarSwitch } from "@/components/knowledge/pillar-switch";
 import { RequestGuideModal } from "@/components/knowledge/request-guide-modal";
 import { SmartScopeSwitcher } from "@/components/knowledge/smart-scope-switcher";
 import { Alert } from "@/components/ui/alert";
@@ -14,12 +12,10 @@ import { SearchBar } from "@/components/ui/search-bar";
 import { categoryName } from "@/lib/knowledge/categories";
 import {
   getKnowledgeContext,
-  listExperiences,
   listGuides,
   parseSimulation,
 } from "@/lib/knowledge/data";
 import {
-  applyExperiences,
   applyGuides,
   buildKnowledgeQuery,
   countByCategory,
@@ -45,10 +41,9 @@ export default async function KnowledgePage({
     Array.isArray(raw.mock) ? raw.mock[0] : raw.mock,
   );
 
-  const [context, guidesResult, experiencesResult] = await Promise.all([
+  const [context, guidesResult] = await Promise.all([
     getKnowledgeContext(),
     listGuides(simulation),
-    listExperiences(simulation),
   ]);
 
   const filterOptions = {
@@ -66,18 +61,13 @@ export default async function KnowledgePage({
   const guides = guidesResult.ok
     ? applyGuides(guidesResult.data, params, filterOptions)
     : [];
-  const experiences = experiencesResult.ok
-    ? applyExperiences(experiencesResult.data, params, filterOptions)
-    : [];
   const counts = countByCategory(scopedGuides);
 
   const isFiltered =
     params.category !== null || params.q !== "" || params.scope !== "major";
   const retryHref = `/knowledge${buildKnowledgeQuery(params)}`;
-  const currentPillar = params.pillar ?? "guides";
   const bookmarkedSet = new Set(context.bookmarkedGuideIds);
-  const isUsingSampleData =
-    guidesResult.source !== "supabase" || experiencesResult.source !== "supabase";
+  const isUsingSampleData = guidesResult.source !== "supabase";
 
   const selectedProgram =
     params.scope === "all"
@@ -91,12 +81,8 @@ export default async function KnowledgePage({
     <main className="flex w-full flex-col gap-6">
       <PageHeader
         title="Knowledge Hub"
-        description="Official campus guides and senior experiences, with verified sources kept in view."
-      >
-        <ButtonLink href="/knowledge/share-experience" variant="outline">
-          Share your experience
-        </ButtonLink>
-      </PageHeader>
+        description="Official and curated campus guides, with verified sources kept in view."
+      />
 
       <form
         action="/knowledge"
@@ -107,16 +93,13 @@ export default async function KnowledgePage({
           name="q"
           defaultValue={params.q}
           maxLength={100}
-          label="Search guides and experiences"
+          label="Search guides"
           placeholder="Search by topic (e.g. KRS, Lab Jaringan, Magang, GMC)"
         />
         {params.category ? (
           <input type="hidden" name="category" value={params.category} />
         ) : null}
         <input type="hidden" name="scope" value={params.scope} />
-        {params.pillar && params.pillar !== "guides" ? (
-          <input type="hidden" name="pillar" value={params.pillar} />
-        ) : null}
         <Button type="submit" size="lg" className="shrink-0">
           Search
         </Button>
@@ -125,18 +108,10 @@ export default async function KnowledgePage({
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start lg:gap-10">
         {/* Main reading column */}
         <div className="flex min-w-0 flex-col gap-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="w-full min-w-0 sm:w-auto sm:flex-1">
-              <PillarSwitch
-                params={params}
-                guidesCount={guides.length}
-                experiencesCount={experiences.length}
-              />
-            </div>
-
+          <div className="flex flex-wrap items-center justify-end gap-3 lg:hidden">
             <a
               href="#knowledge-filters"
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-brand-400 bg-paper-raised px-3.5 text-caption font-medium text-brand-900 lg:hidden"
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-brand-400 bg-paper-raised px-3.5 text-caption font-medium text-brand-900"
             >
               <SlidersHorizontal className="size-3.5" aria-hidden="true" />
               <span>
@@ -146,106 +121,61 @@ export default async function KnowledgePage({
             </a>
           </div>
 
-          {currentPillar === "guides" ? (
-            <section aria-labelledby="guides-heading" className="flex flex-col gap-4">
-              <div className="flex items-baseline justify-between gap-4">
-                <h2 id="guides-heading" className="text-h2 text-brand-950">
-                  Curated guides
-                </h2>
-                <p className="text-caption tabular-nums text-brand-800">
-                  {guides.length} {guides.length === 1 ? "guide" : "guides"}
-                </p>
-              </div>
+          <section aria-labelledby="guides-heading" className="flex flex-col gap-4">
+            <div className="flex items-baseline justify-between gap-4">
+              <h2 id="guides-heading" className="text-h2 text-brand-950">
+                Curated guides
+              </h2>
+              <p className="text-caption tabular-nums text-brand-800">
+                {guides.length} {guides.length === 1 ? "guide" : "guides"}
+              </p>
+            </div>
 
-              {!guidesResult.ok ? (
-                <div className="flex flex-col items-start gap-3">
-                  <Alert variant="error" title="Unable to load guides">
-                    {guidesResult.message} Check your connection and try again.
-                  </Alert>
-                  <ButtonLink href={retryHref} variant="outline" size="sm">
-                    Try again
-                  </ButtonLink>
-                </div>
-              ) : guides.length === 0 ? (
-                <div className="flex flex-col items-start gap-3 border-y border-brand-300 py-8">
-                  <h3 className="text-h3 text-brand-950">
-                    {isFiltered ? "No guides match these filters" : "No guides yet"}
-                  </h3>
-                  <p className="text-body text-pretty max-w-md text-brand-800">
-                    {isFiltered
-                      ? "Try different keywords, another category, or switch to General guides."
-                      : "Curated guides for this program will appear once verified by curators."}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-4 pt-1">
-                    {isFiltered ? (
-                      <Link
-                        href="/knowledge"
-                        className="text-h5 inline-flex min-h-11 items-center text-brand-700 underline underline-offset-4"
-                      >
-                        Clear search and filters
-                      </Link>
-                    ) : null}
-                    <RequestGuideModal />
-                  </div>
-                </div>
-              ) : (
-                <ul className="grid gap-4 md:grid-cols-2" aria-label="Guides">
-                  {guides.map((guide) => (
-                    <li key={guide.id}>
-                      <GuideListCard
-                        guide={guide}
-                        programs={context.programs}
-                        initialBookmarked={bookmarkedSet.has(guide.id)}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          ) : (
-            <section aria-labelledby="experiences-heading" className="flex flex-col gap-4">
-              <div className="flex items-baseline justify-between gap-4">
-                <h2 id="experiences-heading" className="text-h2 text-brand-950">
-                  Senior experiences
-                </h2>
-                <p className="text-caption tabular-nums text-brand-800">
-                  {experiences.length}{" "}
-                  {experiences.length === 1 ? "story" : "stories"}
-                </p>
+            {!guidesResult.ok ? (
+              <div className="flex flex-col items-start gap-3">
+                <Alert variant="error" title="Unable to load guides">
+                  {guidesResult.message} Check your connection and try again.
+                </Alert>
+                <ButtonLink href={retryHref} variant="outline" size="sm">
+                  Try again
+                </ButtonLink>
               </div>
-
-              {!experiencesResult.ok ? (
-                <div className="flex flex-col items-start gap-3">
-                  <Alert variant="error" title="Unable to load experiences">
-                    {experiencesResult.message} Check your connection and try again.
-                  </Alert>
-                  <ButtonLink href={retryHref} variant="outline" size="sm">
-                    Try again
-                  </ButtonLink>
+            ) : guides.length === 0 ? (
+              <div className="flex flex-col items-start gap-3 border-y border-brand-300 py-8">
+                <h3 className="text-h3 text-brand-950">
+                  {isFiltered ? "No guides match these filters" : "No guides yet"}
+                </h3>
+                <p className="text-body text-pretty max-w-md text-brand-800">
+                  {isFiltered
+                    ? "Try different keywords, another category, or switch to General guides."
+                    : "Curated guides for this program will appear once verified by curators."}
+                </p>
+                <div className="flex flex-wrap items-center gap-4 pt-1">
+                  {isFiltered ? (
+                    <Link
+                      href="/knowledge"
+                      className="text-h5 inline-flex min-h-11 items-center text-brand-700 underline underline-offset-4"
+                    >
+                      Clear search and filters
+                    </Link>
+                  ) : null}
+                  <RequestGuideModal />
                 </div>
-              ) : experiences.length === 0 ? (
-                <div className="flex flex-col items-start gap-3 border-y border-brand-300 py-8">
-                  <h3 className="text-h3 text-brand-950">
-                    No senior experiences in this view yet
-                  </h3>
-                  <p className="text-body text-pretty max-w-md text-brand-800">
-                    Share how you handled a tough semester or internship to help incoming students.
-                  </p>
-                  <ButtonLink href="/knowledge/share-experience" variant="outline">
-                    Share your experience
-                  </ButtonLink>
-                </div>
-              ) : (
-                <ul className="flex flex-col gap-4" aria-label="Senior experiences">
-                  {experiences.map((experience) => (
-                    <li key={experience.id}>
-                      <ExperienceCard experience={experience} />
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          )}
+              </div>
+            ) : (
+              <ul className="grid gap-4 md:grid-cols-2" aria-label="Guides">
+                {guides.map((guide) => (
+                  <li key={guide.id}>
+                    <GuideListCard
+                      guide={guide}
+                      programs={context.programs}
+                      initialBookmarked={bookmarkedSet.has(guide.id)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
 
           <p className="text-caption text-pretty border-t border-brand-300 pt-4 text-brand-800">
             {isUsingSampleData
@@ -267,9 +197,7 @@ export default async function KnowledgePage({
             programs={context.programs}
           />
 
-          {currentPillar === "guides" ? (
-            <CategoryFilter params={params} counts={counts} />
-          ) : null}
+          <CategoryFilter params={params} counts={counts} />
 
           <div className="flex flex-col gap-1 border-t border-brand-300 pt-4">
             <p className="text-caption text-brand-800">Missing a campus rule?</p>
