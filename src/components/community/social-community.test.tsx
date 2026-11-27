@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { CommunityHub, canAccessCommunity } from "./community-hub";
 import { SocialPostCard } from "./social-post-card";
+import { ThreadModal } from "./thread-modal";
 import {
   MOCK_SOCIAL_COMMUNITIES,
   MOCK_SOCIAL_POSTS,
@@ -72,5 +73,54 @@ describe("Social Community prototype", () => {
     expect(html).toContain(questionPost.university);
     expect(html).toContain(questionPost.department);
     expect(html).toContain(questionPost.authorName);
+  });
+
+  it("renders anonymous badge and masked author info on anonymous posts", () => {
+    const anonPost = MOCK_SOCIAL_POSTS.find((p) => p.isAnonymous)!;
+    const html = renderToStaticMarkup(
+      <SocialPostCard
+        post={anonPost}
+        onToggleLike={() => {}}
+        onOpenThread={() => {}}
+      />,
+    );
+    expect(html).toContain("Anonymous Student");
+    expect(html).toContain("Anonymous");
+  });
+
+  it("renders ThreadModal with Reply as Anonymous toggle and displays masked replies", () => {
+    const postWithReplies = {
+      ...MOCK_SOCIAL_POSTS[0],
+      replies: [
+        {
+          id: "rep-anon-test",
+          postId: MOCK_SOCIAL_POSTS[0].id,
+          authorName: "Anonymous Student",
+          authorInitials: "?",
+          isAnonymous: true,
+          university: "UGM",
+          department: "Teknologi Rekayasa Internet",
+          createdAtLabel: "10m",
+          content: "You can ask the prodi admin directly for syllabus approval.",
+          likes: 2,
+          likedByViewer: false,
+        },
+      ],
+    };
+
+    const html = renderToStaticMarkup(
+      <ThreadModal
+        post={postWithReplies}
+        viewer={ugmTriViewer}
+        onClose={() => {}}
+        onTogglePostLike={() => {}}
+        onToggleReplyLike={() => {}}
+        onSubmitReply={() => {}}
+      />,
+    );
+
+    expect(html).toContain("Reply as Anonymous");
+    expect(html).toContain("Replying as Kalya");
+    expect(html).toContain("Anonymous Student");
   });
 });

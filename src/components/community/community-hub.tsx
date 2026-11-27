@@ -169,7 +169,9 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
     communityId?: string;
     department: string;
     scope: "general" | "university" | "department";
+    isAnonymous?: boolean;
   }) {
+    const isAnon = Boolean(payload.isAnonymous);
     const initials =
       viewer.displayName
         .trim()
@@ -190,8 +192,9 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
       university: viewer.universityShort,
       department:
         payload.scope === "department" ? viewer.department : payload.department,
-      authorName: viewer.displayName,
-      authorInitials: initials,
+      authorName: isAnon ? "Anonymous Student" : viewer.displayName,
+      authorInitials: isAnon ? "?" : initials,
+      isAnonymous: isAnon,
       createdAtLabel: "just now",
       postType: payload.postType,
       content: payload.content,
@@ -205,7 +208,11 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
     if (activeTab === "communities" && !resolvedCommunityId) {
       setActiveTab("general");
     }
-    setFeedback("Your post is live in the feed.");
+    setFeedback(
+      isAnon
+        ? "Your post is live in the feed (posted anonymously)."
+        : "Your post is live in the feed.",
+    );
   }
 
   function handleTogglePostLike(postId: string) {
@@ -246,7 +253,9 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
     postId: string,
     content: string,
     replyToAuthor?: string,
+    isAnonymous?: boolean,
   ) {
+    const isAnon = Boolean(isAnonymous);
     const initials =
       viewer.displayName
         .trim()
@@ -265,8 +274,9 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
             {
               id: `rep-local-${Date.now()}`,
               postId,
-              authorName: viewer.displayName,
-              authorInitials: initials,
+              authorName: isAnon ? "Anonymous Student" : viewer.displayName,
+              authorInitials: isAnon ? "?" : initials,
+              isAnonymous: isAnon,
               university: viewer.universityShort,
               department: viewer.department,
               createdAtLabel: "just now",
@@ -787,6 +797,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
             ? communityById.get(activeThreadPost.communityId)
             : undefined
         }
+        viewer={viewer}
         onClose={() => setOpenThreadPostId(null)}
         onTogglePostLike={handleTogglePostLike}
         onToggleReplyLike={handleToggleReplyLike}

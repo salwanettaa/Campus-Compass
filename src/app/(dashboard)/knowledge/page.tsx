@@ -81,7 +81,7 @@ export default async function KnowledgePage({
     <main className="flex w-full flex-col gap-6">
       <PageHeader
         title="Knowledge Hub"
-        description="Official and curated campus guides, with verified sources kept in view."
+        description="Official campus guides and regulations, with verified sources kept in view."
       />
 
       <form
@@ -93,7 +93,7 @@ export default async function KnowledgePage({
           name="q"
           defaultValue={params.q}
           maxLength={100}
-          label="Search guides"
+          label="Search campus guides"
           placeholder="Search by topic (e.g. KRS, Lab Jaringan, Magang, GMC)"
         />
         {params.category ? (
@@ -108,27 +108,26 @@ export default async function KnowledgePage({
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start lg:gap-10">
         {/* Main reading column */}
         <div className="flex min-w-0 flex-col gap-6">
-          <div className="flex flex-wrap items-center justify-end gap-3 lg:hidden">
-            <a
-              href="#knowledge-filters"
-              className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-brand-400 bg-paper-raised px-3.5 text-caption font-medium text-brand-900"
-            >
-              <SlidersHorizontal className="size-3.5" aria-hidden="true" />
-              <span>
-                {selectedProgram}
-                {params.category ? ` · ${categoryName(params.category)}` : ""}
-              </span>
-            </a>
-          </div>
-
           <section aria-labelledby="guides-heading" className="flex flex-col gap-4">
             <div className="flex items-baseline justify-between gap-4">
               <h2 id="guides-heading" className="text-h2 text-brand-950">
                 Curated guides
               </h2>
-              <p className="text-caption tabular-nums text-brand-800">
-                {guides.length} {guides.length === 1 ? "guide" : "guides"}
-              </p>
+              <div className="flex items-center gap-3">
+                <p className="text-caption tabular-nums text-brand-800">
+                  {guides.length} {guides.length === 1 ? "guide" : "guides"}
+                </p>
+                <a
+                  href="#knowledge-filters"
+                  className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-brand-400 bg-paper-raised px-3 text-caption font-medium text-brand-900 lg:hidden"
+                >
+                  <SlidersHorizontal className="size-3.5" aria-hidden="true" />
+                  <span>
+                    {selectedProgram}
+                    {params.category ? ` · ${categoryName(params.category)}` : ""}
+                  </span>
+                </a>
+              </div>
             </div>
 
             {!guidesResult.ok ? (

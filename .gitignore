@@ -75,3 +75,7 @@ scratch/
 # Next.js / TypeScript generated files
 next-env.d.ts
 *.tsbuildinfo
+
+# Local Semifinal Proposal Drafts
+docs/SEMIFINAL_PROPOSAL_REFERENCE.md
+docs/Campus_Compass_STACK2026_Semifinal_Proposal.docx
