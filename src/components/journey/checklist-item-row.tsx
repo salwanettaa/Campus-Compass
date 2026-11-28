@@ -122,7 +122,7 @@ export function ChecklistItemRow({
               handleStatusChange(isCompleted ? "pending" : "completed")
             }
             className={cn(
-              "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-[0.3rem] border-2 transition-colors",
+              "hit-box mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-[0.35rem] border-2 transition-colors lg:size-5",
               isCompleted
                 ? "border-emerald-700 bg-emerald-700 text-white"
                 : "border-brand-400 bg-paper-raised hover:border-brand-700",
@@ -158,7 +158,7 @@ export function ChecklistItemRow({
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 pl-8">
+        <div className="flex flex-wrap items-center gap-2 pl-9 lg:pl-8">
           <button
             type="button"
             disabled={isPending}
@@ -167,7 +167,7 @@ export function ChecklistItemRow({
               setEditingNote((v) => !v);
             }}
             className={cn(
-              "inline-flex min-h-8 items-center gap-1.5 rounded-full border px-3 text-caption transition-colors",
+              "inline-flex min-h-8 items-center gap-1.5 rounded-lg border px-3 text-caption transition-colors",
               savedNote
                 ? "border-brand-600 bg-brand-100 text-brand-950"
                 : "border-brand-300 text-brand-800 hover:border-brand-600 hover:text-brand-950",
@@ -183,7 +183,7 @@ export function ChecklistItemRow({
                 type="button"
                 disabled={isPending}
                 onClick={() => handleStatusChange("pending")}
-                className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-brand-300 px-3 text-caption text-brand-800 transition-colors hover:border-brand-600 hover:text-brand-950"
+                className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-brand-300 px-3 text-caption text-brand-800 transition-colors hover:border-brand-600 hover:text-brand-950"
               >
                 <RotateCcw className="size-3.5" aria-hidden="true" />
                 Restore
@@ -193,7 +193,7 @@ export function ChecklistItemRow({
                 type="button"
                 disabled={isPending}
                 onClick={() => handleStatusChange("skipped")}
-                className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-brand-300 px-3 text-caption text-brand-800 transition-colors hover:border-brand-600 hover:text-brand-950"
+                className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-brand-300 px-3 text-caption text-brand-800 transition-colors hover:border-brand-600 hover:text-brand-950"
               >
                 <SkipForward className="size-3.5" aria-hidden="true" />
                 Skip
@@ -202,7 +202,7 @@ export function ChecklistItemRow({
           ) : null}
 
           {linkedTaskId ? (
-            <span className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-brand-300 bg-brand-100 px-3 text-caption text-brand-900">
+            <span className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-brand-300 bg-brand-100 px-3 text-caption text-brand-900">
               <CheckCircle2
                 className="size-3.5 text-brand-700"
                 aria-hidden="true"
@@ -214,7 +214,7 @@ export function ChecklistItemRow({
               type="button"
               disabled={isPending}
               onClick={handleAddToTasks}
-              className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-brand-400 bg-paper-raised px-3 text-caption text-brand-950 transition-colors hover:border-brand-700 hover:bg-brand-100"
+              className="inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-brand-400 bg-paper-raised px-3 text-caption text-brand-950 transition-colors hover:border-brand-700 hover:bg-brand-100"
             >
               <Plus className="size-3.5" aria-hidden="true" />
               Add to My Tasks

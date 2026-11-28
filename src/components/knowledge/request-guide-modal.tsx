@@ -65,7 +65,7 @@ export function RequestGuideModal() {
       <dialog
         ref={dialogRef}
         aria-labelledby={titleId}
-        className="m-auto w-[min(32rem,calc(100%-2rem))] overscroll-contain rounded-md border border-brand-300 bg-paper-raised p-6 text-brand-950 shadow-overlay backdrop:bg-ink/40"
+        className="to-sheet m-auto w-[min(32rem,calc(100%-2rem))] overscroll-contain rounded-md border border-brand-300 bg-paper-raised p-6 text-brand-950 shadow-overlay backdrop:bg-ink/40"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex flex-col gap-1">

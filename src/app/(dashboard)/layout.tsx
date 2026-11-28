@@ -57,7 +57,7 @@ export default async function DashboardLayout({
       </div>
       <div className="flex min-w-0 flex-1 flex-col">
         <MobileHeader />
-        <div className="mx-auto w-full max-w-[82rem] flex-1 px-4 pt-6 pb-28 sm:px-8 lg:px-10 lg:py-8">
+        <div className="mx-auto w-full max-w-[82rem] flex-1 px-4 pt-4 pb-[calc(5.5rem+env(safe-area-inset-bottom))] sm:px-8 sm:pt-6 lg:px-10 lg:py-8">
           {children}
         </div>
       </div>

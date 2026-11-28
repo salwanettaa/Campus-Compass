@@ -115,14 +115,20 @@
   font-weight: 400;
 }
 @utility text-body {
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   line-height: 1.6;
   font-weight: 400;
+  @media (min-width: 48rem) {
+    font-size: 0.875rem;
+  }
 }
 @utility text-caption {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   line-height: 1.5;
   font-weight: 400;
+  @media (min-width: 48rem) {
+    font-size: 0.75rem;
+  }
 }
 
 /* -----------------------------------------------------------------------------
@@ -176,6 +182,107 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-brand-600);
   outline-offset: 2px;
+}
+
+/* -----------------------------------------------------------------------------
+   Phone and tablet: below the sidebar breakpoint, every control is at least
+   44px. Checkbox-sized controls keep their look and grow an invisible hit area
+   instead (.hit-box). Add .tap to a link that stands on its own.
+   ----------------------------------------------------------------------------- */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hit-box {
+  position: relative;
+}
+
+@media (max-width: 63.99rem) {
+  main button:not(.hit-box),
+  main summary,
+  main [role="tab"],
+  dialog button,
+  .tap {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+
+  .tap {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .hit-box::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2.75rem;
+    height: 2.75rem;
+    translate: -50% -50%;
+  }
+}
+
+/* One line of filters that scrolls sideways. The next item fades at the edge,
+   which shows there is more; the end padding keeps the last one clear. */
+@media (max-width: 39.99rem) {
+  .scroll-row {
+    /* Keeps absolutely positioned children, such as screen-reader text, inside
+       the scroller; without it they widen the whole page. */
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 1rem;
+    scrollbar-width: none;
+    margin-inline: -1rem;
+    padding: 0.1875rem 2.5rem 0.1875rem 1rem;
+    mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  }
+  .scroll-row::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-row > * {
+    flex: none;
+    scroll-snap-align: start;
+    white-space: nowrap;
+  }
+}
+
+/* Bottom sheet: how dialogs arrive on a phone. */
+dialog.sheet {
+  width: 100%;
+  max-width: 32rem;
+  max-height: 85dvh;
+  margin: auto auto 0;
+  padding: 0 0 env(safe-area-inset-bottom);
+  border: 0;
+  border-radius: 1.25rem 1.25rem 0 0;
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 39.99rem) {
+  /* Dialogs and pop-up panels sit on the bottom edge, within thumb reach. */
+  dialog.to-sheet {
+    width: 100%;
+    max-width: 100%;
+    max-height: 88dvh;
+    margin: auto 0 0;
+    border-radius: 1.25rem 1.25rem 0 0;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+  .overlay-sheet {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .overlay-sheet > * {
+    max-width: 100%;
+    max-height: 92dvh;
+    border-radius: 1.25rem 1.25rem 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
 
 /* -----------------------------------------------------------------------------
@@ -250,6 +357,16 @@ body {
     animation: art-settle 1.2s ease-out both;
   }
 
+  dialog.sheet[open] {
+    animation: sheet-up 280ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  @media (max-width: 39.99rem) {
+    dialog.to-sheet[open],
+    .overlay-sheet > * {
+      animation: sheet-up 280ms cubic-bezier(0.2, 0, 0, 1);
+    }
+  }
+
   .compass-needle {
     animation: compass-settle 700ms 150ms ease-out both;
   }
@@ -267,6 +384,17 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    translate: 0 40%;
+    opacity: 0.4;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
   }
 }
 

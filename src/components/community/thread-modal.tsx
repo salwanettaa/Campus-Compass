@@ -79,7 +79,7 @@ export function ThreadModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="thread-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4"
+      className="overlay-sheet fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4"
     >
       <div className="flex max-h-[88dvh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-brand-300 bg-paper-raised">
         {/* Modal Header */}
@@ -127,7 +127,7 @@ export function ThreadModal({
                     {post.authorName}
                   </span>
                   {post.isAnonymous ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.6875rem] font-medium text-brand-700">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.75rem] font-medium text-brand-700">
                       <EyeOff className="size-3" aria-hidden="true" />
                       Anonymous
                     </span>
@@ -216,7 +216,7 @@ export function ThreadModal({
                             {reply.authorName}
                           </span>
                           {reply.isAnonymous ? (
-                            <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.6875rem] font-medium text-brand-700">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.75rem] font-medium text-brand-700">
                               <EyeOff className="size-3" aria-hidden="true" />
                               Anonymous
                             </span>

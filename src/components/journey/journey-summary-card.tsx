@@ -41,7 +41,7 @@ export function JourneySummaryCard({
         </div>
         <Link
           href={`/journey#stage-${journey.currentStage.id}`}
-          className="inline-flex min-h-9 shrink-0 items-center rounded-lg px-2 text-caption font-semibold text-brand-700 hover:bg-brand-100"
+          className="tap inline-flex min-h-9 shrink-0 items-center rounded-lg text-caption font-semibold text-brand-700 hover:bg-brand-100 lg:px-2"
         >
           Open in My Journey
         </Link>

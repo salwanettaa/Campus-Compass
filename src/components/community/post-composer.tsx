@@ -165,7 +165,7 @@ export function PostComposer({
                   {isAnonymous ? "Anonymous Student" : viewer.displayName}
                 </span>
                 {isAnonymous ? (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.6875rem] font-medium text-brand-700">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.75rem] font-medium text-brand-700">
                     <EyeOff className="size-3" aria-hidden="true" />
                     Name hidden
                   </span>

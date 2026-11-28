@@ -51,7 +51,7 @@ export function SampleChat({ initialQuery }: { initialQuery?: string }) {
     SAMPLE_SCENARIOS[0];
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-10">
       <section aria-labelledby="chat-heading" className="flex flex-col gap-5">
         <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-brand-300 pb-3">
           <h2 id="chat-heading" className="text-h2 text-brand-950">
@@ -78,7 +78,7 @@ export function SampleChat({ initialQuery }: { initialQuery?: string }) {
           <div
             role="group"
             aria-label="Sample questions"
-            className="flex flex-wrap gap-2"
+            className="scroll-row flex flex-wrap gap-2"
           >
             {SAMPLE_SCENARIOS.map((item) => {
               const active = item.id === scenario.id;

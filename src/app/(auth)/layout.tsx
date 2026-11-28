@@ -13,7 +13,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   const sample = MOCK_GUIDES[0];
 
   return (
-    <div className="grid w-full flex-1 bg-paper-raised lg:grid-cols-2">
+    <div className="grid w-full flex-1 grid-cols-1 bg-paper-raised lg:grid-cols-2">
       <div className="flex min-w-0 flex-col px-5 py-4 sm:px-10 sm:py-6">
         <header className="flex items-center justify-between gap-3">
           <Logo href="/" />
@@ -28,7 +28,21 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           </Link>
         </header>
 
-        <main className="auth-form auth-stagger mx-auto flex w-full max-w-[28rem] flex-1 flex-col justify-center gap-6 py-10">
+        <div className="relative mt-3 h-36 overflow-hidden rounded-2xl bg-brand-700 sm:h-44 lg:hidden [@media(max-height:34rem)]:hidden">
+          <Image
+            src={ART}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 1px, 100vw"
+            loading="eager"
+            className="art-settle object-cover object-[60%_25%]"
+          />
+          <p className="text-h3 relative max-w-[15rem] p-4 text-white">
+            Nobody hands you a map. Students draw one together.
+          </p>
+        </div>
+
+        <main className="auth-form auth-stagger mx-auto flex w-full max-w-[28rem] flex-1 flex-col gap-5 pt-6 pb-8 lg:justify-center lg:gap-6 lg:py-10">
           {children}
         </main>
       </div>

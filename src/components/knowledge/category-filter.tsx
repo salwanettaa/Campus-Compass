@@ -27,15 +27,15 @@ export function CategoryFilter({
   return (
     <nav aria-label="Guide categories" className="flex flex-col gap-2">
       <h3 className="text-h5 text-brand-950">Category</h3>
-      <ul className="flex flex-wrap gap-1.5 lg:flex-col lg:gap-0.5">
+      <ul className="scroll-row flex flex-wrap gap-2 lg:flex-col lg:gap-0.5">
         <li>
           <Link
             href={allHref}
             aria-current={params.category === null ? "true" : undefined}
             className={cn(
-              "flex min-h-11 items-center justify-between gap-3 rounded-md px-3 py-2 text-body transition-colors duration-150",
+              "flex min-h-11 items-center justify-between gap-3 rounded-lg px-3 py-2 text-body transition-colors duration-150 max-lg:border max-lg:border-brand-300",
               params.category === null
-                ? "bg-brand-100 font-semibold text-brand-950"
+                ? "bg-brand-100 font-semibold text-brand-950 max-lg:border-brand-600/40 max-lg:text-brand-700"
                 : "text-brand-900 hover:bg-paper-raised hover:text-brand-950",
             )}
           >
@@ -59,9 +59,9 @@ export function CategoryFilter({
                 aria-label={`${CATEGORY_INFO[category].label}, ${counts[category]} ${counts[category] === 1 ? "guide" : "guides"}`}
                 title={CATEGORY_INFO[category].description}
                 className={cn(
-                  "flex min-h-11 items-center justify-between gap-3 rounded-md px-3 py-2 text-body transition-colors duration-150",
+                  "flex min-h-11 items-center justify-between gap-3 rounded-lg px-3 py-2 text-body transition-colors duration-150 max-lg:border max-lg:border-brand-300",
                   selected
-                    ? "bg-brand-100 font-semibold text-brand-950"
+                    ? "bg-brand-100 font-semibold text-brand-950 max-lg:border-brand-600/40 max-lg:text-brand-700"
                     : "text-brand-900 hover:bg-paper-raised hover:text-brand-950",
                 )}
               >

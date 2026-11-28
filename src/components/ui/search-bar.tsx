@@ -20,7 +20,7 @@ export function SearchBar({
   return (
     <div
       className={cn(
-        "relative flex h-11 w-full items-center rounded-lg",
+        "relative flex h-12 w-full items-center rounded-lg sm:h-11",
         "transition-shadow duration-200 focus-within:ring-2 focus-within:ring-brand-600",
         dark
           ? "bg-ink text-white"

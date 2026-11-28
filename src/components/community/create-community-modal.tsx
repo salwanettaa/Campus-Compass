@@ -130,7 +130,7 @@ export function CreateCommunityModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="create-community-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4"
+      className="overlay-sheet fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4"
     >
       <div className="flex max-h-[90dvh] w-full max-w-lg flex-col overflow-hidden rounded-xl border border-brand-300 bg-paper-raised">
         <div className="flex items-center justify-between border-b border-brand-300 px-5 py-4">
