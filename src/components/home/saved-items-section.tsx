@@ -84,17 +84,17 @@ export function SavedItemsSection({
           ) : null}
         </div>
         <div className="flex items-center gap-3 text-caption">
-          <Link href="/knowledge" className="text-brand-700 hover:underline">
+          <Link href="/knowledge" className="tap text-brand-700 hover:underline">
             Knowledge Hub
           </Link>
-          <Link href="/community" className="text-brand-700 hover:underline">
+          <Link href="/community" className="tap text-brand-700 hover:underline">
             Community
           </Link>
         </div>
       </div>
 
       {totalSaved === 0 ? (
-        <div className="rounded-xl border border-dashed border-brand-300 bg-paper p-5 text-body text-brand-800">
+        <p className="rounded-xl border border-dashed border-brand-300 bg-paper p-5 text-body text-brand-800">
           No saved items yet. Bookmark guides in{" "}
           <Link href="/knowledge" className="text-brand-700 underline">
             Knowledge Hub
@@ -104,7 +104,7 @@ export function SavedItemsSection({
             Community
           </Link>{" "}
           to revisit them here.
-        </div>
+        </p>
       ) : (
         <div className="grid gap-3 md:grid-cols-2">
           {savedGuides.map((guide) => (

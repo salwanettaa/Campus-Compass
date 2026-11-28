@@ -19,6 +19,10 @@ import { GUIDE_CATEGORIES } from "@/lib/knowledge/types";
 
 const OPEN_EVENT = "campus-compass:quick-jump";
 
+export function openQuickJump() {
+  window.dispatchEvent(new Event(OPEN_EVENT));
+}
+
 type Destination = {
   href: string;
   label: string;
@@ -54,7 +58,7 @@ export function QuickJumpButton({
       aria-label="Search or jump to a page"
       aria-keyshortcuts="Control+K Meta+K"
       title="Search or jump to (Ctrl K)"
-      onClick={() => window.dispatchEvent(new Event(OPEN_EVENT))}
+      onClick={openQuickJump}
       className={cn(
         "press flex min-h-11 items-center gap-2.5 rounded-lg border border-brand-300 bg-paper text-body text-brand-800 hover:border-brand-400 hover:text-brand-950",
         compact ? "size-11 justify-center" : "w-full px-3",
@@ -65,7 +69,7 @@ export function QuickJumpButton({
       {compact ? null : (
         <>
           <span className="truncate">Jump to…</span>
-          <kbd className="ml-auto rounded-sm border border-brand-300 bg-paper-raised px-1.5 font-sans text-[0.6875rem] leading-5 text-brand-800">
+          <kbd className="ml-auto rounded-sm border border-brand-300 bg-paper-raised px-1.5 font-sans text-[0.75rem] leading-5 text-brand-800">
             Ctrl K
           </kbd>
         </>
@@ -135,7 +139,7 @@ export function QuickJumpDialog() {
         // A click on the dialog element itself is a click on the backdrop.
         if (event.target === dialog.current) dialog.current?.close();
       }}
-      className="mx-auto mt-[12dvh] w-[min(34rem,calc(100%-2rem))] overflow-hidden rounded-xl border border-brand-300 bg-paper-raised p-0 text-brand-950 shadow-overlay backdrop:bg-ink/40"
+      className="to-sheet mx-auto mt-[12dvh] w-[min(34rem,calc(100%-2rem))] overflow-hidden rounded-xl border border-brand-300 bg-paper-raised p-0 text-brand-950 shadow-overlay backdrop:bg-ink/40"
     >
       <form onSubmit={submit} className="flex items-center gap-2 border-b border-brand-300 pr-2 pl-4">
         <Search className="size-4 shrink-0 text-brand-800" aria-hidden="true" />
@@ -146,6 +150,7 @@ export function QuickJumpDialog() {
           onChange={(event) => setQuery(event.target.value)}
           aria-label="Type a page or topic, then press Enter"
           placeholder="Type a page or topic"
+          enterKeyHint="go"
           className="h-14 w-full min-w-0 bg-transparent text-base text-brand-950 outline-none placeholder:text-brand-800"
         />
         <button
@@ -190,7 +195,7 @@ export function QuickJumpDialog() {
           ) : null}
         </ul>
       </div>
-      <p className="border-t border-brand-300 bg-paper px-4 py-2 text-caption text-brand-800">
+      <p className="hidden border-t border-brand-300 bg-paper px-4 py-2 text-caption text-brand-800 lg:block">
         Enter opens the highlighted result. Tab moves through the list. Esc closes.
       </p>
     </dialog>

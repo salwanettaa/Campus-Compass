@@ -105,21 +105,25 @@ export default async function KnowledgePage({
         </Button>
       </form>
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start lg:gap-10">
+      <div className="lg:hidden [&_h3]:sr-only">
+        <CategoryFilter params={params} counts={counts} />
+      </div>
+
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start lg:gap-10">
         {/* Main reading column */}
         <div className="flex min-w-0 flex-col gap-6">
           <section aria-labelledby="guides-heading" className="flex flex-col gap-4">
-            <div className="flex items-baseline justify-between gap-4">
-              <h2 id="guides-heading" className="text-h2 text-brand-950">
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 sm:items-baseline">
+              <h2 id="guides-heading" className="text-h2 whitespace-nowrap text-brand-950">
                 Curated guides
               </h2>
               <div className="flex items-center gap-3">
-                <p className="text-caption tabular-nums text-brand-800">
+                <p className="text-caption whitespace-nowrap tabular-nums text-brand-800">
                   {guides.length} {guides.length === 1 ? "guide" : "guides"}
                 </p>
                 <a
                   href="#knowledge-filters"
-                  className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border border-brand-400 bg-paper-raised px-3 text-caption font-medium text-brand-900 lg:hidden"
+                  className="tap inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-brand-400 bg-paper-raised px-3 text-caption font-medium text-brand-900 lg:hidden"
                 >
                   <SlidersHorizontal className="size-3.5" aria-hidden="true" />
                   <span>
@@ -196,7 +200,9 @@ export default async function KnowledgePage({
             programs={context.programs}
           />
 
-          <CategoryFilter params={params} counts={counts} />
+          <div className="hidden lg:block">
+            <CategoryFilter params={params} counts={counts} />
+          </div>
 
           <div className="flex flex-col gap-1 border-t border-brand-300 pt-4">
             <p className="text-caption text-brand-800">Missing a campus rule?</p>

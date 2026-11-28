@@ -124,7 +124,7 @@ export default async function HomePage() {
   const card =
     "flex min-w-0 flex-col gap-3 rounded-xl border border-brand-300 bg-paper-raised p-5";
   const cardLink =
-    "inline-flex min-h-9 shrink-0 items-center rounded-lg px-2 text-caption font-semibold text-brand-700 hover:bg-brand-100";
+    "tap inline-flex min-h-9 shrink-0 items-center justify-center rounded-lg px-2 text-caption font-semibold text-brand-700 hover:bg-brand-100";
 
   return (
     <main className="flex w-full flex-col gap-4">
@@ -139,19 +139,30 @@ export default async function HomePage() {
             </p>
           ) : null}
         </div>
-        <div className="flex flex-wrap gap-2">
-          <ButtonLink href="/community" variant="outline" size="sm">
-            <MessagesSquare className="size-4" aria-hidden="true" />
-            Ask the community
+        <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+          <ButtonLink
+            href="/community"
+            variant="outline"
+            size="sm"
+            aria-label="Ask the community"
+            className="h-auto min-h-12 px-2 py-2"
+          >
+            <MessagesSquare className="size-4 shrink-0" aria-hidden="true" />
+            <span className="sm:hidden">Ask students</span>
+            <span className="hidden sm:inline">Ask the community</span>
           </ButtonLink>
           <ButtonLink
             href={`/knowledge?category=${guideCategory}`}
             variant="outline"
             size="sm"
-            className="h-auto min-h-11 py-2 text-center whitespace-normal"
+            aria-label={`Read ${categoryName(guideCategory)} guides`}
+            className="h-auto min-h-12 px-2 py-2 whitespace-normal"
           >
             <BookOpen className="size-4 shrink-0" aria-hidden="true" />
-            Read {categoryName(guideCategory)}
+            <span className="sm:hidden">Read guides</span>
+            <span className="hidden text-center sm:inline">
+              Read {categoryName(guideCategory)}
+            </span>
           </ButtonLink>
         </div>
       </header>
@@ -159,20 +170,23 @@ export default async function HomePage() {
       {/* Overview: the focus, the one next step, and the whole route. */}
       <section
         aria-labelledby="focus-heading"
-        className="grid items-center gap-x-6 gap-y-5 overflow-hidden rounded-xl border border-brand-300 bg-paper-raised px-5 pt-5 sm:px-6 md:grid-cols-[11rem_minmax(0,1fr)] xl:grid-cols-[11rem_minmax(0,1fr)_minmax(0,22rem)]"
+        className="grid grid-cols-[5.5rem_minmax(0,1fr)] items-center gap-x-4 gap-y-4 overflow-hidden rounded-xl border border-brand-300 bg-paper-raised px-4 pt-4 sm:px-6 sm:pt-5 md:grid-cols-[11rem_minmax(0,1fr)] md:gap-x-6 md:gap-y-5 xl:grid-cols-[11rem_minmax(0,1fr)_minmax(0,22rem)]"
       >
         <div className="mx-auto w-full max-w-44">
-          <CompassRing area={normalized.area} />
+          <CompassRing area={normalized.area} compactOnPhone />
         </div>
         <div className="min-w-0">
+          <p className="text-caption font-semibold text-brand-700 md:hidden">
+            Your focus: {area?.label ?? "Not set"}
+          </p>
           <h2 id="focus-heading" className="text-h2 text-brand-950">
             {journey.definition.title}
           </h2>
-          <p className="text-body mt-1 text-brand-800">
+          <p className="text-body mt-1 hidden text-brand-800 md:block">
             {area?.description ?? journey.definition.description}
           </p>
           {challenge ? (
-            <p className="text-body mt-2 text-brand-800">
+            <p className="text-caption mt-1 text-brand-800 md:mt-2 md:text-sm">
               Main challenge:{" "}
               <span className="font-semibold text-brand-950">
                 {challenge.label}
@@ -180,7 +194,7 @@ export default async function HomePage() {
             </p>
           ) : null}
         </div>
-        <div className="flex flex-col gap-3 rounded-xl border border-brand-600/30 bg-brand-100 p-4 md:col-span-2 xl:col-span-1">
+        <div className="flex flex-col gap-3 rounded-xl border border-brand-600/30 bg-brand-100 p-4 col-span-2 xl:col-span-1">
           <div>
             <p className="text-caption font-semibold text-brand-700">
               {upNext ? "Your next step" : "Journey cleared"}
@@ -198,7 +212,7 @@ export default async function HomePage() {
         </div>
         <RouteMap
           journey={journey}
-          className="-mx-5 w-auto border-t border-brand-300 bg-frost px-5 py-4 sm:-mx-6 sm:px-6 md:col-span-2 xl:col-span-3"
+          className="-mx-4 w-auto border-t border-brand-300 bg-frost px-4 py-4 col-span-2 sm:-mx-6 sm:px-6 xl:col-span-3"
         />
       </section>
 

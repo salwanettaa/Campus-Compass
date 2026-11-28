@@ -340,7 +340,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-300 pb-4">
         <nav
           aria-label="Community feeds"
-          className="flex flex-wrap items-center gap-2"
+          className="scroll-row flex w-full min-w-0 flex-wrap items-center gap-2 sm:w-auto"
         >
           <button
             type="button"
@@ -475,7 +475,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
                   {visiblePosts.length === 1 ? "post" : "posts"}
                 </span>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="scroll-row flex flex-wrap gap-2">
                 {UGM_DEPARTMENTS.map((dept) => {
                   const selected = selectedDepartment === dept;
                   return (

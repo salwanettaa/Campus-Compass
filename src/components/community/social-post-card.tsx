@@ -83,7 +83,7 @@ export function SocialPostCard({
               {post.authorName}
             </span>
             {post.isAnonymous ? (
-              <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.6875rem] font-medium text-brand-700">
+              <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2 py-0.5 text-[0.75rem] font-medium text-brand-700">
                 <EyeOff className="size-3" aria-hidden="true" />
                 Anonymous
               </span>
@@ -113,7 +113,7 @@ export function SocialPostCard({
             <button
               type="button"
               onClick={() => onSelectCommunity?.(community.id)}
-              className="inline-flex items-center rounded-full border border-brand-300 bg-paper px-2.5 py-0.5 text-caption text-brand-700 transition-colors hover:border-brand-600 hover:bg-brand-100"
+              className="hit-box inline-flex items-center rounded-full border border-brand-300 bg-paper px-2.5 py-0.5 text-caption text-brand-700 transition-colors hover:border-brand-600 hover:bg-brand-100"
             >
               {community.name}
             </button>

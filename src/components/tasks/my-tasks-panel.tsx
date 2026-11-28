@@ -423,7 +423,7 @@ export function MyTasksPanel({
       <div
         role="tablist"
         aria-label="Filter tasks"
-        className="flex flex-wrap items-center gap-2"
+        className="scroll-row flex flex-wrap items-center gap-2"
       >
         {(
           [
@@ -594,7 +594,7 @@ export function MyTasksPanel({
                     }
                     onClick={() => handleToggle(task)}
                     className={cn(
-                      "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-[0.3rem] border-2 transition-colors",
+                      "hit-box mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-[0.3rem] border-2 transition-colors",
                       isCompleted
                         ? "border-emerald-700 bg-emerald-700 text-white"
                         : "border-brand-400 bg-paper-raised hover:border-brand-700",

@@ -2,6 +2,8 @@ import {
   ADAPTATION_AREAS,
   normalizeAdaptationProfile,
 } from "@/lib/constants/onboarding";
+import { LogoMark } from "@/components/ui/logo-mark";
+import { cn } from "@/lib/utils";
 
 const CENTER = 160;
 const RADIUS = 128;
@@ -26,8 +28,11 @@ export function CompassRing({
   area,
   caption = "Your focus",
   title,
+  compactOnPhone = false,
 }: {
   area: string | null;
+  /** Hides the centre text on phones, where the ring is too small to hold it. */
+  compactOnPhone?: boolean;
   caption?: string;
   /** Centre text. Defaults to the chosen area. */
   title?: string;
@@ -86,7 +91,17 @@ export function CompassRing({
           </g>
         ) : null}
       </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-[16%] text-center">
+      {compactOnPhone ? (
+        <span className="absolute inset-0 flex items-center justify-center md:hidden">
+          <LogoMark className="size-9 text-ink" />
+        </span>
+      ) : null}
+      <div
+        className={cn(
+          "absolute inset-0 flex flex-col items-center justify-center px-[16%] text-center",
+          compactOnPhone && "max-md:hidden",
+        )}
+      >
         <p className="text-caption text-brand-800">{caption}</p>
         <p className="text-h3 text-brand-950">{title ?? selected?.label ?? "Not set"}</p>
       </div>

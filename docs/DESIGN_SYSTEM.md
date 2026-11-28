@@ -34,6 +34,16 @@ Identitas: **tema terang yang tenang dan tegas**: permukaan putih, aksen biru la
 
 ---
 
+### Mobile (di bawah 1024px)
+* **Tab bar** (`BottomNav`): Home, Journey, Community, Guides, More. "More" membuka bottom sheet. Mengetuk tab yang sedang aktif akan scroll ke atas, dan tab bar menyingkir saat keyboard terbuka.
+* **Area sentuh minimal 44px**: otomatis untuk `button`, `summary`, dan tab di dalam `main` serta tombol di `dialog`. Tautan yang berdiri sendiri diberi kelas `.tap`. Kontrol kecil seperti checkbox diberi `.hit-box` (area sentuh tak terlihat).
+* **Deretan filter**: pakai `.scroll-row` (satu baris, digeser ke samping, di bawah 640px). Grid di sekitarnya wajib punya `grid-cols-1`, kalau tidak halaman akan melebar.
+* **Dialog**: `dialog.sheet` (selalu bottom sheet), `dialog.to-sheet` atau `.overlay-sheet` (bottom sheet hanya di HP).
+* **Rute**: `RouteMap` punya tampilan HP sendiri: bar bersegmen, tahap saat ini, dan daftar semua tahap yang bisa dibuka.
+* Cek setiap halaman baru di lebar **320px**.
+
+---
+
 ## 2. Palet Warna (Color Palette Tokens)
 
 Token didefinisikan di `src/app/globals.css`. Nama token mengikuti perannya.
