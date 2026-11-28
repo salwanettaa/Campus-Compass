@@ -11,9 +11,9 @@ const MORE_LABELS = new Set(["AI Navigator"]);
 
 const itemClass = (active: boolean) =>
   cn(
-    "flex h-full min-h-14 w-full flex-col items-center justify-center gap-1 rounded-2xl px-1 py-1 text-center text-[0.6875rem] leading-4 transition-colors duration-150",
+    "flex h-full min-h-14 w-full flex-col items-center justify-center gap-1 rounded-lg px-1 py-1 text-center text-[0.6875rem] leading-4 transition-colors duration-150",
     active
-      ? "bg-fill font-semibold text-white"
+      ? "bg-brand-100 font-semibold text-brand-700"
       : "text-brand-800 hover:bg-brand-100 hover:text-brand-950 active:bg-brand-300",
   );
 
@@ -48,8 +48,7 @@ export function BottomNav({
         className,
       )}
     >
-      {/* Glass sits on the bar itself so the menu above can blur the page too. */}
-      <ul className="liquid-glass flex items-stretch justify-between gap-1 rounded-3xl p-1.5">
+      <ul className="flex items-stretch justify-between gap-1 rounded-xl border border-brand-300 bg-paper-raised p-1.5 shadow-overlay">
         {primaryItems.map((item) => {
           const active = isActive(item, pathname);
           const Icon = item.icon;
@@ -84,7 +83,7 @@ export function BottomNav({
       {moreOpen ? (
         <ul
           id="mobile-nav-more"
-          className="absolute right-0 bottom-full mb-2 flex w-56 flex-col gap-1 rounded-md border border-brand-300 bg-paper-raised p-2"
+          className="absolute right-0 bottom-full mb-2 flex w-56 flex-col gap-1 rounded-md border border-brand-300 bg-paper-raised p-2 shadow-overlay"
         >
           {moreItems.map((item) => {
             const active = isActive(item, pathname);

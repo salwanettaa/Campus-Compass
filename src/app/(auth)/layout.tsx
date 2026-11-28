@@ -1,42 +1,25 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { CompassRing } from "@/components/home/compass-ring";
+import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
+import { LogoMark } from "@/components/ui/logo-mark";
+import { sourceLabel } from "@/lib/knowledge/categories";
+import { MOCK_GUIDES } from "@/lib/knowledge/mock-data";
 
+const ART = "/art/compass-flow.jpg";
+
+/** Split screen: the form on the left, the compass artwork on the right. */
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="grid w-full flex-1 lg:grid-cols-[1fr_1.1fr]">
-      <aside className="hidden flex-col justify-between gap-10 bg-hero-gradient p-10 text-white lg:flex xl:p-14">
-        <Logo tone="onDark" href="/" />
-        <div className="mx-auto w-full max-w-72">
-          <CompassRing area={null} caption="Next stop" title="Your campus" />
-        </div>
-        <div className="max-w-md">
-          <p className="text-h2 text-balance xl:text-[2.5rem] xl:leading-tight">
-            <span className="block">Nobody hands you a map.</span>
-            <span className="block text-brand-700">
-              Students draw one{" "}
-              <em className="font-serif font-normal">together.</em>
-            </span>
-          </p>
-          <p className="text-lead mt-5 text-brand-900">
-            Find practical answers, keep useful sources close, and choose a next
-            step that fits your campus life.
-          </p>
-        </div>
-        <p className="text-caption border-t border-white/40 pt-4 text-white">
-          Student knowledge, shared forward.
-        </p>
-      </aside>
+  const sample = MOCK_GUIDES[0];
 
-      <div className="mx-auto flex w-full max-w-md flex-col gap-8 px-4 py-4 sm:py-6">
+  return (
+    <div className="grid w-full flex-1 bg-paper-raised lg:grid-cols-2">
+      <div className="flex min-w-0 flex-col px-5 py-4 sm:px-10 sm:py-6">
         <header className="flex items-center justify-between gap-3">
-          <span className="lg:hidden">
-            <Logo tone="onLight" href="/" />
-          </span>
+          <Logo href="/" />
           <Link
             href="/"
-            className="text-h5 ml-auto inline-flex min-h-11 items-center gap-1.5 rounded-md whitespace-nowrap text-brand-800 hover:text-brand-950"
+            className="text-h5 inline-flex min-h-11 items-center gap-1.5 rounded-lg whitespace-nowrap text-brand-800 hover:text-brand-950"
           >
             <ArrowLeft className="size-4" aria-hidden="true" />
             <span>
@@ -44,10 +27,47 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             </span>
           </Link>
         </header>
-        <main className="flex flex-1 flex-col justify-center gap-6 pb-10">
+
+        <main className="auth-form auth-stagger mx-auto flex w-full max-w-[28rem] flex-1 flex-col justify-center gap-6 py-10">
           {children}
         </main>
       </div>
+
+      <aside className="hidden p-4 lg:sticky lg:top-0 lg:block lg:h-dvh">
+        <div className="relative flex h-full min-h-[36rem] flex-col justify-between gap-6 overflow-hidden rounded-[1.75rem] bg-brand-700 p-8 xl:p-10">
+          <Image
+            src={ART}
+            alt=""
+            fill
+            sizes="50vw"
+            loading="eager"
+            fetchPriority="high"
+            className="art-settle object-cover object-[70%_30%]"
+          />
+
+          <p className="text-h-section relative max-w-md text-white">
+            Nobody hands you a map. Students draw one together.
+          </p>
+
+          <ul className="auth-cards relative grid gap-3 xl:grid-cols-2">
+            <li className="glass-card flex flex-col gap-2 rounded-2xl p-4">
+              <p className="text-caption text-brand-900">Sample guide</p>
+              <p className="text-h4 text-brand-950">{sample.title}</p>
+              <p className="text-caption mt-auto flex items-center gap-1.5 text-brand-900">
+                <ShieldCheck className="size-4 shrink-0 text-brand-700" aria-hidden="true" />
+                {sourceLabel(sample.source_type)}
+              </p>
+            </li>
+            <li className="glass-card flex flex-col gap-2 rounded-2xl p-4">
+              <LogoMark className="size-7 text-ink" />
+              <p className="text-h4 text-brand-950">No student ID needed</p>
+              <p className="text-caption text-brand-900">
+                An email and a nickname are enough to create your account.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </aside>
     </div>
   );
 }

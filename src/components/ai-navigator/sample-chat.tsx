@@ -24,7 +24,7 @@ function Message({ message }: { message: SampleMessage }) {
         className={cn(
           "rounded-md px-4 py-3",
           isUser
-            ? "text-body bg-brand-gradient max-w-[85%] text-white"
+            ? "text-body bg-fill max-w-[85%] text-white"
             : "text-lead text-pretty max-w-2xl border border-brand-300 bg-paper-raised text-brand-950",
         )}
       >
@@ -89,7 +89,7 @@ export function SampleChat({ initialQuery }: { initialQuery?: string }) {
                   aria-pressed={active}
                   onClick={() => setSelectedId(item.id)}
                   className={cn(
-                    "inline-flex min-h-11 items-center rounded-full border px-4 text-body transition-colors duration-150",
+                    "inline-flex min-h-11 items-center rounded-lg border px-4 text-body transition-colors duration-150",
                     active
                       ? "border-brand-700 bg-fill font-semibold text-white"
                       : "border-brand-400 bg-paper-raised text-brand-900 hover:border-brand-700 active:bg-brand-100",
@@ -109,7 +109,7 @@ export function SampleChat({ initialQuery }: { initialQuery?: string }) {
         </ol>
 
         {scenario.insufficientEvidence ? (
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-brand-300 bg-card-tint p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-brand-300 bg-paper-raised p-4">
             <p className="text-body text-pretty text-brand-900">
               No verified source covers this yet. Ask seniors in the campus
               forum instead.

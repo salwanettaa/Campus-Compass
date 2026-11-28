@@ -23,12 +23,15 @@ import type { ChecklistStatus } from "@/types/database";
 export type ChecklistItemRowProps = {
   item: PersonalizedChecklistItem;
   allowSkip?: boolean;
+  /** A plain list row, for use inside a card. */
+  flush?: boolean;
   onFeedback?: (ok: boolean, message: string) => void;
 };
 
 export function ChecklistItemRow({
   item,
   allowSkip = true,
+  flush = false,
   onFeedback,
 }: ChecklistItemRowProps) {
   const [prevItem, setPrevItem] = useState(item);
@@ -96,12 +99,12 @@ export function ChecklistItemRow({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 rounded-xl border p-3.5 transition-colors",
-        isCompleted
-          ? "border-emerald-700/50 bg-emerald-50/40"
-          : isSkipped
-            ? "border-brand-300/60 bg-paper/60 opacity-80"
-            : "border-brand-300 bg-paper",
+        "flex flex-col gap-3 transition-colors",
+        flush ? "py-3.5" : "rounded-xl border p-3.5",
+        !flush &&
+          (isCompleted
+            ? "border-emerald-700/40 bg-emerald-50"
+            : "border-brand-300 bg-paper"),
       )}
     >
       <div className="flex flex-col gap-2.5">

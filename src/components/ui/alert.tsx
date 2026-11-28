@@ -4,17 +4,17 @@ import { cn } from "@/lib/utils";
 
 const STYLES = {
   info: {
-    box: "border-brand-300 bg-brand-100 text-brand-950",
+    box: "border-brand-600/25 bg-frost text-brand-950",
     icon: Info,
     tone: "text-brand-700",
   },
   success: {
-    box: "border-emerald-700/50 bg-emerald-50 text-emerald-950",
+    box: "border-emerald-700/25 bg-emerald-50 text-emerald-950",
     icon: CheckCircle2,
     tone: "text-emerald-800",
   },
   error: {
-    box: "border-red-700/60 bg-red-50 text-red-950",
+    box: "border-red-700/30 bg-red-50 text-red-950",
     icon: AlertCircle,
     tone: "text-red-700",
   },

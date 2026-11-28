@@ -33,7 +33,7 @@ export function GuideListCard({
   return (
     <article
       aria-labelledby={`guide-${guide.id}`}
-      className="bg-card-tint flex h-full flex-col justify-between gap-4 rounded-md border border-brand-300 p-5 sm:p-6"
+      className="bg-paper-raised flex h-full flex-col justify-between gap-4 rounded-md border border-brand-300 p-5 sm:p-6"
     >
       <div className="flex flex-col gap-2">
         <div className="flex items-start justify-between gap-3">

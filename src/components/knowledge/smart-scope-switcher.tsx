@@ -71,7 +71,7 @@ export function SmartScopeSwitcher({
           href={`/knowledge${buildKnowledgeQuery({ ...params, scope: "major" })}`}
           aria-current={isMajorActive ? "page" : undefined}
           className={cn(
-            "inline-flex min-h-11 items-center rounded-full border px-4 text-body transition-colors duration-150",
+            "inline-flex min-h-11 items-center rounded-lg border px-4 text-body transition-colors duration-150",
             isMajorActive
               ? "border-brand-700 bg-fill font-semibold text-white"
               : "border-brand-400 bg-paper-raised text-brand-900 hover:border-brand-700 active:bg-brand-100",
@@ -84,7 +84,7 @@ export function SmartScopeSwitcher({
           href={`/knowledge${buildKnowledgeQuery({ ...params, scope: "all" })}`}
           aria-current={isAllActive ? "page" : undefined}
           className={cn(
-            "inline-flex min-h-11 items-center rounded-full border px-4 text-body transition-colors duration-150",
+            "inline-flex min-h-11 items-center rounded-lg border px-4 text-body transition-colors duration-150",
             isAllActive
               ? "border-brand-700 bg-fill font-semibold text-white"
               : "border-brand-400 bg-paper-raised text-brand-900 hover:border-brand-700 active:bg-brand-100",

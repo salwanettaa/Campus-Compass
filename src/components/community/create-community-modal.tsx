@@ -130,9 +130,9 @@ export function CreateCommunityModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="create-community-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-paper/80 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4"
     >
-      <div className="flex max-h-[90dvh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-brand-300 bg-paper-raised">
+      <div className="flex max-h-[90dvh] w-full max-w-lg flex-col overflow-hidden rounded-xl border border-brand-300 bg-paper-raised">
         <div className="flex items-center justify-between border-b border-brand-300 px-5 py-4">
           <h2 id="create-community-title" className="text-h3 text-brand-950">
             Create Community
@@ -277,7 +277,7 @@ export function CreateCommunityModal({
                     aria-pressed={selected}
                     onClick={() => setIcon(opt.key)}
                     className={cn(
-                      "inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3 text-caption transition-colors",
+                      "inline-flex min-h-9 items-center gap-1.5 rounded-lg border px-3 text-caption transition-colors",
                       selected
                         ? "border-brand-700 bg-fill font-semibold text-white"
                         : "border-brand-300 bg-paper text-brand-800 hover:border-brand-600",

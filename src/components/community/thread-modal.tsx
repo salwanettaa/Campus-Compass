@@ -79,9 +79,9 @@ export function ThreadModal({
       role="dialog"
       aria-modal="true"
       aria-labelledby="thread-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-paper/80 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4"
     >
-      <div className="flex max-h-[88dvh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-brand-300 bg-paper-raised">
+      <div className="flex max-h-[88dvh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-brand-300 bg-paper-raised">
         {/* Modal Header */}
         <div className="flex items-center justify-between border-b border-brand-300 px-5 py-4">
           <div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ export function ThreadModal({
                   onClick={() => onTogglePostLike(post.id)}
                   aria-pressed={post.likedByViewer}
                   className={cn(
-                    "inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3 text-caption transition-colors",
+                    "inline-flex min-h-9 items-center gap-1.5 rounded-lg border px-3 text-caption transition-colors",
                     post.likedByViewer
                       ? "border-route/60 bg-paper text-route-on-dark"
                       : "border-brand-300 bg-paper text-brand-800 hover:border-brand-600",

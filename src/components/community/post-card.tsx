@@ -18,7 +18,7 @@ export function PostCard({ item }: { item: FeedItem }) {
   return (
     <article
       aria-labelledby={`post-${post.id}`}
-      className="bg-card-tint flex flex-col gap-2.5 rounded-md border border-brand-300 p-5 sm:p-6"
+      className="bg-paper-raised flex flex-col gap-2.5 rounded-md border border-brand-300 p-5 sm:p-6"
     >
       <div className="text-caption flex flex-wrap items-center gap-x-3 gap-y-1 text-brand-800">
         <TypeBadge type={post.post_type} />

@@ -5,10 +5,8 @@ import Link from "next/link";
 import {
   ArrowLeft,
   BookOpen,
-  Compass,
   Lightbulb,
   MessageSquareText,
-  Sparkles,
 } from "lucide-react";
 import { Alert } from "@/components/ui/alert";
 import { Button, ButtonLink } from "@/components/ui/button";
@@ -19,7 +17,7 @@ import { categoryName } from "@/lib/knowledge/categories";
 import type { GuideRow } from "@/lib/knowledge/types";
 import { cn } from "@/lib/utils";
 import { ChecklistItemRow } from "./checklist-item-row";
-import { ProgressBar } from "./progress-bar";
+import { RouteMap } from "./route-map";
 
 export type JourneyWorkspaceProps = {
   journey: PersonalizedJourney;
@@ -64,20 +62,10 @@ export function JourneyWorkspace({
           </ButtonLink>
         </div>
 
-        <div className="flex flex-col gap-3 rounded-2xl border border-brand-300 bg-paper-raised p-5 sm:p-6">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-100 px-3 py-1 text-caption font-medium text-brand-700">
-              <Compass className="size-3.5" aria-hidden="true" />
-              My Journey
-            </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-300 px-3 py-1 text-caption text-brand-800">
-              <Sparkles
-                className="size-3.5 text-route-on-dark"
-                aria-hidden="true"
-              />
-              Focus: {journey.challengeLabel}
-            </span>
-          </div>
+        <div className="flex flex-col gap-3 rounded-xl border border-brand-300 bg-paper-raised p-5 sm:p-6">
+          <p className="text-caption font-semibold text-brand-700">
+            Focus: {journey.challengeLabel}
+          </p>
 
           <h1 className="text-h1 text-brand-950">{journey.definition.title}</h1>
           <p className="text-lead max-w-2xl text-brand-800">
@@ -85,11 +73,9 @@ export function JourneyWorkspace({
           </p>
           <p className="text-caption text-brand-700">{journey.focusReason}</p>
 
-          <ProgressBar
-            className="pt-2"
-            value={journey.progress.percentage}
-            label={`${journey.progress.percentage}% complete`}
-            detail={`${journey.progress.completed} completed · ${journey.progress.skipped} skipped · ${journey.progress.total} total steps`}
+          <RouteMap
+            journey={journey}
+            className="mt-2 border-t border-brand-300 pt-5"
           />
         </div>
       </header>
@@ -121,8 +107,9 @@ export function JourneyWorkspace({
           {journey.stages.map((stage) => (
             <li
               key={stage.id}
+              id={`stage-${stage.id}`}
               className={cn(
-                "flex flex-col gap-4 rounded-2xl border p-5 sm:p-6",
+                "flex scroll-mt-24 flex-col gap-4 rounded-xl border p-5 sm:p-6",
                 stage.isFocus
                   ? "border-brand-600 bg-paper-raised"
                   : "border-brand-300 bg-paper-raised",
@@ -135,12 +122,12 @@ export function JourneyWorkspace({
                       Stage {stage.order} of {journey.stages.length}
                     </span>
                     {stage.isFocus ? (
-                      <span className="rounded-full bg-brand-100 px-2.5 py-0.5 text-caption font-medium text-route-on-dark">
+                      <span className="text-caption font-semibold text-route">
                         Priority focus
                       </span>
                     ) : null}
                     {stage.id === journey.currentStage.id ? (
-                      <span className="rounded-full border border-brand-600 px-2.5 py-0.5 text-caption text-brand-700">
+                      <span className="text-caption font-semibold text-brand-700">
                         Current stage
                       </span>
                     ) : null}
@@ -183,7 +170,7 @@ export function JourneyWorkspace({
           {journey.definition.insights.map((insight) => (
             <article
               key={insight.id}
-              className="flex flex-col gap-2 rounded-2xl border border-brand-300 bg-paper-raised p-5"
+              className="flex flex-col gap-2 rounded-xl border border-brand-300 bg-paper-raised p-5"
             >
               <h3 className="text-h4 text-brand-950">{insight.title}</h3>
               <p className="text-body text-brand-800">{insight.summary}</p>
@@ -218,7 +205,7 @@ export function JourneyWorkspace({
               <Link
                 key={guide.id}
                 href={`/knowledge/${guide.id}`}
-                className="flex flex-col gap-2 rounded-2xl border border-brand-300 bg-paper-raised p-5 transition-colors hover:border-brand-600 hover:bg-brand-100/50"
+                className="flex flex-col gap-2 rounded-xl border border-brand-300 bg-paper-raised p-5 transition-colors hover:border-brand-600 hover:bg-brand-100/50"
               >
                 <span className="text-caption text-brand-700">
                   {categoryName(guide.category)}
@@ -231,7 +218,7 @@ export function JourneyWorkspace({
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-brand-300 bg-paper-raised p-5 text-body text-brand-800">
+          <div className="rounded-xl border border-brand-300 bg-paper-raised p-5 text-body text-brand-800">
             No guides are available in this category yet. Check back in{" "}
             <Link href="/knowledge" className="text-brand-700 underline">
               Knowledge Hub
@@ -243,7 +230,7 @@ export function JourneyWorkspace({
 
       <section
         aria-labelledby="reflection-heading"
-        className="flex flex-col gap-4 rounded-2xl border border-brand-300 bg-paper-raised p-5 sm:p-6"
+        className="flex flex-col gap-4 rounded-xl border border-brand-300 bg-paper-raised p-5 sm:p-6"
       >
         <div className="flex items-center gap-2">
           <MessageSquareText

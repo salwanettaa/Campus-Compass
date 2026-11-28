@@ -40,7 +40,6 @@ export function CompassRing({
 
   return (
     <div className="relative mx-auto aspect-square w-full max-w-80">
-      <div aria-hidden="true" className="compass-glow absolute -inset-4" />
       <svg
         aria-hidden="true"
         viewBox="0 0 320 320"
@@ -62,8 +61,8 @@ export function CompassRing({
             />
           );
         })}
-        <circle cx={CENTER} cy={CENTER} r={RADIUS} stroke="var(--color-brand-600)" strokeWidth="2" />
-        <circle cx={CENTER} cy={CENTER} r="104" stroke="var(--color-brand-300)" />
+        <circle cx={CENTER} cy={CENTER} r={RADIUS} fill="var(--color-frost)" stroke="var(--color-brand-600)" strokeWidth="1.5" />
+        <circle cx={CENTER} cy={CENTER} r="104" fill="var(--color-paper-raised)" stroke="var(--color-brand-300)" />
         {ADAPTATION_AREAS.map((entry, position) => {
           const { x, y } = point(position * AREA_STEP, RADIUS);
           return (
@@ -72,7 +71,7 @@ export function CompassRing({
               cx={x}
               cy={y}
               r="5"
-              fill="var(--color-paper)"
+              fill="var(--color-paper-raised)"
               stroke="var(--color-brand-600)"
               strokeWidth="2"
             />
@@ -87,9 +86,9 @@ export function CompassRing({
           </g>
         ) : null}
       </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center px-16 text-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-[16%] text-center">
         <p className="text-caption text-brand-800">{caption}</p>
-        <p className="text-h2 mt-1 text-brand-950">{title ?? selected?.label ?? "Not set"}</p>
+        <p className="text-h3 text-brand-950">{title ?? selected?.label ?? "Not set"}</p>
       </div>
     </div>
   );

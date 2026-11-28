@@ -2,13 +2,14 @@ import {
   CompassFinder,
   type CompassPoint,
 } from "@/components/landing/compass-finder";
+import Image from "next/image";
 import {
   ExamplePreview,
   type PreviewItem,
 } from "@/components/landing/example-preview";
 import { LandingHeader } from "@/components/landing/landing-header";
 import { ButtonLink } from "@/components/ui/button";
-import { RouteLine } from "@/components/ui/route-line";
+import { LogoMark } from "@/components/ui/logo-mark";
 import { MOCK_COMMENTS, MOCK_POSTS } from "@/lib/community/mock-data";
 import {
   CATEGORY_INFO,
@@ -41,8 +42,8 @@ const STEPS = [
 const STATUS = [
   ["Community", "Showing sample posts"],
   ["Knowledge Hub", "Showing sample guides"],
-  ["AI Navigator", "Layout preview, no AI connected"],
-  ["My Journey", "Coming soon"],
+  ["AI Navigator", "Sample answers, no live AI yet"],
+  ["My Journey", "Roadmap with a checklist"],
 ] as const;
 
 function previewItems(): PreviewItem[] {
@@ -109,7 +110,7 @@ export default function LandingPage() {
     {
       question: "Who is it from?",
       answer: sourceLabel(specimen.source_type),
-      detail: "Official sources, curated guides and senior stories are labelled differently.",
+      detail: "Official campus sources and curated guides are labelled differently.",
     },
     {
       question: "Where did it come from?",
@@ -128,22 +129,21 @@ export default function LandingPage() {
       <LandingHeader />
 
       <main className="flex-1">
-        <section aria-labelledby="landing-title" className="pt-28 pb-10 lg:min-h-svh">
+        <section aria-labelledby="landing-title" className="border-b border-brand-300 bg-paper-raised py-12 sm:py-16 lg:py-20">
           <div className={`${CONTAINER} grid items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-10`}>
             <div className="text-center lg:text-left">
               <h1 id="landing-title" className="text-hero text-brand-950">
                 Nobody hands you a map.{" "}
                 <span className="block text-brand-700">
-                  Students draw one{" "}
-                  <em className="font-serif font-normal">together.</em>
+                  Students draw one together.
                 </span>
               </h1>
               <p className="text-lead mx-auto mt-7 max-w-lg text-brand-800 lg:mx-0">
                 Ask questions, read guides that show their sources, and learn
-                what seniors would do differently.
+                from other students.
               </p>
               <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
-                <ButtonLink href="/register" variant="pillOnDark" size="lg">
+                <ButtonLink href="/register" size="lg">
                   Create your account
                 </ButtonLink>
                 <ButtonLink href="#steps" variant="outline" size="lg">
@@ -151,24 +151,35 @@ export default function LandingPage() {
                 </ButtonLink>
               </div>
             </div>
-            <CompassFinder points={compassPoints()} />
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-brand-700 p-3 sm:p-6">
+              <Image
+                src="/art/compass-flow.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 560px, 100vw"
+                loading="eager"
+                fetchPriority="high"
+                className="art-settle object-cover"
+              />
+              <div className="relative">
+                <CompassFinder points={compassPoints()} />
+              </div>
+            </div>
           </div>
         </section>
 
-        <RouteLine className="h-20 sm:h-28" />
-
-        <section aria-labelledby="check-title" className="py-20 sm:py-28">
+        <section aria-labelledby="check-title" className="py-16 sm:py-24">
           <div className={CONTAINER}>
             <h2 id="check-title" className="text-h-section mx-auto max-w-3xl text-center">
               Advice you can{" "}
-              <em className="font-serif font-normal text-brand-700">check</em>
+              <span className="text-brand-700">check</span>
             </h2>
             <p className="text-lead mx-auto mt-4 max-w-xl text-center text-brand-800">
               Know who said it, where it came from, and how old it is.
             </p>
             <div className="mt-14 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-              <article className="reveal bg-hero-gradient rounded-[2rem] p-3 sm:p-6">
-                <div className="rounded-3xl bg-frost p-6 text-ink sm:p-9">
+              <article className="rounded-2xl bg-brand-100 p-3 sm:p-5">
+                <div className="rounded-xl border border-brand-300 bg-paper-raised p-6 text-brand-950 sm:p-8">
                   <p className="text-caption font-semibold">
                     {CATEGORY_INFO[specimen.category].label} · sample guide
                   </p>
@@ -186,7 +197,7 @@ export default function LandingPage() {
                   className="absolute top-3 bottom-3 left-[0.4375rem] border-l-2 border-dashed border-route"
                 />
                 {checks.map((check) => (
-                  <div key={check.question} className="reveal relative pl-10">
+                  <div key={check.question} className="relative pl-10">
                     <span
                       aria-hidden="true"
                       className="absolute top-1 left-0 size-4 rounded-full border-4 border-route bg-paper"
@@ -201,23 +212,23 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section aria-labelledby="preview-title" className="pb-20 sm:pb-28">
-          <div className={`${CONTAINER} bg-hero-gradient grid items-center gap-10 rounded-[2.5rem] py-10 sm:py-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14`}>
+        <section aria-labelledby="preview-title" className="border-y border-brand-300 bg-frost py-16 sm:py-24">
+          <div className={`${CONTAINER} grid items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14`}>
             <div>
               <h2 id="preview-title" className="text-h-section">
                 Learn from{" "}
-                <em className="font-serif font-normal text-brand-700">students</em>
+                <span className="text-brand-700">students</span>
               </h2>
               <p className="text-lead mt-4 text-brand-900">
-                Switch between a question, a guide, and a senior&apos;s story.
-                Questions can have an accepted answer and helpful votes.
+                Switch between a question and a guide. Questions can have an
+                accepted answer and helpful votes.
               </p>
             </div>
             <ExamplePreview items={previewItems()} />
           </div>
         </section>
 
-        <section id="steps" aria-labelledby="steps-title" className="scroll-mt-24 pb-20 sm:pb-28">
+        <section id="steps" aria-labelledby="steps-title" className="scroll-mt-20 py-16 sm:py-24">
           <div className={CONTAINER}>
             <h2 id="steps-title" className="text-h-section">
               Your route in four steps
@@ -226,7 +237,7 @@ export default function LandingPage() {
               {STEPS.map((step, index) => (
                 <li
                   key={step.title}
-                  className="reveal relative grid grid-cols-[3.5rem_1fr] gap-4 pb-10 last:pb-0 lg:block lg:pb-0"
+                  className="relative grid grid-cols-[3.5rem_1fr] gap-4 pb-10 last:pb-0 lg:block lg:pb-0"
                 >
                   {index < STEPS.length - 1 ? (
                     <span
@@ -236,9 +247,9 @@ export default function LandingPage() {
                   ) : null}
                   <span
                     aria-hidden="true"
-                    className="flex size-14 items-center justify-center rounded-full border-2 border-brand-600 bg-brand-100 text-base font-semibold text-brand-950 tabular-nums"
+                    className={`relative flex size-14 items-center justify-center rounded-full border-2 bg-paper-raised text-base font-semibold tabular-nums ${index === 0 ? "border-route text-ink ring-4 ring-route/15" : "border-brand-300 text-brand-800"}`}
                   >
-                    {index + 1}
+                    {index === 0 ? <LogoMark className="size-8" /> : index + 1}
                   </span>
                   <div className="pt-1 lg:pt-6">
                     <h3 className="text-h3">{step.title}</h3>
@@ -252,10 +263,18 @@ export default function LandingPage() {
 
         <section aria-labelledby="cta-title" className="pb-16">
           <div className={CONTAINER}>
-            <div className="bg-hero-gradient overflow-hidden rounded-[2.5rem] px-7 pt-12 text-center sm:px-14 sm:pt-20">
-              <h2 id="cta-title" className="text-hero">
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-brand-700 p-3 sm:p-10">
+              <Image
+                src="/art/compass-flow.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 1152px) 1088px, 100vw"
+                className="object-cover"
+              />
+              <div className="relative mx-auto max-w-3xl rounded-2xl bg-paper-raised px-5 py-10 text-center shadow-overlay sm:px-12 sm:py-14">
+              <h2 id="cta-title" className="text-h-section">
                 Start with one{" "}
-                <em className="font-serif font-normal text-brand-700">question</em>
+                <span className="text-brand-700">question</span>
               </h2>
               <p className="text-lead mx-auto mt-5 max-w-xl text-brand-900">
                 Campus Compass is still being built. This is where each part
@@ -263,21 +282,20 @@ export default function LandingPage() {
               </p>
               <ButtonLink
                 href="/register"
-                variant="pillOnDark"
-                size="lg"
+                                size="lg"
                 className="mt-9 w-full sm:w-auto"
               >
                 Create your account
               </ButtonLink>
-              <dl className="mt-14 grid gap-6 text-left sm:grid-cols-2 lg:grid-cols-4">
+              <dl className="mx-auto mt-12 max-w-2xl divide-y divide-brand-300 rounded-xl border border-brand-300 bg-paper-raised text-left">
                 {STATUS.map(([name, status]) => (
-                  <div key={name} className="border-t border-white/30 pt-4">
+                  <div key={name} className="flex flex-wrap items-baseline justify-between gap-x-4 px-5 py-3.5">
                     <dt className="text-h4">{name}</dt>
-                    <dd className="text-body mt-1 text-brand-900">{status}</dd>
+                    <dd className="text-body text-brand-800">{status}</dd>
                   </div>
                 ))}
               </dl>
-              <RouteLine className="mt-6 h-20 sm:h-24" />
+              </div>
             </div>
           </div>
         </section>

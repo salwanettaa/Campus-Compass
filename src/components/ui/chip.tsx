@@ -19,8 +19,7 @@ export function Chip({
       type={type}
       aria-pressed={selected}
       className={cn(
-        "inline-flex min-h-11 items-center rounded-full border px-4 text-body",
-        "transition-colors duration-150",
+        "press inline-flex min-h-11 items-center rounded-lg border px-3.5 text-body",
         selected
           ? "border-brand-700 bg-fill font-semibold text-white"
           : "border-brand-300 bg-paper-raised text-brand-900 hover:border-brand-700 active:bg-brand-100",

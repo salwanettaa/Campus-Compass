@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ArrowRight, Bookmark, BookOpen, MessagesSquare } from "lucide-react";
+import { ArrowRight, BookOpen, MessagesSquare } from "lucide-react";
 import { categoryLabel } from "@/lib/community/format";
 import type { PostRow } from "@/lib/community/types";
 import { categoryName } from "@/lib/knowledge/categories";
@@ -70,11 +70,10 @@ export function SavedItemsSection({
   return (
     <section
       aria-labelledby="saved-heading"
-      className="flex flex-col gap-4 rounded-2xl border border-brand-300 bg-paper-raised p-5 sm:p-6"
+      className="flex flex-col gap-3 rounded-xl border border-brand-300 bg-paper-raised p-5"
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Bookmark className="size-5 text-brand-700" aria-hidden="true" />
           <h2 id="saved-heading" className="text-h3 text-brand-950">
             Saved Items
           </h2>

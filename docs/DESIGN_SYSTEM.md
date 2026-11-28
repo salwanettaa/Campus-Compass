@@ -8,14 +8,29 @@
 
 ## 1. Prinsip Desain & Visual Direction
 
-Identitas: **satu tema gelap dengan biru tim Campus Compass, kompas, dan garis rute**. Berlaku di semua halaman.
+Identitas: **tema terang yang tenang dan tegas**: permukaan putih, aksen biru langit, teks slate, dengan kompas dan garis rute sebagai motif. Berlaku di semua halaman.
 
-* **Tipografi**: Wix Madefor Display. Tiro Kannada italic hanya untuk satu kata yang ditekankan pada judul besar.
-* **Kompas** adalah motif utama: dial interaktif di hero landing (`CompassFinder`) dan `CompassRing` di Home serta halaman auth. `CompassRing` menunjukkan pilihan, bukan skor atau progres.
-* **Glow** (`compass-glow`): hanya di belakang kompas, maksimal satu per layar.
-* **Glass** (`liquid-glass`): navigasi mengambang dan panel contoh di landing, maksimal 2 per layar.
-* **Garis rute** oranye: satu-satunya aksen.
-* **Sudut**: tombol berbentuk pil, kartu minimal 16px, panel besar 32-40px.
+* **Hierarki** dibentuk oleh ukuran, bobot, dan jarak. Kartu putih di atas latar `paper`, dipisah garis 1px `brand-300`.
+* **Satu aksi utama per tampilan** (tombol biru isi). Aksi lain memakai `outline` atau tautan.
+* **Tanpa** gradasi CSS dan glow. Bayangan (`shadow-overlay`) hanya untuk lapisan mengambang: dialog, Quick jump, menu bawah HP, dan kartu di atas artwork.
+* **Glass** (`glass-card`) hanya untuk dua kartu di atas artwork halaman login dan register.
+* **Tipografi**: Wix Madefor Display untuk semua teks.
+* **Kompas**: dial interaktif di landing (`CompassFinder`) dan `CompassRing` di Home serta halaman auth. `CompassRing` menunjukkan pilihan, bukan skor.
+* **Oranye `route`** hanya untuk jarum kompas, garis rute, dan penanda arah atau pertanyaan.
+* **Sudut**: tombol dan input `rounded-lg` (8px), kartu `rounded-xl` (12px), panel besar `rounded-2xl`. Pil (`rounded-full`) hanya untuk label, avatar, dan titik di dial.
+* **Gerak**: kelas `press` memberi respons tekan 150ms. Semua gerak mati saat *reduced motion* aktif.
+
+### Logo
+`LogoMark` (`src/components/ui/logo-mark.tsx`): huruf C yang terbuka dengan jarum kompas keluar lewat celahnya. Cincin mengikuti warna teks, jarum selalu oranye (`#ea580c`, atau `#fb923c` di latar gelap). Favicon ada di `src/app/icon.svg`. Jangan diputar, diberi efek, atau diganti warnanya.
+
+### Artwork
+`public/art/compass-flow.jpg`: pita biru dengan satu garis rute oranye, dibuat khusus untuk proyek ini. Dipakai di hero landing, panel penutup landing, dan halaman auth. Teks di atasnya harus berada di kartu, atau berupa judul besar putih di sudut kiri atas yang gelap.
+
+### Peta rute
+`RouteMap` (`src/components/journey/route-map.tsx`) menggambar tahap My Journey sebagai rute, dengan `LogoMark` sebagai penanda "You are here". Semua angkanya dari data journey asli. Dipakai di Home dan My Journey.
+
+### Quick jump
+`QuickJumpDialog` dipasang sekali di `(dashboard)/layout.tsx`. `QuickJumpButton` boleh dipakai di mana saja. Dibuka dengan **Ctrl/Cmd + K**. Halaman baru perlu ditambahkan ke daftar `DESTINATIONS` di `quick-jump.tsx`.
 
 ---
 
@@ -25,18 +40,18 @@ Token didefinisikan di `src/app/globals.css`. Nama token mengikuti perannya.
 
 | Token | Hex | Penggunaan |
 | :--- | :--- | :--- |
-| **`paper`** / **`paper-raised`** | `#04131c` / `#0a1f2c` | Latar halaman / kartu |
-| **`brand-950`** | `#f1f9fd` | Judul dan teks utama |
-| **`brand-900`** | `#dceff8` | Teks di panel gradasi biru |
-| **`brand-800`** | `#a6c8da` | Teks sekunder (jangan di panel gradasi terang) |
-| **`brand-700`** | `#7ccdee` | Link. Di panel gradasi hanya untuk teks besar |
-| **`brand-600`** | `#3fb0e0` | Focus ring, lingkar kompas |
-| **`brand-400`** | `#4a8aa8` | Tepi kontrol (bukan untuk teks) |
-| **`brand-300`** | `#17394b` | Garis pemisah |
-| **`brand-100`** | `#0e2a3a` | Latar tonal |
-| **`fill`** | `#0f6d93` | Isian biru dengan teks putih |
-| **`ink`** / **`frost`** | `#04202e` / `#e1f2fa` | Teks dan hover pada permukaan terang |
-| **`route`** | `#f08a68` | Garis rute dan jarum kompas |
+| **`paper`** / **`paper-raised`** | `#f8fafc` / `#ffffff` | Latar halaman / kartu |
+| **`brand-950`** | `#0f172a` | Judul dan teks utama |
+| **`brand-900`** | `#1e293b` | Teks kuat, isian gelap berteks putih |
+| **`brand-800`** | `#475569` | Teks sekunder |
+| **`brand-700`** | `#0369a1` | Link dan teks aksen |
+| **`brand-600`** | `#0284c7` | Focus ring, lingkar kompas |
+| **`brand-400`** | `#7c8ba1` | Tepi kontrol (bukan untuk teks) |
+| **`brand-300`** | `#e2e8f0` | Garis pemisah |
+| **`brand-100`** | `#e8f5fd` | Latar azure: item aktif, hover |
+| **`fill`** | `#0369a1` | Isian biru dengan teks putih |
+| **`ink`** / **`frost`** | `#0f172a` / `#f3f9fe` | Slate gelap / azure paling tipis |
+| **`route`** | `#c2410c` | Jarum kompas dan garis rute |
 
 ---
 
@@ -44,21 +59,25 @@ Token didefinisikan di `src/app/globals.css`. Nama token mengikuti perannya.
 
 | Utility Class | Weight | Ukuran |
 | :--- | :--- | :--- |
-| **`text-hero`** | 600 | fluid 40-76px |
-| **`text-h-section`** | 600 | fluid 34-56px |
-| **`text-h1`** | 600 | fluid 32-46px |
-| **`text-h2`** | 600 | fluid 22-28px |
-| **`text-h3`** | 600 | 18px |
-| **`text-h4`** / **`text-h5`** | 500 | 16px / 14px |
+| **`text-welcome`** | 500 | fluid 34-48px, sapaan di login dan register |
+| **`text-hero`** | 700 | fluid 38-64px |
+| **`text-h-section`** | 700 | fluid 28-40px |
+| **`text-h1`** | 700 | fluid 26-34px |
+| **`text-h2`** | 600 | fluid 20-24px |
+| **`text-h3`** | 600 | 17px |
+| **`text-h4`** | 600 | 15px |
+| **`text-h5`** | 500 | 14px |
 | **`text-lead`** | 400 | 17px |
 | **`text-body`** | 400 | 14px |
 | **`text-caption`** | 400 | 12px |
+
+Input memakai 16px di HP agar iOS tidak memperbesar halaman saat fokus. Kelas tipografi baru harus didaftarkan di `src/lib/utils.ts`.
 
 ---
 
 ## 4. Elevasi
 
-Kartu memakai garis `brand-300` atau latar `paper-raised` tanpa bayangan. Jika pengguna mengaktifkan *reduced transparency*, panel kaca menjadi solid.
+Kartu memakai garis `brand-300` tanpa bayangan. `shadow-overlay` hanya untuk lapisan yang benar-benar mengambang.
 
 ---
 
@@ -66,7 +85,7 @@ Kartu memakai garis `brand-300` atau latar `paper-raised` tanpa bayangan. Jika p
 
 ### A. Komponen Antarmuka Form (`src/components/ui/`)
 1. **`Button` & `ButtonLink`**:
-   - Varian: `primary` (gradasi biru), `pillOnDark` (putih), `outline` (border brand-300), `ghost` (transparan), `danger` (red-600).
+   - Varian: `primary` (biru isi), `outline` (putih bergaris), `ghost` (transparan).
    - Ukuran: `sm`, `md` (default), `lg`.
 2. **`Input` & `PasswordInput`**:
    - Dilengkapi focus ring `brand-600` dan toggle visibility kata sandi.

@@ -15,7 +15,7 @@ export function PageHeader({
       <div className="flex min-w-0 flex-col gap-2">
         <h1 className="text-h1 break-words text-brand-950">{title}</h1>
         {description ? (
-          <p className="text-lead max-w-xl text-brand-800">{description}</p>
+          <p className="text-lead max-w-2xl text-brand-800">{description}</p>
         ) : null}
       </div>
       {children ? <div className="shrink-0">{children}</div> : null}

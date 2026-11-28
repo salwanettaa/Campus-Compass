@@ -53,9 +53,9 @@ export function SocialPostCard({
   return (
     <article
       className={cn(
-        "flex gap-3.5 rounded-2xl border bg-paper-raised p-4 transition-colors sm:p-5",
+        "flex gap-3.5 rounded-xl border bg-paper-raised p-4 transition-colors sm:p-5",
         isQuestion
-          ? "border-brand-300 border-l-4 border-l-route"
+          ? "border-brand-300"
           : "border-brand-300",
       )}
     >
@@ -162,7 +162,7 @@ export function SocialPostCard({
               type="button"
               onClick={() => onOpenThread(post.id)}
               aria-label={`Reply to ${post.authorName}'s post (${post.replies.length} replies)`}
-              className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-transparent px-3 text-caption text-brand-800 transition-colors hover:border-brand-300 hover:bg-brand-100 hover:text-brand-950"
+              className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border border-transparent px-3 text-caption text-brand-800 transition-colors hover:border-brand-300 hover:bg-brand-100 hover:text-brand-950"
             >
               <MessageCircle className="size-4" aria-hidden="true" />
               <span>{post.replies.length}</span>
@@ -175,7 +175,7 @@ export function SocialPostCard({
               aria-pressed={post.likedByViewer}
               aria-label={`Like post (${post.likes} likes)`}
               className={cn(
-                "inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3 text-caption transition-colors",
+                "inline-flex min-h-9 items-center gap-1.5 rounded-lg border px-3 text-caption transition-colors",
                 post.likedByViewer
                   ? "border-route/60 bg-paper text-route-on-dark"
                   : "border-transparent text-brand-800 hover:border-brand-300 hover:bg-brand-100 hover:text-brand-950",
