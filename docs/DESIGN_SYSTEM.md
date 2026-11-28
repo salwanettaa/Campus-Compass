@@ -91,13 +91,14 @@ Kartu memakai garis `brand-300` atau latar `paper-raised` tanpa bayangan. Jika p
 
 ### C. Komponen Modul Spesifik
 1. **Community (`src/components/community/`)**:
-   - `PostCard`: Kartu ringkasan postingan forum (vote count, tag kategori, status diterima).
-   - `CommentThread`: Komponen komentar bertingkat dengan tombol *Accept Answer* dan upvote.
-   - `HelpfulButton`: Tombol interaktif untuk menambah/mengurangi vote count.
+   - `CommunityHub` & `SocialPostCard`: Feed komunitas dengan filter grup/scope, like, bookmark, dan toggle anonim.
+   - `PostComposer` & `ThreadModal`: Pembuat postingan dan panel balasan diskusi yang mendukung mode anonim (*Post as Anonymous* / *Reply as Anonymous*).
+   - `CreateCommunityModal`: Modal pembuatan ruang komunitas baru (interactive preview).
+   - `PostCard`, `CommentThread`, & `HelpfulButton`: Komponen thread Q&A dengan dukungan upvote & *Accepted Answer*.
 2. **Knowledge Hub (`src/components/knowledge/`)**:
-   - `CategoryFilter`: Pilihan 6 kategori panduan kampus.
-   - `ExperienceCard`: Kartu cerita senior berformat STAR (Situation, Challenge, Solution, Result).
-   - `ExperienceForm`: Formulir kurasi pengalaman dengan filter data pribadi (tanpa NIM/No HP).
+   - `CategoryFilter` & `SmartScopeSwitcher`: Pilihan 6 kategori panduan kampus dan scope (`My Program`, `General`, `Browse another program`).
+   - `GuideListCard` & `GuideContent`: Kartu daftar dan tampilan baca panduan resmi terkurasi beserta badge verifikasi (`VerifiedMeta`) dan peringatan kedaluwarsa.
+   - `BookmarkButton` & `RequestGuideModal`: Simpan panduan dan formulir permintaan topik panduan baru.
 3. **AI Navigator (`src/components/ai-navigator/`)**:
    - `SampleChat`: Kotak obrolan AI dengan komponen kartu sitasi rujukan `[1]`, `[2]`.
 

@@ -3,7 +3,7 @@
 > **Kompetisi**: STACK 2026 by GDGoC ITB — *Case 1: Smarter Campus and Learning*  
 > **Tim**: Nanti Makan Sushi (Salwanetta Jauza Y, Kalya Andriana, Rifaludin, Erick)  
 > **Pilot**: Universitas Gadjah Mada (UGM) — Sekolah Vokasi D4 Teknologi Rekayasa Internet (TRI)  
-> **Baseline Commit `main`**: `9ea463c` (per 27 Nov 2026)
+> **Baseline Commit `main`**: `2d68673` (per 28 Nov 2026 — synced through PR #16)
 
 Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutnya agar pengembangan aplikasi **sinkron dengan Abstract Preliminary**, **mematuhi aturan tahapan STACK 2026**, dan **tetap menyisakan *meaningful development* untuk Final Day**.
 
@@ -14,9 +14,9 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
 | Area | Status Saat Ini | Lokasi Kode Utama |
 | :--- | :--- | :--- |
 | **Auth & Onboarding** | ✅ Live Supabase (`profiles`, `campuses`, `faculties`, `programs`) — **5 `adaptation_area`** (`social`, `academic`, `internship`, `scholarship`, `competition`); Patch 03 disiapkan untuk Pra-Final | `src/lib/auth/`, `src/app/onboarding/page.tsx` |
-| **Knowledge Hub** | ✅ Live Supabase (`guides`, `experiences`, `bookmarks`) — `18` curated guides + fallback sample, UI Split-Rail & filter sudah jalan | `src/app/(dashboard)/knowledge/`, `src/lib/knowledge/` |
+| **Knowledge Hub** | ✅ Live Supabase (`guides`, `bookmarks`) — `18` curated guides + sample fallback, UI Split-Rail & scope/category filter sudah jalan; *Senior Experiences* telah dihapus dari Knowledge Hub dan dipusatkan ke Community (PR #15 & PR #16) | `src/app/(dashboard)/knowledge/`, `src/lib/knowledge/` |
 | **Home, `My Journey` & `My Tasks`** | ✅ Rule-based `personalizeJourney()` (`adaptation_area` + `main_challenge`), checklist + notes, reflections, `My Tasks`, & `Saved Items` (Patch `04` & `05`); **roadmap masih hardcoded** di `roadmap-data.ts` (belum pakai `journey_steps` per `campus_id`/`program_id`/`semester` & belum auto-recommend `guides`) | `src/app/(dashboard)/home/page.tsx`, `src/app/(dashboard)/journey/page.tsx`, `src/lib/journey/`, `src/lib/tasks/` |
-| **Community** | 🟡 Interactive UI Preview (Mock Data) | Feed & thread (`/community`, `/community/[id]`) + `SavePostButton` sudah ada; perlu dilengkapi UI preview (tab `General` / `UGM Only` / `Per Jurusan`, form Create Post, Reply Comment, & Add Community berbasis mock state berlabel jujur) — live DB wiring masuk Pra-Final | `src/lib/community/data.ts`, `src/app/(dashboard)/community/` |
+| **Community** | 🟡 Interactive UI Preview (Live Viewer Profile + Mock Feed) | Profil user (`display_name`, kampus, prodi) ditarik dari Supabase; UI feed & diskusi (`CommunityHub`, `PostComposer`, `ThreadModal`, `CreateCommunityModal`, toggle `Post as Anonymous` & `Reply as Anonymous`, filter komunitas) sudah interaktif berbasis mock state (`src/lib/community/social-mock-data.ts`) — live DB persistence (`v_posts`, `v_comments`) masuk Fase Pra-Final | `src/lib/community/`, `src/components/community/`, `src/app/(dashboard)/community/` |
 | **AI Navigator** | 🟡 Interactive UI preview (`SampleChat`, *"Demo, not live"*, 4 skenario & `?q=` handoff); belum terhubung ke Gemini API / `content_chunks` (target Pra-Final) | `src/app/(dashboard)/ai-navigator/page.tsx`, `src/components/ai-navigator/` |
 | **Database & Security** | ✅ Schema V2 + Patch `01` & `02` terpasang di Supabase Cloud; Patch `04` (`04_journey_and_tasks.sql`) & `05` (`05_checklist_notes.sql`) tersedia di repo (pastikan sudah di-apply di SQL Editor) | `docs/TECH_AND_DATABASE.md`, `supabase/patches/` |
 
@@ -45,9 +45,9 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
 ### Task 1.1 — Seed Data Lengkap UGM & D4 TRI ke Supabase Cloud
 - **Owner**: Netta / Rifal
 - **Langkah**:
-  1. Jalankan [`supabase/seed_ugm_pilot.sql`](../supabase/seed_ugm_pilot.sql) di **Supabase SQL Editor** agar `campuses` (UGM), `faculties` (SV, FT, FEB), `programs` (`TRI`, `TRPL`, `TI`, `MN`), `guides`, dan `experiences` masuk ke DB.
-  2. Perbanyak isi `guides` hingga mencakup **minimal 2 panduan per kategori (total 12–15 panduan)** di 6 kategori (`academic_survival`, `social_community`, `administrative_guide`, `campus_essentials`, `scholarship_growth`, `career_preparation`) dan **5+ `experiences`** (tandai mana hasil wawancara senior dan mana contoh sintetis).
-  3. Tambahkan seed awal `posts` dan `comments` untuk UGM D4 TRI agar halaman Community langsung terisi saat live.
+  1. Jalankan [`supabase/seed_ugm_pilot.sql`](../supabase/seed_ugm_pilot.sql) di **Supabase SQL Editor** agar `campuses` (UGM), `faculties` (SV, FT, FEB), `programs` (`TRI`, `TRPL`, `TI`, `MN`), dan `guides` masuk ke DB.
+  2. Pastikan isi `guides` mencakup **minimal 2 panduan per kategori (12–18 panduan)** di 6 kategori (`academic_survival`, `social_community`, `administrative_guide`, `campus_essentials`, `scholarship_growth`, `career_preparation`) — seluruh cerita pengalaman mahasiswa diarahkan ke modul Community (`posts`).
+  3. *(Persiapan Fase 2)* Siapkan seed awal `posts` dan `comments` untuk UGM D4 TRI agar halaman Community langsung terisi saat disambungkan ke Supabase di Pra-Final.
 - **Definition of Done**: Banner di bawah `/knowledge` menampilkan `Connected to Universitas Gadjah Mada.` (bukan lagi sample fallback).
 
 ### Task 1.2 — Pembatasan Auth Email Kampus + Akun Demo
@@ -57,14 +57,13 @@ Dokumen ini menjadi panduan eksekusi untuk member atau AI coding agent berikutny
   2. Tambahkan validasi pesan error yang jelas pada `src/lib/validation/auth.ts` & form Register (`src/components/auth/register-form.tsx`) agar pendaftar dengan email non-kampus langsung mendapat arahan sebelum submit.
   3. **Penting untuk juri**: Jika `Confirm email` dinyalakan lagi (karena Patch 03 mengecek `email_confirmed_at IS NOT NULL`), buat **1–2 akun demo pre-confirmed** di Supabase Auth dan cantumkan kredensial aksesnya secara aman di catatan submission (jangan pernah commit password/token ke Git!).
 
-### Task 1.3 — Interactive UI Preview `Community` (Mockup Berlabel Jujur, Belum ke Supabase)
-- **Owner**: Kalya (`feat/community-preview`)
-- **Tujuan**: Melengkapi tampilan dan interaksi Community sesuai catatan [`docs/QA.md`](QA.md) untuk Demo Semifinal **tanpa** menyambungkan ke Supabase dulu (wiring live DB disimpan untuk **Fase Pra-Final**).
-- **Langkah**:
-  1. Tambahkan **tab scope** di `/community`: `General` (semua komunitas), `My Campus (UGM)`, dan `My Program` (filter per jurusan) memakai data mock (`MOCK_POSTS`).
-  2. Tambahkan UI **Create Post / Ask Question**, **Reply Comment** di `/community/[id]`, interaksi **Helpful Vote** lokal, serta preview form/modal **Add Community** (state client-side / mock).
-  3. Pastikan banner jujur di atas halaman tetap jelas (misal: *"Preview mode · Sample posts & local interactions are not saved to database yet"*).
-- **Definition of Done**: Di Video Demo Semifinal, alur buka tab `General`/`UGM`/`Jurusan`, buat pertanyaan/komentar, dan preview Add Community bisa didemokan secara interaktif dengan label jujur.
+### Task 1.3 — Interactive UI Preview `Community` (Selesai di Kode — PR #14 `e663e76` & PR #15 `57ce0e5`)
+- **Owner**: Kalya (`feat/community-preview` / `update-community`)
+- **Status**: ✅ Selesai di kode sebagai interactive UI preview berlabel jujur (live DB read/write untuk `posts` & `comments` dijadwalkan di **Fase Pra-Final** Task 2.0).
+- **Cakupan yang sudah jalan**:
+  1. **Live Viewer Profile**: Halaman `/community` menarik `display_name`, kampus, dan jurusan user yang login dari Supabase (`profiles`, `campuses`, `programs`).
+  2. **Interactive Feed & Filters**: `CommunityHub` menampilkan filter komunitas/scope, pencarian, Create Post (`PostComposer`), balasan thread (`ThreadModal`), like/bookmark state lokal, serta modal `CreateCommunityModal` berbasis `MOCK_SOCIAL_POSTS` & `MOCK_SOCIAL_COMMUNITIES`.
+  3. **Anonymous Mode**: Pengguna bisa memilih **Post as Anonymous** saat membuat postingan dan **Reply as Anonymous** saat membalas pertanyaan di `ThreadModal`.
 
 ### Task 1.4 — Home, `My Journey` & `My Tasks` (Selesai di Kode — PR #13 `8452f72`)
 - **Owner**: Erick (UI/UX) & Kalya (Frontend Integration)
@@ -166,9 +165,9 @@ npm run build
 
 Dan cek manual di browser desktop (`>= 1024px`) serta mobile (`375px`):
 - [ ] Daftar/login dan onboarding berjalan tanpa error dan tanpa membocorkan NIM/PII.
-- [ ] Knowledge Hub scope filter (`My Program`, `General`, `Browse another program`), category filter, search, dan bookmark bekerja dengan data Supabase.
+- [ ] Knowledge Hub scope filter (`My Program`, `General`, `Browse another program`), category filter, search, dan bookmark bekerja dengan data Supabase (tanpa tab Senior Experiences).
 - [ ] Home, `My Journey` (checklist, notes, reflections), `My Tasks`, dan `Saved Items` tersimpan per user di Supabase (Patch `04` & `05` aktif) *(target Semifinal)*.
-- [ ] Community feed, create post, comment, helpful vote, dan accepted answer tersimpan di Supabase *(target Pra-Final / Semifinal jika PR mendarat)*.
+- [ ] Community interactive UI preview (filter komunitas, create post, thread reply, toggle anonim, + live viewer profile dari Supabase) siap untuk demo Semifinal; persistensi ke `v_posts`/`v_comments` selesai di **Pra-Final**.
 - [ ] AI Navigator menjawab berbasis chunk + menampilkan Source Cards yang bisa diklik *(target Pra-Final)*.
 - [ ] Dynamic `journey_steps` per `campus_id`/`program_id`/`semester` & rekomendasi otomatis panduan Knowledge Hub *(target Final Day)*.
 
