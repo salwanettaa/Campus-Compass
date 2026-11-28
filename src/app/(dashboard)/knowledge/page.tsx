@@ -119,7 +119,7 @@ export default async function KnowledgePage({
                 </p>
                 <a
                   href="#knowledge-filters"
-                  className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-brand-400 bg-paper-raised px-3 text-caption font-medium text-brand-900 lg:hidden"
+                  className="inline-flex min-h-9 items-center gap-1.5 rounded-lg border border-brand-400 bg-paper-raised px-3 text-caption font-medium text-brand-900 lg:hidden"
                 >
                   <SlidersHorizontal className="size-3.5" aria-hidden="true" />
                   <span>

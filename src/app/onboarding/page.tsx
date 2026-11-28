@@ -22,7 +22,7 @@ function Shell({ children }: { children: React.ReactNode }) {
         <section className="flex flex-col gap-4 lg:sticky lg:top-8">
           <h1 className="text-hero text-brand-950">
             Make this space{" "}
-            <em className="font-serif font-normal text-brand-700">yours.</em>
+            <span className="text-brand-700">yours.</span>
           </h1>
           <p className="text-lead max-w-md text-brand-800">
             Set your campus, semester, and current focus. We&apos;ll use them to
@@ -31,7 +31,7 @@ function Shell({ children }: { children: React.ReactNode }) {
         </section>
         <section
           aria-label="Profile setup form"
-          className="flex flex-col gap-6 rounded-md border border-brand-300 bg-paper-raised p-5 sm:p-8"
+          className="flex flex-col gap-6 rounded-xl border border-brand-300 bg-paper-raised p-5 sm:p-8"
         >
           {children}
         </section>

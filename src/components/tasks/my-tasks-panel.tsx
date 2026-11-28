@@ -6,7 +6,7 @@ import {
   Check,
   Compass,
   Flag,
-  ListTodo,
+  ListChecks,
   Pencil,
   Plus,
   RotateCcw,
@@ -36,6 +36,8 @@ export type MyTasksPanelProps = {
   defaultCategory: AdaptationArea;
   schemaReady: boolean;
   loadError: string | null;
+  /** Titles offered in the empty state. Choosing one fills the add field. */
+  suggestions?: readonly string[];
 };
 
 const PRIORITY_STYLES: Record<TaskPriority, string> = {
@@ -55,6 +57,7 @@ export function MyTasksPanel({
   defaultCategory,
   schemaReady,
   loadError,
+  suggestions = [],
 }: MyTasksPanelProps) {
   const [prevInitialTasks, setPrevInitialTasks] = useState(initialTasks);
   const [tasks, setTasks] = useState<UserTaskRow[]>(initialTasks);
@@ -239,30 +242,25 @@ export function MyTasksPanel({
     <section
       id="my-tasks"
       aria-labelledby="tasks-heading"
-      className="flex scroll-mt-6 flex-col gap-5 rounded-2xl border border-brand-300 bg-paper-raised p-5 sm:p-6"
+      className="flex min-w-0 scroll-mt-24 flex-col gap-3 rounded-xl border border-brand-300 bg-paper-raised p-5"
     >
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="flex flex-col gap-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-100 px-3 py-1 text-caption font-medium text-brand-700">
-              <ListTodo className="size-3.5" aria-hidden="true" />
-              Personal Workspace
-            </span>
-            <span className="text-caption text-brand-800">
-              {completedCount}/{tasks.length} completed
-            </span>
-          </div>
-          <h2 id="tasks-heading" className="text-h2 text-brand-950">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h2 id="tasks-heading" className="text-h3 text-brand-950">
             My Tasks
           </h2>
-          <p className="text-body text-brand-800">
-            Track your own action items alongside steps from My Journey.
+          <p className="text-caption mt-0.5 text-brand-800 tabular-nums">
+            {tasks.length === 0
+              ? "Your own to-dos, next to your journey steps."
+              : `${completedCount} of ${tasks.length} completed`}
           </p>
         </div>
 
         <Button
           size="sm"
-          variant={showAddForm ? "outline" : "primary"}
+          variant="ghost"
+          className="h-9 shrink-0 px-2 text-caption text-brand-700"
+          aria-expanded={showAddForm}
           onClick={() => setShowAddForm((v) => !v)}
         >
           {showAddForm ? (
@@ -272,8 +270,7 @@ export function MyTasksPanel({
             </>
           ) : (
             <>
-              <Plus className="size-4" aria-hidden="true" />
-              Add Task
+              Add with details
             </>
           )}
         </Button>
@@ -295,15 +292,15 @@ export function MyTasksPanel({
       ) : null}
 
       {/* Quick Add */}
-      <form onSubmit={handleQuickAdd} className="flex flex-col gap-2 sm:flex-row">
+      <form onSubmit={handleQuickAdd} className="flex gap-2">
         <label htmlFor="quick-add-task" className="sr-only">
-          Quick add a task
+          New task title
         </label>
         <Input
           id="quick-add-task"
           value={quickTitle}
           onChange={(e) => setQuickTitle(e.target.value)}
-          placeholder="Quick add a task (e.g. Prepare scholarship essay)..."
+          placeholder="Add a task"
           disabled={isPending || !schemaReady}
         />
         <Button
@@ -311,10 +308,10 @@ export function MyTasksPanel({
           variant="outline"
           loading={isPending}
           disabled={!schemaReady}
-          className="h-12 shrink-0"
+          className="shrink-0 px-4"
         >
           <Plus className="size-4" aria-hidden="true" />
-          Quick Add
+          Add
         </Button>
       </form>
 
@@ -422,6 +419,7 @@ export function MyTasksPanel({
       ) : null}
 
       {/* Filter Tabs */}
+      {tasks.length > 0 ? (
       <div
         role="tablist"
         aria-label="Filter tasks"
@@ -443,10 +441,10 @@ export function MyTasksPanel({
               aria-selected={selected}
               onClick={() => setFilter(tab.key)}
               className={cn(
-                "inline-flex min-h-9 items-center rounded-full border px-4 text-caption transition-colors",
+                "inline-flex min-h-9 items-center rounded-lg border px-4 text-caption transition-colors",
                 selected
-                  ? "border-brand-700 bg-fill font-semibold text-white"
-                  : "border-brand-300 bg-paper text-brand-800 hover:border-brand-600 hover:text-brand-950",
+                  ? "border-brand-600/40 bg-brand-100 font-semibold text-brand-700"
+                  : "border-brand-300 bg-paper-raised text-brand-800 hover:border-brand-600 hover:bg-frost hover:text-brand-950",
               )}
             >
               {tab.label}
@@ -454,18 +452,51 @@ export function MyTasksPanel({
           );
         })}
       </div>
+      ) : null}
 
       {/* Task List */}
-      {visibleTasks.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-brand-300 bg-paper p-6 text-center">
-          <p className="text-body text-brand-800">
-            {tasks.length === 0
-              ? "No tasks yet. Add something you want to work on."
-              : filter === "completed"
-                ? "No completed tasks yet."
-                : "No upcoming tasks. You're all caught up!"}
-          </p>
+      {tasks.length === 0 ? (
+        <div className="flex flex-1 flex-col items-center justify-center gap-3 rounded-xl border border-brand-600/25 bg-frost px-4 py-6 text-center">
+          <span className="flex size-11 items-center justify-center rounded-xl border border-brand-600/25 bg-paper-raised text-brand-700">
+            <ListChecks className="size-5" aria-hidden="true" />
+          </span>
+          <div>
+            <p className="text-h4 text-brand-950">No tasks yet</p>
+            <p className="text-body text-brand-800">
+              {schemaReady && suggestions.length > 0
+                ? "Type one above, or start from your current stage."
+                : "Type something you want to get done."}
+            </p>
+          </div>
+          {schemaReady && suggestions.length > 0 ? (
+            <ul className="flex w-full flex-col gap-2">
+              {suggestions.map((suggestion) => (
+                <li key={suggestion}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQuickTitle(suggestion);
+                      document.getElementById("quick-add-task")?.focus();
+                    }}
+                    className="press flex min-h-11 w-full items-center gap-2.5 rounded-lg border border-brand-300 bg-paper-raised px-3 py-2 text-left text-body text-brand-950 hover:border-brand-600 hover:bg-brand-100"
+                  >
+                    <Plus className="size-4 shrink-0 text-brand-700" aria-hidden="true" />
+                    <span>
+                      <span className="sr-only">Use suggestion: </span>
+                      {suggestion}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
+      ) : visibleTasks.length === 0 ? (
+        <p className="rounded-xl border border-brand-300 bg-frost p-5 text-center text-body text-brand-800">
+          {filter === "completed"
+            ? "No completed tasks yet."
+            : "No upcoming tasks. You're all caught up!"}
+        </p>
       ) : (
         <ul className="flex flex-col gap-2.5">
           {visibleTasks.map((task) => {

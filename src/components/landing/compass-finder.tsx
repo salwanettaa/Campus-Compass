@@ -35,13 +35,12 @@ export function CompassFinder({ points }: { points: readonly CompassPoint[] }) {
   }
 
   return (
-    <div className="mx-auto w-full max-w-[36rem]">
+    <div className="mx-auto w-full max-w-[34rem] rounded-2xl bg-paper-raised p-4 shadow-overlay sm:p-6">
       <fieldset>
         <legend className="text-h4 mx-auto text-center text-brand-950">
           Where are you stuck?
         </legend>
-        <div className="relative mx-auto mt-3 aspect-square w-full">
-          <div aria-hidden="true" className="compass-glow absolute inset-0" />
+        <div className="relative mx-auto mt-3 aspect-square w-full max-w-[29rem]">
           <svg
             aria-hidden="true"
             viewBox="0 0 400 400"
@@ -60,8 +59,8 @@ export function CompassFinder({ points }: { points: readonly CompassPoint[] }) {
                 transform={`rotate(${tick} 200 200)`}
               />
             ))}
-            <circle cx="200" cy="200" r="160" stroke="var(--color-brand-600)" strokeWidth="1.5" />
-            <circle cx="200" cy="200" r="112" stroke="var(--color-brand-700)" strokeOpacity="0.28" />
+            <circle cx="200" cy="200" r="160" fill="var(--color-frost)" stroke="var(--color-brand-600)" strokeWidth="1.5" />
+            <circle cx="200" cy="200" r="112" fill="var(--color-paper-raised)" stroke="var(--color-brand-700)" strokeOpacity="0.2" />
             <circle cx="200" cy="200" r="62" stroke="var(--color-brand-700)" strokeOpacity="0.16" />
             <path d="M200 88v224M88 200h224" stroke="var(--color-brand-700)" strokeOpacity="0.14" />
             <g
@@ -99,11 +98,11 @@ export function CompassFinder({ points }: { points: readonly CompassPoint[] }) {
                 />
                 <span
                   className={cn(
-                    "flex min-h-11 items-center rounded-full border px-3 text-xs font-medium whitespace-nowrap transition-colors duration-200 sm:px-5 sm:text-sm",
+                    "flex min-h-11 items-center rounded-full border px-3 text-xs font-medium whitespace-nowrap transition-colors duration-150 sm:px-4 sm:text-sm",
                     "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand-700",
                     index === selected
-                      ? "border-frost bg-frost font-semibold text-ink"
-                      : "border-brand-400 bg-paper text-brand-950 hover:border-brand-700 active:bg-brand-100",
+                      ? "border-fill bg-fill font-semibold text-white"
+                      : "border-brand-400 bg-paper-raised text-brand-950 hover:border-brand-600 hover:bg-brand-100 active:bg-brand-300",
                   )}
                 >
                   {entry.short}
@@ -116,7 +115,7 @@ export function CompassFinder({ points }: { points: readonly CompassPoint[] }) {
 
       <div
         aria-live="polite"
-        className="relative mt-4 min-h-[8.5rem] rounded-3xl bg-paper-raised p-5 text-center"
+        className="mt-4 min-h-[7.75rem] rounded-xl border border-brand-300 bg-paper p-4 text-center"
       >
         <p className="text-caption text-brand-700">
           {point.category} · sample guide

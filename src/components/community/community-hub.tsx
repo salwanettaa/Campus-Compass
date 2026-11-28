@@ -352,7 +352,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
               setSelectedCommunityId(null);
             }}
             className={cn(
-              "inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-h5 transition-colors",
+              "inline-flex min-h-10 items-center gap-2 rounded-lg border px-4 text-h5 transition-colors",
               activeTab === "general" && !selectedCommunityId
                 ? "border-brand-700 bg-fill text-white"
                 : "border-brand-300 bg-paper-raised text-brand-800 hover:border-brand-600 hover:text-brand-950",
@@ -374,7 +374,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
               setSelectedCommunityId(null);
             }}
             className={cn(
-              "inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-h5 transition-colors",
+              "inline-flex min-h-10 items-center gap-2 rounded-lg border px-4 text-h5 transition-colors",
               activeTab === "university" && !selectedCommunityId
                 ? "border-brand-700 bg-fill text-white"
                 : "border-brand-300 bg-paper-raised text-brand-800 hover:border-brand-600 hover:text-brand-950",
@@ -396,7 +396,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
               setSelectedCommunityId(null);
             }}
             className={cn(
-              "inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-h5 transition-colors",
+              "inline-flex min-h-10 items-center gap-2 rounded-lg border px-4 text-h5 transition-colors",
               activeTab === "department" && !selectedCommunityId
                 ? "border-brand-700 bg-fill text-white"
                 : "border-brand-300 bg-paper-raised text-brand-800 hover:border-brand-600 hover:text-brand-950",
@@ -418,7 +418,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
               setSelectedCommunityId(null);
             }}
             className={cn(
-              "inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-h5 transition-colors",
+              "inline-flex min-h-10 items-center gap-2 rounded-lg border px-4 text-h5 transition-colors",
               activeTab === "communities" && !selectedCommunityId
                 ? "border-brand-700 bg-fill text-white"
                 : "border-brand-300 bg-paper-raised text-brand-800 hover:border-brand-600 hover:text-brand-950",
@@ -445,7 +445,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
         </Alert>
       ) : null}
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
         {/* Main Feed Column */}
         <div className="flex min-w-0 flex-col gap-5">
           {/* UGM Internal Access Guard */}
@@ -461,7 +461,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
           {activeTab === "university" && !selectedCommunityId && isUgmMember ? (
             <section
               aria-label="Department filter"
-              className="flex flex-col gap-2.5 rounded-2xl border border-brand-300 bg-paper-raised p-4"
+              className="flex flex-col gap-2.5 rounded-xl border border-brand-300 bg-paper-raised p-4"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
@@ -485,7 +485,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
                       aria-pressed={selected}
                       onClick={() => setSelectedDepartment(dept)}
                       className={cn(
-                        "inline-flex min-h-9 items-center rounded-full border px-3.5 text-caption transition-colors",
+                        "inline-flex min-h-9 items-center rounded-lg border px-3.5 text-caption transition-colors",
                         selected
                           ? "border-brand-700 bg-fill font-semibold text-white"
                           : "border-brand-300 bg-paper text-brand-800 hover:border-brand-600 hover:text-brand-950",
@@ -503,7 +503,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
           {activeTab === "department" && !selectedCommunityId ? (
             <section
               aria-label="Department exclusive space"
-              className="flex flex-col gap-3 rounded-2xl border border-brand-600 bg-paper-raised p-5"
+              className="flex flex-col gap-3 rounded-xl border border-brand-600 bg-paper-raised p-5"
             >
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-100 px-3 py-1 text-caption font-medium text-brand-700">
@@ -534,7 +534,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
 
           {/* Selected Community Header */}
           {activeCommunity ? (
-            <section className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-brand-600 bg-paper-raised p-5">
+            <section className="flex flex-wrap items-start justify-between gap-4 rounded-xl border border-brand-600 bg-paper-raised p-5">
               <div className="flex min-w-0 flex-1 flex-col gap-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-1 rounded-full bg-brand-100 px-2.5 py-0.5 text-caption text-brand-700">
@@ -600,7 +600,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
           {activeTab === "communities" && !selectedCommunityId ? (
             <section
               aria-label="Your communities"
-              className="flex flex-col gap-3 rounded-2xl border border-brand-300 bg-paper-raised p-4 sm:p-5"
+              className="flex flex-col gap-3 rounded-xl border border-brand-300 bg-paper-raised p-4 sm:p-5"
             >
               <div className="flex items-center justify-between gap-2">
                 <h2 className="text-h4 text-brand-950">
@@ -670,7 +670,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
 
           {/* Feed Stream */}
           {visiblePosts.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-brand-300 bg-paper-raised p-8 text-center">
+            <div className="rounded-xl border border-dashed border-brand-300 bg-paper-raised p-8 text-center">
               <p className="text-h4 text-brand-950">No posts here yet</p>
               <p className="text-body mt-1 text-brand-800">
                 Be the first to start a discussion or ask a question!
@@ -702,7 +702,7 @@ export function CommunityHub({ viewer }: CommunityHubProps) {
           aria-label="Communities directory"
           className="flex flex-col gap-5 lg:sticky lg:top-6"
         >
-          <section className="flex flex-col gap-4 rounded-2xl border border-brand-300 bg-paper-raised p-5">
+          <section className="flex flex-col gap-4 rounded-xl border border-brand-300 bg-paper-raised p-5">
             <div className="flex items-center justify-between gap-2">
               <h2 className="text-h4 text-brand-950">Discover Communities</h2>
               <span className="text-caption text-brand-800">

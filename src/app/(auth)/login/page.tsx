@@ -14,11 +14,11 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
 
   return (
     <>
-      <header className="flex flex-col gap-1">
-        <h1 className="text-h1 text-brand-950">
+      <header className="flex flex-col gap-3">
+        <h1 className="text-welcome text-brand-950">
           Welcome back
         </h1>
-        <p className="text-body text-brand-800">
+        <p className="text-lead text-brand-800">
           Log in to continue your campus journey.
         </p>
       </header>
@@ -39,11 +39,11 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
 
       <LoginForm next={next} />
 
-      <p className="text-body text-brand-800">
+      <p className="text-body text-center text-brand-800">
         New to Campus Compass?{" "}
         <Link
           href="/register"
-          className="text-h5 text-brand-900 underline underline-offset-4 hover:text-brand-950"
+          className="text-h5 font-semibold text-brand-700 underline-offset-4 hover:underline"
         >
           Create an account
         </Link>

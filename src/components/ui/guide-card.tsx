@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { WayfinderMark } from "@/components/ui/wayfinder-mark";
+import { LogoMark } from "@/components/ui/logo-mark";
 
 export type GuideCardProps = {
   title: string;
@@ -45,7 +45,7 @@ export function GuideCard({
             className="object-cover"
           />
         ) : (
-          <WayfinderMark
+          <LogoMark
             className="absolute inset-0 m-auto size-10 text-brand-300"
           />
         )}

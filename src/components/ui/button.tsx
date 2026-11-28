@@ -6,29 +6,23 @@ import { cn } from "@/lib/utils";
 
 export const buttonVariants = cva(
   [
-    "inline-flex cursor-pointer items-center justify-center gap-2 rounded-full whitespace-nowrap select-none",
-    "transition-[background-color,border-color,color,filter] duration-150",
+    "press inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg font-semibold whitespace-nowrap select-none",
     "disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50",
   ],
   {
     variants: {
       variant: {
         /** Main action. Use one per view. */
-        primary: "bg-brand-gradient text-white hover:brightness-90 active:brightness-75",
+        primary: "bg-fill text-white hover:bg-[#075985] active:bg-[#0c4a6e]",
         /** Secondary action */
         outline:
-          "border border-brand-400 bg-transparent text-brand-950 hover:border-brand-700 hover:text-brand-700 active:bg-brand-100",
-        /** Action on a green or dark background */
-        pillOnDark:
-          "bg-white font-semibold text-ink hover:bg-frost active:bg-brand-700",
-        /** Navbar action on a light background */
-        pillOnLight: "bg-brand-gradient text-white hover:brightness-90 active:brightness-75",
+          "border border-brand-400 bg-paper-raised text-brand-950 hover:border-brand-600 hover:bg-frost active:bg-brand-100",
         ghost: "text-brand-900 hover:bg-brand-100 active:bg-brand-300",
       },
       size: {
-        sm: "h-11 px-5 text-h5",
-        md: "h-11 px-6 text-h5",
-        lg: "h-12 px-8 text-h4",
+        sm: "h-11 px-4 text-h5",
+        md: "h-11 px-5 text-h5",
+        lg: "h-12 px-6 text-h4",
       },
     },
     defaultVariants: { variant: "primary", size: "md" },

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { BottomNav } from "@/components/layout/bottom-nav";
+import { MobileHeader } from "@/components/layout/mobile-header";
+import { QuickJumpDialog } from "@/components/layout/quick-jump";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Alert } from "@/components/ui/alert";
 import { signOutAction } from "@/lib/auth/actions";
@@ -45,14 +47,22 @@ export default async function DashboardLayout({
   if (!profile || !profile.onboarding_completed) redirect("/onboarding");
 
   return (
-    <div className="flex w-full flex-1 gap-8 px-4 pt-6 sm:px-6 lg:gap-10 lg:px-10 lg:py-6">
-      <Sidebar
-        user={{ displayName: profile.display_name }}
-        onLogout={signOutAction}
-        className="liquid-glass sticky top-6 hidden h-[calc(100dvh-3rem)] shrink-0 rounded-3xl border p-3 lg:flex"
-      />
-      <div className="min-w-0 flex-1 pb-28 lg:pt-2 lg:pb-12">{children}</div>
+    <div className="flex w-full flex-1">
+      <div className="hidden shrink-0 border-r border-brand-300 bg-paper-raised lg:block">
+        <Sidebar
+          user={{ displayName: profile.display_name }}
+          onLogout={signOutAction}
+          className="sticky top-0 h-dvh border-r-0 p-3"
+        />
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col">
+        <MobileHeader />
+        <div className="mx-auto w-full max-w-[82rem] flex-1 px-4 pt-6 pb-28 sm:px-8 lg:px-10 lg:py-8">
+          {children}
+        </div>
+      </div>
       <BottomNav onLogout={signOutAction} />
+      <QuickJumpDialog />
     </div>
   );
 }

@@ -12,6 +12,11 @@ const twMerge = extendTailwindMerge({
       "font-size": [
         {
           text: [
+            "welcome",
+            "display",
+            "hero",
+            "h-section",
+            "lead",
             "h1",
             "h2",
             "h3",

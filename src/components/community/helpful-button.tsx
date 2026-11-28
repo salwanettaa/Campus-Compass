@@ -64,7 +64,7 @@ export function HelpfulButton({
         aria-pressed={active}
         aria-label={`Mark this ${target} as helpful`}
         className={cn(
-          "text-h5 inline-flex min-h-11 items-center gap-2 rounded-full border px-4",
+          "text-h5 inline-flex min-h-11 items-center gap-2 rounded-lg border px-4",
           "transition-colors duration-150",
           "disabled:opacity-60",
           active

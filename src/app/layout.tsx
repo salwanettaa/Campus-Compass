@@ -1,20 +1,11 @@
 import type { Metadata } from "next";
-import { Tiro_Kannada, Wix_Madefor_Display } from "next/font/google";
+import { Wix_Madefor_Display } from "next/font/google";
 import { getAppUrl } from "@/lib/app-url";
 import "./globals.css";
 
 const wix = Wix_Madefor_Display({
   variable: "--font-wix",
   subsets: ["latin"],
-  display: "swap",
-});
-
-/** Italic serif for the one emphasised word in large headlines. */
-const tiro = Tiro_Kannada({
-  variable: "--font-tiro",
-  subsets: ["latin"],
-  weight: "400",
-  style: "italic",
   display: "swap",
 });
 
@@ -30,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${wix.variable} ${tiro.variable} h-full antialiased`}>
+    <html lang="en" className={`${wix.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

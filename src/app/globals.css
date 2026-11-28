@@ -1,131 +1,108 @@
 @import "tailwindcss";
 
 /* =============================================================================
-   Campus Compass design tokens: one dark theme for every page, built on the
-   team blue. Token names keep their roles: brand-950 is the strongest text,
-   brand-800 is muted text, brand-300 is the divider and brand-100 is a tonal
-   surface. Use "fill" for blue surfaces that carry white text, and "ink" or
-   "frost" on white controls.
+   Campus Compass design tokens: a light theme with white surfaces, soft azure
+   accents and slate text. Token names keep their roles: brand-950 is the
+   strongest text, brand-800 is muted text, brand-300 is the divider and
+   brand-100 is the azure tint. "fill" is the blue that carries white text;
+   "ink" is the dark slate and "frost" the faintest azure wash.
    ============================================================================= */
 
 @theme {
-  --color-paper: #04131c;
-  --color-paper-raised: #0a1f2c;
+  --color-paper: #f8fafc;
+  --color-paper-raised: #ffffff;
 
-  --color-brand-950: #f1f9fd;
-  --color-brand-900: #dceff8;
-  --color-brand-800: #a6c8da;
-  --color-brand-700: #7ccdee;
-  --color-brand-600: #3fb0e0;
-  --color-brand-400: #4a8aa8;
-  --color-brand-300: #17394b;
-  --color-brand-100: #0e2a3a;
+  --color-brand-950: #0f172a;
+  --color-brand-900: #1e293b;
+  --color-brand-800: #475569;
+  --color-brand-700: #0369a1;
+  --color-brand-600: #0284c7;
+  --color-brand-400: #7c8ba1;
+  --color-brand-300: #e2e8f0;
+  --color-brand-100: #e8f5fd;
 
-  --color-fill: #0f6d93;
-  --color-ink: #04202e;
-  --color-frost: #e1f2fa;
+  --color-fill: #0369a1;
+  --color-ink: #0f172a;
+  --color-frost: #f3f9fe;
 
-  /* Status colours, tuned for dark surfaces. */
-  --color-emerald-50: #0c2620;
-  --color-emerald-700: #35a876;
-  --color-emerald-800: #7fe0b2;
-  --color-emerald-950: #d8f7e8;
-  --color-amber-800: #f3c46c;
-  --color-amber-900: #f8d391;
-  --color-red-50: #2a1317;
-  --color-red-600: #f87171;
-  --color-red-700: #ff9f9f;
-  --color-red-950: #ffdada;
+  /* Status colours for light surfaces. */
+  --color-emerald-50: #ecfdf5;
+  --color-emerald-700: #047857;
+  --color-emerald-800: #065f46;
+  --color-emerald-950: #022c22;
+  --color-amber-800: #92400e;
+  --color-amber-900: #78350f;
+  --color-red-50: #fef2f2;
+  --color-red-600: #dc2626;
+  --color-red-700: #b91c1c;
+  --color-red-950: #450a0a;
 
-  /* The orange route from the logo. The one accent. */
-  --color-route: #f08a68;
-  --color-route-on-dark: #f08a68;
+  /* The orange route from the logo: compass needle and wayfinding marks. */
+  --color-route: #c2410c;
+  --color-route-on-dark: #c2410c;
 
-  --radius-sm: 0.5rem;
-  --radius-md: 1rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+
+  /* Shadows are for layers that float: menus, dialogs and the landing header. */
+  --shadow-overlay:
+    0 1px 2px rgb(15 23 42 / 0.06), 0 12px 32px -12px rgb(15 23 42 / 0.18);
 }
 
 @theme inline {
   --font-sans: var(--font-wix), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-tiro), ui-serif, Georgia, serif;
-}
-
-@utility bg-brand-gradient {
-  background-image: linear-gradient(120deg, #0f6d93, #0f5d83);
-}
-/* Large blue panels. Every stop keeps white text well above 4.5:1. */
-@utility bg-hero-gradient {
-  background-image:
-    radial-gradient(60% 55% at 85% 15%, rgb(23 134 180 / 0.4), transparent 70%),
-    linear-gradient(165deg, #04202e 0%, #0a3c55 65%, #0f5d83 100%);
-}
-@utility bg-card-tint {
-  background-image: linear-gradient(var(--color-paper-raised), var(--color-paper-raised));
-}
-/* The soft light behind a compass dial. At most one per screen. */
-@utility compass-glow {
-  background: radial-gradient(
-    closest-side,
-    transparent 48%,
-    rgb(23 134 180 / 0.42) 68%,
-    transparent 100%
-  );
-}
-
-/* -----------------------------------------------------------------------------
-   Liquid glass, for floating navigation and the sample preview: at most two on
-   a screen.
-   ----------------------------------------------------------------------------- */
-@utility liquid-glass {
-  background: linear-gradient(150deg, rgb(15 52 72 / 0.82), rgb(7 31 44 / 0.82));
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgb(195 227 242 / 0.16);
-  box-shadow: inset 0 1px 0 rgb(195 227 242 / 0.12);
 }
 
 /* -----------------------------------------------------------------------------
    Type scale (Wix Madefor Display)
    ----------------------------------------------------------------------------- */
 @utility text-display {
-  font-size: clamp(2.25rem, 1.2rem + 3.2vw, 3.5rem);
+  font-size: clamp(2.25rem, 1.4rem + 2.8vw, 3.25rem);
   line-height: 1.12;
   font-weight: 700;
+  letter-spacing: -0.03em;
+}
+/* The large, lighter greeting on the sign-in and sign-up screens. */
+@utility text-welcome {
+  font-size: clamp(2.125rem, 1.5rem + 1.9vw, 3rem);
+  line-height: 1.1;
+  font-weight: 500;
   letter-spacing: -0.035em;
 }
 @utility text-hero {
-  font-size: clamp(2.5rem, 1.2rem + 4.6vw, 4.75rem);
-  line-height: 1.04;
-  font-weight: 600;
-  letter-spacing: -0.035em;
-}
-@utility text-h-section {
-  font-size: clamp(2.125rem, 1.4rem + 2.8vw, 3.5rem);
-  line-height: 1.1;
-  font-weight: 600;
+  font-size: clamp(2.375rem, 1.3rem + 3.8vw, 4rem);
+  line-height: 1.08;
+  font-weight: 700;
   letter-spacing: -0.03em;
 }
+@utility text-h-section {
+  font-size: clamp(1.75rem, 1.3rem + 1.7vw, 2.5rem);
+  line-height: 1.18;
+  font-weight: 700;
+  letter-spacing: -0.022em;
+}
 @utility text-h1 {
-  font-size: clamp(2rem, 1.5rem + 2vw, 2.875rem);
-  line-height: 1.15;
-  font-weight: 600;
-  letter-spacing: -0.025em;
+  font-size: clamp(1.625rem, 1.35rem + 1.1vw, 2.125rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 @utility text-h2 {
-  font-size: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+  font-size: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);
   line-height: 1.3;
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.012em;
 }
 @utility text-h3 {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
   font-weight: 600;
+  letter-spacing: -0.006em;
 }
 @utility text-h4 {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 500;
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+  font-weight: 600;
 }
 @utility text-h5 {
   font-size: 0.875rem;
@@ -134,17 +111,17 @@
 }
 @utility text-lead {
   font-size: 1.0625rem;
-  line-height: 1.75rem;
+  line-height: 1.7;
   font-weight: 400;
 }
 @utility text-body {
   font-size: 0.875rem;
-  line-height: 1.5rem;
+  line-height: 1.6;
   font-weight: 400;
 }
 @utility text-caption {
   font-size: 0.75rem;
-  line-height: 1.125rem;
+  line-height: 1.5;
   font-weight: 400;
 }
 
@@ -152,18 +129,25 @@
    Base
    ----------------------------------------------------------------------------- */
 html {
-  color-scheme: dark;
+  color-scheme: light;
   scroll-behavior: smooth;
+  /* Keeps anchored and focused content clear of sticky headers. */
+  scroll-padding-top: 5.5rem;
 }
 
 body {
   min-height: 100dvh;
   font-family: var(--font-sans);
   font-size: 0.875rem;
-  line-height: 1.5rem;
+  line-height: 1.6;
   color: var(--color-brand-950);
   background: var(--color-paper);
   -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #bae6fd;
+  color: #0f172a;
 }
 
 @layer base {
@@ -171,6 +155,10 @@ body {
   h2,
   h3 {
     text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   button:not(:disabled),
@@ -190,10 +178,84 @@ body {
   outline-offset: 2px;
 }
 
+/* -----------------------------------------------------------------------------
+   Sign-in and sign-up: taller, softly filled controls. The 1px edge stays dark
+   enough (3:1) to show where each field is.
+   ----------------------------------------------------------------------------- */
+.auth-form input:not([type="checkbox"]) {
+  height: 3.5rem;
+  border-radius: 1rem;
+  background-color: var(--color-paper);
+  padding-inline-start: 1.125rem;
+}
+.auth-form input:not([type="checkbox"]):focus {
+  background-color: var(--color-paper-raised);
+}
+.auth-form button[type="submit"] {
+  height: 3.5rem;
+  border-radius: 1rem;
+}
+
+/* Frosted cards over the artwork: the only glass in the product. */
+.glass-card {
+  background: rgb(255 255 255 / 0.82);
+  border: 1px solid rgb(255 255 255 / 0.65);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  backdrop-filter: blur(18px) saturate(150%);
+}
 @media (prefers-reduced-transparency: reduce) {
-  .liquid-glass {
-    background: #0a2a3b;
+  .glass-card {
+    background: #ffffff;
     backdrop-filter: none;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Motion: short feedback on press, and two one-off wayfinding effects. All of
+   it is opt-in, so reduced motion shows the final state straight away.
+   ----------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .press {
+    transition-property: color, background-color, border-color, scale;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+  .press:active:not(:disabled) {
+    scale: 0.97;
+  }
+
+  /* One entrance on the sign-in screens: the artwork settles, then the form
+     and the two cards arrive in reading order. */
+  .auth-stagger > *,
+  .auth-cards > * {
+    animation: rise 450ms ease-out both;
+  }
+  .auth-stagger > :nth-child(2) {
+    animation-delay: 80ms;
+  }
+  .auth-stagger > :nth-child(3) {
+    animation-delay: 160ms;
+  }
+  .auth-stagger > :nth-child(n + 4) {
+    animation-delay: 240ms;
+  }
+  .auth-cards > :nth-child(1) {
+    animation-delay: 320ms;
+  }
+  .auth-cards > :nth-child(2) {
+    animation-delay: 420ms;
+  }
+
+  .art-settle {
+    animation: art-settle 1.2s ease-out both;
+  }
+
+  .compass-needle {
+    animation: compass-settle 700ms 150ms ease-out both;
+  }
+
+  .route-draw {
+    animation: route-draw 1.2s 200ms ease-out both;
   }
 }
 
@@ -208,25 +270,23 @@ body {
   }
 }
 
-/* -----------------------------------------------------------------------------
-   Motion (dial 2). Both effects are extras: without support, or with reduced
-   motion, everything is simply visible.
-   ----------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: no-preference) {
-  .compass-needle {
-    animation: compass-settle 1.4s 0.2s cubic-bezier(0.3, 1.25, 0.5, 1) both;
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 12px;
   }
-
-  .route-draw {
-    animation: route-draw 1.8s 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+  to {
+    opacity: 1;
+    translate: 0 0;
   }
+}
 
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 35%;
-    }
+@keyframes art-settle {
+  from {
+    scale: 1.07;
+  }
+  to {
+    scale: 1;
   }
 }
 
@@ -239,20 +299,9 @@ body {
   }
 }
 
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(2rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes compass-settle {
   from {
-    rotate: -120deg;
+    rotate: -60deg;
   }
   to {
     rotate: 0deg;

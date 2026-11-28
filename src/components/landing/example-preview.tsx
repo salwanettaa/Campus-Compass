@@ -13,7 +13,7 @@ export type PreviewItem = {
   note: string;
 };
 
-/** Tabbed look at the three kinds of campus knowledge, using sample content. */
+/** Tabbed look at campus knowledge, using sample content. */
 export function ExamplePreview({ items }: { items: readonly PreviewItem[] }) {
   const [selected, setSelected] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -35,11 +35,11 @@ export function ExamplePreview({ items }: { items: readonly PreviewItem[] }) {
   }
 
   return (
-    <div className="liquid-glass rounded-[1.5rem]">
+    <div className="rounded-2xl border border-brand-300 bg-paper-raised">
       <div
         role="tablist"
         aria-label="Examples of campus knowledge"
-        className="grid grid-cols-3 gap-1 border-b border-brand-300 p-2"
+        className="grid grid-cols-2 gap-1 border-b border-brand-300 p-2"
       >
         {items.map((entry, index) => (
           <button
@@ -56,10 +56,10 @@ export function ExamplePreview({ items }: { items: readonly PreviewItem[] }) {
             onClick={() => setSelected(index)}
             onKeyDown={handleKey}
             className={cn(
-              "text-h5 min-h-11 rounded-full px-2 transition-colors duration-150",
+              "press text-h5 min-h-11 rounded-lg px-2",
               index === selected
-                ? "bg-fill text-white"
-                : "text-brand-900 hover:bg-brand-100",
+                ? "bg-brand-100 font-semibold text-brand-700"
+                : "text-brand-800 hover:bg-frost hover:text-brand-950",
             )}
           >
             {entry.label}
@@ -73,7 +73,7 @@ export function ExamplePreview({ items }: { items: readonly PreviewItem[] }) {
         tabIndex={0}
         className="flex flex-col gap-4 p-5 sm:min-h-[25rem] sm:p-7"
       >
-        <p className="font-mono text-xs text-brand-800">Sample content</p>
+        <p className="text-caption text-brand-800">Sample content</p>
         <h2 className="text-h2 text-brand-950">{item.title}</h2>
         <p className="text-body text-brand-900">{item.body}</p>
         <div className="mt-1 rounded-md bg-brand-100 p-4">

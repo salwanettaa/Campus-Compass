@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { WayfinderMark } from "@/components/ui/wayfinder-mark";
+import { LogoMark } from "@/components/ui/logo-mark";
 
 export type LogoProps = {
   /** "onDark" = for dark backgrounds, "onLight" = for light backgrounds. */
@@ -23,22 +23,18 @@ export function Logo({
       href={href}
       aria-label="Campus Compass, home"
       className={cn(
-        "inline-flex min-h-11 items-center gap-2.5 rounded-md",
+        "inline-flex min-h-11 items-center gap-2 rounded-md",
         compact && "justify-center",
         className,
       )}
     >
+      <LogoMark
+        className={cn("size-7 shrink-0", onDark ? "text-white" : "text-ink")}
+        needle={onDark ? "#fb923c" : "#ea580c"}
+      />
       <span
         className={cn(
-          "flex size-9 shrink-0 items-center justify-center rounded-xl text-white",
-          "bg-white/10",
-        )}
-      >
-        <WayfinderMark className="size-6" />
-      </span>
-      <span
-        className={cn(
-          "text-base font-bold tracking-tight whitespace-nowrap",
+          "text-[1.0625rem] font-bold tracking-[-0.025em] whitespace-nowrap",
           compact && "sr-only",
           onDark ? "text-white" : "text-brand-950",
         )}

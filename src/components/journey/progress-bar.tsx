@@ -18,7 +18,7 @@ export function ProgressBar({
   return (
     <div className={cn("flex flex-col gap-2", className)}>
       {label || detail ? (
-        <div className="flex items-baseline justify-between gap-3">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-3">
           {label ? (
             <span className="text-caption font-medium text-brand-900">
               {label}
@@ -37,10 +37,10 @@ export function ProgressBar({
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label={label ?? "Progress"}
-        className="h-2.5 w-full overflow-hidden rounded-full bg-brand-100"
+        className="h-2 w-full overflow-hidden rounded-full bg-brand-300"
       >
         <div
-          className="h-full rounded-full bg-fill transition-[width] duration-300"
+          className="h-full rounded-full bg-fill transition-[width] duration-200"
           style={{ width: `${clamped}%` }}
         />
       </div>

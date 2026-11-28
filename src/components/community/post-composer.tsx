@@ -108,7 +108,7 @@ export function PostComposer({
   return (
     <section
       aria-label="Create post"
-      className="rounded-2xl border border-brand-300 bg-paper-raised p-4 sm:p-5"
+      className="rounded-xl border border-brand-300 bg-paper-raised p-4 sm:p-5"
     >
       {!expanded ? (
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -122,14 +122,14 @@ export function PostComposer({
             <button
               type="button"
               onClick={() => openWithType("discussion")}
-              className="flex min-h-11 min-w-0 flex-1 items-center rounded-full border border-brand-300 bg-paper px-4 text-left text-body text-brand-800 transition-colors hover:border-brand-600 hover:text-brand-950"
+              className="flex min-h-11 min-w-0 flex-1 items-center rounded-lg border border-brand-300 bg-paper px-4 text-left text-body text-brand-800 transition-colors hover:border-brand-600 hover:text-brand-950"
             >
               <span className="truncate">
                 What&apos;s on your mind? Share in {scopeLabel}...
               </span>
             </button>
           </div>
-          <div className="flex shrink-0 items-center gap-2 pl-13 sm:pl-0">
+          <div className="flex flex-wrap items-center gap-2 sm:shrink-0 sm:flex-nowrap">
             <Button
               size="sm"
               variant="outline"
@@ -188,7 +188,7 @@ export function PostComposer({
                   aria-pressed={selected}
                   onClick={() => setPostType(option.value)}
                   className={cn(
-                    "inline-flex min-h-9 items-center gap-1.5 rounded-full border px-3.5 text-caption transition-colors",
+                    "inline-flex min-h-9 items-center gap-1.5 rounded-lg border px-3.5 text-caption transition-colors",
                     selected
                       ? option.value === "question"
                         ? "border-route bg-paper font-semibold text-route-on-dark"
@@ -258,7 +258,7 @@ export function PostComposer({
               aria-checked={isAnonymous}
               onClick={() => setIsAnonymous((prev) => !prev)}
               className={cn(
-                "inline-flex min-h-9 items-center gap-2 rounded-full border px-3 text-caption font-medium transition-colors",
+                "inline-flex min-h-9 items-center gap-2 rounded-lg border px-3 text-caption font-medium transition-colors",
                 isAnonymous
                   ? "border-brand-700 bg-brand-100 font-semibold text-brand-950"
                   : "border-brand-300 bg-paper text-brand-800 hover:border-brand-600 hover:text-brand-950",

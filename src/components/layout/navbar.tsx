@@ -78,7 +78,7 @@ export function Navbar({
           <ButtonLink
             href="/register"
             size="sm"
-            variant={dark ? "pillOnDark" : "pillOnLight"}
+            variant={dark ? "outline" : "primary"}
             className="ml-2"
           >
             Sign Up
@@ -141,7 +141,7 @@ export function Navbar({
           })}
           <ButtonLink
             href="/register"
-            variant={dark ? "pillOnDark" : "pillOnLight"}
+            variant={dark ? "outline" : "primary"}
             className="mt-2"
           >
             Sign Up

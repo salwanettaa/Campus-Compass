@@ -36,17 +36,17 @@ export const metadata: Metadata = {
 
 // Class names are written out in full so Tailwind can detect them.
 const PALETTE = [
-  { token: "paper", hex: "#04131c", cls: "bg-paper text-brand-950" },
-  { token: "paper-raised", hex: "#0a1f2c", cls: "bg-paper-raised text-brand-950" },
-  { token: "brand-950", hex: "#f1f9fd", cls: "bg-brand-950 text-ink" },
-  { token: "brand-900", hex: "#dceff8", cls: "bg-brand-900 text-ink" },
-  { token: "brand-800", hex: "#a6c8da", cls: "bg-brand-800 text-ink" },
-  { token: "brand-700", hex: "#7ccdee", cls: "bg-brand-700 text-ink" },
-  { token: "brand-600", hex: "#3fb0e0", cls: "bg-brand-600 text-ink" },
-  { token: "brand-400", hex: "#4a8aa8", cls: "bg-brand-400 text-brand-950", chip: true },
-  { token: "brand-300", hex: "#17394b", cls: "bg-brand-300 text-brand-950" },
-  { token: "brand-100", hex: "#0e2a3a", cls: "bg-brand-100 text-brand-950" },
-  { token: "route", hex: "#f08a68", cls: "bg-route text-white" },
+  { token: "paper", hex: "#f8fafc", cls: "bg-paper text-brand-950" },
+  { token: "paper-raised", hex: "#ffffff", cls: "bg-paper-raised text-brand-950" },
+  { token: "brand-950", hex: "#0f172a", cls: "bg-brand-950 text-white" },
+  { token: "brand-900", hex: "#1e293b", cls: "bg-brand-900 text-white" },
+  { token: "brand-800", hex: "#475569", cls: "bg-brand-800 text-white" },
+  { token: "brand-700", hex: "#0369a1", cls: "bg-brand-700 text-white" },
+  { token: "brand-600", hex: "#0284c7", cls: "bg-brand-600 text-white" },
+  { token: "brand-400", hex: "#7c8ba1", cls: "bg-brand-400 text-brand-950", chip: true },
+  { token: "brand-300", hex: "#e2e8f0", cls: "bg-brand-300 text-brand-950" },
+  { token: "brand-100", hex: "#e8f5fd", cls: "bg-brand-100 text-brand-950" },
+  { token: "route", hex: "#c2410c", cls: "bg-route text-white" },
 ] as const;
 
 const TYPE_SCALE = [
@@ -144,12 +144,12 @@ export default function DesignSystemPage() {
         </div>
         <div className="flex flex-wrap items-center gap-4">
           <div className="rounded-xl bg-brand-950 p-6">
-            <Button variant="pillOnDark" size="sm">
+            <Button variant="outline" size="sm">
               Sign Up
             </Button>
           </div>
           <div className="rounded-xl border border-brand-950/10 bg-paper-raised p-6">
-            <Button variant="pillOnLight" size="sm">
+            <Button variant="primary" size="sm">
               Sign Up
             </Button>
           </div>
